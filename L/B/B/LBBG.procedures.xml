@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ProceduresDB version="1.0" build="12/01/2016 - f-ojac" xsi:schemaLocation="http://tempuri.org/XMLSchema.xsd FMC.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://tempuri.org/XMLSchema.xsd">
+    <Airport ICAOcode="LBBG">
+        <Star Name="IXUKO4F" Runways="22">
+            <Star_Waypoint ID="1">
+                <Name>IXUKO</Name>
+                <Type>Normal</Type>
+                <Latitude>42.604167</Latitude>
+                <Longitude>26.7675</Longitude>
+            </Star_Waypoint>
+            <Star_Waypoint ID="2">
+                <Name>BG408</Name>
+                <Type>Normal</Type>
+                <Latitude>42.610361</Latitude>
+                <Longitude>27.410639</Longitude>
+                <Sp_Turn>Left</Sp_Turn>
+                <Speed>250</Speed>
+                <Altitude>8600</Altitude>
+                <AltitudeCons>0</AltitudeCons>
+                <AltitudeRestriction>above</AltitudeRestriction>
+            </Star_Waypoint>
+            <Star_Waypoint ID="3">
+                <Name>BG409</Name>
+                <Type>Normal</Type>
+                <Latitude>42.675722</Latitude>
+                <Longitude>27.497167</Longitude>
+                <Altitude>7000</Altitude>
+                <AltitudeCons>0</AltitudeCons>
+                <AltitudeRestriction>above</AltitudeRestriction>
+            </Star_Waypoint>
+            <Star_Waypoint ID="4">
+                <Name>BG410</Name>
+                <Type>Normal</Type>
+                <Latitude>42.7355</Latitude>
+                <Longitude>27.576556</Longitude>
+            </Star_Waypoint>
+            <Star_Waypoint ID="5">
+                <Name>EKDOD</Name>
+                <Type>Normal</Type>
+                <Latitude>42.783139</Latitude>
+                <Longitude>27.639972</Longitude>
+                <Speed>220</Speed>
+            </Star_Waypoint>
+            <Star_Waypoint ID="6">
+                <Name>BG412</Name>
+                <Type>Normal</Type>
+                <Latitude>42.830694</Latitude>
+                <Longitude>27.703472</Longitude>
+                <Speed>220</Speed>
+            </Star_Waypoint>
+            <Star_Waypoint ID="7">
+                <Name>BG413</Name>
+                <Type>Normal</Type>
+                <Latitude>42.87825</Latitude>
+                <Longitude>27.767056</Longitude>
+                <Speed>220</Speed>
+                <Sp_Turn>Right</Sp_Turn>
+            </Star_Waypoint>
+            <Star_Waypoint ID="8">
+                <Name>BG414</Name>
+                <Type>Normal</Type>
+                <Latitude>42.819722</Latitude>
+                <Longitude>27.847778</Longitude>
+                <Speed>220</Speed>
+                <Sp_Turn>Right</Sp_Turn>
+            </Star_Waypoint>
+        </Star>
+        <Approach Name="ILS_or_LOC_22">
+            <App_Waypoint ID="1">
+                <Name>GIGPU</Name>
+                <Type>Normal</Type>
+                <Latitude>42.772222</Latitude>
+                <Longitude>27.784167</Longitude>
+                <Speed>220</Speed>
+                <Altitude>4000</Altitude>
+                <AltitudeCons>0</AltitudeCons>
+                <AltitudeRestriction>above</AltitudeRestriction>
+            </App_Waypoint>
+            <App_Waypoint ID="2">
+                <Name>IVKOR</Name>
+                <Type>Normal</Type>
+                <Latitude>42.724722</Latitude>
+                <Longitude>27.720556</Longitude>
+                <Speed>190</Speed>
+                <Altitude>3400</Altitude>
+                <AltitudeCons>0</AltitudeCons>
+                <AltitudeRestriction>above</AltitudeRestriction>
+            </App_Waypoint>
+            <App_Waypoint ID="3">
+                <Name>BG717</Name>
+                <Type>Normal</Type>
+                <Latitude>42.663667</Latitude>
+                <Longitude>27.639694</Longitude>
+                <Altitude>2400</Altitude>
+                <AltitudeCons>0</AltitudeCons>
+                <AltitudeRestriction>at</AltitudeRestriction>
+            </App_Waypoint>
+            <App_Waypoint ID="3">
+                <Name>RW22</Name>
+                <Type>Runway</Type>
+                <Latitude>42.587222</Latitude>
+                <Longitude>27.537694</Longitude>
+                <Altitude>135</Altitude>
+                <AltitudeCons>0</AltitudeCons>
+                <AltitudeRestriction>at</AltitudeRestriction>
+                <Flytype>Fly-over</Flytype>
+            </App_Waypoint>
+            <App_Transition Name="BG416">
+                <AppTr_Waypoint ID="1">
+                    <Name>GIGPU</Name>
+                    <Type>Normal</Type>
+                    <Latitude>42.772222</Latitude>
+                    <Longitude>27.784167</Longitude>
+                </AppTr_Waypoint>
+                <AppTr_Waypoint ID="2">
+                    <Name>GIGPU</Name>
+                    <Type>PBD</Type>
+                    <Latitude>42.772222</Latitude>
+                    <Longitude>27.784167</Longitude>
+                    <Altitude>3100</Altitude>
+                    <AltitudeCons>0</AltitudeCons>
+                    <AltitudeRestriction>above</AltitudeRestriction>
+                    <Hdg_Crs>0</Hdg_Crs>
+                    <Hdg_Crs_value>112</Hdg_Crs_value>
+                    <Flytype>Fly-over</Flytype>
+                    <DMEtoIntercept>12.0</DMEtoIntercept>
+                </AppTr_Waypoint>
+            </App_Transition>
+        </Approach>
+    </Airport>
+</ProceduresDB>

@@ -127,5 +127,41 @@
                 </AppTr_Waypoint>
             </App_Transition>
         </Approach>
+        <Sid Name="IXUKO1V" Runways="22">
+            <Sid_Waypoint ID="1">
+                <Name>(600)</Name>
+                <Type>ConstHdgtoAlt</Type>
+                <Latitude>0.000000</Latitude>
+                <Longitude>0.000000</Longitude>
+                <Speed>230</Speed>
+                <Altitude>600</Altitude>
+                <AltitudeCons>0</AltitudeCons>
+                <AltitudeRestriction>above</AltitudeRestriction>
+                <Hdg_Crs>0</Hdg_Crs>
+                <Hdg_Crs_value>219</Hdg_Crs_value>
+                <Flytype>Fly-by</Flytype>
+                <Sp_Turn>Right</Sp_Turn>
+            </Sid_Waypoint>
+            <Sid_Waypoint ID="2">
+                <Name>BG610</Name>
+                <Type>Normal</Type>
+                <Latitude>42.427028</Latitude>
+                <Longitude>27.294444</Longitude>
+                <Sp_Turn>Right</Sp_Turn>
+            </Sid_Waypoint>
+            <Sid_Waypoint ID="3">
+                <Name>BG611</Name>
+                <Type>Normal</Type>
+                <Latitude>42.488389</Latitude>
+                <Longitude>27.148778</Longitude>
+                <Sp_Turn>Right</Sp_Turn>
+            </Sid_Waypoint>
+            <Sid_Waypoint ID="4">
+                <Name>IXUKO</Name>
+                <Type>Normal</Type>
+                <Latitude>42.604167</Latitude>
+                <Longitude>26.7675</Longitude>
+            </Sid_Waypoint>
+        </Sid>
     </Airport>
 </ProceduresDB>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Waypoins>
+    <Waypoint>
+        <ID>SF502</ID>
+        <Type></Type>
+        <Latitude>42.857278</Latitude>
+        <Longitude>23.523806</Longitude>
+
+    </Waypoint>
+    <Waypoint>
+        <Name>GODEK</Name>
+        <Type>Normal</Type>
+        <Latitude>43.126667</Latitude>
+        <Longitude>22.989444</Longitude>
+    </Waypoint>
+</Waypoins>

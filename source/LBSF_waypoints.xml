@@ -5,12 +5,95 @@
         <Type></Type>
         <Latitude>42.857278</Latitude>
         <Longitude>23.523806</Longitude>
-
     </Waypoint>
     <Waypoint>
         <ID>GODEK</ID>
         <Type>Normal</Type>
         <Latitude>43.126667</Latitude>
         <Longitude>22.989444</Longitude>
+    </Waypoint>
+    <Waypoint>
+        <ID>SF507</ID>
+        <Type>Normal</Type>
+        <Latitude>42.522250</Latitude>
+        <Longitude>23.532056</Longitude>
+    </Waypoint>
+    <Sid_Waypoint>
+        <ID>SF503</ID>
+        <Type>Normal</Type>
+        <Latitude>42.814556</Latitude>
+        <Longitude>23.853250</Longitude>
+    </Sid_Waypoint>
+    <Waypoint>
+        <ID>SF504</ID>
+        <Type>Normal</Type>
+        <Latitude>42.956306</Latitude>
+        <Longitude>24.115722</Longitude>
+    </Waypoint>
+    <Waypoint>
+        <ID>SF505</ID>
+        <Type>Normal</Type>
+        <Latitude>42.667944</Latitude>
+        <Longitude>23.876389</Longitude>
+    </Waypoint>
+    <Waypoint>
+        <ID>SF506</ID>
+        <Type>Normal</Type>
+        <Latitude>42.504583</Latitude>
+        <Longitude>23.814944</Longitude>
+    </Waypoint>
+    <Waypoint>
+        <ID>NAPET</ID>
+        <Type>Normal</Type>
+        <Latitude>42.288333</Latitude>
+        <Longitude>23.005556</Longitude>
+    </Waypoint>
+    <Waypoint>
+        <ID>OMENO</ID>
+        <Type>Normal</Type>
+        <Latitude>42.296944</Latitude>
+        <Longitude>23.481389</Longitude>
+    </Waypoint>
+    <Waypoint>
+        <ID>DILVO</ID>
+        <Type>Normal</Type>
+        <Latitude>42.310000</Latitude>
+        <Longitude>23.936944</Longitude>
+    </Waypoint>
+    <Waypoint>
+            <ID>RUMEN</ID>
+            <Type>Normal</Type>
+            <Latitude>42.305000</Latitude>
+            <Longitude>24.313333</Longitude>
+    </Waypoint>
+    <Waypoint>
+            <ID>OGOTA</ID>
+            <Type>Normal</Type>
+            <Latitude>43.214167</Latitude>
+            <Longitude>23.326667</Longitude>
+    </Waypoint>
+    <Waypoint>
+        <ID>GOL</ID>
+        <Type>Normal</Type>
+        <Latitude>43.095000</Latitude>
+        <Longitude>24.220556</Longitude>
+    </Waypoint>
+    <Waypoint>
+        <ID>UMPIT</ID>
+        <Type>Normal</Type>
+        <Latitude>42.779722</Latitude>
+        <Longitude>24.174167</Longitude>
+     </Waypoint>
+    <Waypoint>
+        <ID>GAPVO</ID>
+        <Type>Normal</Type>
+        <Latitude>42.681667</Latitude>
+        <Longitude>24.145556</Longitude>
+    </Waypoint>
+    <Waypoint>
+        <ID>DEDIN</ID>
+        <Type>Normal</Type>
+        <Latitude>42.594167</Latitude>
+        <Longitude>24.079444</Longitude>
     </Waypoint>
 </Waypoins>

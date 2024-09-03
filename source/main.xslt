@@ -73,23 +73,19 @@
                                 <div class="card-body">
                                     <svg width="1000" height="1000" xmlns="http://www.w3.org/2000/svg">
                                         <xsl:for-each select="$waypoints/Waypoins/Waypoint">
-                                        <circle>
-                                            <xsl:attribute name="cx">
-                                                <xsl:value-of select="floor((Longitude * (3.1415926534 div 180) * 6378137) div //Airport/Chart/Zoom) + //Airport/Chart/Offset_X"/>
+                                            <xsl:variable name="pointX"><xsl:value-of select="floor((Longitude * (3.1415926534 div 180) * 6378137) div //Airport/Chart/Zoom) + //Airport/Chart/Offset_X"/></xsl:variable>
+                                            <xsl:variable name="pointY"><xsl:value-of select="1000-floor((math:log(math:tan(Latitude * (3.1415926534 div 180) div 2 + 3.1415926534 div 4)) * 6378137) div (//Airport/Chart/Zoom)) + //Airport/Chart/Offset_Y"/></xsl:variable>
+                                        <polygon>
+                                            <xsl:attribute name="points">
+                                                <xsl:value-of select="$pointX - 10"></xsl:value-of>,<xsl:value-of select="$pointY + 10"></xsl:value-of><xsl:text> </xsl:text><xsl:value-of select="$pointX"></xsl:value-of>,<xsl:value-of select="$pointY - 10"></xsl:value-of><xsl:text> </xsl:text><xsl:value-of select="$pointX + 10"></xsl:value-of>,<xsl:value-of select="$pointY + 10"></xsl:value-of>
                                             </xsl:attribute>
-                                            <xsl:attribute name="cy">
-                                                <xsl:value-of select="1000-floor((math:log(math:tan(Latitude * (3.1415926534 div 180) div 2 + 3.1415926534 div 4)) * 6378137) div (//Airport/Chart/Zoom)) + //Airport/Chart/Offset_Y"/>
-                                            </xsl:attribute>
-                                            <xsl:attribute name="r">5</xsl:attribute>
-                                            <xsl:attribute name="stroke">green</xsl:attribute>
-                                            <xsl:attribute name="stroke-width">4</xsl:attribute>
-                                        </circle>
+                                        </polygon>
                                         <text>
                                             <xsl:attribute name="x">
-                                                <xsl:value-of select="floor((Longitude * (3.1415926534 div 180) * 6378137) div //Airport/Chart/Zoom) + //Airport/Chart/Offset_X"/>
+                                                <xsl:value-of select="$pointX + 10"/>
                                             </xsl:attribute>
                                             <xsl:attribute name="y">
-                                                <xsl:value-of select="1000-floor((math:log(math:tan(Latitude * (3.1415926534 div 180) div 2 + 3.1415926534 div 4)) * 6378137) div (//Airport/Chart/Zoom)) + //Airport/Chart/Offset_Y"/>
+                                                <xsl:value-of select="$pointY + 10"/>
                                             </xsl:attribute>
                                             <xsl:value-of select="ID"></xsl:value-of>
                                         </text>

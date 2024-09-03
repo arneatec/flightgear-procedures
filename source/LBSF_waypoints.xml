@@ -8,7 +8,7 @@
 
     </Waypoint>
     <Waypoint>
-        <Name>GODEK</Name>
+        <ID>GODEK</ID>
         <Type>Normal</Type>
         <Latitude>43.126667</Latitude>
         <Longitude>22.989444</Longitude>

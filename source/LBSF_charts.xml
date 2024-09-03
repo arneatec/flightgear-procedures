@@ -2,24 +2,13 @@
 <Airport>
     <Name>Sofia Airport</Name>
     <ICAO>LBSF</ICAO>
-    <WaypointList>
-        <Waypoint>
-            <ID>SF502</ID>
-            <Type></Type>
-            <Latitude>42.857278</Latitude>
-            <Longitude>23.523806</Longitude>
-
-        </Waypoint>
-        <Waypoint>
-            <Name>GODEK</Name>
-            <Type>Normal</Type>
-            <Latitude>43.126667</Latitude>
-            <Longitude>22.989444</Longitude>
-        </Waypoint>
-    </WaypointList>
     <Chart>
+        <Zoom>3000</Zoom>
+        <Offset_X>0</Offset_X>
+        <Offset_Y>1000</Offset_Y>
         <ID>LBSF AD 2 - 53.1</ID>
-        <Publisher>AIP REPUBLIC OF BULGARIA</Publisher>
+        <Publisher>AIP FIRST BULGARIAN KINGDOM</Publisher>
+        <Publisher_Local>AIP ПЪРВО БЪЛГАРСКО ЦАРСТВО</Publisher_Local>
         <Published_On>25 JAN 24</Published_On>
         <Name>STANDARD DEPARTURE CHART - INSTRUMENT (SID) - ICAO</Name>
         <Transition_Altitude_ft>10500</Transition_Altitude_ft>

@@ -90,6 +90,38 @@
                                                         </xsl:attribute>
                                                     </polygon>
                                                 </xsl:when>
+                                                <!-- Waypoint - On Request / FlyBy -->
+                                                <xsl:when test="$pointType='WPT-OR-FB'">
+                                                    <circle>
+                                                        <xsl:attribute name="cx"><xsl:value-of select="$pointX"></xsl:value-of></xsl:attribute>
+                                                        <xsl:attribute name="cy"><xsl:value-of select="$pointY"></xsl:value-of></xsl:attribute>
+                                                        <xsl:attribute name="r">7</xsl:attribute>
+                                                        <xsl:attribute name="fill">white</xsl:attribute>
+                                                        <xsl:attribute name="stroke">black</xsl:attribute>
+                                                    </circle>
+                                                    <!-- polygon -->
+                                                    <polygon>
+                                                        <xsl:attribute name="points">
+                                                            <xsl:value-of select="$pointX"></xsl:value-of>,<xsl:value-of select="$pointY + 15"></xsl:value-of>
+                                                            <xsl:text> </xsl:text>
+                                                            <xsl:value-of select="$pointX - 5"></xsl:value-of>,<xsl:value-of select="$pointY + 5"></xsl:value-of>
+                                                            <xsl:text> </xsl:text>
+                                                            <xsl:value-of select="$pointX - 15"></xsl:value-of>,<xsl:value-of select="$pointY"></xsl:value-of>
+                                                            <xsl:text> </xsl:text>
+                                                            <xsl:value-of select="$pointX - 5"></xsl:value-of>,<xsl:value-of select="$pointY - 5"></xsl:value-of>
+                                                            <xsl:text> </xsl:text>
+                                                            <xsl:value-of select="$pointX"></xsl:value-of>,<xsl:value-of select="$pointY - 15"></xsl:value-of>
+                                                            <xsl:text> </xsl:text>
+                                                            <xsl:value-of select="$pointX + 5"></xsl:value-of>,<xsl:value-of select="$pointY - 5"></xsl:value-of>
+                                                            <xsl:text> </xsl:text>
+                                                            <xsl:value-of select="$pointX + 15"></xsl:value-of>,<xsl:value-of select="$pointY"></xsl:value-of>
+                                                            <xsl:text> </xsl:text>
+                                                            <xsl:value-of select="$pointX + 5"></xsl:value-of>,<xsl:value-of select="$pointY + 5"></xsl:value-of>
+                                                        </xsl:attribute>
+                                                        <xsl:attribute name="stroke">black</xsl:attribute>
+                                                        <xsl:attribute name="fill">none</xsl:attribute>
+                                                    </polygon>
+                                                </xsl:when>
                                                 <!-- VOR/DME - On Request / FlyBy -->
                                                 <xsl:when test="$pointType='VOR-DME-OR-FB'">
                                                     <circle>

@@ -52,37 +52,37 @@
     </Waypoint>
     <Waypoint>
         <ID>GODEK</ID>
-        <Type>WP-C-FB</Type>
+        <Type>WPT-C-FB</Type>
         <Latitude>43.126667</Latitude>
         <Longitude>22.989444</Longitude>
     </Waypoint>
     <Waypoint>
         <ID>NAPET</ID>
-        <Type>WP-C-FB</Type>
+        <Type>WPT-C-FB</Type>
         <Latitude>42.288333</Latitude>
         <Longitude>23.005556</Longitude>
     </Waypoint>
     <Waypoint>
         <ID>OMENO</ID>
-        <Type>WP-C-FB</Type>
+        <Type>WPT-C-FB</Type>
         <Latitude>42.296944</Latitude>
         <Longitude>23.481389</Longitude>
     </Waypoint>
     <Waypoint>
         <ID>DILVO</ID>
-        <Type>WP-C-FB</Type>
+        <Type>WPT-C-FB</Type>
         <Latitude>42.310000</Latitude>
         <Longitude>23.936944</Longitude>
     </Waypoint>
     <Waypoint>
         <ID>RUMEN</ID>
-        <Type>WP-C-FB</Type>
+        <Type>WPT-C-FB</Type>
         <Latitude>42.305000</Latitude>
         <Longitude>24.313333</Longitude>
     </Waypoint>
     <Waypoint>
         <ID>OGOTA</ID>
-        <Type>WP-C-FB</Type>
+        <Type>WPT-C-FB</Type>
         <Latitude>43.214167</Latitude>
         <Longitude>23.326667</Longitude>
     </Waypoint>
@@ -94,19 +94,19 @@
     </Waypoint>
     <Waypoint>
         <ID>UMPIT</ID>
-        <Type>WP-C-FB</Type>
+        <Type>WPT-C-FB</Type>
         <Latitude>42.779722</Latitude>
         <Longitude>24.174167</Longitude>
      </Waypoint>
     <Waypoint>
         <ID>GAPVO</ID>
-        <Type>WP-C-FB</Type>
+        <Type>WPT-C-FB</Type>
         <Latitude>42.681667</Latitude>
         <Longitude>24.145556</Longitude>
     </Waypoint>
     <Waypoint>
         <ID>DEDIN</ID>
-        <Type>WP-C-FB</Type>
+        <Type>WPT-C-FB</Type>
         <Latitude>42.594167</Latitude>
         <Longitude>24.079444</Longitude>
     </Waypoint>

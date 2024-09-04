@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:math="http://exslt.org/math"
+                xmlns:xls="http://www.w3.org/1999/XSL/Transform"
                 extension-element-prefixes="math">
 
     <xsl:variable name="waypoints" select="document('LBSF_waypoints.xml')"/>
@@ -72,6 +73,12 @@
                             <div class="card border-dark">
                                 <div class="card-body">
                                     <svg width="1000" height="1000" xmlns="http://www.w3.org/2000/svg">
+                                        <line x1="1" y1="0" x2="1" y2="1000" stroke="gray"></line>
+                                        <line x1="200" y1="0" x2="200" y2="1000" stroke="gray"></line>
+                                        <line x1="400" y1="0" x2="400" y2="1000" stroke="gray"></line>
+                                        <line x1="600" y1="0" x2="600" y2="1000" stroke="gray"></line>
+                                        <line x1="800" y1="0" x2="800" y2="1000" stroke="gray"></line>
+                                        <line x1="999" y1="0" x2="999" y2="1000" stroke="gray"></line>
                                         <xsl:for-each select="$waypoints/Waypoins/Waypoint">
                                             <xsl:variable name="pointX"><xsl:value-of select="floor((Longitude * (3.1415926534 div 180) * 6378137) div //Airport/Chart/Zoom) + //Airport/Chart/Offset_X"/></xsl:variable>
                                             <xsl:variable name="pointY"><xsl:value-of select="1000-floor((math:log(math:tan(Latitude * (3.1415926534 div 180) div 2 + 3.1415926534 div 4)) * 6378137) div (//Airport/Chart/Zoom)) + //Airport/Chart/Offset_Y"/></xsl:variable>
@@ -162,13 +169,45 @@
                                                         <xsl:attribute name="fill">none</xsl:attribute>
                                                     </polygon>
                                                 </xsl:when>
+                                                <!-- VOR/DME - On Request / FlyBy -->
+                                                <xsl:when test="$pointType='Airport'">
+                                                    <circle>
+                                                        <xsl:attribute name="cx"><xsl:value-of select="$pointX"></xsl:value-of></xsl:attribute>
+                                                        <xsl:attribute name="cy"><xsl:value-of select="$pointY"></xsl:value-of></xsl:attribute>
+                                                        <xsl:attribute name="r">15</xsl:attribute>
+                                                        <xsl:attribute name="stroke">black</xsl:attribute>
+                                                        <xsl:attribute name="fill">none</xsl:attribute>
+                                                    </circle>
+                                                   <line>
+                                                        <xsl:attribute name="x1"><xsl:value-of select="$pointX - floor(18 * math:cos(((Runway * 10) - 90) * (3.1415926534 div 180)))"></xsl:value-of></xsl:attribute>
+                                                        <xsl:attribute name="y1"><xsl:value-of select="$pointY + floor(18 * math:sin(((Runway * 10) + 90) * (3.1415926534 div 180)))"></xsl:value-of></xsl:attribute>
+                                                        <xsl:attribute name="x2"><xsl:value-of select="$pointX + floor(18 * math:cos(((Runway * 10) - 90) * (3.1415926534 div 180)))"></xsl:value-of></xsl:attribute>
+                                                        <xsl:attribute name="y2"><xsl:value-of select="$pointY - floor(18 * math:sin(((Runway * 10) + 90) * (3.1415926534 div 180)))"></xsl:value-of></xsl:attribute>
+                                                        <xsl:attribute name="stroke">black</xsl:attribute>
+                                                        <xsl:attribute name="stroke-width">3</xsl:attribute>
+                                                   </line>
+                                                </xsl:when>
                                             </xsl:choose>
                                             <text>
                                                 <xsl:attribute name="x">
-                                                    <xsl:value-of select="$pointX + 15"/>
+                                                    <xsl:choose>
+                                                        <xls:when test="CaptionOffset">
+                                                            <xsl:value-of select="$pointX  + CaptionOffset/X"/>
+                                                        </xls:when>
+                                                        <xsl:otherwise>
+                                                            <xsl:value-of select="$pointX + 15"/>
+                                                        </xsl:otherwise>
+                                                    </xsl:choose>
                                                 </xsl:attribute>
                                                 <xsl:attribute name="y">
-                                                    <xsl:value-of select="$pointY + 15"/>
+                                                    <xsl:choose>
+                                                        <xls:when test="CaptionOffset">
+                                                            <xsl:value-of select="$pointY  + CaptionOffset/Y"/>
+                                                        </xls:when>
+                                                        <xsl:otherwise>
+                                                            <xsl:value-of select="$pointY + 15"/>
+                                                        </xsl:otherwise>
+                                                    </xsl:choose>
                                                 </xsl:attribute>
                                                 <xsl:value-of select="ID"></xsl:value-of>
                                             </text>

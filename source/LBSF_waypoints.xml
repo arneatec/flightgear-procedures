@@ -13,6 +13,10 @@
             <Type>VOR-DME-OR-FB</Type>
             <Caption>VOR/DME - On Request / FlyBy</Caption>
         </Waypoint_Type>
+        <Waypoint_Type>
+            <Type>Airport</Type>
+            <Caption>Airport</Caption>
+        </Waypoint_Type>
     </Waypoint_Types>
     <Waypoint>
         <ID>SF502</ID>
@@ -109,5 +113,16 @@
         <Type>WPT-C-FB</Type>
         <Latitude>42.594167</Latitude>
         <Longitude>24.079444</Longitude>
+    </Waypoint>
+    <Waypoint>
+        <ID>Dolna Banya</ID>
+        <Type>Airport</Type>
+        <Latitude>42.309722</Latitude>
+        <Longitude>23.820750</Longitude>
+        <Runway>09</Runway>
+        <CaptionOffset>
+            <X>-60</X>
+            <Y>-22</Y>
+        </CaptionOffset>
     </Waypoint>
 </Waypoins>

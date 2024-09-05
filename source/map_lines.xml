@@ -31,4 +31,75 @@
         <Latitude_End>43.0</Latitude_End>
         <Longitude_End>25.0</Longitude_End>
     </MapLine>
+    <MapLine>
+        <Latitude_Start>42.5</Latitude_Start>
+        <Longitude_Start>21.0</Longitude_Start>
+        <Latitude_End>42.5</Latitude_End>
+        <Longitude_End>25.5</Longitude_End>
+    </MapLine>
+    <!-- left -->
+    <Caption>
+        <Latitude>42.5</Latitude>
+        <Longitude>22.867</Longitude>
+        <Rotate>270</Rotate>
+        <Text>42°30''</Text>
+    </Caption>
+    <Caption>
+        <Latitude>43.0</Latitude>
+        <Longitude>22.867</Longitude>
+        <Rotate>270</Rotate>
+        <Text>43°00''</Text>
+    </Caption>
+    <!-- right -->
+    <Caption>
+        <Latitude>42.5</Latitude>
+        <Longitude>24.457</Longitude>
+        <Rotate>270</Rotate>
+        <Text>42°30''</Text>
+    </Caption>
+    <Caption>
+        <Latitude>43.0</Latitude>
+        <Longitude>24.457</Longitude>
+        <Rotate>270</Rotate>
+        <Text>43°00''</Text>
+    </Caption>
+    <!-- top-->
+    <Caption>
+        <Latitude>43.25</Latitude>
+        <Longitude>23.0</Longitude>
+        <Rotate>0</Rotate>
+        <Text>23°00''</Text>
+    </Caption>
+    <Caption>
+        <Latitude>43.25</Latitude>
+        <Longitude>23.5</Longitude>
+        <Rotate>0</Rotate>
+        <Text>23°30''</Text>
+    </Caption>
+    <Caption>
+        <Latitude>43.25</Latitude>
+        <Longitude>24.0</Longitude>
+        <Rotate>0</Rotate>
+        <Text>24°00''</Text>
+    </Caption>
+ <!-- bottom-->
+    <Caption>
+        <Latitude>42.08</Latitude>
+        <Longitude>23.0</Longitude>
+        <Rotate>0</Rotate>
+        <Text>23°00''</Text>
+    </Caption>
+    <Caption>
+        <Latitude>42.08</Latitude>
+        <Longitude>23.5</Longitude>
+        <Rotate>0</Rotate>
+        <Text>23°30''</Text>
+    </Caption>
+    <Caption>
+        <Latitude>42.08</Latitude>
+        <Longitude>24.0</Longitude>
+        <Rotate>0</Rotate>
+        <Text>24°00''</Text>
+    </Caption>
+
 </MapLines>

@@ -84,16 +84,29 @@
                                                 <xsl:attribute name="y1"><xsl:value-of select="$pointY1"></xsl:value-of></xsl:attribute>
                                                 <xsl:attribute name="x2"><xsl:value-of select="$pointX2"></xsl:value-of></xsl:attribute>
                                                 <xsl:attribute name="y2"><xsl:value-of select="$pointY2"></xsl:value-of></xsl:attribute>
-                                                <xsl:attribute name="stroke">pink</xsl:attribute>
+                                                <xsl:attribute name="stroke">gray</xsl:attribute>
                                             </line>
-                                        </xsl:for-each>
 
+                                        </xsl:for-each>
+                                        <xsl:for-each select="$maplines/MapLines/Caption">
+                                            <xsl:variable name="pointX"><xsl:value-of select="floor((Longitude * (3.1415926534 div 180) * 6378137) div //Airport/Chart/Zoom) + //Airport/Chart/Offset_X"/></xsl:variable>
+                                            <xsl:variable name="pointY"><xsl:value-of select="1000-floor((math:log(math:tan(Latitude * (3.1415926534 div 180) div 2 + 3.1415926534 div 4)) * 6378137) div (//Airport/Chart/Zoom)) + //Airport/Chart/Offset_Y"/></xsl:variable>
+                                            <text>
+                                                <xsl:attribute name="text-anchor">middle</xsl:attribute>
+                                                <xsl:attribute name="alignment-baseline">middle</xsl:attribute>
+                                                <xsl:attribute name="transform">translate(<xsl:value-of select="$pointX"></xsl:value-of>, <xsl:value-of select="$pointY"></xsl:value-of>) rotate(<xsl:value-of select="Rotate"></xsl:value-of>)</xsl:attribute>
+                                                <xsl:attribute name="fill">gray</xsl:attribute>
+                                                <xsl:value-of select="Text"></xsl:value-of>
+                                             </text>
+                                        </xsl:for-each>
+                                        <!-- guide lines
                                         <line x1="1" y1="0" x2="1" y2="1000" stroke="gray"></line>
                                         <line x1="200" y1="0" x2="200" y2="1000" stroke="gray"></line>
                                         <line x1="400" y1="0" x2="400" y2="1000" stroke="gray"></line>
                                         <line x1="600" y1="0" x2="600" y2="1000" stroke="gray"></line>
                                         <line x1="800" y1="0" x2="800" y2="1000" stroke="gray"></line>
                                         <line x1="999" y1="0" x2="999" y2="1000" stroke="gray"></line>
+                                        -->
                                         <xsl:for-each select="$waypoints/Waypoins/Waypoint">
                                             <xsl:variable name="pointX"><xsl:value-of select="floor((Longitude * (3.1415926534 div 180) * 6378137) div //Airport/Chart/Zoom) + //Airport/Chart/Offset_X"/></xsl:variable>
                                             <xsl:variable name="pointY"><xsl:value-of select="1000-floor((math:log(math:tan(Latitude * (3.1415926534 div 180) div 2 + 3.1415926534 div 4)) * 6378137) div (//Airport/Chart/Zoom)) + //Airport/Chart/Offset_Y"/></xsl:variable>

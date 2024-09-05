@@ -158,4 +158,45 @@
             <Y>-22</Y>
         </CaptionOffset>
     </Waypoint>
+        <Waypoint>
+        <ID>Sofia</ID>
+        <Type>BaseAirport</Type>
+        <Latitude>42.695000</Latitude>
+        <Longitude>23.408333</Longitude>
+        <Runway>09</Runway>
+        <PolygonPoints>
+            <PolygonPoint>
+                <X>3</X>
+                <Y>8</Y>
+            </PolygonPoint>
+            <PolygonPoint>
+                <X>12</X>
+                <Y>2</Y>
+            </PolygonPoint>
+            <PolygonPoint>
+                <X>25</X>
+                <Y>1</Y>
+            </PolygonPoint>
+            <PolygonPoint>
+                <X>24</X>
+                <Y>-2</Y>
+            </PolygonPoint>
+            <PolygonPoint>
+                <X>-11</X>
+                <Y>-2</Y>
+            </PolygonPoint>
+                <PolygonPoint>
+                <X>-22</X>
+                <Y>-1</Y>
+            </PolygonPoint>
+            <PolygonPoint>
+                <X>-22</X>
+                <Y>2</Y>
+            </PolygonPoint>
+            <PolygonPoint>
+                <X>-15</X>
+                <Y>2</Y>
+            </PolygonPoint>
+        </PolygonPoints>
+    </Waypoint>
 </Waypoins>

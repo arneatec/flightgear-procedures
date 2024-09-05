@@ -72,8 +72,9 @@
                         </div>
                         <div class="row">
                             <div class="card border-dark">
-                                <div class="card-body">
+                                <div class="card-body  p-0 m-0">
                                     <svg width="1000" height="1000" xmlns="http://www.w3.org/2000/svg">
+                                        <!-- map lines -->
                                         <xsl:for-each select="$maplines/MapLines/MapLine">
                                             <xsl:variable name="pointX1"><xsl:value-of select="floor((Longitude_Start * (3.1415926534 div 180) * 6378137) div //Airport/Chart/Zoom) + //Airport/Chart/Offset_X"/></xsl:variable>
                                             <xsl:variable name="pointY1"><xsl:value-of select="1000-floor((math:log(math:tan(Latitude_Start * (3.1415926534 div 180) div 2 + 3.1415926534 div 4)) * 6378137) div (//Airport/Chart/Zoom)) + //Airport/Chart/Offset_Y"/></xsl:variable>
@@ -88,6 +89,7 @@
                                             </line>
 
                                         </xsl:for-each>
+                                        <!-- map line captions -->
                                         <xsl:for-each select="$maplines/MapLines/Caption">
                                             <xsl:variable name="pointX"><xsl:value-of select="floor((Longitude * (3.1415926534 div 180) * 6378137) div //Airport/Chart/Zoom) + //Airport/Chart/Offset_X"/></xsl:variable>
                                             <xsl:variable name="pointY"><xsl:value-of select="1000-floor((math:log(math:tan(Latitude * (3.1415926534 div 180) div 2 + 3.1415926534 div 4)) * 6378137) div (//Airport/Chart/Zoom)) + //Airport/Chart/Offset_Y"/></xsl:variable>
@@ -107,6 +109,7 @@
                                         <line x1="800" y1="0" x2="800" y2="1000" stroke="gray"></line>
                                         <line x1="999" y1="0" x2="999" y2="1000" stroke="gray"></line>
                                         -->
+                                        <!-- waypoints -->
                                         <xsl:for-each select="$waypoints/Waypoins/Waypoint">
                                             <xsl:variable name="pointX"><xsl:value-of select="floor((Longitude * (3.1415926534 div 180) * 6378137) div //Airport/Chart/Zoom) + //Airport/Chart/Offset_X"/></xsl:variable>
                                             <xsl:variable name="pointY"><xsl:value-of select="1000-floor((math:log(math:tan(Latitude * (3.1415926534 div 180) div 2 + 3.1415926534 div 4)) * 6378137) div (//Airport/Chart/Zoom)) + //Airport/Chart/Offset_Y"/></xsl:variable>
@@ -197,7 +200,7 @@
                                                         <xsl:attribute name="fill">none</xsl:attribute>
                                                     </polygon>
                                                 </xsl:when>
-                                                <!-- VOR/DME - On Request / FlyBy -->
+                                                <!-- secondary airports -->
                                                 <xsl:when test="$pointType='Airport'">
                                                     <circle>
                                                         <xsl:attribute name="cx"><xsl:value-of select="$pointX"></xsl:value-of></xsl:attribute>
@@ -215,6 +218,27 @@
                                                         <xsl:attribute name="stroke-width">3</xsl:attribute>
                                                    </line>
                                                 </xsl:when>
+                                                <!-- base airport -->
+                                                <xsl:when test="$pointType='BaseAirport'">
+                                                    <polygon>
+                                                        <xsl:attribute name="points">
+                                                            <xsl:for-each select="PolygonPoints/PolygonPoint">
+                                                                <xsl:value-of select="$pointX + X"></xsl:value-of>,<xsl:value-of select="$pointY + Y"></xsl:value-of><xsl:text> </xsl:text>
+                                                            </xsl:for-each>
+                                                        </xsl:attribute>
+                                                        <xsl:attribute name="fill">gray</xsl:attribute>
+                                                        <xsl:attribute name="stroke">gray</xsl:attribute>
+                                                    </polygon>
+                                                   <line>
+                                                        <xsl:attribute name="x1"><xsl:value-of select="$pointX - floor(19 * math:cos(((Runway * 10) - 90) * (3.1415926534 div 180)))"></xsl:value-of></xsl:attribute>
+                                                        <xsl:attribute name="y1"><xsl:value-of select="$pointY + floor(19 * math:sin(((Runway * 10) + 90) * (3.1415926534 div 180)))"></xsl:value-of></xsl:attribute>
+                                                        <xsl:attribute name="x2"><xsl:value-of select="$pointX + floor(19 * math:cos(((Runway * 10) - 90) * (3.1415926534 div 180)))"></xsl:value-of></xsl:attribute>
+                                                        <xsl:attribute name="y2"><xsl:value-of select="$pointY - floor(19 * math:sin(((Runway * 10) + 90) * (3.1415926534 div 180)))"></xsl:value-of></xsl:attribute>
+                                                        <xsl:attribute name="stroke">white</xsl:attribute>
+                                                        <xsl:attribute name="stroke-width">2</xsl:attribute>
+                                                   </line>
+                                                </xsl:when>
+
                                             </xsl:choose>
                                             <text>
                                                 <xsl:attribute name="x">

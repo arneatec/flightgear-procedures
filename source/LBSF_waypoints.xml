@@ -158,7 +158,7 @@
             <Y>-22</Y>
         </CaptionOffset>
     </Waypoint>
-        <Waypoint>
+    <Waypoint>
         <ID>Sofia</ID>
         <Type>BaseAirport</Type>
         <Latitude>42.695000</Latitude>
@@ -198,5 +198,15 @@
                 <Y>2</Y>
             </PolygonPoint>
         </PolygonPoints>
+    </Waypoint>
+    <Waypoint>
+        <ID>MSA</ID>
+        <Type>MSA</Type>
+        <Latitude>43.1</Latitude>
+        <Longitude>23.767222</Longitude>
+        <CaptionOffset>
+            <X>-20</X>
+            <Y>-90</Y>
+        </CaptionOffset>
     </Waypoint>
 </Waypoins>

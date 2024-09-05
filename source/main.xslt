@@ -238,7 +238,53 @@
                                                         <xsl:attribute name="stroke-width">2</xsl:attribute>
                                                    </line>
                                                 </xsl:when>
-
+                                                <!-- MSA -->
+                                                <xsl:when test="$pointType='MSA'">
+                                                    <circle>
+                                                        <xsl:attribute name="cx"><xsl:value-of select="$pointX"></xsl:value-of></xsl:attribute>
+                                                        <xsl:attribute name="cy"><xsl:value-of select="$pointY"></xsl:value-of></xsl:attribute>
+                                                        <xsl:attribute name="r">2</xsl:attribute>
+                                                    </circle>
+                                                    <!-- square -->
+                                                    <polygon>
+                                                        <xsl:attribute name="points">
+                                                            <xsl:value-of select="$pointX - 12"></xsl:value-of>,<xsl:value-of select="$pointY + 10"></xsl:value-of>
+                                                            <xsl:text> </xsl:text>
+                                                            <xsl:value-of select="$pointX - 12"></xsl:value-of>,<xsl:value-of select="$pointY - 10"></xsl:value-of>
+                                                            <xsl:text> </xsl:text>
+                                                            <xsl:value-of select="$pointX + 12"></xsl:value-of>,<xsl:value-of select="$pointY - 10"></xsl:value-of>
+                                                            <xsl:text> </xsl:text>
+                                                            <xsl:value-of select="$pointX + 12"></xsl:value-of>,<xsl:value-of select="$pointY + 10"></xsl:value-of>
+                                                        </xsl:attribute>
+                                                        <xsl:attribute name="stroke">black</xsl:attribute>
+                                                        <xsl:attribute name="fill">none</xsl:attribute>
+                                                    </polygon>
+                                                    <!-- polygon -->
+                                                    <polygon>
+                                                        <xsl:attribute name="points">
+                                                            <xsl:value-of select="$pointX - 5"></xsl:value-of>,<xsl:value-of select="$pointY + 10"></xsl:value-of>
+                                                            <xsl:text> </xsl:text>
+                                                            <xsl:value-of select="$pointX - 12"></xsl:value-of>,<xsl:value-of select="$pointY"></xsl:value-of>
+                                                            <xsl:text> </xsl:text>
+                                                            <xsl:value-of select="$pointX - 5"></xsl:value-of>,<xsl:value-of select="$pointY - 10"></xsl:value-of>
+                                                            <xsl:text> </xsl:text>
+                                                            <xsl:value-of select="$pointX + 5"></xsl:value-of>,<xsl:value-of select="$pointY - 10"></xsl:value-of>
+                                                            <xsl:text> </xsl:text>
+                                                            <xsl:value-of select="$pointX + 12"></xsl:value-of>,<xsl:value-of select="$pointY"></xsl:value-of>
+                                                            <xsl:text> </xsl:text>
+                                                            <xsl:value-of select="$pointX + 5"></xsl:value-of>,<xsl:value-of select="$pointY + 10"></xsl:value-of>
+                                                        </xsl:attribute>
+                                                        <xsl:attribute name="stroke">black</xsl:attribute>
+                                                        <xsl:attribute name="fill">none</xsl:attribute>
+                                                    </polygon>
+                                                    <circle>
+                                                        <xsl:attribute name="cx"><xsl:value-of select="$pointX"></xsl:value-of></xsl:attribute>
+                                                        <xsl:attribute name="cy"><xsl:value-of select="$pointY"></xsl:value-of></xsl:attribute>
+                                                        <xsl:attribute name="r">65</xsl:attribute>
+                                                        <xsl:attribute name="fill">none</xsl:attribute>
+                                                        <xsl:attribute name="stroke">black</xsl:attribute>
+                                                    </circle>
+                                                </xsl:when>
                                             </xsl:choose>
                                             <text>
                                                 <xsl:attribute name="x">

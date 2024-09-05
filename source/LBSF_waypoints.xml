@@ -125,4 +125,37 @@
             <Y>-22</Y>
         </CaptionOffset>
     </Waypoint>
+    <Waypoint>
+        <ID>Belchin</ID>
+        <Type>Airport</Type>
+        <Latitude>42.374569</Latitude>
+        <Longitude>23.392747</Longitude>
+        <Runway>13</Runway>
+        <CaptionOffset>
+            <X>-60</X>
+            <Y>-22</Y>
+        </CaptionOffset>
+    </Waypoint>
+    <Waypoint>
+        <ID>Slivnitsa</ID>
+        <Type>Airport</Type>
+        <Latitude>42.844139</Latitude>
+        <Longitude>23.014478</Longitude>
+        <Runway>08</Runway>
+        <CaptionOffset>
+            <X>-60</X>
+            <Y>-22</Y>
+        </CaptionOffset>
+    </Waypoint>
+    <Waypoint>
+        <ID>Ihtiman</ID>
+        <Type>Airport</Type>
+        <Latitude>42.421889</Latitude>
+        <Longitude>23.767222</Longitude>
+        <Runway>13</Runway>
+        <CaptionOffset>
+            <X>-60</X>
+            <Y>-22</Y>
+        </CaptionOffset>
+    </Waypoint>
 </Waypoins>

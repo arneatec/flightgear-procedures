@@ -1,0 +1,34 @@
+<MapLines>
+    <!-- vertical lines -->
+    <MapLine>
+        <Latitude_Start>41.0</Latitude_Start>
+        <Longitude_Start>23.0</Longitude_Start>
+        <Latitude_End>44.0</Latitude_End>
+        <Longitude_End>23.0</Longitude_End>
+    </MapLine>
+    <MapLine>
+        <Latitude_Start>41.5</Latitude_Start>
+        <Longitude_Start>23.5</Longitude_Start>
+        <Latitude_End>44.5</Latitude_End>
+        <Longitude_End>23.5</Longitude_End>
+    </MapLine>
+    <MapLine>
+        <Latitude_Start>42.0</Latitude_Start>
+        <Longitude_Start>24.0</Longitude_Start>
+        <Latitude_End>45.0</Latitude_End>
+        <Longitude_End>24.0</Longitude_End>
+    </MapLine>
+    <MapLine>
+        <Latitude_Start>42.5</Latitude_Start>
+        <Longitude_Start>24.5</Longitude_Start>
+        <Latitude_End>45.5</Latitude_End>
+        <Longitude_End>24.5</Longitude_End>
+    </MapLine>
+    <!-- horizontal lines -->
+    <MapLine>
+        <Latitude_Start>43.0</Latitude_Start>
+        <Longitude_Start>22.5</Longitude_Start>
+        <Latitude_End>43.0</Latitude_End>
+        <Longitude_End>25.0</Longitude_End>
+    </MapLine>
+</MapLines>

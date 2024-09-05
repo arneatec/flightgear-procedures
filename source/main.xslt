@@ -5,6 +5,7 @@
                 extension-element-prefixes="math">
 
     <xsl:variable name="waypoints" select="document('LBSF_waypoints.xml')"/>
+    <xsl:variable name="maplines" select="document('map_lines.xml')"/>
     <xsl:template match="/">
         <html>
             <head>
@@ -73,6 +74,20 @@
                             <div class="card border-dark">
                                 <div class="card-body">
                                     <svg width="1000" height="1000" xmlns="http://www.w3.org/2000/svg">
+                                        <xsl:for-each select="$maplines/MapLines/MapLine">
+                                            <xsl:variable name="pointX1"><xsl:value-of select="floor((Longitude_Start * (3.1415926534 div 180) * 6378137) div //Airport/Chart/Zoom) + //Airport/Chart/Offset_X"/></xsl:variable>
+                                            <xsl:variable name="pointY1"><xsl:value-of select="1000-floor((math:log(math:tan(Latitude_Start * (3.1415926534 div 180) div 2 + 3.1415926534 div 4)) * 6378137) div (//Airport/Chart/Zoom)) + //Airport/Chart/Offset_Y"/></xsl:variable>
+                                            <xsl:variable name="pointX2"><xsl:value-of select="floor((Longitude_End * (3.1415926534 div 180) * 6378137) div //Airport/Chart/Zoom) + //Airport/Chart/Offset_X"/></xsl:variable>
+                                            <xsl:variable name="pointY2"><xsl:value-of select="1000-floor((math:log(math:tan(Latitude_End * (3.1415926534 div 180) div 2 + 3.1415926534 div 4)) * 6378137) div (//Airport/Chart/Zoom)) + //Airport/Chart/Offset_Y"/></xsl:variable>
+                                            <line>
+                                                <xsl:attribute name="x1"><xsl:value-of select="$pointX1"></xsl:value-of></xsl:attribute>
+                                                <xsl:attribute name="y1"><xsl:value-of select="$pointY1"></xsl:value-of></xsl:attribute>
+                                                <xsl:attribute name="x2"><xsl:value-of select="$pointX2"></xsl:value-of></xsl:attribute>
+                                                <xsl:attribute name="y2"><xsl:value-of select="$pointY2"></xsl:value-of></xsl:attribute>
+                                                <xsl:attribute name="stroke">pink</xsl:attribute>
+                                            </line>
+                                        </xsl:for-each>
+
                                         <line x1="1" y1="0" x2="1" y2="1000" stroke="gray"></line>
                                         <line x1="200" y1="0" x2="200" y2="1000" stroke="gray"></line>
                                         <line x1="400" y1="0" x2="400" y2="1000" stroke="gray"></line>

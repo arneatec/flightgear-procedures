@@ -50,6 +50,9 @@
             <Latitude>42.695106</Latitude>
             <Longitude>23.439722</Longitude>
         </RunwayThreshold>
+        <RunwayDirection>
+            089
+        </RunwayDirection>
         <Includes>
             <SID_ID>DEDIN 2S</SID_ID>
             <SID_ID>DILVO 2S</SID_ID>

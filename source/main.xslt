@@ -96,7 +96,16 @@
                                                     <!-- start drawing -->
                                                     M <xsl:value-of select="$startX"/><xsl:text> </xsl:text><xsl:value-of select="$startY"/>
                                                     L <xsl:value-of select="$endExtensionX"/><xsl:text> </xsl:text><xsl:value-of select="$endExtensionY"/>
-                                                    Q <xsl:value-of select="$endExtensionX +  floor($takeOffExtension* 0.923)"/><xsl:text> </xsl:text><xsl:value-of select="$endExtensionY"/> <xsl:text> </xsl:text> <xsl:value-of select="$endExtensionX + 45"/><xsl:text> </xsl:text> <xsl:value-of select="$endExtensionY - 45"/>
+                                                    <xsl:if test="count(Waypoints/Waypoint[PT='CA']) > 0">
+                                                        <xsl:choose>
+                                                             <xsl:when test="count(Waypoints/Waypoint[PT='CA' and Turn='Left']) > 0">
+                                                                Q <xsl:value-of select="$endExtensionX +  floor($takeOffExtension* 0.923)"/><xsl:text> </xsl:text><xsl:value-of select="$endExtensionY"/> <xsl:text> </xsl:text> <xsl:value-of select="$endExtensionX + 45"/><xsl:text> </xsl:text> <xsl:value-of select="$endExtensionY - 45"/>
+                                                             </xsl:when>
+                                                            <xsl:otherwise>
+                                                                Q <xsl:value-of select="$endExtensionX +  floor($takeOffExtension* 0.923)"/><xsl:text> </xsl:text><xsl:value-of select="$endExtensionY"/> <xsl:text> </xsl:text> <xsl:value-of select="$endExtensionX + 45"/><xsl:text> </xsl:text> <xsl:value-of select="$endExtensionY + 45"/>
+                                                            </xsl:otherwise>
+                                                        </xsl:choose>
+                                                    </xsl:if>
                                                     <!-- and finally the waypoints -->
                                                     <xsl:for-each select="Waypoints/Waypoint[not(WPTID='-')]">
                                                         <xsl:variable name="pointX"><xsl:value-of select="floor(($waypoints/Waypoins/Waypoint[ID=current()/WPTID]/Longitude * ($math_PI div 180) * $web_mercator_earth_radius) div //Airport/Chart/Zoom) + //Airport/Chart/Offset_X"/></xsl:variable>

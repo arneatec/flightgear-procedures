@@ -425,6 +425,170 @@
                 </Waypoints>
                 <PT></PT>
             </SID_Core>
+            <SID_Core>
+                <ID>RUMEN 2S</ID>
+                <Name>RUMEN TWO SIERRA DEPARTURE</Name>
+                <Description>MNM climb gradient of 5% (304FT/NM) to 9500FT AMSL due to terrain.</Description>
+                <Waypoints>
+                    <Waypoint>
+                        <PT>CA</PT>
+                        <WPTID>-</WPTID>
+                        <Flyover>-</Flyover>
+                        <Track>089°(094.6°T)</Track>
+                        <DIST>-</DIST>
+                        <Turn>Right</Turn>
+                        <Speed>230-</Speed>
+                        <Altitude>4500+</Altitude>
+                        <Additional>-</Additional>
+                    </Waypoint>
+                    <Waypoint>
+                        <PT>DF</PT>
+                        <WPTID>SF506</WPTID>
+                        <Flyover>-</Flyover>
+                        <Track>-</Track>
+                        <DIST>-</DIST>
+                        <Turn>Right</Turn>
+                        <Speed>--</Speed>
+                        <Altitude>A10000-</Altitude>
+                        <Additional>-</Additional>
+                    </Waypoint>
+                    <Waypoint>
+                        <PT>TF</PT>
+                        <WPTID>RUMEN</WPTID>
+                        <Flyover>-</Flyover>
+                        <Track>113°(118.2°T)</Track>
+                        <DIST>25.2</DIST>
+                        <Turn>-</Turn>
+                        <Speed>-</Speed>
+                        <Altitude>-</Altitude>
+                        <Additional>-</Additional>
+                    </Waypoint>
+                </Waypoints>
+                <PT></PT>
+            </SID_Core>
+            <SID_Core>
+                <ID>DILVO 2S</ID>
+                <Name>DILVO TWO SIERRA DEPARTURE</Name>
+                <Description>MNM climb gradient of 5% (304FT/NM) to 9000FT AMSL due to terrain.</Description>
+                <Waypoints>
+                    <Waypoint>
+                        <PT>CA</PT>
+                        <WPTID>-</WPTID>
+                        <Flyover>-</Flyover>
+                        <Track>089°(094.6°T)</Track>
+                        <DIST>-</DIST>
+                        <Turn>Right</Turn>
+                        <Speed>230-</Speed>
+                        <Altitude>4500+</Altitude>
+                        <Additional>-</Additional>
+                    </Waypoint>
+                    <Waypoint>
+                        <PT>DF</PT>
+                        <WPTID>SF506</WPTID>
+                        <Flyover>-</Flyover>
+                        <Track>-</Track>
+                        <DIST>-</DIST>
+                        <Turn>Right</Turn>
+                        <Speed>--</Speed>
+                        <Altitude>A10000-</Altitude>
+                        <Additional>-</Additional>
+                    </Waypoint>
+                    <Waypoint>
+                        <PT>TF</PT>
+                        <WPTID>DILVO</WPTID>
+                        <Flyover>-</Flyover>
+                        <Track>150°(155.0°T)</Track>
+                        <DIST>12.9</DIST>
+                        <Turn>-</Turn>
+                        <Speed>-</Speed>
+                        <Altitude>-</Altitude>
+                        <Additional>-</Additional>
+                    </Waypoint>
+                </Waypoints>
+                <PT></PT>
+            </SID_Core>
+            <SID_Core>
+                <ID>OMENO 3S</ID>
+                <Name>OMENO THREE SIERRA DEPARTURE</Name>
+                <Description>MNM climb gradient of 6% (365FT/NM) to TRL due to terrain.</Description>
+                <Waypoints>
+                    <Waypoint>
+                        <PT>CA</PT>
+                        <WPTID>-</WPTID>
+                        <Flyover>-</Flyover>
+                        <Track>089°(094.6°T)</Track>
+                        <DIST>-</DIST>
+                        <Turn>Right</Turn>
+                        <Speed>230-</Speed>
+                        <Altitude>4500+</Altitude>
+                        <Additional>-</Additional>
+                    </Waypoint>
+                    <Waypoint>
+                        <PT>DF</PT>
+                        <WPTID>SF507</WPTID>
+                        <Flyover>-</Flyover>
+                        <Track>-</Track>
+                        <DIST>-</DIST>
+                        <Turn>Left</Turn>
+                        <Speed>--</Speed>
+                        <Altitude>A10000-</Altitude>
+                        <Additional>-</Additional>
+                    </Waypoint>
+                    <Waypoint>
+                        <PT>TF</PT>
+                        <WPTID>OMENO</WPTID>
+                        <Flyover>-</Flyover>
+                        <Track>184°(189.5°T)</Track>
+                        <DIST>13.7</DIST>
+                        <Turn>-</Turn>
+                        <Speed>-</Speed>
+                        <Altitude>-</Altitude>
+                        <Additional>-</Additional>
+                    </Waypoint>
+                </Waypoints>
+                <PT></PT>
+            </SID_Core>
+            <SID_Core>
+                <ID>NAPET 2S</ID>
+                <Name>OMENO TWO SIERRA DEPARTURE</Name>
+                <Description>MNM climb gradient of 6% (365FT/NM) to 9000FT AMSL due to terrain.</Description>
+                <Waypoints>
+                    <Waypoint>
+                        <PT>CA</PT>
+                        <WPTID>-</WPTID>
+                        <Flyover>-</Flyover>
+                        <Track>089°(094.6°T)</Track>
+                        <DIST>-</DIST>
+                        <Turn>Right</Turn>
+                        <Speed>230-</Speed>
+                        <Altitude>4500+</Altitude>
+                        <Additional>-</Additional>
+                    </Waypoint>
+                    <Waypoint>
+                        <PT>DF</PT>
+                        <WPTID>SF507</WPTID>
+                        <Flyover>-</Flyover>
+                        <Track>-</Track>
+                        <DIST>-</DIST>
+                        <Turn>Right</Turn>
+                        <Speed>--</Speed>
+                        <Altitude>A10000-</Altitude>
+                        <Additional>-</Additional>
+                    </Waypoint>
+                    <Waypoint>
+                        <PT>TF</PT>
+                        <WPTID>NAPET</WPTID>
+                        <Flyover>-</Flyover>
+                        <Track>234°(239.2°T)</Track>
+                        <DIST>27.3</DIST>
+                        <Turn>-</Turn>
+                        <Speed>-</Speed>
+                        <Altitude>-</Altitude>
+                        <Additional>-</Additional>
+                    </Waypoint>
+                </Waypoints>
+                <PT></PT>
+            </SID_Core>
         </SID_Page>
     </Chart>
 

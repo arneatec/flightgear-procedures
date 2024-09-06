@@ -24,12 +24,12 @@
         <Latitude>42.857278</Latitude>
         <Longitude>23.523806</Longitude>
     </Waypoint>
-    <Sid_Waypoint>
+    <Waypoint>
         <ID>SF503</ID>
         <Type>WPT-OR-FB</Type>
         <Latitude>42.814556</Latitude>
         <Longitude>23.853250</Longitude>
-    </Sid_Waypoint>
+    </Waypoint>
     <Waypoint>
         <ID>SF504</ID>
         <Type>WPT-OR-FB</Type>

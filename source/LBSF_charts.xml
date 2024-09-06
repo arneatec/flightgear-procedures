@@ -231,6 +231,200 @@
                 </Waypoints>
                 <PT></PT>
             </SID_Core>
+            <SID_Core>
+                <ID>OGOTA 3S</ID>
+                <Name>OGOTA THREE SIERRA DEPARTURE</Name>
+                <Description>MNM climb gradient of 5.3% (322FT/NM) to 9000FT AMSL due to terrain.</Description>
+                <Waypoints>
+                    <Waypoint>
+                        <PT>CA</PT>
+                        <WPTID>-</WPTID>
+                        <Flyover>-</Flyover>
+                        <Track>089°(094.6°T)</Track>
+                        <DIST>-</DIST>
+                        <Turn>Left</Turn>
+                        <Speed>230-</Speed>
+                        <Altitude>4500+</Altitude>
+                        <Additional>-</Additional>
+                    </Waypoint>
+                    <Waypoint>
+                        <PT>DF</PT>
+                        <WPTID>SF502</WPTID>
+                        <Flyover>-</Flyover>
+                        <Track>-</Track>
+                        <DIST>-</DIST>
+                        <Turn>-</Turn>
+                        <Speed>--</Speed>
+                        <Altitude>10000-</Altitude>
+                        <Additional>-</Additional>
+                    </Waypoint>
+                    <Waypoint>
+                        <PT>TF</PT>
+                        <WPTID>OGOTA</WPTID>
+                        <Flyover>-</Flyover>
+                        <Track>333°(338.0°T)</Track>
+                        <DIST>23.1</DIST>
+                        <Turn>-</Turn>
+                        <Speed>-</Speed>
+                        <Altitude>-</Altitude>
+                        <Additional>-</Additional>
+                    </Waypoint>
+                </Waypoints>
+                <PT></PT>
+            </SID_Core>
+            <SID_Core>
+                <ID>GOL 3S</ID>
+                <Name>GOLYAMA THREE SIERRA DEPARTURE</Name>
+                <Description>MNM climb gradient of 5% (304FT/NM) to 8200FT AMSL due to terrain.</Description>
+                <Waypoints>
+                    <Waypoint>
+                        <PT>CA</PT>
+                        <WPTID>-</WPTID>
+                        <Flyover>-</Flyover>
+                        <Track>089°(094.6°T)</Track>
+                        <DIST>-</DIST>
+                        <Turn>Left</Turn>
+                        <Speed>230-</Speed>
+                        <Altitude>4500+</Altitude>
+                        <Additional>-</Additional>
+                    </Waypoint>
+                    <Waypoint>
+                        <PT>DF</PT>
+                        <WPTID>SF503</WPTID>
+                        <Flyover>-</Flyover>
+                        <Track>-</Track>
+                        <DIST>-</DIST>
+                        <Turn>-</Turn>
+                        <Speed>--</Speed>
+                        <Altitude>10000-</Altitude>
+                        <Additional>-</Additional>
+                    </Waypoint>
+                     <Waypoint>
+                        <PT>TF</PT>
+                        <WPTID>SF504</WPTID>
+                        <Flyover>-</Flyover>
+                        <Track>048°(053.6°T)</Track>
+                        <DIST>14.4</DIST>
+                        <Turn>-</Turn>
+                        <Speed>-</Speed>
+                        <Altitude>-</Altitude>
+                        <Additional>-</Additional>
+                    </Waypoint>
+                    <Waypoint>
+                        <PT>TF</PT>
+                        <WPTID>GOL</WPTID>
+                        <Flyover>-</Flyover>
+                        <Track>024°(028.9°T)</Track>
+                        <DIST>9.5</DIST>
+                        <Turn>-</Turn>
+                        <Speed>-</Speed>
+                        <Altitude>-</Altitude>
+                        <Additional>-</Additional>
+                    </Waypoint>
+                </Waypoints>
+                <PT></PT>
+            </SID_Core>
+            <SID_Core>
+                <ID>UMPIT 3S</ID>
+                <Name>UMPIT THREE SIERRA DEPARTURE</Name>
+                <Description>MNM climb gradient of 5% (304FT/NM) to 9000FT AMSL due to terrain.</Description>
+                <Waypoints>
+                    <Waypoint>
+                        <PT>CA</PT>
+                        <WPTID>-</WPTID>
+                        <Flyover>-</Flyover>
+                        <Track>089°(094.6°T)</Track>
+                        <DIST>-</DIST>
+                        <Turn>Left</Turn>
+                        <Speed>230-</Speed>
+                        <Altitude>4500+</Altitude>
+                        <Additional>-</Additional>
+                    </Waypoint>
+                    <Waypoint>
+                        <PT>DF</PT>
+                        <WPTID>SF503</WPTID>
+                        <Flyover>-</Flyover>
+                        <Track>-</Track>
+                        <DIST>-</DIST>
+                        <Turn>Right</Turn>
+                        <Speed>--</Speed>
+                        <Altitude>10000-</Altitude>
+                        <Additional>-</Additional>
+                    </Waypoint>
+                    <Waypoint>
+                        <PT>TF</PT>
+                        <WPTID>UMPIT</WPTID>
+                        <Flyover>-</Flyover>
+                        <Track>093°(098.3°T)</Track>
+                        <DIST>14.3</DIST>
+                        <Turn>-</Turn>
+                        <Speed>-</Speed>
+                        <Altitude>-</Altitude>
+                        <Additional>-</Additional>
+                    </Waypoint>
+                </Waypoints>
+                <PT></PT>
+            </SID_Core>
+            <SID_Core>
+                <ID>GAPVO 2S</ID>
+                <Name>GAPVO TWO SIERRA DEPARTURE</Name>
+                <Description>MNM climb gradient of 5% (304FT/NM) to 9200FT AMSL due to terrain.</Description>
+                <Waypoints>
+                    <Waypoint>
+                        <PT>CF</PT>
+                        <WPTID>SF505</WPTID>
+                        <Flyover>-</Flyover>
+                        <Track>089°(094.6°T)</Track>
+                        <DIST>21.2</DIST>
+                        <Turn>-</Turn>
+                        <Speed>--</Speed>
+                        <Altitude>-</Altitude>
+                        <Additional>-</Additional>
+                    </Waypoint>
+                    <Waypoint>
+                        <PT>TF</PT>
+                        <WPTID>GAPVO</WPTID>
+                        <Flyover>-</Flyover>
+                        <Track>081°(086.0°T)</Track>
+                        <DIST>11.9</DIST>
+                        <Turn>-</Turn>
+                        <Speed>-</Speed>
+                        <Altitude>-</Altitude>
+                        <Additional>-</Additional>
+                    </Waypoint>
+                </Waypoints>
+                <PT></PT>
+            </SID_Core>
+            <SID_Core>
+                <ID>DEDIN 2S</ID>
+                <Name>DEDIN TWO SIERRA DEPARTURE</Name>
+                <Description>MNM climb gradient of 5% (304FT/NM) to 9300FT AMSL due to terrain.</Description>
+                <Waypoints>
+                    <Waypoint>
+                        <PT>CF</PT>
+                        <WPTID>SF505</WPTID>
+                        <Flyover>-</Flyover>
+                        <Track>089°(094.6°T)</Track>
+                        <DIST>21.2</DIST>
+                        <Turn>Right</Turn>
+                        <Speed>--</Speed>
+                        <Altitude>-</Altitude>
+                        <Additional>-</Additional>
+                    </Waypoint>
+                    <Waypoint>
+                        <PT>TF</PT>
+                        <WPTID>DEDIN</WPTID>
+                        <Flyover>-</Flyover>
+                        <Track>111°(116.1°T)</Track>
+                        <DIST>10.0</DIST>
+                        <Turn>-</Turn>
+                        <Speed>-</Speed>
+                        <Altitude>-</Altitude>
+                        <Additional>-</Additional>
+                    </Waypoint>
+                </Waypoints>
+                <PT></PT>
+            </SID_Core>
         </SID_Page>
     </Chart>
 

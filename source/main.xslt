@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:math="http://exslt.org/math"
                 xmlns:xls="http://www.w3.org/1999/XSL/Transform"
                 extension-element-prefixes="math">
-
+    <xsl:variable name="svg_size" select="1000"/>
+    <xsl:variable name="math_PI" select="3.14159265"/>
+    <xsl:variable name="web_mercator_earth_radius" select="6378137" />
     <xsl:variable name="waypoints" select="document('LBSF_waypoints.xml')"/>
     <xsl:variable name="maplines" select="document('map_lines.xml')"/>
     <xsl:template match="/">
@@ -73,7 +74,10 @@
                         <div class="row">
                             <div class="card border-dark">
                                 <div class="card-body  p-0 m-0">
-                                    <svg width="1000" height="1000" xmlns="http://www.w3.org/2000/svg">
+                                    <svg>
+                                        <xsl:attribute name="width"><xsl:value-of select="$svg_size"/></xsl:attribute>
+                                        <xsl:attribute name="height"><xsl:value-of select="$svg_size"/></xsl:attribute>
+
                                         <!-- SID -->
                                         <xsl:for-each select="/Airport/Chart/SID_Page/SID_Core">
                                             <!-- each SID starts with the runway threshold -->
@@ -81,35 +85,26 @@
                                                 <xsl:attribute name="fill">none</xsl:attribute>
                                                 <xsl:attribute name="stroke">green</xsl:attribute>
                                                 <xsl:attribute name="d">
-                                                    <xsl:variable name="startX"><xsl:value-of select="floor((/Airport/Chart/RunwayThreshold/Longitude * (3.1415926534 div 180) * 6378137) div //Airport/Chart/Zoom) + //Airport/Chart/Offset_X"/></xsl:variable>
-                                                    <xsl:variable name="startY"><xsl:value-of select="1000-floor((math:log(math:tan(/Airport/Chart/RunwayThreshold/Latitude * (3.1415926534 div 180) div 2 + 3.1415926534 div 4)) * 6378137) div (//Airport/Chart/Zoom)) + //Airport/Chart/Offset_Y"/></xsl:variable>
-                                                    <xsl:variable name="endExtensionX"><xsl:value-of select="$startX + floor(70 * math:cos((/Airport/Chart/RunwayDirection - 90) * (3.1415926534 div 180)))"/></xsl:variable>
-                                                    <xsl:variable name="endExtensionY"><xsl:value-of select="$startY + floor(70 * math:sin((/Airport/Chart/RunwayDirection + 90) * (3.1415926534 div 180)))"/></xsl:variable>
+                                                    <!-- runway termination coordinates -->
+                                                    <xsl:variable name="startX"><xsl:value-of select="floor((/Airport/Chart/RunwayThreshold/Longitude * ($math_PI div 180) * $web_mercator_earth_radius) div //Airport/Chart/Zoom) + //Airport/Chart/Offset_X"/></xsl:variable>
+                                                    <xsl:variable name="startY"><xsl:value-of select="$svg_size - floor((math:log(math:tan(/Airport/Chart/RunwayThreshold/Latitude * ($math_PI div 180) div 2 + $math_PI div 4)) * $web_mercator_earth_radius) div (//Airport/Chart/Zoom)) + //Airport/Chart/Offset_Y"/></xsl:variable>
+                                                    <!-- lenght of the runway 'fly away extension' -->
+                                                    <xsl:variable name="takeOffExtension"><xsl:value-of select="/Airport/Chart/TakeOffFlyRunwayHeadingDistance"></xsl:value-of></xsl:variable>
+                                                    <!-- extension end coordinates -->
+                                                    <xsl:variable name="endExtensionX"><xsl:value-of select="$startX + floor($takeOffExtension * math:cos((/Airport/Chart/RunwayDirection - 90) * ($math_PI div 180)))"/></xsl:variable>
+                                                    <xsl:variable name="endExtensionY"><xsl:value-of select="$startY + floor($takeOffExtension * math:sin((/Airport/Chart/RunwayDirection + 90) * ($math_PI div 180)))"/></xsl:variable>
+                                                    <!-- start drawing -->
                                                     M <xsl:value-of select="$startX"/><xsl:text> </xsl:text><xsl:value-of select="$startY"/>
                                                     L <xsl:value-of select="$endExtensionX"/><xsl:text> </xsl:text><xsl:value-of select="$endExtensionY"/>
-                                                    Q <xsl:value-of select="$endExtensionX + 65"/><xsl:text> </xsl:text><xsl:value-of select="$endExtensionY"/> <xsl:text> </xsl:text> <xsl:value-of select="$endExtensionX + 45"/><xsl:text> </xsl:text> <xsl:value-of select="$endExtensionY - 45"/>
+                                                    Q <xsl:value-of select="$endExtensionX +  floor($takeOffExtension* 0.923)"/><xsl:text> </xsl:text><xsl:value-of select="$endExtensionY"/> <xsl:text> </xsl:text> <xsl:value-of select="$endExtensionX + 45"/><xsl:text> </xsl:text> <xsl:value-of select="$endExtensionY - 45"/>
+                                                    <!-- and finally the waypoints -->
                                                     <xsl:for-each select="Waypoints/Waypoint[not(WPTID='-')]">
-                                                        <xsl:variable name="pointX"><xsl:value-of select="floor(($waypoints/Waypoins/Waypoint[ID=current()/WPTID]/Longitude * (3.1415926534 div 180) * 6378137) div //Airport/Chart/Zoom) + //Airport/Chart/Offset_X"/></xsl:variable>
-                                                        <xsl:variable name="pointY"><xsl:value-of select="1000-floor((math:log(math:tan($waypoints/Waypoins/Waypoint[ID=current()/WPTID]/Latitude * (3.1415926534 div 180) div 2 + 3.1415926534 div 4)) * 6378137) div (//Airport/Chart/Zoom)) + //Airport/Chart/Offset_Y"/></xsl:variable>
+                                                        <xsl:variable name="pointX"><xsl:value-of select="floor(($waypoints/Waypoins/Waypoint[ID=current()/WPTID]/Longitude * ($math_PI div 180) * $web_mercator_earth_radius) div //Airport/Chart/Zoom) + //Airport/Chart/Offset_X"/></xsl:variable>
+                                                        <xsl:variable name="pointY"><xsl:value-of select="$svg_size - floor((math:log(math:tan($waypoints/Waypoins/Waypoint[ID=current()/WPTID]/Latitude * ($math_PI div 180) div 2 + $math_PI div 4)) * $web_mercator_earth_radius) div (//Airport/Chart/Zoom)) + //Airport/Chart/Offset_Y"/></xsl:variable>
                                                         L <xsl:value-of select="$pointX"/><xsl:text> </xsl:text><xsl:value-of select="$pointY"/><xsl:text> </xsl:text>
                                                     </xsl:for-each>
 
                                                 </xsl:attribute>
-
-
-                                                <!--
-                                                <xsl:attribute name="points">
-                                                    <xsl:variable name="pointX"><xsl:value-of select="floor((/Airport/Chart/RunwayThreshold/Longitude * (3.1415926534 div 180) * 6378137) div //Airport/Chart/Zoom) + //Airport/Chart/Offset_X"/></xsl:variable>
-                                                    <xsl:variable name="pointY"><xsl:value-of select="1000-floor((math:log(math:tan(/Airport/Chart/RunwayThreshold/Latitude * (3.1415926534 div 180) div 2 + 3.1415926534 div 4)) * 6378137) div (//Airport/Chart/Zoom)) + //Airport/Chart/Offset_Y"/></xsl:variable>
-                                                    <xsl:value-of select="$pointX"/>,<xsl:value-of select="$pointY"/><xsl:text> </xsl:text>
-                                                    <xsl:for-each select="Waypoints/Waypoint[not(WPTID='-')]">
-
-                                                        <xsl:variable name="pointX"><xsl:value-of select="floor(($waypoints/Waypoins/Waypoint[ID=current()/WPTID]/Longitude * (3.1415926534 div 180) * 6378137) div //Airport/Chart/Zoom) + //Airport/Chart/Offset_X"/></xsl:variable>
-                                                        <xsl:variable name="pointY"><xsl:value-of select="1000-floor((math:log(math:tan($waypoints/Waypoins/Waypoint[ID=current()/WPTID]/Latitude * (3.1415926534 div 180) div 2 + 3.1415926534 div 4)) * 6378137) div (//Airport/Chart/Zoom)) + //Airport/Chart/Offset_Y"/></xsl:variable>
-                                                        <xsl:value-of select="$pointX"/>,<xsl:value-of select="$pointY"/><xsl:text> </xsl:text>
-                                                    </xsl:for-each>
-                                                </xsl:attribute>
-                                                -->
                                             </path>
                                         </xsl:for-each>
 
@@ -117,10 +112,10 @@
 
                                         <!-- map lines -->
                                         <xsl:for-each select="$maplines/MapLines/MapLine">
-                                            <xsl:variable name="pointX1"><xsl:value-of select="floor((Longitude_Start * (3.1415926534 div 180) * 6378137) div //Airport/Chart/Zoom) + //Airport/Chart/Offset_X"/></xsl:variable>
-                                            <xsl:variable name="pointY1"><xsl:value-of select="1000-floor((math:log(math:tan(Latitude_Start * (3.1415926534 div 180) div 2 + 3.1415926534 div 4)) * 6378137) div (//Airport/Chart/Zoom)) + //Airport/Chart/Offset_Y"/></xsl:variable>
-                                            <xsl:variable name="pointX2"><xsl:value-of select="floor((Longitude_End * (3.1415926534 div 180) * 6378137) div //Airport/Chart/Zoom) + //Airport/Chart/Offset_X"/></xsl:variable>
-                                            <xsl:variable name="pointY2"><xsl:value-of select="1000-floor((math:log(math:tan(Latitude_End * (3.1415926534 div 180) div 2 + 3.1415926534 div 4)) * 6378137) div (//Airport/Chart/Zoom)) + //Airport/Chart/Offset_Y"/></xsl:variable>
+                                            <xsl:variable name="pointX1"><xsl:value-of select="floor((Longitude_Start * ($math_PI div 180) * $web_mercator_earth_radius) div //Airport/Chart/Zoom) + //Airport/Chart/Offset_X"/></xsl:variable>
+                                            <xsl:variable name="pointY1"><xsl:value-of select="$svg_size - floor((math:log(math:tan(Latitude_Start * ($math_PI div 180) div 2 + $math_PI div 4)) * $web_mercator_earth_radius) div (//Airport/Chart/Zoom)) + //Airport/Chart/Offset_Y"/></xsl:variable>
+                                            <xsl:variable name="pointX2"><xsl:value-of select="floor((Longitude_End * ($math_PI div 180) * $web_mercator_earth_radius) div //Airport/Chart/Zoom) + //Airport/Chart/Offset_X"/></xsl:variable>
+                                            <xsl:variable name="pointY2"><xsl:value-of select="$svg_size - floor((math:log(math:tan(Latitude_End * ($math_PI div 180) div 2 + $math_PI div 4)) * $web_mercator_earth_radius) div (//Airport/Chart/Zoom)) + //Airport/Chart/Offset_Y"/></xsl:variable>
                                             <line>
                                                 <xsl:attribute name="x1"><xsl:value-of select="$pointX1"></xsl:value-of></xsl:attribute>
                                                 <xsl:attribute name="y1"><xsl:value-of select="$pointY1"></xsl:value-of></xsl:attribute>
@@ -132,8 +127,8 @@
                                         </xsl:for-each>
                                         <!-- map line captions -->
                                         <xsl:for-each select="$maplines/MapLines/Caption">
-                                            <xsl:variable name="pointX"><xsl:value-of select="floor((Longitude * (3.1415926534 div 180) * 6378137) div //Airport/Chart/Zoom) + //Airport/Chart/Offset_X"/></xsl:variable>
-                                            <xsl:variable name="pointY"><xsl:value-of select="1000-floor((math:log(math:tan(Latitude * (3.1415926534 div 180) div 2 + 3.1415926534 div 4)) * 6378137) div (//Airport/Chart/Zoom)) + //Airport/Chart/Offset_Y"/></xsl:variable>
+                                            <xsl:variable name="pointX"><xsl:value-of select="floor((Longitude * ($math_PI div 180) * $web_mercator_earth_radius) div //Airport/Chart/Zoom) + //Airport/Chart/Offset_X"/></xsl:variable>
+                                            <xsl:variable name="pointY"><xsl:value-of select="$svg_size - floor((math:log(math:tan(Latitude * ($math_PI div 180) div 2 + $math_PI div 4)) * $web_mercator_earth_radius) div (//Airport/Chart/Zoom)) + //Airport/Chart/Offset_Y"/></xsl:variable>
                                             <text>
                                                 <xsl:attribute name="text-anchor">middle</xsl:attribute>
                                                 <xsl:attribute name="alignment-baseline">middle</xsl:attribute>
@@ -143,17 +138,17 @@
                                              </text>
                                         </xsl:for-each>
                                         <!-- guide lines
-                                        <line x1="1" y1="0" x2="1" y2="1000" stroke="gray"></line>
-                                        <line x1="200" y1="0" x2="200" y2="1000" stroke="gray"></line>
-                                        <line x1="400" y1="0" x2="400" y2="1000" stroke="gray"></line>
-                                        <line x1="600" y1="0" x2="600" y2="1000" stroke="gray"></line>
-                                        <line x1="800" y1="0" x2="800" y2="1000" stroke="gray"></line>
-                                        <line x1="999" y1="0" x2="999" y2="1000" stroke="gray"></line>
+                                        <line x1="1" y1="0" x2="1" y2="$svg_size" stroke="gray"></line>
+                                        <line x1="200" y1="0" x2="200" y2="$svg_size" stroke="gray"></line>
+                                        <line x1="400" y1="0" x2="400" y2="$svg_size" stroke="gray"></line>
+                                        <line x1="600" y1="0" x2="600" y2="$svg_size" stroke="gray"></line>
+                                        <line x1="800" y1="0" x2="800" y2="$svg_size" stroke="gray"></line>
+                                        <line x1="999" y1="0" x2="999" y2="$svg_size" stroke="gray"></line>
                                         -->
                                         <!-- waypoints -->
                                         <xsl:for-each select="$waypoints/Waypoins/Waypoint">
-                                            <xsl:variable name="pointX"><xsl:value-of select="floor((Longitude * (3.1415926534 div 180) * 6378137) div //Airport/Chart/Zoom) + //Airport/Chart/Offset_X"/></xsl:variable>
-                                            <xsl:variable name="pointY"><xsl:value-of select="1000-floor((math:log(math:tan(Latitude * (3.1415926534 div 180) div 2 + 3.1415926534 div 4)) * 6378137) div (//Airport/Chart/Zoom)) + //Airport/Chart/Offset_Y"/></xsl:variable>
+                                            <xsl:variable name="pointX"><xsl:value-of select="floor((Longitude * ($math_PI div 180) * $web_mercator_earth_radius) div //Airport/Chart/Zoom) + //Airport/Chart/Offset_X"/></xsl:variable>
+                                            <xsl:variable name="pointY"><xsl:value-of select="$svg_size - floor((math:log(math:tan(Latitude * ($math_PI div 180) div 2 + $math_PI div 4)) * $web_mercator_earth_radius) div (//Airport/Chart/Zoom)) + //Airport/Chart/Offset_Y"/></xsl:variable>
                                             <xsl:variable name="pointType"><xsl:value-of select="Type"></xsl:value-of></xsl:variable>
 
                                             <xsl:choose>
@@ -251,10 +246,10 @@
                                                         <xsl:attribute name="fill">none</xsl:attribute>
                                                     </circle>
                                                    <line>
-                                                        <xsl:attribute name="x1"><xsl:value-of select="$pointX - floor(18 * math:cos(((Runway * 10) - 90) * (3.1415926534 div 180)))"></xsl:value-of></xsl:attribute>
-                                                        <xsl:attribute name="y1"><xsl:value-of select="$pointY + floor(18 * math:sin(((Runway * 10) + 90) * (3.1415926534 div 180)))"></xsl:value-of></xsl:attribute>
-                                                        <xsl:attribute name="x2"><xsl:value-of select="$pointX + floor(18 * math:cos(((Runway * 10) - 90) * (3.1415926534 div 180)))"></xsl:value-of></xsl:attribute>
-                                                        <xsl:attribute name="y2"><xsl:value-of select="$pointY - floor(18 * math:sin(((Runway * 10) + 90) * (3.1415926534 div 180)))"></xsl:value-of></xsl:attribute>
+                                                        <xsl:attribute name="x1"><xsl:value-of select="$pointX - floor(18 * math:cos(((Runway * 10) - 90) * ($math_PI div 180)))"></xsl:value-of></xsl:attribute>
+                                                        <xsl:attribute name="y1"><xsl:value-of select="$pointY + floor(18 * math:sin(((Runway * 10) + 90) * ($math_PI div 180)))"></xsl:value-of></xsl:attribute>
+                                                        <xsl:attribute name="x2"><xsl:value-of select="$pointX + floor(18 * math:cos(((Runway * 10) - 90) * ($math_PI div 180)))"></xsl:value-of></xsl:attribute>
+                                                        <xsl:attribute name="y2"><xsl:value-of select="$pointY - floor(18 * math:sin(((Runway * 10) + 90) * ($math_PI div 180)))"></xsl:value-of></xsl:attribute>
                                                         <xsl:attribute name="stroke">black</xsl:attribute>
                                                         <xsl:attribute name="stroke-width">3</xsl:attribute>
                                                    </line>
@@ -271,10 +266,10 @@
                                                         <xsl:attribute name="stroke">gray</xsl:attribute>
                                                     </polygon>
                                                    <line>
-                                                        <xsl:attribute name="x1"><xsl:value-of select="$pointX - floor(19 * math:cos(((Runway * 10) - 90) * (3.1415926534 div 180)))"></xsl:value-of></xsl:attribute>
-                                                        <xsl:attribute name="y1"><xsl:value-of select="$pointY + floor(19 * math:sin(((Runway * 10) + 90) * (3.1415926534 div 180)))"></xsl:value-of></xsl:attribute>
-                                                        <xsl:attribute name="x2"><xsl:value-of select="$pointX + floor(19 * math:cos(((Runway * 10) - 90) * (3.1415926534 div 180)))"></xsl:value-of></xsl:attribute>
-                                                        <xsl:attribute name="y2"><xsl:value-of select="$pointY - floor(19 * math:sin(((Runway * 10) + 90) * (3.1415926534 div 180)))"></xsl:value-of></xsl:attribute>
+                                                        <xsl:attribute name="x1"><xsl:value-of select="$pointX - floor(19 * math:cos(((Runway * 10) - 90) * ($math_PI div 180)))"></xsl:value-of></xsl:attribute>
+                                                        <xsl:attribute name="y1"><xsl:value-of select="$pointY + floor(19 * math:sin(((Runway * 10) + 90) * ($math_PI div 180)))"></xsl:value-of></xsl:attribute>
+                                                        <xsl:attribute name="x2"><xsl:value-of select="$pointX + floor(19 * math:cos(((Runway * 10) - 90) * ($math_PI div 180)))"></xsl:value-of></xsl:attribute>
+                                                        <xsl:attribute name="y2"><xsl:value-of select="$pointY - floor(19 * math:sin(((Runway * 10) + 90) * ($math_PI div 180)))"></xsl:value-of></xsl:attribute>
                                                         <xsl:attribute name="stroke">white</xsl:attribute>
                                                         <xsl:attribute name="stroke-width">2</xsl:attribute>
                                                    </line>

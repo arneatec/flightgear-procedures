@@ -53,6 +53,10 @@
         <RunwayDirection>
             089
         </RunwayDirection>
+        <TakeOffFlyRunwayHeadingDistance>
+            <!-- note this is approximate and in the local coordinate system [1-1000] -->
+            60
+        </TakeOffFlyRunwayHeadingDistance>
         <Includes>
             <SID_ID>DEDIN 2S</SID_ID>
             <SID_ID>DILVO 2S</SID_ID>

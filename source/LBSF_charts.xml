@@ -46,6 +46,10 @@
         <Chart_Type>RNAV</Chart_Type>
         <Chart_Object>RNW</Chart_Object>
         <Chart_Object_ID>09</Chart_Object_ID>
+        <RunwayThreshold>
+            <Latitude>42.695106</Latitude>
+            <Longitude>23.439722</Longitude>
+        </RunwayThreshold>
         <Includes>
             <SID_ID>DEDIN 2S</SID_ID>
             <SID_ID>DILVO 2S</SID_ID>

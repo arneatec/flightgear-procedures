@@ -74,6 +74,28 @@
                             <div class="card border-dark">
                                 <div class="card-body  p-0 m-0">
                                     <svg width="1000" height="1000" xmlns="http://www.w3.org/2000/svg">
+                                        <!-- SID -->
+                                        <xsl:for-each select="/Airport/Chart/SID_Page/SID_Core">
+                                            <!-- each SID starts with the runway threshold -->
+                                            <polyline>
+                                                <xsl:attribute name="fill">none</xsl:attribute>
+                                                <xsl:attribute name="stroke">green</xsl:attribute>
+                                                <xsl:attribute name="points">
+                                                    <xsl:variable name="pointX"><xsl:value-of select="floor((/Airport/Chart/RunwayThreshold/Longitude * (3.1415926534 div 180) * 6378137) div //Airport/Chart/Zoom) + //Airport/Chart/Offset_X"/></xsl:variable>
+                                                    <xsl:variable name="pointY"><xsl:value-of select="1000-floor((math:log(math:tan(/Airport/Chart/RunwayThreshold/Latitude * (3.1415926534 div 180) div 2 + 3.1415926534 div 4)) * 6378137) div (//Airport/Chart/Zoom)) + //Airport/Chart/Offset_Y"/></xsl:variable>
+                                                    <xsl:value-of select="$pointX"/>,<xsl:value-of select="$pointY"/><xsl:text> </xsl:text>
+                                                    <xsl:for-each select="Waypoints/Waypoint[not(WPTID='-')]">
+                                                        <!-- lookup in waypoints -->
+                                                        <xsl:variable name="pointX"><xsl:value-of select="floor(($waypoints/Waypoins/Waypoint[ID=current()/WPTID]/Longitude * (3.1415926534 div 180) * 6378137) div //Airport/Chart/Zoom) + //Airport/Chart/Offset_X"/></xsl:variable>
+                                                        <xsl:variable name="pointY"><xsl:value-of select="1000-floor((math:log(math:tan($waypoints/Waypoins/Waypoint[ID=current()/WPTID]/Latitude * (3.1415926534 div 180) div 2 + 3.1415926534 div 4)) * 6378137) div (//Airport/Chart/Zoom)) + //Airport/Chart/Offset_Y"/></xsl:variable>
+                                                        <xsl:value-of select="$pointX"/>,<xsl:value-of select="$pointY"/><xsl:text> </xsl:text>
+                                                    </xsl:for-each>
+                                                </xsl:attribute>
+                                            </polyline>
+                                        </xsl:for-each>
+
+
+
                                         <!-- map lines -->
                                         <xsl:for-each select="$maplines/MapLines/MapLine">
                                             <xsl:variable name="pointX1"><xsl:value-of select="floor((Longitude_Start * (3.1415926534 div 180) * 6378137) div //Airport/Chart/Zoom) + //Airport/Chart/Offset_X"/></xsl:variable>

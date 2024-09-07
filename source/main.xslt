@@ -3,8 +3,11 @@
                 xmlns:xls="http://www.w3.org/1999/XSL/Transform"
                 extension-element-prefixes="math">
     <xsl:variable name="svg_size" select="1000"/>
+    <xsl:variable name="geo_nm_in_km" select="1.852"/>
     <xsl:variable name="math_PI" select="3.14159265"/>
     <xsl:variable name="web_mercator_earth_radius" select="6378137" />
+    <xsl:variable name="geo_magnetic_variation" select="/Airport/Chart/MagneticVariation"/>
+
     <xsl:variable name="waypoints" select="document('LBSF_waypoints.xml')"/>
     <xsl:variable name="maplines" select="document('map_lines.xml')"/>
     <xsl:template match="/">
@@ -119,25 +122,28 @@
                                             <xsl:for-each select="Waypoints/Waypoint[not(Track='-') and not(WPTID='-')]">
                                                 <xsl:variable name="pointX"><xsl:value-of select="floor(($waypoints/Waypoins/Waypoint[ID=current()/WPTID]/Longitude * ($math_PI div 180) * $web_mercator_earth_radius) div //Airport/Chart/Zoom) + //Airport/Chart/Offset_X"/></xsl:variable>
                                                 <xsl:variable name="pointY"><xsl:value-of select="$svg_size - floor((math:log(math:tan($waypoints/Waypoins/Waypoint[ID=current()/WPTID]/Latitude * ($math_PI div 180) div 2 + $math_PI div 4)) * $web_mercator_earth_radius) div (//Airport/Chart/Zoom)) + //Airport/Chart/Offset_Y"/></xsl:variable>
-
-                                                <xsl:variable name="precedingpointX"><xsl:value-of select="floor(($waypoints/Waypoins/Waypoint[ID=current()/preceding-sibling::Waypoint/WPTID]/Longitude * ($math_PI div 180) * $web_mercator_earth_radius) div //Airport/Chart/Zoom) + //Airport/Chart/Offset_X"/></xsl:variable>
-                                                <xsl:variable name="precedingpointY"><xsl:value-of select="$svg_size - floor((math:log(math:tan($waypoints/Waypoins/Waypoint[ID=current()/preceding-sibling::Waypoint/WPTID]/Latitude * ($math_PI div 180) div 2 + $math_PI div 4)) * $web_mercator_earth_radius) div (//Airport/Chart/Zoom)) + //Airport/Chart/Offset_Y"/></xsl:variable>
-
-                                                <xsl:variable name="correctedX"><xsl:value-of select="$pointX + (($precedingpointX - $pointX) div 2)"/></xsl:variable>
-                                                <xsl:variable name="correctedY"><xsl:value-of select="$pointY + (($precedingpointY - $pointY) div 2)"/></xsl:variable>
-                                                <circle>
-                                                    <xsl:attribute name="cx"><xsl:value-of select="$correctedX"/></xsl:attribute>
-                                                    <xsl:attribute name="cy"><xsl:value-of select="$correctedY"/></xsl:attribute>
-                                                    <xsl:attribute name="r">15</xsl:attribute>
+                                                <xsl:variable name="geo_track"><xsl:value-of select="substring-before(substring-after(Track, '('),'°')"/></xsl:variable>
+                                                <xsl:variable name="oneX"><xsl:value-of select="$pointX - floor(DIST * $geo_nm_in_km * 100000 * (/Airport/Chart/Zoom div $web_mercator_earth_radius ) * math:cos((($geo_track - 90 ) * ($math_PI div 180))))"/></xsl:variable>
+                                                <xsl:variable name="oneY"><xsl:value-of select="$pointY + floor(DIST * $geo_nm_in_km * 100000 * ( /Airport/Chart/Zoom div $web_mercator_earth_radius ) * math:sin((($geo_track + 90 ) * ($math_PI div 180))))"/></xsl:variable>
+                                                 <circle>
+                                                    <xsl:attribute name="cx"><xsl:value-of select="$oneX"/></xsl:attribute>
+                                                    <xsl:attribute name="cy"><xsl:value-of select="$oneY"/></xsl:attribute>
+                                                    <xsl:attribute name="r">25</xsl:attribute>
                                                     <xsl:attribute name="fill">white</xsl:attribute>
                                                     <xsl:attribute name="stroke">none</xsl:attribute>
                                                 </circle>
                                                 <text>
                                                     <xsl:attribute name="text-anchor">middle</xsl:attribute>
                                                     <xsl:attribute name="alignment-baseline">middle</xsl:attribute>
-                                                    <xsl:attribute name="transform">translate(<xsl:value-of select="$correctedX"/>, <xsl:value-of select="$correctedY"/>) rotate(<xsl:value-of select="substring-before(Track,'°') -  90"/>)</xsl:attribute>
+                                                    <xsl:attribute name="transform">translate(<xsl:value-of select="$oneX"/>, <xsl:value-of select="$oneY"/>) rotate(<xsl:value-of select="substring-before(Track,'°') -  90"/>)</xsl:attribute>
                                                     <xsl:attribute name="fill">green</xsl:attribute>
+                                                    <xsl:if test="$oneX &lt; ($svg_size div 2)">
+                                                        <xsl:text>&lt;</xsl:text>
+                                                    </xsl:if>
                                                     <xsl:value-of select="substring-before(Track,'(')"/>
+                                                    <xsl:if test="not($oneX &lt; ($svg_size div 2))">
+                                                        <xsl:text>&gt;</xsl:text>
+                                                    </xsl:if>
                                                  </text>
                                             </xsl:for-each>
                                         </xsl:for-each>

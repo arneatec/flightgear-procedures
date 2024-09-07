@@ -119,31 +119,23 @@
                                             <xsl:for-each select="Waypoints/Waypoint[not(Track='-') and not(WPTID='-')]">
                                                 <xsl:variable name="pointX"><xsl:value-of select="floor(($waypoints/Waypoins/Waypoint[ID=current()/WPTID]/Longitude * ($math_PI div 180) * $web_mercator_earth_radius) div //Airport/Chart/Zoom) + //Airport/Chart/Offset_X"/></xsl:variable>
                                                 <xsl:variable name="pointY"><xsl:value-of select="$svg_size - floor((math:log(math:tan($waypoints/Waypoins/Waypoint[ID=current()/WPTID]/Latitude * ($math_PI div 180) div 2 + $math_PI div 4)) * $web_mercator_earth_radius) div (//Airport/Chart/Zoom)) + //Airport/Chart/Offset_Y"/></xsl:variable>
-                                                <xsl:variable name="protocorrectionY">
-                                                    <xsl:choose>
-                                                       <xsl:when test="$pointY &lt; 500">
-                                                            <xsl:value-of select="floor(DIST * 1.852 * 2.5)"/>
-                                                       </xsl:when>
-                                                        <xsl:otherwise>
-                                                            <xsl:value-of select="floor(DIST * 1.852 * 2.5) * -1"/>
-                                                        </xsl:otherwise>
-                                                    </xsl:choose>
-                                                </xsl:variable>
-                                                <xsl:variable name="protocorrectionX">
-                                                    <xsl:choose>
-                                                       <xsl:when test="$pointX &lt; 500">
-                                                            <xsl:value-of select="floor(DIST * 1.852 * 2.5)"/>
-                                                       </xsl:when>
-                                                        <xsl:otherwise>
-                                                            <xsl:value-of select="floor(DIST * 1.852 * 2.5) * -1"/>
-                                                        </xsl:otherwise>
-                                                    </xsl:choose>
-                                                </xsl:variable>
-                                                        <lee><xsl:value-of select="$protocorrectionX"/> </lee>
+
+                                                <xsl:variable name="precedingpointX"><xsl:value-of select="floor(($waypoints/Waypoins/Waypoint[ID=current()/preceding-sibling::Waypoint/WPTID]/Longitude * ($math_PI div 180) * $web_mercator_earth_radius) div //Airport/Chart/Zoom) + //Airport/Chart/Offset_X"/></xsl:variable>
+                                                <xsl:variable name="precedingpointY"><xsl:value-of select="$svg_size - floor((math:log(math:tan($waypoints/Waypoins/Waypoint[ID=current()/preceding-sibling::Waypoint/WPTID]/Latitude * ($math_PI div 180) div 2 + $math_PI div 4)) * $web_mercator_earth_radius) div (//Airport/Chart/Zoom)) + //Airport/Chart/Offset_Y"/></xsl:variable>
+
+                                                <xsl:variable name="correctedX"><xsl:value-of select="$pointX + (($precedingpointX - $pointX) div 2)"/></xsl:variable>
+                                                <xsl:variable name="correctedY"><xsl:value-of select="$pointY + (($precedingpointY - $pointY) div 2)"/></xsl:variable>
+                                                <circle>
+                                                    <xsl:attribute name="cx"><xsl:value-of select="$correctedX"/></xsl:attribute>
+                                                    <xsl:attribute name="cy"><xsl:value-of select="$correctedY"/></xsl:attribute>
+                                                    <xsl:attribute name="r">15</xsl:attribute>
+                                                    <xsl:attribute name="fill">white</xsl:attribute>
+                                                    <xsl:attribute name="stroke">none</xsl:attribute>
+                                                </circle>
                                                 <text>
                                                     <xsl:attribute name="text-anchor">middle</xsl:attribute>
                                                     <xsl:attribute name="alignment-baseline">middle</xsl:attribute>
-                                                    <xsl:attribute name="transform">translate(<xsl:value-of select="$pointX + $protocorrectionX"/>, <xsl:value-of select="$pointY + $protocorrectionY"/>) rotate(<xsl:value-of select="substring-before(Track,'°') -  90"/>)</xsl:attribute>
+                                                    <xsl:attribute name="transform">translate(<xsl:value-of select="$correctedX"/>, <xsl:value-of select="$correctedY"/>) rotate(<xsl:value-of select="substring-before(Track,'°') -  90"/>)</xsl:attribute>
                                                     <xsl:attribute name="fill">green</xsl:attribute>
                                                     <xsl:value-of select="substring-before(Track,'(')"/>
                                                  </text>

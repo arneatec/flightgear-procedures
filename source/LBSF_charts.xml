@@ -53,6 +53,10 @@
         <RunwayDirection>
             089
         </RunwayDirection>
+        <RunwayLenght>
+            <!-- note this is approximate and in the local coordinate system [1-1000] -->
+            19
+        </RunwayLenght>
         <TakeOffFlyRunwayHeadingDistance>
             <!-- note this is approximate and in the local coordinate system [1-1000] -->
             60

@@ -83,7 +83,8 @@
                                             <!-- each SID starts with the runway threshold -->
                                             <path>
                                                 <xsl:attribute name="fill">none</xsl:attribute>
-                                                <xsl:attribute name="stroke">green</xsl:attribute>
+                                                <xsl:attribute name="stroke">black</xsl:attribute>
+                                                <xsl:attribute name="stroke-width">2</xsl:attribute>
                                                 <xsl:attribute name="d">
                                                     <!-- runway termination coordinates -->
                                                     <xsl:variable name="startX"><xsl:value-of select="floor((/Airport/Chart/RunwayThreshold/Longitude * ($math_PI div 180) * $web_mercator_earth_radius) div //Airport/Chart/Zoom) + //Airport/Chart/Offset_X"/></xsl:variable>
@@ -112,11 +113,44 @@
                                                         <xsl:variable name="pointY"><xsl:value-of select="$svg_size - floor((math:log(math:tan($waypoints/Waypoins/Waypoint[ID=current()/WPTID]/Latitude * ($math_PI div 180) div 2 + $math_PI div 4)) * $web_mercator_earth_radius) div (//Airport/Chart/Zoom)) + //Airport/Chart/Offset_Y"/></xsl:variable>
                                                         L <xsl:value-of select="$pointX"/><xsl:text> </xsl:text><xsl:value-of select="$pointY"/><xsl:text> </xsl:text>
                                                     </xsl:for-each>
-
                                                 </xsl:attribute>
                                             </path>
+                                                                                    <!-- sid track -->
+                                            <xsl:for-each select="Waypoints/Waypoint[not(Track='-') and not(WPTID='-')]">
+                                                <xsl:variable name="pointX"><xsl:value-of select="floor(($waypoints/Waypoins/Waypoint[ID=current()/WPTID]/Longitude * ($math_PI div 180) * $web_mercator_earth_radius) div //Airport/Chart/Zoom) + //Airport/Chart/Offset_X"/></xsl:variable>
+                                                <xsl:variable name="pointY"><xsl:value-of select="$svg_size - floor((math:log(math:tan($waypoints/Waypoins/Waypoint[ID=current()/WPTID]/Latitude * ($math_PI div 180) div 2 + $math_PI div 4)) * $web_mercator_earth_radius) div (//Airport/Chart/Zoom)) + //Airport/Chart/Offset_Y"/></xsl:variable>
+                                                <xsl:variable name="protocorrectionY">
+                                                    <xsl:choose>
+                                                       <xsl:when test="$pointY &lt; 500">
+                                                            <xsl:value-of select="floor(DIST * 1.852 * 2.5)"/>
+                                                       </xsl:when>
+                                                        <xsl:otherwise>
+                                                            <xsl:value-of select="floor(DIST * 1.852 * 2.5) * -1"/>
+                                                        </xsl:otherwise>
+                                                    </xsl:choose>
+                                                </xsl:variable>
+                                                <xsl:variable name="protocorrectionX">
+                                                    <xsl:choose>
+                                                       <xsl:when test="$pointX &lt; 500">
+                                                            <xsl:value-of select="floor(DIST * 1.852 * 2.5)"/>
+                                                       </xsl:when>
+                                                        <xsl:otherwise>
+                                                            <xsl:value-of select="floor(DIST * 1.852 * 2.5) * -1"/>
+                                                        </xsl:otherwise>
+                                                    </xsl:choose>
+                                                </xsl:variable>
+                                                        <lee><xsl:value-of select="$protocorrectionX"/> </lee>
+                                                <text>
+                                                    <xsl:attribute name="text-anchor">middle</xsl:attribute>
+                                                    <xsl:attribute name="alignment-baseline">middle</xsl:attribute>
+                                                    <xsl:attribute name="transform">translate(<xsl:value-of select="$pointX + $protocorrectionX"/>, <xsl:value-of select="$pointY + $protocorrectionY"/>) rotate(<xsl:value-of select="substring-before(Track,'°') -  90"/>)</xsl:attribute>
+                                                    <xsl:attribute name="fill">green</xsl:attribute>
+                                                    <xsl:value-of select="substring-before(Track,'(')"/>
+                                                 </text>
+                                            </xsl:for-each>
                                         </xsl:for-each>
-                                        <!-- map lines -->
+
+                            <!-- map lines -->
                                         <xsl:for-each select="$maplines/MapLines/MapLine">
                                             <xsl:variable name="pointX1"><xsl:value-of select="floor((Longitude_Start * ($math_PI div 180) * $web_mercator_earth_radius) div //Airport/Chart/Zoom) + //Airport/Chart/Offset_X"/></xsl:variable>
                                             <xsl:variable name="pointY1"><xsl:value-of select="$svg_size - floor((math:log(math:tan(Latitude_Start * ($math_PI div 180) div 2 + $math_PI div 4)) * $web_mercator_earth_radius) div (//Airport/Chart/Zoom)) + //Airport/Chart/Offset_Y"/></xsl:variable>
@@ -272,10 +306,10 @@
                                                         <xsl:attribute name="stroke">gray</xsl:attribute>
                                                     </polygon>
                                                    <line>
-                                                        <xsl:attribute name="x1"><xsl:value-of select="$pointX - floor(19 * math:cos(((Runway * 10) - 90) * ($math_PI div 180)))"/></xsl:attribute>
-                                                        <xsl:attribute name="y1"><xsl:value-of select="$pointY + floor(19 * math:sin(((Runway * 10) + 90) * ($math_PI div 180)))"/></xsl:attribute>
-                                                        <xsl:attribute name="x2"><xsl:value-of select="$pointX + floor(19 * math:cos(((Runway * 10) - 90) * ($math_PI div 180)))"/></xsl:attribute>
-                                                        <xsl:attribute name="y2"><xsl:value-of select="$pointY - floor(19 * math:sin(((Runway * 10) + 90) * ($math_PI div 180)))"/></xsl:attribute>
+                                                        <xsl:attribute name="x1"><xsl:value-of select="$pointX - floor(RunwayLenght * math:cos((RunwayDirection - 90) * ($math_PI div 180)))"/></xsl:attribute>
+                                                        <xsl:attribute name="y1"><xsl:value-of select="$pointY + floor(RunwayLenght * math:sin((RunwayDirection + 90) * ($math_PI div 180)))"/></xsl:attribute>
+                                                        <xsl:attribute name="x2"><xsl:value-of select="$pointX + floor(RunwayLenght * math:cos((RunwayDirection - 90) * ($math_PI div 180)))"/></xsl:attribute>
+                                                        <xsl:attribute name="y2"><xsl:value-of select="$pointY - floor(RunwayLenght * math:sin((RunwayDirection + 90) * ($math_PI div 180)))"/></xsl:attribute>
                                                         <xsl:attribute name="stroke">white</xsl:attribute>
                                                         <xsl:attribute name="stroke-width">2</xsl:attribute>
                                                    </line>

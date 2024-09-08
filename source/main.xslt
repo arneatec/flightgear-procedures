@@ -83,8 +83,11 @@
 
                                         <!-- SID -->
                                         <xsl:for-each select="/Airport/Chart/SID_Page/SID_Core">
-                                            <!-- each SID starts with the runway threshold -->
+                                            <!-- map center -->
+                                            <!--
                                             <circle cx="500" cy="500" r="5" fill="red"/>
+                                            -->
+                                            <!-- each SID starts with the runway threshold -->
                                             <path>
                                                 <xsl:attribute name="fill">none</xsl:attribute>
                                                 <xsl:attribute name="stroke">black</xsl:attribute>
@@ -119,7 +122,7 @@
                                                     </xsl:for-each>
                                                 </xsl:attribute>
                                             </path>
-                                                                                    <!-- sid track -->
+                                            <!-- sid track -->
                                             <xsl:for-each select="Waypoints/Waypoint[not(Track='-') and not(WPTID='-')]">
                                                 <xsl:variable name="pointX"><xsl:value-of select="floor(($waypoints/Waypoins/Waypoint[ID=current()/WPTID]/Longitude * ($math_PI div 180) * $web_mercator_earth_radius) div //Airport/Chart/Zoom) + //Airport/Chart/Offset_X"/></xsl:variable>
                                                 <xsl:variable name="pointY"><xsl:value-of select="$svg_size - floor((math:log(math:tan($waypoints/Waypoins/Waypoint[ID=current()/WPTID]/Latitude * ($math_PI div 180) div 2 + $math_PI div 4)) * $web_mercator_earth_radius) div (//Airport/Chart/Zoom)) + //Airport/Chart/Offset_Y"/></xsl:variable>
@@ -140,7 +143,7 @@
                                                     <xsl:attribute name="cx"><xsl:value-of select="$oneX"/></xsl:attribute>
                                                     <xsl:attribute name="cy"><xsl:value-of select="$oneY"/></xsl:attribute>
                                                     <xsl:attribute name="r">24</xsl:attribute>
-                                                    <xsl:attribute name="fill">pink</xsl:attribute>
+                                                    <xsl:attribute name="fill">white</xsl:attribute>
                                                     <xsl:attribute name="stroke">none</xsl:attribute>
                                                 </circle>
                                                 <text>
@@ -157,7 +160,7 @@
                                                         </xsl:choose>
 
                                                         )</xsl:attribute>
-                                                    <xsl:attribute name="fill">green</xsl:attribute>
+                                                    <xsl:attribute name="fill">black</xsl:attribute>
                                                     <xsl:if test="$oneX &lt; ($svg_size div 2)">
                                                         <xsl:text>&lt;</xsl:text>
                                                     </xsl:if>
@@ -181,7 +184,7 @@
                                                         </xsl:choose>
 
                                                         )</xsl:attribute>
-                                                    <xsl:attribute name="fill">green</xsl:attribute>
+                                                    <xsl:attribute name="fill">black</xsl:attribute>
                                                     <xsl:value-of select="DIST"/>
                                                  </text>
                                             </xsl:for-each>

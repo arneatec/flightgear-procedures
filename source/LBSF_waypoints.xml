@@ -29,6 +29,10 @@
         <Type>WPT-OR-FB</Type>
         <Latitude>42.814556</Latitude>
         <Longitude>23.853250</Longitude>
+        <CaptionOffset>
+            <X>-20</X>
+            <Y>-20</Y>
+        </CaptionOffset>
     </Waypoint>
     <Waypoint>
         <ID>SF504</ID>
@@ -41,12 +45,20 @@
         <Type>WPT-OR-FB</Type>
         <Latitude>42.667944</Latitude>
         <Longitude>23.876389</Longitude>
+        <CaptionOffset>
+            <X>-30</X>
+            <Y>-20</Y>
+        </CaptionOffset>
     </Waypoint>
     <Waypoint>
         <ID>SF506</ID>
         <Type>WPT-OR-FB</Type>
         <Latitude>42.504583</Latitude>
         <Longitude>23.814944</Longitude>
+        <CaptionOffset>
+            <X>0</X>
+            <Y>-20</Y>
+        </CaptionOffset>
     </Waypoint>
     <Waypoint>
         <ID>SF507</ID>

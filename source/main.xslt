@@ -125,6 +125,9 @@
                                                 <xsl:variable name="geo_track"><xsl:value-of select="substring-before(substring-after(Track, '('),'°')"/></xsl:variable>
                                                 <xsl:variable name="oneX"><xsl:value-of select="$pointX - floor(DIST * $geo_nm_in_km * 100000 * (/Airport/Chart/Zoom div $web_mercator_earth_radius ) * math:cos((($geo_track - 90 ) * ($math_PI div 180))))"/></xsl:variable>
                                                 <xsl:variable name="oneY"><xsl:value-of select="$pointY + floor(DIST * $geo_nm_in_km * 100000 * ( /Airport/Chart/Zoom div $web_mercator_earth_radius ) * math:sin((($geo_track + 90 ) * ($math_PI div 180))))"/></xsl:variable>
+                                                <xsl:variable name="distanceX"><xsl:value-of select="$pointX - floor((DIST) * $geo_nm_in_km * 100000 * (/Airport/Chart/Zoom div $web_mercator_earth_radius ) * math:cos((($geo_track - 90  - 12) * ($math_PI div 180))))"/></xsl:variable>
+                                                <xsl:variable name="distanceY"><xsl:value-of select="$pointY + floor((DIST) * $geo_nm_in_km * 100000 * ( /Airport/Chart/Zoom div $web_mercator_earth_radius ) * math:sin((($geo_track + 90 - 12 ) * ($math_PI div 180))))"/></xsl:variable>
+
                                                 <xsl:variable name="text-rotate"><xsl:value-of select="substring-before(Track,'°')"/></xsl:variable>
                                                  <circle>
                                                     <xsl:attribute name="cx"><xsl:value-of select="$oneX"/></xsl:attribute>
@@ -155,6 +158,24 @@
                                                     <xsl:if test="not($oneX &lt; ($svg_size div 2))">
                                                         <xsl:text>&gt;</xsl:text>
                                                     </xsl:if>
+                                                 </text>
+                                                <!-- distance -->
+                                                <text>
+                                                    <xsl:attribute name="text-anchor">middle</xsl:attribute>
+                                                    <xsl:attribute name="alignment-baseline">middle</xsl:attribute>
+                                                    <xsl:attribute name="transform">translate(<xsl:value-of select="$distanceX"/>, <xsl:value-of select="$distanceY"/>) rotate(
+                                                        <xsl:choose>
+                                                            <xsl:when test="$text-rotate > 180">
+                                                                <xsl:value-of select="substring-before(Track,'°') -  90 - 180"/>
+                                                            </xsl:when>
+                                                            <xsl:otherwise>
+                                                                <xsl:value-of select="substring-before(Track,'°') -  90"/>
+                                                            </xsl:otherwise>
+                                                        </xsl:choose>
+
+                                                        )</xsl:attribute>
+                                                    <xsl:attribute name="fill">green</xsl:attribute>
+                                                    <xsl:value-of select="DIST"/>
                                                  </text>
                                             </xsl:for-each>
                                         </xsl:for-each>

@@ -84,6 +84,7 @@
                                         <!-- SID -->
                                         <xsl:for-each select="/Airport/Chart/SID_Page/SID_Core">
                                             <!-- each SID starts with the runway threshold -->
+                                            <circle cx="500" cy="500" r="5" fill="red"/>
                                             <path>
                                                 <xsl:attribute name="fill">none</xsl:attribute>
                                                 <xsl:attribute name="stroke">black</xsl:attribute>
@@ -123,17 +124,23 @@
                                                 <xsl:variable name="pointX"><xsl:value-of select="floor(($waypoints/Waypoins/Waypoint[ID=current()/WPTID]/Longitude * ($math_PI div 180) * $web_mercator_earth_radius) div //Airport/Chart/Zoom) + //Airport/Chart/Offset_X"/></xsl:variable>
                                                 <xsl:variable name="pointY"><xsl:value-of select="$svg_size - floor((math:log(math:tan($waypoints/Waypoins/Waypoint[ID=current()/WPTID]/Latitude * ($math_PI div 180) div 2 + $math_PI div 4)) * $web_mercator_earth_radius) div (//Airport/Chart/Zoom)) + //Airport/Chart/Offset_Y"/></xsl:variable>
                                                 <xsl:variable name="geo_track"><xsl:value-of select="substring-before(substring-after(Track, '('),'°')"/></xsl:variable>
-                                                <xsl:variable name="oneX"><xsl:value-of select="$pointX - floor(DIST * $geo_nm_in_km * 100000 * (/Airport/Chart/Zoom div $web_mercator_earth_radius ) * math:cos((($geo_track - 90 ) * ($math_PI div 180))))"/></xsl:variable>
-                                                <xsl:variable name="oneY"><xsl:value-of select="$pointY + floor(DIST * $geo_nm_in_km * 100000 * ( /Airport/Chart/Zoom div $web_mercator_earth_radius ) * math:sin((($geo_track + 90 ) * ($math_PI div 180))))"/></xsl:variable>
-                                                <xsl:variable name="distanceX"><xsl:value-of select="$pointX - floor((DIST) * $geo_nm_in_km * 100000 * (/Airport/Chart/Zoom div $web_mercator_earth_radius ) * math:cos((($geo_track - 90  - 12) * ($math_PI div 180))))"/></xsl:variable>
-                                                <xsl:variable name="distanceY"><xsl:value-of select="$pointY + floor((DIST) * $geo_nm_in_km * 100000 * ( /Airport/Chart/Zoom div $web_mercator_earth_radius ) * math:sin((($geo_track + 90 - 12 ) * ($math_PI div 180))))"/></xsl:variable>
+                                                <xsl:variable name="oneX">
+                                                    <xsl:value-of select="$pointX - floor((DIST div 1.5 * $geo_nm_in_km * 1000 div (/Airport/Chart/Zoom)) * math:cos((($geo_track - 90 ) * ($math_PI div 180))))"/>
+                                                </xsl:variable>
+                                                <xsl:variable name="oneY">
+                                                    <xsl:value-of select="$pointY  + floor((DIST div 1.5 * $geo_nm_in_km * 1000 div ( /Airport/Chart/Zoom)) * math:sin((($geo_track + 90 ) * ($math_PI div 180))))"/></xsl:variable>
+                                                <xsl:variable name="distanceX">
+                                                    <xsl:value-of select="$pointX - floor((DIST div 1.5 * $geo_nm_in_km * 1000 div (/Airport/Chart/Zoom)) * math:cos((($geo_track - 90 - 12) * ($math_PI div 180))))"/></xsl:variable>
+                                                <xsl:variable name="distanceY">
+                                                    <xsl:value-of select="$pointY  + floor((DIST div 1.5 * $geo_nm_in_km * 1000 div ( /Airport/Chart/Zoom)) * math:sin((($geo_track + 90 - 12 ) * ($math_PI div 180))))"/></xsl:variable>
 
-                                                <xsl:variable name="text-rotate"><xsl:value-of select="substring-before(Track,'°')"/></xsl:variable>
+
+                                                <xsl:variable name="text-rotate"><xsl:value-of select="$geo_track"/></xsl:variable>
                                                  <circle>
                                                     <xsl:attribute name="cx"><xsl:value-of select="$oneX"/></xsl:attribute>
                                                     <xsl:attribute name="cy"><xsl:value-of select="$oneY"/></xsl:attribute>
-                                                    <xsl:attribute name="r">22</xsl:attribute>
-                                                    <xsl:attribute name="fill">white</xsl:attribute>
+                                                    <xsl:attribute name="r">24</xsl:attribute>
+                                                    <xsl:attribute name="fill">pink</xsl:attribute>
                                                     <xsl:attribute name="stroke">none</xsl:attribute>
                                                 </circle>
                                                 <text>
@@ -142,10 +149,10 @@
                                                     <xsl:attribute name="transform">translate(<xsl:value-of select="$oneX"/>, <xsl:value-of select="$oneY"/>) rotate(
                                                         <xsl:choose>
                                                             <xsl:when test="$text-rotate > 180">
-                                                                <xsl:value-of select="substring-before(Track,'°') -  90 - 180"/>
+                                                                <xsl:value-of select="$geo_track - 90 - 180"/>
                                                             </xsl:when>
                                                             <xsl:otherwise>
-                                                                <xsl:value-of select="substring-before(Track,'°') -  90"/>
+                                                                <xsl:value-of select="$geo_track  -  90"/>
                                                             </xsl:otherwise>
                                                         </xsl:choose>
 
@@ -166,10 +173,10 @@
                                                     <xsl:attribute name="transform">translate(<xsl:value-of select="$distanceX"/>, <xsl:value-of select="$distanceY"/>) rotate(
                                                         <xsl:choose>
                                                             <xsl:when test="$text-rotate > 180">
-                                                                <xsl:value-of select="substring-before(Track,'°') -  90 - 180"/>
+                                                                <xsl:value-of select="$geo_track  -  90 - 180"/>
                                                             </xsl:when>
                                                             <xsl:otherwise>
-                                                                <xsl:value-of select="substring-before(Track,'°') -  90"/>
+                                                                <xsl:value-of select="$geo_track -  90"/>
                                                             </xsl:otherwise>
                                                         </xsl:choose>
 

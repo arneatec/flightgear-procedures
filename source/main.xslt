@@ -353,7 +353,7 @@
                                                         <xsl:attribute name="y1"><xsl:value-of select="$pointY + floor((/Airport/Chart/RunwayLenght  div $map_zoom )  * math:sin((/Airport/Chart/RunwayDirection - 90) * ($math_PI div 180)))"/></xsl:attribute>
                                                         <xsl:attribute name="x2"><xsl:value-of select="$pointX + floor((/Airport/Chart/RunwayLenght  div $map_zoom )  * math:cos((/Airport/Chart/RunwayDirection + 90) * ($math_PI div 180)))"/></xsl:attribute>
                                                         <xsl:attribute name="y2"><xsl:value-of select="$pointY - floor((/Airport/Chart/RunwayLenght  div $map_zoom )  * math:sin((/Airport/Chart/RunwayDirection - 90) * ($math_PI div 180)))"/></xsl:attribute>
-                                                        <xsl:attribute name="stroke">pink</xsl:attribute>
+                                                        <xsl:attribute name="stroke">white</xsl:attribute>
                                                         <xsl:attribute name="stroke-width">2</xsl:attribute>
                                                    </line>
                                                 </xsl:when>

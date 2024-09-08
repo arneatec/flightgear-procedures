@@ -190,24 +190,20 @@
                 <Y>2</Y>
             </PolygonPoint>
             <PolygonPoint>
-                <X>25</X>
-                <Y>1</Y>
+                <X>20</X>
+                <Y>2</Y>
             </PolygonPoint>
             <PolygonPoint>
-                <X>24</X>
-                <Y>-2</Y>
-            </PolygonPoint>
-            <PolygonPoint>
-                <X>-11</X>
-                <Y>-2</Y>
-            </PolygonPoint>
-                <PolygonPoint>
-                <X>-22</X>
+                <X>20</X>
                 <Y>-1</Y>
             </PolygonPoint>
             <PolygonPoint>
-                <X>-22</X>
-                <Y>2</Y>
+                <X>-20</X>
+                <Y>-3</Y>
+            </PolygonPoint>
+            <PolygonPoint>
+                <X>-20</X>
+                <Y>1</Y>
             </PolygonPoint>
             <PolygonPoint>
                 <X>-15</X>

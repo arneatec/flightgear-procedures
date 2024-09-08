@@ -1,482 +1,457 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:math="http://exslt.org/math"
-                xmlns:xls="http://www.w3.org/1999/XSL/Transform"
-                extension-element-prefixes="math">
-    <xsl:variable name="svg_size" select="1000"/>
-    <xsl:variable name="geo_nm_in_km" select="1.852"/>
-    <xsl:variable name="math_PI" select="3.14159265"/>
-    <xsl:variable name="web_mercator_earth_radius" select="6378137" />
-    <xsl:variable name="geo_magnetic_variation" select="/Airport/Chart/MagneticVariation"/>
-
-    <xsl:variable name="waypoints" select="document('LBSF_waypoints.xml')"/>
-    <xsl:variable name="maplines" select="document('map_lines.xml')"/>
-    <xsl:template match="/">
-        <html>
-            <head>
-                <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"/>
-            </head>
-            <body>
-                <div class="container">
+<html>
+    <head>
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col-6">AIP ПЪРВО БЪЛГАРСКО ЦАРСТВО</div>
+                <div class="col-6 text-right font-weight-bold">LBSF AD 2 - 53.1</div>
+            </div>
+            <div class="row">
+                <div class="col-6">AIP FIRST BULGARIAN KINGDOM</div>
+                <div class="col-6 text-right font-weight-bold">25 JAN 24</div>
+            </div>
+            <div class="row">
+                <div class="card border-dark">
+                    <div class="card-body">
                         <div class="row">
-                            <div class="col-6">
-                                <xsl:value-of select="/Airport/Chart/Publisher_Local"/>
-                            </div>
-                            <div class="col-6 text-right font-weight-bold">
-                                <xsl:value-of select="/Airport/Chart/ID"/>
-                            </div>
+                            <div class="col-12 text-right font-weight-bold">SOFIA</div>
                         </div>
                         <div class="row">
-                            <div class="col-6">
-                                <xsl:value-of select="/Airport/Chart/Publisher"/>
-                            </div>
-                            <div class="col-6 text-right font-weight-bold">
-                                <xsl:value-of select="/Airport/Chart/Published_On"/>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="card border-dark">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-12 text-right font-weight-bold"><xsl:value-of select="/Airport/Chart/Airport_Location"/></div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-3 font-weight-bold"><xsl:value-of select="/Airport/Chart/Name"/></div>
-                                        <div class="col-3">
-                                            <div class="row">
-                                                <div class="col-12">
-                                                    TRANSITION ALT <xsl:value-of select="/Airport/Chart/Transition_Altitude_ft"/> FT
+                            <div class="col-3 font-weight-bold">STANDARD DEPARTURE CHART - INSTRUMENT (SID) - ICAO</div>
+                            <div class="col-3">
+                                <div class="row">
+                                    <div class="col-12">
+                                                    TRANSITION ALT 10500 FT
                                                 </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-12">
-                                                    TRANSITION LEVEL <xsl:value-of select="/Airport/Chart/Transition_Level"/>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <xsl:for-each select="/Airport/Chart/Radio_Role">
-                                            <div class="col-1 text-right">
-                                                <span class="text-left">
-                                                <xsl:value-of select="ID"/></span>
-                                                <ul class="list-group">
-                                                    <xsl:for-each select="Radio_Frequencies/Radio_Frequency">
-                                                      <li class="border-0 p-0 m-0 list-group-item"><xsl:value-of select="current()"/></li>
-                                                    </xsl:for-each>
-                                                </ul>
-                                            </div>
-                                        </xsl:for-each>
-                                        <div rowspan='3' class="col-3 text-right "><br/><br/>
-                                            <xsl:for-each select="/Airport/Chart/Includes/SID_ID">
-                                                <xsl:if test="position() > 1">, </xsl:if>
-                                                <xsl:value-of select="current()"/>
-                                            </xsl:for-each>
-                                        </div>
-                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                                    TRANSITION LEVEL BY ATC</div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="card border-dark">
-                                <div class="card-body  p-0 m-0">
-                                    <svg>
-                                        <xsl:attribute name="width"><xsl:value-of select="$svg_size"/></xsl:attribute>
-                                        <xsl:attribute name="height"><xsl:value-of select="$svg_size"/></xsl:attribute>
-
-                                        <!-- SID -->
-                                        <xsl:for-each select="/Airport/Chart/SID_Page/SID_Core">
-                                            <!-- map center -->
-                                            <!--
-                                            <circle cx="500" cy="500" r="5" fill="red"/>
-                                            -->
-                                            <!-- each SID starts with the runway threshold -->
-                                            <path>
-                                                <xsl:attribute name="fill">none</xsl:attribute>
-                                                <xsl:attribute name="stroke">black</xsl:attribute>
-                                                <xsl:attribute name="stroke-width">2</xsl:attribute>
-                                                <xsl:attribute name="d">
-                                                    <!-- runway termination coordinates -->
-                                                    <xsl:variable name="startX"><xsl:value-of select="floor((/Airport/Chart/RunwayThreshold/Longitude * ($math_PI div 180) * $web_mercator_earth_radius) div //Airport/Chart/Zoom) + //Airport/Chart/Offset_X"/></xsl:variable>
-                                                    <xsl:variable name="startY"><xsl:value-of select="$svg_size - floor((math:log(math:tan(/Airport/Chart/RunwayThreshold/Latitude * ($math_PI div 180) div 2 + $math_PI div 4)) * $web_mercator_earth_radius) div (//Airport/Chart/Zoom)) + //Airport/Chart/Offset_Y"/></xsl:variable>
-                                                    <!-- lenght of the runway 'fly away extension' -->
-                                                    <xsl:variable name="takeOffExtension"><xsl:value-of select="/Airport/Chart/TakeOffFlyRunwayHeadingDistance"/></xsl:variable>
-                                                    <!-- extension end coordinates -->
-                                                    <xsl:variable name="endExtensionX"><xsl:value-of select="$startX + floor($takeOffExtension * math:cos((/Airport/Chart/RunwayDirection - 90) * ($math_PI div 180)))"/></xsl:variable>
-                                                    <xsl:variable name="endExtensionY"><xsl:value-of select="$startY + floor($takeOffExtension * math:sin((/Airport/Chart/RunwayDirection + 90) * ($math_PI div 180)))"/></xsl:variable>
-                                                    <!-- start drawing -->
-                                                    M <xsl:value-of select="$startX"/><xsl:text> </xsl:text><xsl:value-of select="$startY"/>
-                                                    L <xsl:value-of select="$endExtensionX"/><xsl:text> </xsl:text><xsl:value-of select="$endExtensionY"/>
-                                                    <xsl:if test="count(Waypoints/Waypoint[PT='CA']) > 0">
-                                                        <xsl:choose>
-                                                             <xsl:when test="count(Waypoints/Waypoint[PT='CA' and Turn='Left']) > 0">
-                                                                Q <xsl:value-of select="$endExtensionX +  floor($takeOffExtension* 0.923)"/><xsl:text> </xsl:text><xsl:value-of select="$endExtensionY"/> <xsl:text> </xsl:text> <xsl:value-of select="$endExtensionX + 45"/><xsl:text> </xsl:text> <xsl:value-of select="$endExtensionY - 45"/>
-                                                             </xsl:when>
-                                                            <xsl:otherwise>
-                                                                Q <xsl:value-of select="$endExtensionX +  floor($takeOffExtension* 0.923)"/><xsl:text> </xsl:text><xsl:value-of select="$endExtensionY"/> <xsl:text> </xsl:text> <xsl:value-of select="$endExtensionX + 45"/><xsl:text> </xsl:text> <xsl:value-of select="$endExtensionY + 45"/>
-                                                            </xsl:otherwise>
-                                                        </xsl:choose>
-                                                    </xsl:if>
-                                                    <!-- and finally the waypoints -->
-                                                    <xsl:for-each select="Waypoints/Waypoint[not(WPTID='-')]">
-                                                        <xsl:variable name="pointX"><xsl:value-of select="floor(($waypoints/Waypoins/Waypoint[ID=current()/WPTID]/Longitude * ($math_PI div 180) * $web_mercator_earth_radius) div //Airport/Chart/Zoom) + //Airport/Chart/Offset_X"/></xsl:variable>
-                                                        <xsl:variable name="pointY"><xsl:value-of select="$svg_size - floor((math:log(math:tan($waypoints/Waypoins/Waypoint[ID=current()/WPTID]/Latitude * ($math_PI div 180) div 2 + $math_PI div 4)) * $web_mercator_earth_radius) div (//Airport/Chart/Zoom)) + //Airport/Chart/Offset_Y"/></xsl:variable>
-                                                        L <xsl:value-of select="$pointX"/><xsl:text> </xsl:text><xsl:value-of select="$pointY"/><xsl:text> </xsl:text>
-                                                    </xsl:for-each>
-                                                </xsl:attribute>
-                                            </path>
-                                            <!-- sid track -->
-                                            <xsl:for-each select="Waypoints/Waypoint[not(Track='-') and not(WPTID='-')]">
-                                                <xsl:variable name="pointX"><xsl:value-of select="floor(($waypoints/Waypoins/Waypoint[ID=current()/WPTID]/Longitude * ($math_PI div 180) * $web_mercator_earth_radius) div //Airport/Chart/Zoom) + //Airport/Chart/Offset_X"/></xsl:variable>
-                                                <xsl:variable name="pointY"><xsl:value-of select="$svg_size - floor((math:log(math:tan($waypoints/Waypoins/Waypoint[ID=current()/WPTID]/Latitude * ($math_PI div 180) div 2 + $math_PI div 4)) * $web_mercator_earth_radius) div (//Airport/Chart/Zoom)) + //Airport/Chart/Offset_Y"/></xsl:variable>
-                                                <xsl:variable name="geo_track"><xsl:value-of select="substring-before(substring-after(Track, '('),'°')"/></xsl:variable>
-                                                <xsl:variable name="oneX">
-                                                    <xsl:value-of select="$pointX - floor((DIST div 1.5 * $geo_nm_in_km * 1000 div (/Airport/Chart/Zoom)) * math:cos((($geo_track - 90 ) * ($math_PI div 180))))"/>
-                                                </xsl:variable>
-                                                <xsl:variable name="oneY">
-                                                    <xsl:value-of select="$pointY  + floor((DIST div 1.5 * $geo_nm_in_km * 1000 div ( /Airport/Chart/Zoom)) * math:sin((($geo_track + 90 ) * ($math_PI div 180))))"/></xsl:variable>
-                                                <xsl:variable name="distanceX">
-                                                    <xsl:value-of select="$pointX - floor((DIST div 1.5 * $geo_nm_in_km * 1000 div (/Airport/Chart/Zoom)) * math:cos((($geo_track - 90 - 12) * ($math_PI div 180))))"/></xsl:variable>
-                                                <xsl:variable name="distanceY">
-                                                    <xsl:value-of select="$pointY  + floor((DIST div 1.5 * $geo_nm_in_km * 1000 div ( /Airport/Chart/Zoom)) * math:sin((($geo_track + 90 - 12 ) * ($math_PI div 180))))"/></xsl:variable>
-
-
-                                                <xsl:variable name="text-rotate"><xsl:value-of select="$geo_track"/></xsl:variable>
-                                                 <circle>
-                                                    <xsl:attribute name="cx"><xsl:value-of select="$oneX"/></xsl:attribute>
-                                                    <xsl:attribute name="cy"><xsl:value-of select="$oneY"/></xsl:attribute>
-                                                    <xsl:attribute name="r">24</xsl:attribute>
-                                                    <xsl:attribute name="fill">white</xsl:attribute>
-                                                    <xsl:attribute name="stroke">none</xsl:attribute>
-                                                </circle>
-                                                <text>
-                                                    <xsl:attribute name="text-anchor">middle</xsl:attribute>
-                                                    <xsl:attribute name="alignment-baseline">middle</xsl:attribute>
-                                                    <xsl:attribute name="transform">translate(<xsl:value-of select="$oneX"/>, <xsl:value-of select="$oneY"/>) rotate(
-                                                        <xsl:choose>
-                                                            <xsl:when test="$text-rotate > 180">
-                                                                <xsl:value-of select="$geo_track - 90 - 180"/>
-                                                            </xsl:when>
-                                                            <xsl:otherwise>
-                                                                <xsl:value-of select="$geo_track  -  90"/>
-                                                            </xsl:otherwise>
-                                                        </xsl:choose>
-
-                                                        )</xsl:attribute>
-                                                    <xsl:attribute name="fill">black</xsl:attribute>
-                                                    <xsl:if test="$oneX &lt; ($svg_size div 2)">
-                                                        <xsl:text>&lt;</xsl:text>
-                                                    </xsl:if>
-                                                    <xsl:value-of select="substring-before(Track,'(')"/>
-                                                    <xsl:if test="not($oneX &lt; ($svg_size div 2))">
-                                                        <xsl:text>&gt;</xsl:text>
-                                                    </xsl:if>
-                                                 </text>
-                                                <!-- distance -->
-                                                <text>
-                                                    <xsl:attribute name="text-anchor">middle</xsl:attribute>
-                                                    <xsl:attribute name="alignment-baseline">middle</xsl:attribute>
-                                                    <xsl:attribute name="transform">translate(<xsl:value-of select="$distanceX"/>, <xsl:value-of select="$distanceY"/>) rotate(
-                                                        <xsl:choose>
-                                                            <xsl:when test="$text-rotate > 180">
-                                                                <xsl:value-of select="$geo_track  -  90 - 180"/>
-                                                            </xsl:when>
-                                                            <xsl:otherwise>
-                                                                <xsl:value-of select="$geo_track -  90"/>
-                                                            </xsl:otherwise>
-                                                        </xsl:choose>
-
-                                                        )</xsl:attribute>
-                                                    <xsl:attribute name="fill">black</xsl:attribute>
-                                                    <xsl:value-of select="DIST"/>
-                                                 </text>
-                                            </xsl:for-each>
-                                        </xsl:for-each>
-
-                            <!-- map lines -->
-                                        <xsl:for-each select="$maplines/MapLines/MapLine">
-                                            <xsl:variable name="pointX1"><xsl:value-of select="floor((Longitude_Start * ($math_PI div 180) * $web_mercator_earth_radius) div //Airport/Chart/Zoom) + //Airport/Chart/Offset_X"/></xsl:variable>
-                                            <xsl:variable name="pointY1"><xsl:value-of select="$svg_size - floor((math:log(math:tan(Latitude_Start * ($math_PI div 180) div 2 + $math_PI div 4)) * $web_mercator_earth_radius) div (//Airport/Chart/Zoom)) + //Airport/Chart/Offset_Y"/></xsl:variable>
-                                            <xsl:variable name="pointX2"><xsl:value-of select="floor((Longitude_End * ($math_PI div 180) * $web_mercator_earth_radius) div //Airport/Chart/Zoom) + //Airport/Chart/Offset_X"/></xsl:variable>
-                                            <xsl:variable name="pointY2"><xsl:value-of select="$svg_size - floor((math:log(math:tan(Latitude_End * ($math_PI div 180) div 2 + $math_PI div 4)) * $web_mercator_earth_radius) div (//Airport/Chart/Zoom)) + //Airport/Chart/Offset_Y"/></xsl:variable>
-                                            <line>
-                                                <xsl:attribute name="x1"><xsl:value-of select="$pointX1"/></xsl:attribute>
-                                                <xsl:attribute name="y1"><xsl:value-of select="$pointY1"/></xsl:attribute>
-                                                <xsl:attribute name="x2"><xsl:value-of select="$pointX2"/></xsl:attribute>
-                                                <xsl:attribute name="y2"><xsl:value-of select="$pointY2"/></xsl:attribute>
-                                                <xsl:attribute name="stroke">gray</xsl:attribute>
-                                            </line>
-
-                                        </xsl:for-each>
-                                        <!-- map line captions -->
-                                        <xsl:for-each select="$maplines/MapLines/Caption">
-                                            <xsl:variable name="pointX"><xsl:value-of select="floor((Longitude * ($math_PI div 180) * $web_mercator_earth_radius) div //Airport/Chart/Zoom) + //Airport/Chart/Offset_X"/></xsl:variable>
-                                            <xsl:variable name="pointY"><xsl:value-of select="$svg_size - floor((math:log(math:tan(Latitude * ($math_PI div 180) div 2 + $math_PI div 4)) * $web_mercator_earth_radius) div (//Airport/Chart/Zoom)) + //Airport/Chart/Offset_Y"/></xsl:variable>
-                                            <text>
-                                                <xsl:attribute name="text-anchor">middle</xsl:attribute>
-                                                <xsl:attribute name="alignment-baseline">middle</xsl:attribute>
-                                                <xsl:attribute name="transform">translate(<xsl:value-of select="$pointX"/>, <xsl:value-of select="$pointY"/>) rotate(<xsl:value-of select="Rotate"/>)</xsl:attribute>
-                                                <xsl:attribute name="fill">gray</xsl:attribute>
-                                                <xsl:value-of select="Text"/>
-                                             </text>
-                                        </xsl:for-each>
-                                        <!-- guide lines
-                                        <line x1="1" y1="0" x2="1" y2="$svg_size" stroke="gray"></line>
-                                        <line x1="200" y1="0" x2="200" y2="$svg_size" stroke="gray"></line>
-                                        <line x1="400" y1="0" x2="400" y2="$svg_size" stroke="gray"></line>
-                                        <line x1="600" y1="0" x2="600" y2="$svg_size" stroke="gray"></line>
-                                        <line x1="800" y1="0" x2="800" y2="$svg_size" stroke="gray"></line>
-                                        <line x1="999" y1="0" x2="999" y2="$svg_size" stroke="gray"></line>
-                                        -->
-                                        <!-- waypoints -->
-                                        <xsl:for-each select="$waypoints/Waypoins/Waypoint">
-                                            <xsl:variable name="pointX"><xsl:value-of select="floor((Longitude * ($math_PI div 180) * $web_mercator_earth_radius) div //Airport/Chart/Zoom) + //Airport/Chart/Offset_X"/></xsl:variable>
-                                            <xsl:variable name="pointY"><xsl:value-of select="$svg_size - floor((math:log(math:tan(Latitude * ($math_PI div 180) div 2 + $math_PI div 4)) * $web_mercator_earth_radius) div (//Airport/Chart/Zoom)) + //Airport/Chart/Offset_Y"/></xsl:variable>
-                                            <xsl:variable name="pointType"><xsl:value-of select="Type"/></xsl:variable>
-
-                                            <xsl:choose>
-                                                <!-- Waypoint - Compulsory / FlyBy -->
-                                                <xsl:when test="$pointType='WPT-C-FB'">
-                                                    <polygon>
-                                                        <xsl:attribute name="points">
-                                                            <xsl:value-of select="$pointX - 10"/>,<xsl:value-of select="$pointY + 10">
-                                                            </xsl:value-of><xsl:text>
-                                                            </xsl:text><xsl:value-of select="$pointX"/>,<xsl:value-of select="$pointY - 10"/>
-                                                            <xsl:text> </xsl:text>
-                                                            <xsl:value-of select="$pointX + 10"/>,<xsl:value-of select="$pointY + 10"/>
-                                                        </xsl:attribute>
-                                                    </polygon>
-                                                </xsl:when>
-                                                <!-- Waypoint - On Request / FlyBy -->
-                                                <xsl:when test="$pointType='WPT-OR-FB'">
-                                                    <circle>
-                                                        <xsl:attribute name="cx"><xsl:value-of select="$pointX"/></xsl:attribute>
-                                                        <xsl:attribute name="cy"><xsl:value-of select="$pointY"/></xsl:attribute>
-                                                        <xsl:attribute name="r">7</xsl:attribute>
-                                                        <xsl:attribute name="fill">white</xsl:attribute>
-                                                        <xsl:attribute name="stroke">black</xsl:attribute>
-                                                    </circle>
-                                                    <!-- polygon -->
-                                                    <polygon>
-                                                        <xsl:attribute name="points">
-                                                            <xsl:value-of select="$pointX"/>,<xsl:value-of select="$pointY + 15"/>
-                                                            <xsl:text> </xsl:text>
-                                                            <xsl:value-of select="$pointX - 5"/>,<xsl:value-of select="$pointY + 5"/>
-                                                            <xsl:text> </xsl:text>
-                                                            <xsl:value-of select="$pointX - 15"/>,<xsl:value-of select="$pointY"/>
-                                                            <xsl:text> </xsl:text>
-                                                            <xsl:value-of select="$pointX - 5"/>,<xsl:value-of select="$pointY - 5"/>
-                                                            <xsl:text> </xsl:text>
-                                                            <xsl:value-of select="$pointX"/>,<xsl:value-of select="$pointY - 15"/>
-                                                            <xsl:text> </xsl:text>
-                                                            <xsl:value-of select="$pointX + 5"/>,<xsl:value-of select="$pointY - 5"/>
-                                                            <xsl:text> </xsl:text>
-                                                            <xsl:value-of select="$pointX + 15"/>,<xsl:value-of select="$pointY"/>
-                                                            <xsl:text> </xsl:text>
-                                                            <xsl:value-of select="$pointX + 5"/>,<xsl:value-of select="$pointY + 5"/>
-                                                        </xsl:attribute>
-                                                        <xsl:attribute name="stroke">black</xsl:attribute>
-                                                        <xsl:attribute name="fill">none</xsl:attribute>
-                                                    </polygon>
-                                                </xsl:when>
-                                                <!-- VOR/DME - On Request / FlyBy -->
-                                                <xsl:when test="$pointType='VOR-DME-OR-FB'">
-                                                    <circle>
-                                                        <xsl:attribute name="cx"><xsl:value-of select="$pointX"/></xsl:attribute>
-                                                        <xsl:attribute name="cy"><xsl:value-of select="$pointY"/></xsl:attribute>
-                                                        <xsl:attribute name="r">2</xsl:attribute>
-                                                    </circle>
-                                                    <!-- square -->
-                                                    <polygon>
-                                                        <xsl:attribute name="points">
-                                                            <xsl:value-of select="$pointX - 12"/>,<xsl:value-of select="$pointY + 10"/>
-                                                            <xsl:text> </xsl:text>
-                                                            <xsl:value-of select="$pointX - 12"/>,<xsl:value-of select="$pointY - 10"/>
-                                                            <xsl:text> </xsl:text>
-                                                            <xsl:value-of select="$pointX + 12"/>,<xsl:value-of select="$pointY - 10"/>
-                                                            <xsl:text> </xsl:text>
-                                                            <xsl:value-of select="$pointX + 12"/>,<xsl:value-of select="$pointY + 10"/>
-                                                        </xsl:attribute>
-                                                        <xsl:attribute name="stroke">black</xsl:attribute>
-                                                        <xsl:attribute name="fill">none</xsl:attribute>
-                                                    </polygon>
-                                                    <!-- polygon -->
-                                                    <polygon>
-                                                        <xsl:attribute name="points">
-                                                            <xsl:value-of select="$pointX - 5"/>,<xsl:value-of select="$pointY + 10"/>
-                                                            <xsl:text> </xsl:text>
-                                                            <xsl:value-of select="$pointX - 12"/>,<xsl:value-of select="$pointY"/>
-                                                            <xsl:text> </xsl:text>
-                                                            <xsl:value-of select="$pointX - 5"/>,<xsl:value-of select="$pointY - 10"/>
-                                                            <xsl:text> </xsl:text>
-                                                            <xsl:value-of select="$pointX + 5"/>,<xsl:value-of select="$pointY - 10"/>
-                                                            <xsl:text> </xsl:text>
-                                                            <xsl:value-of select="$pointX + 12"/>,<xsl:value-of select="$pointY"/>
-                                                            <xsl:text> </xsl:text>
-                                                            <xsl:value-of select="$pointX + 5"/>,<xsl:value-of select="$pointY + 10"/>
-                                                        </xsl:attribute>
-                                                        <xsl:attribute name="stroke">black</xsl:attribute>
-                                                        <xsl:attribute name="fill">none</xsl:attribute>
-                                                    </polygon>
-                                                </xsl:when>
-                                                <!-- secondary airports -->
-                                                <xsl:when test="$pointType='Airport'">
-                                                    <circle>
-                                                        <xsl:attribute name="cx"><xsl:value-of select="$pointX"/></xsl:attribute>
-                                                        <xsl:attribute name="cy"><xsl:value-of select="$pointY"/></xsl:attribute>
-                                                        <xsl:attribute name="r">15</xsl:attribute>
-                                                        <xsl:attribute name="stroke">black</xsl:attribute>
-                                                        <xsl:attribute name="fill">none</xsl:attribute>
-                                                    </circle>
-                                                   <line>
-                                                        <xsl:attribute name="x1"><xsl:value-of select="$pointX - floor(18 * math:cos(((Runway * 10) - 90) * ($math_PI div 180)))"/></xsl:attribute>
-                                                        <xsl:attribute name="y1"><xsl:value-of select="$pointY + floor(18 * math:sin(((Runway * 10) + 90) * ($math_PI div 180)))"/></xsl:attribute>
-                                                        <xsl:attribute name="x2"><xsl:value-of select="$pointX + floor(18 * math:cos(((Runway * 10) - 90) * ($math_PI div 180)))"/></xsl:attribute>
-                                                        <xsl:attribute name="y2"><xsl:value-of select="$pointY - floor(18 * math:sin(((Runway * 10) + 90) * ($math_PI div 180)))"/></xsl:attribute>
-                                                        <xsl:attribute name="stroke">black</xsl:attribute>
-                                                        <xsl:attribute name="stroke-width">3</xsl:attribute>
-                                                   </line>
-                                                </xsl:when>
-                                                <!-- base airport -->
-                                                <xsl:when test="$pointType='BaseAirport'">
-                                                    <polygon>
-                                                        <xsl:attribute name="points">
-                                                            <xsl:for-each select="PolygonPoints/PolygonPoint">
-                                                                <xsl:value-of select="$pointX + X"/>,<xsl:value-of select="$pointY + Y"/><xsl:text> </xsl:text>
-                                                            </xsl:for-each>
-                                                        </xsl:attribute>
-                                                        <xsl:attribute name="fill">gray</xsl:attribute>
-                                                        <xsl:attribute name="stroke">gray</xsl:attribute>
-                                                    </polygon>
-                                                   <line>
-                                                        <xsl:attribute name="x1"><xsl:value-of select="$pointX - floor(RunwayLenght * math:cos((RunwayDirection - 90) * ($math_PI div 180)))"/></xsl:attribute>
-                                                        <xsl:attribute name="y1"><xsl:value-of select="$pointY + floor(RunwayLenght * math:sin((RunwayDirection + 90) * ($math_PI div 180)))"/></xsl:attribute>
-                                                        <xsl:attribute name="x2"><xsl:value-of select="$pointX + floor(RunwayLenght * math:cos((RunwayDirection - 90) * ($math_PI div 180)))"/></xsl:attribute>
-                                                        <xsl:attribute name="y2"><xsl:value-of select="$pointY - floor(RunwayLenght * math:sin((RunwayDirection + 90) * ($math_PI div 180)))"/></xsl:attribute>
-                                                        <xsl:attribute name="stroke">white</xsl:attribute>
-                                                        <xsl:attribute name="stroke-width">2</xsl:attribute>
-                                                   </line>
-                                                </xsl:when>
-                                                <!-- MSA -->
-                                                <xsl:when test="$pointType='MSA'">
-                                                    <circle>
-                                                        <xsl:attribute name="cx"><xsl:value-of select="$pointX"/></xsl:attribute>
-                                                        <xsl:attribute name="cy"><xsl:value-of select="$pointY"/></xsl:attribute>
-                                                        <xsl:attribute name="r">2</xsl:attribute>
-                                                    </circle>
-                                                    <!-- square -->
-                                                    <polygon>
-                                                        <xsl:attribute name="points">
-                                                            <xsl:value-of select="$pointX - 12"/>,<xsl:value-of select="$pointY + 10"/>
-                                                            <xsl:text> </xsl:text>
-                                                            <xsl:value-of select="$pointX - 12"/>,<xsl:value-of select="$pointY - 10"/>
-                                                            <xsl:text> </xsl:text>
-                                                            <xsl:value-of select="$pointX + 12"/>,<xsl:value-of select="$pointY - 10"/>
-                                                            <xsl:text> </xsl:text>
-                                                            <xsl:value-of select="$pointX + 12"/>,<xsl:value-of select="$pointY + 10"/>
-                                                        </xsl:attribute>
-                                                        <xsl:attribute name="stroke">black</xsl:attribute>
-                                                        <xsl:attribute name="fill">none</xsl:attribute>
-                                                    </polygon>
-                                                    <!-- polygon -->
-                                                    <polygon>
-                                                        <xsl:attribute name="points">
-                                                            <xsl:value-of select="$pointX - 5"/>,<xsl:value-of select="$pointY + 10"/>
-                                                            <xsl:text> </xsl:text>
-                                                            <xsl:value-of select="$pointX - 12"/>,<xsl:value-of select="$pointY"/>
-                                                            <xsl:text> </xsl:text>
-                                                            <xsl:value-of select="$pointX - 5"/>,<xsl:value-of select="$pointY - 10"/>
-                                                            <xsl:text> </xsl:text>
-                                                            <xsl:value-of select="$pointX + 5"/>,<xsl:value-of select="$pointY - 10"/>
-                                                            <xsl:text> </xsl:text>
-                                                            <xsl:value-of select="$pointX + 12"/>,<xsl:value-of select="$pointY"/>
-                                                            <xsl:text> </xsl:text>
-                                                            <xsl:value-of select="$pointX + 5"/>,<xsl:value-of select="$pointY + 10"/>
-                                                        </xsl:attribute>
-                                                        <xsl:attribute name="stroke">black</xsl:attribute>
-                                                        <xsl:attribute name="fill">none</xsl:attribute>
-                                                    </polygon>
-                                                    <circle>
-                                                        <xsl:attribute name="cx"><xsl:value-of select="$pointX"/></xsl:attribute>
-                                                        <xsl:attribute name="cy"><xsl:value-of select="$pointY"/></xsl:attribute>
-                                                        <xsl:attribute name="r">65</xsl:attribute>
-                                                        <xsl:attribute name="fill">none</xsl:attribute>
-                                                        <xsl:attribute name="stroke">black</xsl:attribute>
-                                                    </circle>
-                                                </xsl:when>
-                                            </xsl:choose>
-                                            <text>
-                                                <xsl:attribute name="x">
-                                                    <xsl:choose>
-                                                        <xls:when test="CaptionOffset">
-                                                            <xsl:value-of select="$pointX  + CaptionOffset/X"/>
-                                                        </xls:when>
-                                                        <xsl:otherwise>
-                                                            <xsl:value-of select="$pointX + 15"/>
-                                                        </xsl:otherwise>
-                                                    </xsl:choose>
-                                                </xsl:attribute>
-                                                <xsl:attribute name="y">
-                                                    <xsl:choose>
-                                                        <xls:when test="CaptionOffset">
-                                                            <xsl:value-of select="$pointY  + CaptionOffset/Y"/>
-                                                        </xls:when>
-                                                        <xsl:otherwise>
-                                                            <xsl:value-of select="$pointY + 15"/>
-                                                        </xsl:otherwise>
-                                                    </xsl:choose>
-                                                </xsl:attribute>
-                                                <xsl:value-of select="ID"/>
-                                            </text>
-                                        </xsl:for-each>
-                                    </svg>
-                                </div>
+                            <div class="col-1 text-right">
+                                <span class="text-left">APP</span>
+                                <ul class="list-group">
+                                    <li class="border-0 p-0 m-0 list-group-item">123.700</li>
+                                    <li class="border-0 p-0 m-0 list-group-item">129.90</li>
+                                    <li class="border-0 p-0 m-0 list-group-item">247.575</li>
+                                    <li class="border-0 p-0 m-0 list-group-item">121.500</li>
+                                    <li class="border-0 p-0 m-0 list-group-item">243.000</li>
+                                </ul>
+                            </div>
+                            <div class="col-1 text-right">
+                                <span class="text-left">TWR</span>
+                                <ul class="list-group">
+                                    <li class="border-0 p-0 m-0 list-group-item">118.100</li>
+                                    <li class="border-0 p-0 m-0 list-group-item">120.200</li>
+                                    <li class="border-0 p-0 m-0 list-group-item">336.400</li>
+                                    <li class="border-0 p-0 m-0 list-group-item">121.500</li>
+                                    <li class="border-0 p-0 m-0 list-group-item">243.000</li>
+                                </ul>
+                            </div>
+                            <div class="col-1 text-right">
+                                <span class="text-left">ATIS</span>
+                                <ul class="list-group">
+                                    <li class="border-0 p-0 m-0 list-group-item">126.680</li>
+                                </ul>
+                            </div>
+                            <div rowspan="3" class="col-3 text-right ">
+                                <br>
+                                <br>
+                                DEDIN 2S, DILVO 2S, GAPVO 2S, GODEK 3S, GOL 3S, NAPET 2S, OGOTA 3S, OMENO 3S, RUMEN 2S, UMPIT 3S
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-12">
-                                <xsl:for-each select="/Airport/Chart/SID_Page">
-                                    <table class="table table-bordered text-center">
-                                        <tr>
-                                            <xsl:for-each select="Header_Columns/Header_Column">
-                                                <th>
-                                                    <xsl:attribute name="style">width:<xsl:value-of select="Percent"/>%;</xsl:attribute>
-                                                    <xsl:value-of select="Caption"/>
-                                                </th>
-                                            </xsl:for-each>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <xsl:attribute name="colspan"><xsl:value-of select="count(Header_Columns/Header_Column)"/></xsl:attribute>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="font-weight-bold text-left">
-                                                <xsl:attribute name="colspan"><xsl:value-of select="count(Header_Columns/Header_Column)"/></xsl:attribute>
-                                                <xsl:value-of select="SID_Core/ID"/>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-left">
-                                                <xsl:attribute name="colspan"><xsl:value-of select="count(Header_Columns/Header_Column)"/></xsl:attribute>
-                                                <xsl:value-of select="SID_Core/Name"/>
-                                            </td>
-                                        </tr>
-                                        <xsl:for-each select="SID_Core/Waypoints/Waypoint">
-                                            <tr>
-                                                <xsl:for-each select="*">
-                                                    <td>
-                                                        <xsl:value-of select="current()"/>
-                                                    </td>
-                                                </xsl:for-each>
-                                            </tr>
-                                        </xsl:for-each>
-                                    </table>
-                                </xsl:for-each>
-                            </div>
-                        </div>
+                    </div>
                 </div>
-            <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"/>
-            <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"/>
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"/>
-            </body>
-        </html>
-    </xsl:template>
-</xsl:stylesheet>
+            </div>
+            <div class="row">
+                <div class="card border-dark">
+                    <div class="card-body  p-0 m-0">
+                        <svg width="1000" height="1000">
+                            <path fill="none" stroke="black" stroke-width="2" d="
+
+                                                    M 396 477
+                                                    L 455 481
+                                                                Q 500 481 500 456
+                                                        L 448 340
+                                                        L 117 112 "></path>
+                            <circle cx="278" cy="223" r="22" fill="white" stroke="none"></circle>
+                            <text text-anchor="middle" alignment-baseline="middle" transform="translate(278, 223) rotate(
+                                                        34.69999999999999
+
+                                                        )" fill="black">&lt;299&deg;</text>
+                            <text text-anchor="middle" alignment-baseline="middle" transform="translate(297, 190) rotate(
+                                                        34.69999999999999
+
+                                                        )" fill="black">28.5</text>
+                            <path fill="none" stroke="black" stroke-width="2" d="
+
+                                                    M 396 477
+                                                    L 455 481
+                                                                Q 500 481 500 456
+                                                        L 448 340
+                                                        L 326 38 "></path>
+                            <circle cx="386" cy="184" r="22" fill="white" stroke="none"></circle>
+                            <text text-anchor="middle" alignment-baseline="middle" transform="translate(386, 184) rotate(
+                                                        68
+
+                                                        )" fill="black">&lt;333&deg;</text>
+                            <text text-anchor="middle" alignment-baseline="middle" transform="translate(413, 170) rotate(
+                                                        68
+
+                                                        )" fill="black">23.1</text>
+                            <path fill="none" stroke="black" stroke-width="2" d="
+
+                                                    M 396 477
+                                                    L 455 481
+                                                                Q 500 481 500 456
+                                                        L 651 376
+                                                        L 814 256
+                                                        L 878 139 "></path>
+                            <circle cx="735" cy="314" r="22" fill="white" stroke="none"></circle>
+                            <text text-anchor="middle" alignment-baseline="middle" transform="translate(735, 314) rotate(
+                                                        -36.4
+
+                                                        )" fill="black">048&deg;&gt;</text>
+                            <text text-anchor="middle" alignment-baseline="middle" transform="translate(748, 328) rotate(
+                                                        -36.4
+
+                                                        )" fill="black">14.4</text>
+                            <circle cx="847" cy="196" r="22" fill="white" stroke="none"></circle>
+                            <text text-anchor="middle" alignment-baseline="middle" transform="translate(847, 196) rotate(
+                                                        -61.1
+
+                                                        )" fill="black">024&deg;&gt;</text>
+                            <text text-anchor="middle" alignment-baseline="middle" transform="translate(858, 201) rotate(
+                                                        -61.1
+
+                                                        )" fill="black">9.5</text>
+                            <path fill="none" stroke="black" stroke-width="2" d="
+
+                                                    M 396 477
+                                                    L 455 481
+                                                                Q 500 481 500 456
+                                                        L 651 376
+                                                        L 850 405 "></path>
+                            <circle cx="753" cy="390" r="22" fill="white" stroke="none"></circle>
+                            <text text-anchor="middle" alignment-baseline="middle" transform="translate(753, 390) rotate(
+                                                        8.299999999999997
+
+                                                        )" fill="black">093&deg;&gt;</text>
+                            <text text-anchor="middle" alignment-baseline="middle" transform="translate(753, 409) rotate(
+                                                        8.299999999999997
+
+                                                        )" fill="black">14.3</text>
+                            <path fill="none" stroke="black" stroke-width="2" d="
+
+                                                    M 396 477
+                                                    L 455 481
+                                                        L 666 500
+                                                        L 832 488 "></path>
+                            <circle cx="522" cy="488" r="22" fill="white" stroke="none"></circle>
+                            <text text-anchor="middle" alignment-baseline="middle" transform="translate(522, 488) rotate(
+                                                        4.599999999999994
+
+                                                        )" fill="black">089&deg;&gt;</text>
+                            <text text-anchor="middle" alignment-baseline="middle" transform="translate(522, 516) rotate(
+                                                        4.599999999999994
+
+                                                        )" fill="black">21.2</text>
+                            <circle cx="751" cy="493" r="22" fill="white" stroke="none"></circle>
+                            <text text-anchor="middle" alignment-baseline="middle" transform="translate(751, 493) rotate(
+                                                        -4
+
+                                                        )" fill="black">081&deg;&gt;</text>
+                            <text text-anchor="middle" alignment-baseline="middle" transform="translate(754, 509) rotate(
+                                                        -4
+
+                                                        )" fill="black">11.9</text>
+                            <path fill="none" stroke="black" stroke-width="2" d="
+
+                                                    M 396 477
+                                                    L 455 481
+                                                        L 666 500
+                                                        L 791 562 "></path>
+                            <circle cx="522" cy="488" r="22" fill="white" stroke="none"></circle>
+                            <text text-anchor="middle" alignment-baseline="middle" transform="translate(522, 488) rotate(
+                                                        4.599999999999994
+
+                                                        )" fill="black">089&deg;&gt;</text>
+                            <text text-anchor="middle" alignment-baseline="middle" transform="translate(522, 516) rotate(
+                                                        4.599999999999994
+
+                                                        )" fill="black">21.2</text>
+                            <circle cx="730" cy="531" r="22" fill="white" stroke="none"></circle>
+                            <text text-anchor="middle" alignment-baseline="middle" transform="translate(730, 531) rotate(
+                                                        26.099999999999994
+
+                                                        )" fill="black">111&deg;&gt;</text>
+                            <text text-anchor="middle" alignment-baseline="middle" transform="translate(725, 544) rotate(
+                                                        26.099999999999994
+
+                                                        )" fill="black">10.0</text>
+                            <path fill="none" stroke="black" stroke-width="2" d="
+
+                                                    M 396 477
+                                                    L 455 481
+                                                                Q 500 481 500 506
+                                                        L 628 637
+                                                        L 936 804 "></path>
+                            <circle cx="784" cy="722" r="22" fill="white" stroke="none"></circle>
+                            <text text-anchor="middle" alignment-baseline="middle" transform="translate(784, 722) rotate(
+                                                        28.200000000000003
+
+                                                        )" fill="black">113&deg;&gt;</text>
+                            <text text-anchor="middle" alignment-baseline="middle" transform="translate(771, 752) rotate(
+                                                        28.200000000000003
+
+                                                        )" fill="black">25.2</text>
+                            <path fill="none" stroke="black" stroke-width="2" d="
+
+                                                    M 396 477
+                                                    L 455 481
+                                                                Q 500 481 500 506
+                                                        L 628 637
+                                                        L 703 800 "></path>
+                            <circle cx="666" cy="719" r="22" fill="white" stroke="none"></circle>
+                            <text text-anchor="middle" alignment-baseline="middle" transform="translate(666, 719) rotate(
+                                                        65
+
+                                                        )" fill="black">150&deg;&gt;</text>
+                            <text text-anchor="middle" alignment-baseline="middle" transform="translate(651, 728) rotate(
+                                                        65
+
+                                                        )" fill="black">12.9</text>
+                            <path fill="none" stroke="black" stroke-width="2" d="
+
+                                                    M 396 477
+                                                    L 455 481
+                                                                Q 500 481 500 506
+                                                        L 453 622
+                                                        L 421 811 "></path>
+                            <circle cx="437" cy="718" r="22" fill="white" stroke="none"></circle>
+                            <text text-anchor="middle" alignment-baseline="middle" transform="translate(437, 718) rotate(
+                                                        -80.5
+
+                                                        )" fill="black">&lt;184&deg;</text>
+                            <text text-anchor="middle" alignment-baseline="middle" transform="translate(419, 717) rotate(
+                                                        -80.5
+
+                                                        )" fill="black">13.7</text>
+                            <path fill="none" stroke="black" stroke-width="2" d="
+
+                                                    M 396 477
+                                                    L 455 481
+                                                                Q 500 481 500 506
+                                                        L 453 622
+                                                        L 127 818 "></path>
+                            <circle cx="288" cy="722" r="22" fill="white" stroke="none"></circle>
+                            <text text-anchor="middle" alignment-baseline="middle" transform="translate(288, 722) rotate(
+                                                        -30.80000000000001
+
+                                                        )" fill="black">&lt;234&deg;</text>
+                            <text text-anchor="middle" alignment-baseline="middle" transform="translate(267, 693) rotate(
+                                                        -30.80000000000001
+
+                                                        )" fill="black">27.3</text>
+                            <line x1="124" y1="1884" x2="124" y2="-633" stroke="gray"></line>
+                            <line x1="433" y1="1473" x2="433" y2="-1065" stroke="gray"></line>
+                            <line x1="742" y1="1058" x2="742" y2="-1500" stroke="gray"></line>
+                            <line x1="1051" y1="641" x2="1051" y2="-1939" stroke="gray"></line>
+                            <line x1="-186" y1="220" x2="1361" y2="220" stroke="gray"></line>
+                            <line x1="-1113" y1="641" x2="1670" y2="641" stroke="gray"></line>
+                            <text text-anchor="middle" alignment-baseline="middle" transform="translate(9, 641) rotate(270)" fill="gray">42&deg;30''</text>
+                            <text text-anchor="middle" alignment-baseline="middle" transform="translate(9, 220) rotate(270)" fill="gray">43&deg;00''</text>
+                            <text text-anchor="middle" alignment-baseline="middle" transform="translate(988, 641) rotate(270)" fill="gray">42&deg;30''</text>
+                            <text text-anchor="middle" alignment-baseline="middle" transform="translate(988, 220) rotate(270)" fill="gray">43&deg;00''</text>
+                            <text text-anchor="middle" alignment-baseline="middle" transform="translate(124, 8) rotate(0)" fill="gray">23&deg;00''</text>
+                            <text text-anchor="middle" alignment-baseline="middle" transform="translate(433, 8) rotate(0)" fill="gray">23&deg;30''</text>
+                            <text text-anchor="middle" alignment-baseline="middle" transform="translate(742, 8) rotate(0)" fill="gray">24&deg;00''</text>
+                            <text text-anchor="middle" alignment-baseline="middle" transform="translate(124, 992) rotate(0)" fill="gray">23&deg;00''</text>
+                            <text text-anchor="middle" alignment-baseline="middle" transform="translate(433, 992) rotate(0)" fill="gray">23&deg;30''</text>
+                            <text text-anchor="middle" alignment-baseline="middle" transform="translate(742, 992) rotate(0)" fill="gray">24&deg;00''</text>
+                            <circle cx="448" cy="340" r="7" fill="white" stroke="black"></circle>
+                            <polygon points="448,355 443,345 433,340 443,335 448,325 453,335 463,340 453,345" stroke="black" fill="none"></polygon>
+                            <text x="463" y="355">SF502</text>
+                            <circle cx="651" cy="376" r="7" fill="white" stroke="black"></circle>
+                            <polygon points="651,391 646,381 636,376 646,371 651,361 656,371 666,376 656,381" stroke="black" fill="none"></polygon>
+                            <text x="631" y="356">SF503</text>
+                            <circle cx="814" cy="256" r="7" fill="white" stroke="black"></circle>
+                            <polygon points="814,271 809,261 799,256 809,251 814,241 819,251 829,256 819,261" stroke="black" fill="none"></polygon>
+                            <text x="829" y="271">SF504</text>
+                            <circle cx="666" cy="500" r="7" fill="white" stroke="black"></circle>
+                            <polygon points="666,515 661,505 651,500 661,495 666,485 671,495 681,500 671,505" stroke="black" fill="none"></polygon>
+                            <text x="636" y="480">SF505</text>
+                            <circle cx="628" cy="637" r="7" fill="white" stroke="black"></circle>
+                            <polygon points="628,652 623,642 613,637 623,632 628,622 633,632 643,637 633,642" stroke="black" fill="none"></polygon>
+                            <text x="628" y="617">SF506</text>
+                            <circle cx="453" cy="622" r="7" fill="white" stroke="black"></circle>
+                            <polygon points="453,637 448,627 438,622 448,617 453,607 458,617 468,622 458,627" stroke="black" fill="none"></polygon>
+                            <text x="468" y="637">SF507</text>
+                            <polygon points="107,122
+                                                            117,102 127,122"></polygon>
+                            <text x="132" y="127">GODEK</text>
+                            <polygon points="117,828
+                                                            127,808 137,828"></polygon>
+                            <text x="142" y="833">NAPET</text>
+                            <polygon points="411,821
+                                                            421,801 431,821"></polygon>
+                            <text x="436" y="826">OMENO</text>
+                            <polygon points="693,810
+                                                            703,790 713,810"></polygon>
+                            <text x="718" y="815">DILVO</text>
+                            <polygon points="926,814
+                                                            936,794 946,814"></polygon>
+                            <text x="906" y="829">RUMEN</text>
+                            <polygon points="316,48
+                                                            326,28 336,48"></polygon>
+                            <text x="341" y="53">OGOTA</text>
+                            <circle cx="878" cy="139" r="2"></circle>
+                            <polygon points="866,149 866,129 890,129 890,149" stroke="black" fill="none"></polygon>
+                            <polygon points="873,149 866,139 873,129 883,129 890,139 883,149" stroke="black" fill="none"></polygon>
+                            <text x="893" y="154">GOL</text>
+                            <polygon points="840,415
+                                                            850,395 860,415"></polygon>
+                            <text x="865" y="420">UMPIT</text>
+                            <polygon points="822,498
+                                                            832,478 842,498"></polygon>
+                            <text x="847" y="503">GAPVO</text>
+                            <polygon points="781,572
+                                                            791,552 801,572"></polygon>
+                            <text x="806" y="577">DEDIN</text>
+                            <circle cx="631" cy="800" r="15" stroke="black" fill="none"></circle>
+                            <line x1="613" y1="800" x2="649" y2="800" stroke="black" stroke-width="3"></line>
+                            <text x="571" y="778">Dolna Banya</text>
+                            <circle cx="367" cy="746" r="15" stroke="black" fill="none"></circle>
+                            <line x1="354" y1="734" x2="380" y2="758" stroke="black" stroke-width="3"></line>
+                            <text x="307" y="724">Belchin</text>
+                            <circle cx="133" cy="351" r="15" stroke="black" fill="none"></circle>
+                            <line x1="116" y1="354" x2="150" y2="348" stroke="black" stroke-width="3"></line>
+                            <text x="73" y="329">Slivnitsa</text>
+                            <circle cx="598" cy="706" r="15" stroke="black" fill="none"></circle>
+                            <line x1="585" y1="694" x2="611" y2="718" stroke="black" stroke-width="3"></line>
+                            <text x="538" y="684">Ihtiman</text>
+                            <polygon points="379,485 388,479 401,478 400,475 365,475 354,476 354,479 361,479 " fill="gray" stroke="gray"></polygon>
+                            <line x1="396" y1="478" x2="356" y2="476" stroke="pink" stroke-width="2"></line>
+                            <text x="391" y="492">Sofia</text>
+                            <circle cx="598" cy="135" r="2"></circle>
+                            <polygon points="586,145 586,125 610,125 610,145" stroke="black" fill="none"></polygon>
+                            <polygon points="593,145 586,135 593,125 603,125 610,135 603,145" stroke="black" fill="none"></polygon>
+                            <circle cx="598" cy="135" r="65" fill="none" stroke="black"></circle>
+                            <text x="578" y="45">MSA</text>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <table class="table table-bordered text-center">
+                        <tr>
+                            <th style="width:7.6%;">P/T</th><th style="width:12%;">WPT ID</th><th style="width:9%;">Flyover</th><th style="width:17%;">Track</th><th style="width:10%;">Dist</th><th style="width:12%;">Turn</th><th style="width:9%;">Speed</th><th style="width:9%;">ALT</th><th style="width:15%;">Additional</th>
+                        </tr>
+                        <tr>
+                            <td colspan="9"></td>
+                        </tr>
+                        <tr>
+                            <td class="font-weight-bold text-left" colspan="9">GODEK 3S</td>
+                        </tr>
+                        <tr>
+                            <td class="text-left" colspan="9">GODEK THREE SIERRA DEPARTURE</td>
+                        </tr>
+                        <tr>
+                            <td>CA</td><td>-</td><td>-</td><td>089&deg;(094.6&deg;T)</td><td>-</td><td>Left</td><td>230-</td><td>4500+</td><td>-</td>
+                        </tr>
+                        <tr>
+                            <td>DF</td><td>SF502</td><td>-</td><td>-</td><td>-</td><td>Left</td><td>--</td><td>10000-</td><td>-</td>
+                        </tr>
+                        <tr>
+                            <td>TF</td><td>GODEK</td><td>-</td><td>299&deg;(304.7&deg;T)</td><td>28.5</td><td>-</td><td>-</td><td>-</td><td>-</td>
+                        </tr>
+                        <tr>
+                            <td>CA</td><td>-</td><td>-</td><td>089&deg;(094.6&deg;T)</td><td>-</td><td>Left</td><td>230-</td><td>4500+</td><td>-</td>
+                        </tr>
+                        <tr>
+                            <td>DF</td><td>SF502</td><td>-</td><td>-</td><td>-</td><td>-</td><td>--</td><td>10000-</td><td>-</td>
+                        </tr>
+                        <tr>
+                            <td>TF</td><td>OGOTA</td><td>-</td><td>333&deg;(338.0&deg;T)</td><td>23.1</td><td>-</td><td>-</td><td>-</td><td>-</td>
+                        </tr>
+                        <tr>
+                            <td>CA</td><td>-</td><td>-</td><td>089&deg;(094.6&deg;T)</td><td>-</td><td>Left</td><td>230-</td><td>4500+</td><td>-</td>
+                        </tr>
+                        <tr>
+                            <td>DF</td><td>SF503</td><td>-</td><td>-</td><td>-</td><td>-</td><td>--</td><td>10000-</td><td>-</td>
+                        </tr>
+                        <tr>
+                            <td>TF</td><td>SF504</td><td>-</td><td>048&deg;(053.6&deg;T)</td><td>14.4</td><td>-</td><td>-</td><td>-</td><td>-</td>
+                        </tr>
+                        <tr>
+                            <td>TF</td><td>GOL</td><td>-</td><td>024&deg;(028.9&deg;T)</td><td>9.5</td><td>-</td><td>-</td><td>-</td><td>-</td>
+                        </tr>
+                        <tr>
+                            <td>CA</td><td>-</td><td>-</td><td>089&deg;(094.6&deg;T)</td><td>-</td><td>Left</td><td>230-</td><td>4500+</td><td>-</td>
+                        </tr>
+                        <tr>
+                            <td>DF</td><td>SF503</td><td>-</td><td>-</td><td>-</td><td>Right</td><td>--</td><td>10000-</td><td>-</td>
+                        </tr>
+                        <tr>
+                            <td>TF</td><td>UMPIT</td><td>-</td><td>093&deg;(098.3&deg;T)</td><td>14.3</td><td>-</td><td>-</td><td>-</td><td>-</td>
+                        </tr>
+                        <tr>
+                            <td>CF</td><td>SF505</td><td>-</td><td>089&deg;(094.6&deg;T)</td><td>21.2</td><td>-</td><td>--</td><td>-</td><td>-</td>
+                        </tr>
+                        <tr>
+                            <td>TF</td><td>GAPVO</td><td>-</td><td>081&deg;(086.0&deg;T)</td><td>11.9</td><td>-</td><td>-</td><td>-</td><td>-</td>
+                        </tr>
+                        <tr>
+                            <td>CF</td><td>SF505</td><td>-</td><td>089&deg;(094.6&deg;T)</td><td>21.2</td><td>Right</td><td>--</td><td>-</td><td>-</td>
+                        </tr>
+                        <tr>
+                            <td>TF</td><td>DEDIN</td><td>-</td><td>111&deg;(116.1&deg;T)</td><td>10.0</td><td>-</td><td>-</td><td>-</td><td>-</td>
+                        </tr>
+                        <tr>
+                            <td>CA</td><td>-</td><td>-</td><td>089&deg;(094.6&deg;T)</td><td>-</td><td>Right</td><td>230-</td><td>4500+</td><td>-</td>
+                        </tr>
+                        <tr>
+                            <td>DF</td><td>SF506</td><td>-</td><td>-</td><td>-</td><td>Right</td><td>--</td><td>A10000-</td><td>-</td>
+                        </tr>
+                        <tr>
+                            <td>TF</td><td>RUMEN</td><td>-</td><td>113&deg;(118.2&deg;T)</td><td>25.2</td><td>-</td><td>-</td><td>-</td><td>-</td>
+                        </tr>
+                        <tr>
+                            <td>CA</td><td>-</td><td>-</td><td>089&deg;(094.6&deg;T)</td><td>-</td><td>Right</td><td>230-</td><td>4500+</td><td>-</td>
+                        </tr>
+                        <tr>
+                            <td>DF</td><td>SF506</td><td>-</td><td>-</td><td>-</td><td>Right</td><td>--</td><td>A10000-</td><td>-</td>
+                        </tr>
+                        <tr>
+                            <td>TF</td><td>DILVO</td><td>-</td><td>150&deg;(155.0&deg;T)</td><td>12.9</td><td>-</td><td>-</td><td>-</td><td>-</td>
+                        </tr>
+                        <tr>
+                            <td>CA</td><td>-</td><td>-</td><td>089&deg;(094.6&deg;T)</td><td>-</td><td>Right</td><td>230-</td><td>4500+</td><td>-</td>
+                        </tr>
+                        <tr>
+                            <td>DF</td><td>SF507</td><td>-</td><td>-</td><td>-</td><td>Left</td><td>--</td><td>A10000-</td><td>-</td>
+                        </tr>
+                        <tr>
+                            <td>TF</td><td>OMENO</td><td>-</td><td>184&deg;(189.5&deg;T)</td><td>13.7</td><td>-</td><td>-</td><td>-</td><td>-</td>
+                        </tr>
+                        <tr>
+                            <td>CA</td><td>-</td><td>-</td><td>089&deg;(094.6&deg;T)</td><td>-</td><td>Right</td><td>230-</td><td>4500+</td><td>-</td>
+                        </tr>
+                        <tr>
+                            <td>DF</td><td>SF507</td><td>-</td><td>-</td><td>-</td><td>Right</td><td>--</td><td>A10000-</td><td>-</td>
+                        </tr>
+                        <tr>
+                            <td>TF</td><td>NAPET</td><td>-</td><td>234&deg;(239.2&deg;T)</td><td>27.3</td><td>-</td><td>-</td><td>-</td><td>-</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    </body>
+</html>

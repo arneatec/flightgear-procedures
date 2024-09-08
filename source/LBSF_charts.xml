@@ -52,11 +52,11 @@
             <Longitude>23.439722</Longitude>
         </RunwayThreshold>
         <RunwayDirection>
-            089
+            94.64
         </RunwayDirection>
         <RunwayLenght>
             <!-- note this is approximate and in the local coordinate system [1-1000] -->
-            19
+            3600
         </RunwayLenght>
         <TakeOffFlyRunwayHeadingDistance>
             <!-- note this is approximate and in the local coordinate system [1-1000] -->

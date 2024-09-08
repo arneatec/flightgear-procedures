@@ -8,6 +8,9 @@
     <xsl:variable name="web_mercator_earth_radius" select="6378137" />
     <xsl:variable name="geo_magnetic_variation" select="/Airport/Chart/MagneticVariation"/>
     <xsl:variable name="map_label_circle_radius" select="22"/>
+    <xsl:variable name="map_secondary_airport_radius" select="8"/>
+    <xsl:variable name="map_secondary_airport_runway_length" select="10"/>
+
     <xsl:variable name="map_zoom" select="/Airport/Chart/Zoom"/>
 
 
@@ -324,18 +327,33 @@
                                                     <circle>
                                                         <xsl:attribute name="cx"><xsl:value-of select="$pointX"/></xsl:attribute>
                                                         <xsl:attribute name="cy"><xsl:value-of select="$pointY"/></xsl:attribute>
-                                                        <xsl:attribute name="r">15</xsl:attribute>
+                                                        <xsl:attribute name="r"><xsl:value-of select="$map_secondary_airport_radius"/></xsl:attribute>
                                                         <xsl:attribute name="stroke">black</xsl:attribute>
                                                         <xsl:attribute name="fill">none</xsl:attribute>
                                                     </circle>
                                                    <line>
-                                                        <xsl:attribute name="x1"><xsl:value-of select="$pointX - floor(18 * math:cos(((Runway * 10) - 90) * ($math_PI div 180)))"/></xsl:attribute>
-                                                        <xsl:attribute name="y1"><xsl:value-of select="$pointY + floor(18 * math:sin(((Runway * 10) + 90) * ($math_PI div 180)))"/></xsl:attribute>
-                                                        <xsl:attribute name="x2"><xsl:value-of select="$pointX + floor(18 * math:cos(((Runway * 10) - 90) * ($math_PI div 180)))"/></xsl:attribute>
-                                                        <xsl:attribute name="y2"><xsl:value-of select="$pointY - floor(18 * math:sin(((Runway * 10) + 90) * ($math_PI div 180)))"/></xsl:attribute>
+                                                        <xsl:attribute name="x1"><xsl:value-of select="$pointX - floor($map_secondary_airport_runway_length * math:cos(((Runway * 10) - 90) * ($math_PI div 180)))"/></xsl:attribute>
+                                                        <xsl:attribute name="y1"><xsl:value-of select="$pointY + floor($map_secondary_airport_runway_length * math:sin(((Runway * 10) + 90) * ($math_PI div 180)))"/></xsl:attribute>
+                                                        <xsl:attribute name="x2"><xsl:value-of select="$pointX + floor($map_secondary_airport_runway_length * math:cos(((Runway * 10) - 90) * ($math_PI div 180)))"/></xsl:attribute>
+                                                        <xsl:attribute name="y2"><xsl:value-of select="$pointY - floor($map_secondary_airport_runway_length * math:sin(((Runway * 10) + 90) * ($math_PI div 180)))"/></xsl:attribute>
                                                         <xsl:attribute name="stroke">black</xsl:attribute>
-                                                        <xsl:attribute name="stroke-width">3</xsl:attribute>
+                                                        <xsl:attribute name="stroke-width">2</xsl:attribute>
                                                    </line>
+                                                </xsl:when>
+                                                <!-- inactive secondary airports -->
+                                                <xsl:when test="$pointType='Airport-Inactive'">
+                                                    <circle>
+                                                        <xsl:attribute name="cx"><xsl:value-of select="$pointX"/></xsl:attribute>
+                                                        <xsl:attribute name="cy"><xsl:value-of select="$pointY"/></xsl:attribute>
+                                                        <xsl:attribute name="r"><xsl:value-of select="$map_secondary_airport_radius"/></xsl:attribute>
+                                                        <xsl:attribute name="stroke">black</xsl:attribute>
+                                                        <xsl:attribute name="fill">none</xsl:attribute>
+                                                    </circle>
+                                                   <text>
+                                                       <xsl:attribute name="x"><xsl:value-of select="$pointX -4"/></xsl:attribute>
+                                                       <xsl:attribute name="y"><xsl:value-of select="$pointY + 4"/></xsl:attribute>
+                                                       <xsl:text>x</xsl:text>
+                                                   </text>
                                                 </xsl:when>
                                                 <!-- base airport -->
                                                 <xsl:when test="$pointType='BaseAirport'">

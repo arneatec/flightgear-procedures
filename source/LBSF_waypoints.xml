@@ -164,6 +164,17 @@
         </CaptionOffset>
     </Waypoint>
     <Waypoint>
+        <ID>Sofia West</ID>
+        <Type>Airport-Inactive</Type>
+        <Latitude>42.443333</Latitude>
+        <Longitude>22.983333</Longitude>
+        <Runway>12</Runway>
+        <CaptionOffset>
+            <X>-60</X>
+            <Y>-22</Y>
+        </CaptionOffset>
+    </Waypoint>
+    <Waypoint>
         <ID>Ihtiman</ID>
         <Type>Airport</Type>
         <Latitude>42.421889</Latitude>

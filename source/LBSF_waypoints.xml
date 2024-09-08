@@ -83,6 +83,10 @@
         <Type>WPT-C-FB</Type>
         <Latitude>42.305000</Latitude>
         <Longitude>24.313333</Longitude>
+        <CaptionOffset>
+            <X>-30</X>
+            <Y>25</Y>
+        </CaptionOffset>
     </Waypoint>
     <Waypoint>
         <ID>OGOTA</ID>

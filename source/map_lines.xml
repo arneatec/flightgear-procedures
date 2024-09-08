@@ -40,26 +40,26 @@
     <!-- left -->
     <Caption>
         <Latitude>42.5</Latitude>
-        <Longitude>22.867</Longitude>
+        <Longitude>22.815</Longitude>
         <Rotate>270</Rotate>
         <Text>42°30''</Text>
     </Caption>
     <Caption>
         <Latitude>43.0</Latitude>
-        <Longitude>22.867</Longitude>
+        <Longitude>22.815</Longitude>
         <Rotate>270</Rotate>
         <Text>43°00''</Text>
     </Caption>
     <!-- right -->
     <Caption>
         <Latitude>42.5</Latitude>
-        <Longitude>24.457</Longitude>
+        <Longitude>24.397</Longitude>
         <Rotate>270</Rotate>
         <Text>42°30''</Text>
     </Caption>
     <Caption>
         <Latitude>43.0</Latitude>
-        <Longitude>24.457</Longitude>
+        <Longitude>24.397</Longitude>
         <Rotate>270</Rotate>
         <Text>43°00''</Text>
     </Caption>

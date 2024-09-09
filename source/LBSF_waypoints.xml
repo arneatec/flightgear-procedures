@@ -383,7 +383,6 @@
         <Latitude>42.781444</Latitude>
         <Longitude>23.613222</Longitude>
         <Charts>
-            <ChartSubType>SID-09-RNAV</ChartSubType>
             <ChartSubType>SID-27-RNAV</ChartSubType>
         </Charts>
     </Waypoint>

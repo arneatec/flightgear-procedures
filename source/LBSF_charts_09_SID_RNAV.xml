@@ -3,6 +3,7 @@
     <Name>Sofia Airport</Name>
     <ICAO>LBSF</ICAO>
     <Chart>
+        <SubType>SID-09-RNAV</SubType>
         <Zoom>180</Zoom>
         <Offset_X>-14100</Offset_X>
         <Offset_Y>28730</Offset_Y>

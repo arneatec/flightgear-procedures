@@ -321,6 +321,27 @@
                                                         <xsl:attribute name="stroke">black</xsl:attribute>
                                                         <xsl:attribute name="fill">none</xsl:attribute>
                                                     </polygon>
+                                                    <text>
+                                                        <xsl:attribute name="x"><xsl:value-of select="$pointX - 50"/></xsl:attribute>
+                                                        <xsl:attribute name="y"><xsl:value-of select="$pointY - 60"/></xsl:attribute>
+                                                        <xsl:value-of select="Name"/>
+                                                    </text>
+                                                    <text>
+                                                        <xsl:attribute name="x"><xsl:value-of select="$pointX - 50"/></xsl:attribute>
+                                                        <xsl:attribute name="y"><xsl:value-of select="$pointY - 47"/></xsl:attribute>
+                                                        <xsl:value-of select="Frequency"/><xsl:text> </xsl:text><xsl:value-of select="ID"/><xsl:text> </xsl:text><xsl:value-of select="Additional"/>
+                                                    </text>
+                                                    <text>
+                                                        <xsl:attribute name="x"><xsl:value-of select="$pointX - 50"/></xsl:attribute>
+                                                        <xsl:attribute name="y"><xsl:value-of select="$pointY - 34"/></xsl:attribute>
+                                                        <xsl:attribute name="fosnt-weight">bold</xsl:attribute>
+                                                        <xsl:value-of select="MorseCodeSigns"/>
+                                                    </text>
+                                                    <text>
+                                                        <xsl:attribute name="x"><xsl:value-of select="$pointX - 50"/></xsl:attribute>
+                                                        <xsl:attribute name="y"><xsl:value-of select="$pointY - 22"/></xsl:attribute>
+                                                        ELEV <xsl:value-of select="Elevation"/>
+                                                    </text>
                                                 </xsl:when>
                                                 <!-- secondary airports -->
                                                 <xsl:when test="$pointType='Airport'">
@@ -353,6 +374,21 @@
                                                        <xsl:attribute name="x"><xsl:value-of select="$pointX -4"/></xsl:attribute>
                                                        <xsl:attribute name="y"><xsl:value-of select="$pointY + 4"/></xsl:attribute>
                                                        <xsl:text>x</xsl:text>
+                                                   </text>
+                                                </xsl:when>
+                                                 <!-- inactive secondary airports -->
+                                                <xsl:when test="$pointType='Helipad'">
+                                                    <circle>
+                                                        <xsl:attribute name="cx"><xsl:value-of select="$pointX"/></xsl:attribute>
+                                                        <xsl:attribute name="cy"><xsl:value-of select="$pointY"/></xsl:attribute>
+                                                        <xsl:attribute name="r"><xsl:value-of select="$map_secondary_airport_radius"/></xsl:attribute>
+                                                        <xsl:attribute name="stroke">black</xsl:attribute>
+                                                        <xsl:attribute name="fill">none</xsl:attribute>
+                                                    </circle>
+                                                   <text>
+                                                       <xsl:attribute name="x"><xsl:value-of select="$pointX - 6"/></xsl:attribute>
+                                                       <xsl:attribute name="y"><xsl:value-of select="$pointY + 5"/></xsl:attribute>
+                                                       <xsl:text>H</xsl:text>
                                                    </text>
                                                 </xsl:when>
                                                 <!-- base airport -->
@@ -423,29 +459,33 @@
                                                     </circle>
                                                 </xsl:when>
                                             </xsl:choose>
-                                            <text>
-                                                <xsl:attribute name="x">
-                                                    <xsl:choose>
-                                                        <xls:when test="CaptionOffset">
-                                                            <xsl:value-of select="$pointX  + CaptionOffset/X"/>
-                                                        </xls:when>
-                                                        <xsl:otherwise>
-                                                            <xsl:value-of select="$pointX + 15"/>
-                                                        </xsl:otherwise>
-                                                    </xsl:choose>
-                                                </xsl:attribute>
-                                                <xsl:attribute name="y">
-                                                    <xsl:choose>
-                                                        <xls:when test="CaptionOffset">
-                                                            <xsl:value-of select="$pointY  + CaptionOffset/Y"/>
-                                                        </xls:when>
-                                                        <xsl:otherwise>
-                                                            <xsl:value-of select="$pointY + 15"/>
-                                                        </xsl:otherwise>
-                                                    </xsl:choose>
-                                                </xsl:attribute>
-                                                <xsl:value-of select="ID"/>
-                                            </text>
+                                            <!-- do not output text for specific types that supply their own, non-generic captions) -->
+                                            <xsl:if test="not($pointType='VOR-DME-OR-FB')">
+                                                <!-- waypoint ID text -->
+                                                <text>
+                                                    <xsl:attribute name="x">
+                                                        <xsl:choose>
+                                                            <xls:when test="CaptionOffset">
+                                                                <xsl:value-of select="$pointX  + CaptionOffset/X"/>
+                                                            </xls:when>
+                                                            <xsl:otherwise>
+                                                                <xsl:value-of select="$pointX + 15"/>
+                                                            </xsl:otherwise>
+                                                        </xsl:choose>
+                                                    </xsl:attribute>
+                                                    <xsl:attribute name="y">
+                                                        <xsl:choose>
+                                                            <xls:when test="CaptionOffset">
+                                                                <xsl:value-of select="$pointY  + CaptionOffset/Y"/>
+                                                            </xls:when>
+                                                            <xsl:otherwise>
+                                                                <xsl:value-of select="$pointY + 15"/>
+                                                            </xsl:otherwise>
+                                                        </xsl:choose>
+                                                    </xsl:attribute>
+                                                    <xsl:value-of select="ID"/>
+                                                </text>
+                                            </xsl:if>
                                         </xsl:for-each>
                                     </svg>
                                 </div>

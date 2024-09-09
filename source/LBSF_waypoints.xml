@@ -109,6 +109,12 @@
     <Waypoint>
         <ID>GOL</ID>
         <Type>VOR-DME-OR-FB</Type>
+        <Name>GOLYAMA</Name>
+        <Frequency>114.1</Frequency>
+        <Additional>88x</Additional>
+        <MorseCodeLetters>GOL</MorseCodeLetters>
+        <MorseCodeSigns>--· --- ·-··</MorseCodeSigns>
+        <Elevation>1300</Elevation>
         <Latitude>43.095000</Latitude>
         <Longitude>24.220556</Longitude>
     </Waypoint>
@@ -148,8 +154,18 @@
         <Longitude>23.392747</Longitude>
         <Runway>13</Runway>
         <CaptionOffset>
-            <X>-60</X>
-            <Y>-22</Y>
+            <X>-40</X>
+            <Y>-10</Y>
+        </CaptionOffset>
+    </Waypoint>
+    <Waypoint>
+        <ID>Lozen</ID>
+        <Type>Helipad</Type>
+        <Latitude>42.6185388889</Latitude>
+        <Longitude>23.5006333333</Longitude>
+        <CaptionOffset>
+            <X>-40</X>
+            <Y>-10</Y>
         </CaptionOffset>
     </Waypoint>
     <Waypoint>
@@ -162,6 +178,17 @@
             <X>-60</X>
             <Y>-22</Y>
         </CaptionOffset>
+    </Waypoint>
+    <Waypoint>
+        <ID>Lesnovo</ID>
+        <Type>Airport</Type>
+        <Latitude>42.633056</Latitude>
+        <Longitude>23.647222</Longitude>
+        <Runway>10</Runway>
+        <CaptionOffseot>
+            <X>-60</X>
+            <Y>-22</Y>
+        </CaptionOffseot>
     </Waypoint>
     <Waypoint>
         <ID>Sofia West</ID>

@@ -7,7 +7,7 @@
         <Offset_X>-14100</Offset_X>
         <Offset_Y>28730</Offset_Y>
         <MagneticVariation>5</MagneticVariation>
-        <ID>LBSF AD 2 - 53.1</ID>
+        <ID>LBSF AD 2 - 53.7</ID>
         <Publisher>AIP FIRST BULGARIAN KINGDOM</Publisher>
         <Publisher_Local>AIP ПЪРВО БЪЛГАРСКО ЦАРСТВО</Publisher_Local>
         <Published_On>25 JAN 24</Published_On><a></a>
@@ -46,33 +46,33 @@
         <Airport_Location>SOFIA</Airport_Location>
         <Chart_Type>RNAV</Chart_Type>
         <Chart_Object>RNW</Chart_Object>
-        <Chart_Object_ID>09</Chart_Object_ID>
+        <Chart_Object_ID>27</Chart_Object_ID>
         <RunwayThreshold>
-            <Latitude>42.695106</Latitude>
-            <Longitude>23.439722</Longitude>
+            <Latitude>42.697782</Latitude>
+            <Longitude>23.394506</Longitude>
         </RunwayThreshold>
         <RunwayDirection>
-            94.64
+             269.45
         </RunwayDirection>
         <RunwayLenght>
-            <!-- note this is approximate and in the local coordinate system [1-1000] -->
+            <!-- note this is in meters -->
             3600
         </RunwayLenght>
         <TakeOffFlyRunwayHeadingDistance>
             <!-- note this is approximate and in the local coordinate system [1-1000] -->
-            60
+            14
         </TakeOffFlyRunwayHeadingDistance>
         <Includes>
-            <SID_ID>DEDIN 2S</SID_ID>
-            <SID_ID>DILVO 2S</SID_ID>
-            <SID_ID>GAPVO 2S</SID_ID>
-            <SID_ID>GODEK 3S</SID_ID>
-            <SID_ID>GOL 3S</SID_ID>
-            <SID_ID>NAPET 2S</SID_ID>
-            <SID_ID>OGOTA 3S</SID_ID>
-            <SID_ID>OMENO 3S</SID_ID>
-            <SID_ID>RUMEN 2S</SID_ID>
-            <SID_ID>UMPIT 3S</SID_ID>
+            <SID_ID>DEDIN 2T</SID_ID>
+            <SID_ID>DILVO 2T</SID_ID>
+            <SID_ID>GAPVO 2T</SID_ID>
+            <SID_ID>GODEK 2T</SID_ID>
+            <SID_ID>GOL 2T</SID_ID>
+            <SID_ID>NAPET 2T</SID_ID>
+            <SID_ID>OGOTA 2T</SID_ID>
+            <SID_ID>OMENO 2T</SID_ID>
+            <SID_ID>RUMEN 2T</SID_ID>
+            <SID_ID>UMPIT 2T</SID_ID>
         </Includes>
         <Image></Image>
         <Scale>1:700 000</Scale>
@@ -87,18 +87,31 @@
             <Critical_DME>
                 <DME>BLO</DME>
                 <DME>VIT</DME>
-                <SID_ID>GODEK 3S</SID_ID>
-                <SID_ID>OGOTA 3S</SID_ID>
-                <SID_ID>OMENO 3S</SID_ID>
+                <SID_ID>GODEK 2T</SID_ID>
+                <SID_ID>OMENO 2T</SID_ID>
+                <SID_ID>DILVO 2T</SID_ID>
+            </Critical_DME>
+            <Critical_DME>
+                <DME>BLO</DME>
+                <DME>VIT</DME>
+                <DME>GRN</DME>
+                <SID_ID>GOL 2T</SID_ID>
             </Critical_DME>
             <Critical_DME>
                 <DME>BLO</DME>
                 <DME>VIT</DME>
                 <DME>KAL</DME>
-                <SID_ID>DEDIN 2S</SID_ID>
-                <SID_ID>DILVO 2S</SID_ID>
-                <SID_ID>GAPVO 2S</SID_ID>
-                <SID_ID>NAPET 2S</SID_ID>
+                <SID_ID>OGOTA 2T</SID_ID>
+                <SID_ID>NAPET 2T</SID_ID>
+            </Critical_DME>
+            <Critical_DME>
+                <DME>BLO</DME>
+                <DME>VIT</DME>
+                <DME>KAL</DME>
+                <DME>GOL</DME>
+                <SID_ID>DEDIN 2T</SID_ID>
+                <SID_ID>UMPIT 2T</SID_ID>
+                <SID_ID>GAPVO 2T</SID_ID>
             </Critical_DME>
             <Critical_DME>
                 <DME>BLO</DME>
@@ -106,15 +119,7 @@
                 <DME>KAL</DME>
                 <DME>PDV</DME>
                 <DME>ROZ</DME>
-                <SID_ID>RUMEN 2S</SID_ID>
-            </Critical_DME>
-            <Critical_DME>
-                <DME>BLO</DME>
-                <DME>VIT</DME>
-                <DME>SOF</DME>
-                <DME>GOL</DME>
-                <DME>GRN</DME>
-                <SID_ID>GOL 3S</SID_ID>
+                <SID_ID>RUMEN 2T</SID_ID>
             </Critical_DME>
             <Critical_DME>
                 <DME>BLO</DME>
@@ -140,11 +145,11 @@
 
         </Non_RNAV_1_Aircrafts>
         <Omnidirectional_Departures>
-            <Omnidirectional_Departure>Climb straight ahead to 6800 FT, turn to the corresponding point or as cleared by ATC</Omnidirectional_Departure>
+            <Omnidirectional_Departure>Climb on track 285° to 7500 FT, turn to the corresponding point or as cleared by ATC</Omnidirectional_Departure>
             <Omnidirectional_Departure>MNM climb gradient of 5% (304 FT/NM) to 9600 FT</Omnidirectional_Departure>
         </Omnidirectional_Departures>
         <SID_Page>
-            <ID>LBSF AD 2 - 53.2</ID>
+            <ID>LBSF AD 2 - 53.8</ID>
             <Publisher>AIP FIRST BULGARIAN KINGDOM</Publisher>
             <Publisher_Local>AIP ПЪРВО БЪЛГАРСКО ЦАРСТВО</Publisher_Local>
             <Published_On>18 JUN 20</Published_On>
@@ -200,80 +205,39 @@
                 </Header_Column>
             </Header_Columns>
             <SID_Core>
-                <ID>GODEK 3S</ID>
-                <Name>GODEK THREE SIERRA DEPARTURE</Name>
-                <Description>MNM climb gradient of 5.3% (322FT/NM) to 9000FT AMSL due to terrain.</Description>
+                <ID>GODEK 2T</ID>
+                <Name>GODEK TWO TANGO DEPARTURE</Name>
+                <Description>MNM climb gradient of 5% (304FT/NM) to 10000FT AMSL due to terrain.</Description>
                 <Waypoints>
                     <Waypoint>
                         <PT>CA</PT>
                         <WPTID>-</WPTID>
                         <Flyover>-</Flyover>
-                        <Track>089°(094.6°T)</Track>
+                        <Track>269°(274.7°T)</Track>
+                        <DIST>-</DIST>
+                        <Turn>Right</Turn>
+                        <Speed>205-</Speed>
+                        <Altitude>2300+</Altitude>
+                        <Additional>-</Additional>
+                    </Waypoint>
+                    <Waypoint>
+                        <PT>CF</PT>
+                        <WPTID>SF701</WPTID>
+                        <Flyover>Yes</Flyover>
+                        <Track>348°(353.0°T)</Track>
                         <DIST>-</DIST>
                         <Turn>Left</Turn>
-                        <Speed>230-</Speed>
-                        <Altitude>4500+</Altitude>
+                        <Speed>--</Speed>
+                        <Altitude>-</Altitude>
                         <Additional>-</Additional>
                     </Waypoint>
                     <Waypoint>
                         <PT>DF</PT>
-                        <WPTID>SF502</WPTID>
-                        <Flyover>-</Flyover>
-                        <Track>-</Track>
-                        <DIST>-</DIST>
-                        <Turn>Left</Turn>
-                        <Speed>--</Speed>
-                        <Altitude>10000-</Altitude>
-                        <Additional>-</Additional>
-                    </Waypoint>
-                    <Waypoint>
-                        <PT>TF</PT>
                         <WPTID>GODEK</WPTID>
                         <Flyover>-</Flyover>
-                        <Track>299°(304.7°T)</Track>
-                        <DIST>28.5</DIST>
-                        <Turn>-</Turn>
-                        <Speed>-</Speed>
-                        <Altitude>-</Altitude>
-                        <Additional>-</Additional>
-                    </Waypoint>
-                </Waypoints>
-                <PT></PT>
-            </SID_Core>
-            <SID_Core>
-                <ID>OGOTA 3S</ID>
-                <Name>OGOTA THREE SIERRA DEPARTURE</Name>
-                <Description>MNM climb gradient of 5.3% (322FT/NM) to 9000FT AMSL due to terrain.</Description>
-                <Waypoints>
-                    <Waypoint>
-                        <PT>CA</PT>
-                        <WPTID>-</WPTID>
-                        <Flyover>-</Flyover>
-                        <Track>089°(094.6°T)</Track>
-                        <DIST>-</DIST>
-                        <Turn>Left</Turn>
-                        <Speed>230-</Speed>
-                        <Altitude>4500+</Altitude>
-                        <Additional>-</Additional>
-                    </Waypoint>
-                    <Waypoint>
-                        <PT>DF</PT>
-                        <WPTID>SF502</WPTID>
-                        <Flyover>-</Flyover>
                         <Track>-</Track>
                         <DIST>-</DIST>
                         <Turn>-</Turn>
-                        <Speed>--</Speed>
-                        <Altitude>10000-</Altitude>
-                        <Additional>-</Additional>
-                    </Waypoint>
-                    <Waypoint>
-                        <PT>TF</PT>
-                        <WPTID>OGOTA</WPTID>
-                        <Flyover>-</Flyover>
-                        <Track>333°(338.0°T)</Track>
-                        <DIST>23.1</DIST>
-                        <Turn>-</Turn>
                         <Speed>-</Speed>
                         <Altitude>-</Altitude>
                         <Additional>-</Additional>
@@ -281,380 +245,7 @@
                 </Waypoints>
                 <PT></PT>
             </SID_Core>
-            <SID_Core>
-                <ID>GOL 3S</ID>
-                <Name>GOLYAMA THREE SIERRA DEPARTURE</Name>
-                <Description>MNM climb gradient of 5% (304FT/NM) to 8200FT AMSL due to terrain.</Description>
-                <Waypoints>
-                    <Waypoint>
-                        <PT>CA</PT>
-                        <WPTID>-</WPTID>
-                        <Flyover>-</Flyover>
-                        <Track>089°(094.6°T)</Track>
-                        <DIST>-</DIST>
-                        <Turn>Left</Turn>
-                        <Speed>230-</Speed>
-                        <Altitude>4500+</Altitude>
-                        <Additional>-</Additional>
-                    </Waypoint>
-                    <Waypoint>
-                        <PT>DF</PT>
-                        <WPTID>SF503</WPTID>
-                        <Flyover>-</Flyover>
-                        <Track>-</Track>
-                        <DIST>-</DIST>
-                        <Turn>-</Turn>
-                        <Speed>--</Speed>
-                        <Altitude>10000-</Altitude>
-                        <Additional>-</Additional>
-                    </Waypoint>
-                     <Waypoint>
-                        <PT>TF</PT>
-                        <WPTID>SF504</WPTID>
-                        <Flyover>-</Flyover>
-                        <Track>048°(053.6°T)</Track>
-                        <DIST>14.4</DIST>
-                        <Turn>-</Turn>
-                        <Speed>-</Speed>
-                        <Altitude>-</Altitude>
-                        <Additional>-</Additional>
-                    </Waypoint>
-                    <Waypoint>
-                        <PT>TF</PT>
-                        <WPTID>GOL</WPTID>
-                        <Flyover>-</Flyover>
-                        <Track>024°(028.9°T)</Track>
-                        <DIST>9.5</DIST>
-                        <Turn>-</Turn>
-                        <Speed>-</Speed>
-                        <Altitude>-</Altitude>
-                        <Additional>-</Additional>
-                    </Waypoint>
-                </Waypoints>
-                <PT></PT>
-            </SID_Core>
-            <SID_Core>
-                <ID>UMPIT 3S</ID>
-                <Name>UMPIT THREE SIERRA DEPARTURE</Name>
-                <Description>MNM climb gradient of 5% (304FT/NM) to 9000FT AMSL due to terrain.</Description>
-                <Waypoints>
-                    <Waypoint>
-                        <PT>CA</PT>
-                        <WPTID>-</WPTID>
-                        <Flyover>-</Flyover>
-                        <Track>089°(094.6°T)</Track>
-                        <DIST>-</DIST>
-                        <Turn>Left</Turn>
-                        <Speed>230-</Speed>
-                        <Altitude>4500+</Altitude>
-                        <Additional>-</Additional>
-                    </Waypoint>
-                    <Waypoint>
-                        <PT>DF</PT>
-                        <WPTID>SF503</WPTID>
-                        <Flyover>-</Flyover>
-                        <Track>-</Track>
-                        <DIST>-</DIST>
-                        <Turn>Right</Turn>
-                        <Speed>--</Speed>
-                        <Altitude>10000-</Altitude>
-                        <Additional>-</Additional>
-                    </Waypoint>
-                    <Waypoint>
-                        <PT>TF</PT>
-                        <WPTID>UMPIT</WPTID>
-                        <Flyover>-</Flyover>
-                        <Track>093°(098.3°T)</Track>
-                        <DIST>14.3</DIST>
-                        <Turn>-</Turn>
-                        <Speed>-</Speed>
-                        <Altitude>-</Altitude>
-                        <Additional>-</Additional>
-                    </Waypoint>
-                </Waypoints>
-                <PT></PT>
-            </SID_Core>
-            <SID_Core>
-                <ID>GAPVO 2S</ID>
-                <Name>GAPVO TWO SIERRA DEPARTURE</Name>
-                <Description>MNM climb gradient of 5% (304FT/NM) to 9200FT AMSL due to terrain.</Description>
-                <Waypoints>
-                    <Waypoint>
-                        <PT>CF</PT>
-                        <WPTID>SF505</WPTID>
-                        <Flyover>-</Flyover>
-                        <Track>089°(094.6°T)</Track>
-                        <DIST>21.2</DIST>
-                        <Turn>-</Turn>
-                        <Speed>--</Speed>
-                        <Altitude>-</Altitude>
-                        <Additional>-</Additional>
-                    </Waypoint>
-                    <Waypoint>
-                        <PT>TF</PT>
-                        <WPTID>GAPVO</WPTID>
-                        <Flyover>-</Flyover>
-                        <Track>081°(086.0°T)</Track>
-                        <DIST>11.9</DIST>
-                        <Turn>-</Turn>
-                        <Speed>-</Speed>
-                        <Altitude>-</Altitude>
-                        <Additional>-</Additional>
-                    </Waypoint>
-                </Waypoints>
-                <PT></PT>
-            </SID_Core>
-        </SID_Page>
-        <SID_Page>
-            <ID>LBSF AD 2 - 53.3</ID>
-            <Publisher>AIP FIRST BULGARIAN KINGDOM</Publisher>
-            <Publisher_Local>AIP ПЪРВО БЪЛГАРСКО ЦАРСТВО</Publisher_Local>
-            <Published_On>18 MAY 23</Published_On><a></a>
-            <Page>3.0</Page>
-            <Header_Columns>
-                <Header_Column>
-                    <Caption>P/T</Caption>
-                    <Percent>7.6</Percent>
-                </Header_Column>
-                <Header_Column>
-                    <Caption>WPT ID</Caption>
-                    <Percent>12</Percent>
-                </Header_Column>
-                <Header_Column>
-                    <Caption>Flyover</Caption>
-                    <Percent>9</Percent>
-                </Header_Column>
-                <Header_Column>
-                    <Caption>Track</Caption>
-                    <Sub_Caption>MAG(GEO)</Sub_Caption>
-                    <Sub_Caption_Bold>no</Sub_Caption_Bold>
-                    <Percent>17</Percent>
-                </Header_Column>
-                <Header_Column>
-                    <Caption>Dist</Caption>
-                    <Sub_Caption>NM</Sub_Caption>
-                    <Sub_Caption_Bold>no</Sub_Caption_Bold>
-                    <Percent>10</Percent>
-                </Header_Column>
-                <Header_Column>
-                    <Caption>Turn</Caption>
-                    <Sub_Caption>Direction</Sub_Caption>
-                    <Sub_Caption_Bold>yes</Sub_Caption_Bold>
-                    <Percent>12</Percent>
-                </Header_Column>
-                <Header_Column>
-                    <Caption>Speed</Caption>
-                    <Sub_Caption>KT</Sub_Caption>
-                    <Sub_Caption_Bold>no</Sub_Caption_Bold>
-                    <Percent>9</Percent>
-                </Header_Column>
-                <Header_Column>
-                    <Caption>ALT</Caption>
-                    <Sub_Caption>FT</Sub_Caption>
-                    <Sub_Caption_Bold>no</Sub_Caption_Bold>
-                    <Percent>9</Percent>
-                </Header_Column>
-                <Header_Column>
-                    <Caption>Additional</Caption>
-                    <Sub_Caption>Requirements</Sub_Caption>
-                    <Sub_Caption_Bold>yes</Sub_Caption_Bold>
-                    <Percent>15</Percent>
-                </Header_Column>
-                </Header_Columns>
-            <SID_Core>
-                <ID>DEDIN 2S</ID>
-                <Name>DEDIN TWO SIERRA DEPARTURE</Name>
-                <Description>MNM climb gradient of 5% (304FT/NM) to 9300FT AMSL due to terrain.</Description>
-                <Waypoints>
-                    <Waypoint>
-                        <PT>CF</PT>
-                        <WPTID>SF505</WPTID>
-                        <Flyover>-</Flyover>
-                        <Track>089°(094.6°T)</Track>
-                        <DIST>21.2</DIST>
-                        <Turn>Right</Turn>
-                        <Speed>--</Speed>
-                        <Altitude>-</Altitude>
-                        <Additional>-</Additional>
-                    </Waypoint>
-                    <Waypoint>
-                        <PT>TF</PT>
-                        <WPTID>DEDIN</WPTID>
-                        <Flyover>-</Flyover>
-                        <Track>111°(116.1°T)</Track>
-                        <DIST>10.0</DIST>
-                        <Turn>-</Turn>
-                        <Speed>-</Speed>
-                        <Altitude>-</Altitude>
-                        <Additional>-</Additional>
-                    </Waypoint>
-                </Waypoints>
-                <PT></PT>
-            </SID_Core>
-            <SID_Core>
-                <ID>RUMEN 2S</ID>
-                <Name>RUMEN TWO SIERRA DEPARTURE</Name>
-                <Description>MNM climb gradient of 5% (304FT/NM) to 9500FT AMSL due to terrain.</Description>
-                <Waypoints>
-                    <Waypoint>
-                        <PT>CA</PT>
-                        <WPTID>-</WPTID>
-                        <Flyover>-</Flyover>
-                        <Track>089°(094.6°T)</Track>
-                        <DIST>-</DIST>
-                        <Turn>Right</Turn>
-                        <Speed>230-</Speed>
-                        <Altitude>4500+</Altitude>
-                        <Additional>-</Additional>
-                    </Waypoint>
-                    <Waypoint>
-                        <PT>DF</PT>
-                        <WPTID>SF506</WPTID>
-                        <Flyover>-</Flyover>
-                        <Track>-</Track>
-                        <DIST>-</DIST>
-                        <Turn>Right</Turn>
-                        <Speed>--</Speed>
-                        <Altitude>A10000-</Altitude>
-                        <Additional>-</Additional>
-                    </Waypoint>
-                    <Waypoint>
-                        <PT>TF</PT>
-                        <WPTID>RUMEN</WPTID>
-                        <Flyover>-</Flyover>
-                        <Track>113°(118.2°T)</Track>
-                        <DIST>25.2</DIST>
-                        <Turn>-</Turn>
-                        <Speed>-</Speed>
-                        <Altitude>-</Altitude>
-                        <Additional>-</Additional>
-                    </Waypoint>
-                </Waypoints>
-                <PT></PT>
-            </SID_Core>
-            <SID_Core>
-                <ID>DILVO 2S</ID>
-                <Name>DILVO TWO SIERRA DEPARTURE</Name>
-                <Description>MNM climb gradient of 5% (304FT/NM) to 9000FT AMSL due to terrain.</Description>
-                <Waypoints>
-                    <Waypoint>
-                        <PT>CA</PT>
-                        <WPTID>-</WPTID>
-                        <Flyover>-</Flyover>
-                        <Track>089°(094.6°T)</Track>
-                        <DIST>-</DIST>
-                        <Turn>Right</Turn>
-                        <Speed>230-</Speed>
-                        <Altitude>4500+</Altitude>
-                        <Additional>-</Additional>
-                    </Waypoint>
-                    <Waypoint>
-                        <PT>DF</PT>
-                        <WPTID>SF506</WPTID>
-                        <Flyover>-</Flyover>
-                        <Track>-</Track>
-                        <DIST>-</DIST>
-                        <Turn>Right</Turn>
-                        <Speed>--</Speed>
-                        <Altitude>A10000-</Altitude>
-                        <Additional>-</Additional>
-                    </Waypoint>
-                    <Waypoint>
-                        <PT>TF</PT>
-                        <WPTID>DILVO</WPTID>
-                        <Flyover>-</Flyover>
-                        <Track>150°(155.0°T)</Track>
-                        <DIST>12.9</DIST>
-                        <Turn>-</Turn>
-                        <Speed>-</Speed>
-                        <Altitude>-</Altitude>
-                        <Additional>-</Additional>
-                    </Waypoint>
-                </Waypoints>
-                <PT></PT>
-            </SID_Core>
-            <SID_Core>
-                <ID>OMENO 3S</ID>
-                <Name>OMENO THREE SIERRA DEPARTURE</Name>
-                <Description>MNM climb gradient of 6% (365FT/NM) to TRL due to terrain.</Description>
-                <Waypoints>
-                    <Waypoint>
-                        <PT>CA</PT>
-                        <WPTID>-</WPTID>
-                        <Flyover>-</Flyover>
-                        <Track>089°(094.6°T)</Track>
-                        <DIST>-</DIST>
-                        <Turn>Right</Turn>
-                        <Speed>230-</Speed>
-                        <Altitude>4500+</Altitude>
-                        <Additional>-</Additional>
-                    </Waypoint>
-                    <Waypoint>
-                        <PT>DF</PT>
-                        <WPTID>SF507</WPTID>
-                        <Flyover>-</Flyover>
-                        <Track>-</Track>
-                        <DIST>-</DIST>
-                        <Turn>Left</Turn>
-                        <Speed>--</Speed>
-                        <Altitude>A10000-</Altitude>
-                        <Additional>-</Additional>
-                    </Waypoint>
-                    <Waypoint>
-                        <PT>TF</PT>
-                        <WPTID>OMENO</WPTID>
-                        <Flyover>-</Flyover>
-                        <Track>184°(189.5°T)</Track>
-                        <DIST>13.7</DIST>
-                        <Turn>-</Turn>
-                        <Speed>-</Speed>
-                        <Altitude>-</Altitude>
-                        <Additional>-</Additional>
-                    </Waypoint>
-                </Waypoints>
-                <PT></PT>
-            </SID_Core>
-            <SID_Core>
-                <ID>NAPET 2S</ID>
-                <Name>OMENO TWO SIERRA DEPARTURE</Name>
-                <Description>MNM climb gradient of 6% (365FT/NM) to 9000FT AMSL due to terrain.</Description>
-                <Waypoints>
-                    <Waypoint>
-                        <PT>CA</PT>
-                        <WPTID>-</WPTID>
-                        <Flyover>-</Flyover>
-                        <Track>089°(094.6°T)</Track>
-                        <DIST>-</DIST>
-                        <Turn>Right</Turn>
-                        <Speed>230-</Speed>
-                        <Altitude>4500+</Altitude>
-                        <Additional>-</Additional>
-                    </Waypoint>
-                    <Waypoint>
-                        <PT>DF</PT>
-                        <WPTID>SF507</WPTID>
-                        <Flyover>-</Flyover>
-                        <Track>-</Track>
-                        <DIST>-</DIST>
-                        <Turn>Right</Turn>
-                        <Speed>--</Speed>
-                        <Altitude>A10000-</Altitude>
-                        <Additional>-</Additional>
-                    </Waypoint>
-                    <Waypoint>
-                        <PT>TF</PT>
-                        <WPTID>NAPET</WPTID>
-                        <Flyover>-</Flyover>
-                        <Track>234°(239.2°T)</Track>
-                        <DIST>27.3</DIST>
-                        <Turn>-</Turn>
-                        <Speed>-</Speed>
-                        <Altitude>-</Altitude>
-                        <Additional>-</Additional>
-                    </Waypoint>
-                </Waypoints>
-                <PT></PT>
-            </SID_Core>
+
         </SID_Page>
     </Chart>
 

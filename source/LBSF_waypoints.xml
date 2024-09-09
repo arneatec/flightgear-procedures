@@ -259,4 +259,10 @@
             <Y>-90</Y>
         </CaptionOffset>
     </Waypoint>
+    <Waypoint>
+        <ID>SF701</ID>
+        <Type>WPT-OR-FO</Type>
+        <Latitude>42.847472</Latitude>
+        <Longitude>23.330306</Longitude>
+    </Waypoint>
 </Waypoins>

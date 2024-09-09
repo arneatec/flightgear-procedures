@@ -93,6 +93,26 @@
                                             <!--
                                             <circle cx="500" cy="500" r="5" fill="red"/>
                                             -->
+                                            <xsl:variable name="runwayX"><xsl:value-of select="floor((/Airport/Chart/RunwayThreshold/Longitude * ($math_PI div 180) * $web_mercator_earth_radius) div //Airport/Chart/Zoom) + //Airport/Chart/Offset_X"/></xsl:variable>
+                                            <xsl:variable name="runwayY"><xsl:value-of select="$svg_size - floor((math:log(math:tan(/Airport/Chart/RunwayThreshold/Latitude * ($math_PI div 180) div 2 + $math_PI div 4)) * $web_mercator_earth_radius) div (//Airport/Chart/Zoom)) + //Airport/Chart/Offset_Y"/></xsl:variable>
+                                            <!-- lenght of the runway 'fly away extension' -->
+                                            <xsl:variable name="takeOffExtension"><xsl:value-of select="/Airport/Chart/TakeOffFlyRunwayHeadingDistance"/></xsl:variable>
+                                            <!-- extension end coordinates -->
+                                                <xsl:variable name="endExtensionX"><xsl:value-of select="$runwayX + floor($takeOffExtension * math:cos((/Airport/Chart/RunwayDirection - 90) * ($math_PI div 180)))"/></xsl:variable>
+                                            <xsl:variable name="endExtensionY"><xsl:value-of select="$runwayY + floor($takeOffExtension * math:sin((/Airport/Chart/RunwayDirection - 90) * ($math_PI div 180)))"/></xsl:variable>
+
+                                            <circle>
+                                                <xsl:attribute name="cx"><xsl:value-of select="$runwayX"/></xsl:attribute>
+                                                <xsl:attribute name="cy"><xsl:value-of select="$runwayY"/></xsl:attribute>
+                                                <xsl:attribute name="r">4</xsl:attribute>
+                                                <xsl:attribute name="fill">red</xsl:attribute>
+                                            </circle>
+                                            <circle>
+                                                <xsl:attribute name="cx"><xsl:value-of select="$endExtensionX"/></xsl:attribute>
+                                                <xsl:attribute name="cy"><xsl:value-of select="$endExtensionY"/></xsl:attribute>
+                                                <xsl:attribute name="r">4</xsl:attribute>
+                                                <xsl:attribute name="fill">green</xsl:attribute>
+                                            </circle>
                                             <!-- each SID starts with the runway threshold -->
                                             <path>
                                                 <xsl:attribute name="fill">none</xsl:attribute>
@@ -100,25 +120,37 @@
                                                 <xsl:attribute name="stroke-width">2</xsl:attribute>
                                                 <xsl:attribute name="d">
                                                     <!-- runway termination coordinates -->
-                                                    <xsl:variable name="startX"><xsl:value-of select="floor((/Airport/Chart/RunwayThreshold/Longitude * ($math_PI div 180) * $web_mercator_earth_radius) div //Airport/Chart/Zoom) + //Airport/Chart/Offset_X"/></xsl:variable>
-                                                    <xsl:variable name="startY"><xsl:value-of select="$svg_size - floor((math:log(math:tan(/Airport/Chart/RunwayThreshold/Latitude * ($math_PI div 180) div 2 + $math_PI div 4)) * $web_mercator_earth_radius) div (//Airport/Chart/Zoom)) + //Airport/Chart/Offset_Y"/></xsl:variable>
-                                                    <!-- lenght of the runway 'fly away extension' -->
-                                                    <xsl:variable name="takeOffExtension"><xsl:value-of select="/Airport/Chart/TakeOffFlyRunwayHeadingDistance"/></xsl:variable>
-                                                    <!-- extension end coordinates -->
-                                                    <xsl:variable name="endExtensionX"><xsl:value-of select="$startX + floor($takeOffExtension * math:cos((/Airport/Chart/RunwayDirection - 90) * ($math_PI div 180)))"/></xsl:variable>
-                                                    <xsl:variable name="endExtensionY"><xsl:value-of select="$startY + floor($takeOffExtension * math:sin((/Airport/Chart/RunwayDirection - 90) * ($math_PI div 180)))"/></xsl:variable>
                                                     <!-- start drawing -->
-                                                    M <xsl:value-of select="$startX"/><xsl:text> </xsl:text><xsl:value-of select="$startY"/>
+                                                    M <xsl:value-of select="$runwayX"/><xsl:text> </xsl:text><xsl:value-of select="$runwayY"/>
                                                     L <xsl:value-of select="$endExtensionX"/><xsl:text> </xsl:text><xsl:value-of select="$endExtensionY"/>
                                                     <xsl:if test="count(Waypoints/Waypoint[PT='CA']) > 0">
+                                                        <!-- this is a climb-out sid  -->
+                                                        <!-- you climb runway heading and turn as indicated in SID Turn (use runway direction and turn direction to work out the actual turn)  -->
+                                                        <!-- also you need to calculate the heading delta that the turn will execute, the less delta the less turn -->
+                                                        <xsl:variable name="geo_track_next"><xsl:value-of select="substring-before(substring-after(Waypoints/Waypoint[PT='CA']/following-sibling::Waypoint/Track, '('),'°')"/></xsl:variable>
+                                                        <xsl:variable name="turn_delta"><xsl:value-of select="  /Airport/Chart/RunwayDirection - $geo_track_next"/> </xsl:variable>
+                                                        <!--
+                                                        Q <xsl:value-of select="$endExtensionX +  floor($turn_delta)"/><xsl:text> </xsl:text><xsl:value-of select="$endExtensionY + floor($turn_delta)"/> <xsl:text> </xsl:text> <xsl:value-of select="$endExtensionX + ($turn_delta div 2)"/><xsl:text> </xsl:text> <xsl:value-of select="$endExtensionY + ($turn_delta div 2)"/>
+                                                        -->
                                                         <xsl:choose>
-                                                             <xsl:when test="count(Waypoints/Waypoint[PT='CA' and Turn='Left']) > 0">
-                                                                Q <xsl:value-of select="$endExtensionX +  floor($takeOffExtension* 0.75)"/><xsl:text> </xsl:text><xsl:value-of select="$endExtensionY"/> <xsl:text> </xsl:text> <xsl:value-of select="$endExtensionX + 45"/><xsl:text> </xsl:text> <xsl:value-of select="$endExtensionY - 25"/>
-                                                             </xsl:when>
+                                                            <xsl:when test="number($geo_track_next) = $geo_track_next">
+                                                                Q <xsl:value-of select="$endExtensionX + floor($turn_delta div 5)"/><xsl:text> </xsl:text><xsl:value-of select="$endExtensionY"/><xsl:text> </xsl:text><xsl:value-of select="$endExtensionX + floor($turn_delta div 5) "/><xsl:text> </xsl:text><xsl:value-of select="$endExtensionY + floor($turn_delta div 5)"/>
+                                                            </xsl:when>
                                                             <xsl:otherwise>
-                                                                Q <xsl:value-of select="$endExtensionX +  floor($takeOffExtension* 0.75)"/><xsl:text> </xsl:text><xsl:value-of select="$endExtensionY"/> <xsl:text> </xsl:text> <xsl:value-of select="$endExtensionX + 45"/><xsl:text> </xsl:text> <xsl:value-of select="$endExtensionY + 25"/>
+                                                                <xsl:if test="count(Waypoints/Waypoint[PT='CA']) > 0">
+                                                                    <xsl:choose>
+                                                                         <xsl:when test="count(Waypoints/Waypoint[PT='CA' and Turn='Left']) > 0">
+                                                                            Q <xsl:value-of select="$endExtensionX +  floor($takeOffExtension* 0.75)"/><xsl:text> </xsl:text><xsl:value-of select="$endExtensionY"/> <xsl:text> </xsl:text> <xsl:value-of select="$endExtensionX + 45"/><xsl:text> </xsl:text> <xsl:value-of select="$endExtensionY - 25"/>
+                                                                         </xsl:when>
+                                                                        <xsl:otherwise>
+                                                                            Q <xsl:value-of select="$endExtensionX +  floor($takeOffExtension* 0.75)"/><xsl:text> </xsl:text><xsl:value-of select="$endExtensionY"/> <xsl:text> </xsl:text> <xsl:value-of select="$endExtensionX + 45"/><xsl:text> </xsl:text> <xsl:value-of select="$endExtensionY + 25"/>
+                                                                        </xsl:otherwise>
+                                                                    </xsl:choose>
+                                                                </xsl:if>
                                                             </xsl:otherwise>
                                                         </xsl:choose>
+                                                        
+
                                                     </xsl:if>
                                                     <!-- and finally the waypoints -->
                                                     <xsl:for-each select="Waypoints/Waypoint[not(WPTID='-')]">
@@ -202,6 +234,8 @@
                                             <xsl:variable name="pointY1"><xsl:value-of select="$svg_size - floor((math:log(math:tan(Latitude_Start * ($math_PI div 180) div 2 + $math_PI div 4)) * $web_mercator_earth_radius) div (//Airport/Chart/Zoom)) + //Airport/Chart/Offset_Y"/></xsl:variable>
                                             <xsl:variable name="pointX2"><xsl:value-of select="floor((Longitude_End * ($math_PI div 180) * $web_mercator_earth_radius) div //Airport/Chart/Zoom) + //Airport/Chart/Offset_X"/></xsl:variable>
                                             <xsl:variable name="pointY2"><xsl:value-of select="$svg_size - floor((math:log(math:tan(Latitude_End * ($math_PI div 180) div 2 + $math_PI div 4)) * $web_mercator_earth_radius) div (//Airport/Chart/Zoom)) + //Airport/Chart/Offset_Y"/></xsl:variable>
+
+
                                             <line>
                                                 <xsl:attribute name="x1"><xsl:value-of select="$pointX1"/></xsl:attribute>
                                                 <xsl:attribute name="y1"><xsl:value-of select="$pointY1"/></xsl:attribute>
@@ -281,6 +315,38 @@
                                                         <xsl:attribute name="stroke">black</xsl:attribute>
                                                         <xsl:attribute name="fill">none</xsl:attribute>
                                                     </polygon>
+                                                </xsl:when>
+                                                <!-- Waypoint - On Request / FlyBy -->
+                                                <xsl:when test="$pointType='WPT-OR-FO'">
+                                                    <!-- polygon -->
+                                                    <polygon>
+                                                        <xsl:attribute name="points">
+                                                            <xsl:value-of select="$pointX"/>,<xsl:value-of select="$pointY + 15"/>
+                                                            <xsl:text> </xsl:text>
+                                                            <xsl:value-of select="$pointX - 5"/>,<xsl:value-of select="$pointY + 5"/>
+                                                            <xsl:text> </xsl:text>
+                                                            <xsl:value-of select="$pointX - 15"/>,<xsl:value-of select="$pointY"/>
+                                                            <xsl:text> </xsl:text>
+                                                            <xsl:value-of select="$pointX - 5"/>,<xsl:value-of select="$pointY - 5"/>
+                                                            <xsl:text> </xsl:text>
+                                                            <xsl:value-of select="$pointX"/>,<xsl:value-of select="$pointY - 15"/>
+                                                            <xsl:text> </xsl:text>
+                                                            <xsl:value-of select="$pointX + 5"/>,<xsl:value-of select="$pointY - 5"/>
+                                                            <xsl:text> </xsl:text>
+                                                            <xsl:value-of select="$pointX + 15"/>,<xsl:value-of select="$pointY"/>
+                                                            <xsl:text> </xsl:text>
+                                                            <xsl:value-of select="$pointX + 5"/>,<xsl:value-of select="$pointY + 5"/>
+                                                        </xsl:attribute>
+                                                        <xsl:attribute name="stroke">black</xsl:attribute>
+                                                        <xsl:attribute name="fill">black</xsl:attribute>
+                                                    </polygon>
+                                                    <circle>
+                                                        <xsl:attribute name="cx"><xsl:value-of select="$pointX"/></xsl:attribute>
+                                                        <xsl:attribute name="cy"><xsl:value-of select="$pointY"/></xsl:attribute>
+                                                        <xsl:attribute name="r">7</xsl:attribute>
+                                                        <xsl:attribute name="fill">white</xsl:attribute>
+                                                        <xsl:attribute name="stroke">black</xsl:attribute>
+                                                    </circle>
                                                 </xsl:when>
                                                 <!-- VOR/DME - On Request / FlyBy -->
                                                 <xsl:when test="$pointType='VOR-DME-OR-FB'">

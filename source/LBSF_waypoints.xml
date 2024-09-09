@@ -23,6 +23,9 @@
         <Type>WPT-OR-FB</Type>
         <Latitude>42.857278</Latitude>
         <Longitude>23.523806</Longitude>
+        <Charts>
+            <ChartSubType>SID-09-RNAV</ChartSubType>
+        </Charts>
     </Waypoint>
     <Waypoint>
         <ID>SF503</ID>
@@ -33,12 +36,18 @@
             <X>-20</X>
             <Y>-20</Y>
         </CaptionOffset>
+        <Charts>
+            <ChartSubType>SID-09-RNAV</ChartSubType>
+        </Charts>
     </Waypoint>
     <Waypoint>
         <ID>SF504</ID>
         <Type>WPT-OR-FB</Type>
         <Latitude>42.956306</Latitude>
         <Longitude>24.115722</Longitude>
+        <Charts>
+            <ChartSubType>SID-09-RNAV</ChartSubType>
+        </Charts>
     </Waypoint>
     <Waypoint>
         <ID>SF505</ID>
@@ -49,6 +58,9 @@
             <X>-30</X>
             <Y>-20</Y>
         </CaptionOffset>
+        <Charts>
+            <ChartSubType>SID-09-RNAV</ChartSubType>
+        </Charts>
     </Waypoint>
     <Waypoint>
         <ID>SF506</ID>
@@ -59,36 +71,58 @@
             <X>0</X>
             <Y>-20</Y>
         </CaptionOffset>
+        <Charts>
+            <ChartSubType>SID-09-RNAV</ChartSubType>
+        </Charts>
     </Waypoint>
     <Waypoint>
         <ID>SF507</ID>
         <Type>WPT-OR-FB</Type>
         <Latitude>42.522250</Latitude>
         <Longitude>23.532056</Longitude>
+        <Charts>
+            <ChartSubType>SID-09-RNAV</ChartSubType>
+        </Charts>
     </Waypoint>
     <Waypoint>
         <ID>GODEK</ID>
         <Type>WPT-C-FB</Type>
         <Latitude>43.126667</Latitude>
         <Longitude>22.989444</Longitude>
+        <Charts>
+            <ChartSubType>SID-09-RNAV</ChartSubType>
+            <ChartSubType>SID-27-RNAV</ChartSubType>
+        </Charts>
     </Waypoint>
     <Waypoint>
         <ID>NAPET</ID>
         <Type>WPT-C-FB</Type>
         <Latitude>42.288333</Latitude>
         <Longitude>23.005556</Longitude>
+        <Charts>
+            <ChartSubType>SID-09-RNAV</ChartSubType>
+            <ChartSubType>SID-27-RNAV</ChartSubType>
+        </Charts>
     </Waypoint>
     <Waypoint>
         <ID>OMENO</ID>
         <Type>WPT-C-FB</Type>
         <Latitude>42.296944</Latitude>
         <Longitude>23.481389</Longitude>
+        <Charts>
+            <ChartSubType>SID-09-RNAV</ChartSubType>
+            <ChartSubType>SID-27-RNAV</ChartSubType>
+        </Charts>
     </Waypoint>
     <Waypoint>
         <ID>DILVO</ID>
         <Type>WPT-C-FB</Type>
         <Latitude>42.310000</Latitude>
         <Longitude>23.936944</Longitude>
+        <Charts>
+            <ChartSubType>SID-09-RNAV</ChartSubType>
+            <ChartSubType>SID-27-RNAV</ChartSubType>
+        </Charts>
     </Waypoint>
     <Waypoint>
         <ID>RUMEN</ID>
@@ -99,12 +133,20 @@
             <X>-30</X>
             <Y>25</Y>
         </CaptionOffset>
+        <Charts>
+            <ChartSubType>SID-09-RNAV</ChartSubType>
+            <ChartSubType>SID-27-RNAV</ChartSubType>
+        </Charts>
     </Waypoint>
     <Waypoint>
         <ID>OGOTA</ID>
         <Type>WPT-C-FB</Type>
         <Latitude>43.214167</Latitude>
         <Longitude>23.326667</Longitude>
+        <Charts>
+            <ChartSubType>SID-09-RNAV</ChartSubType>
+            <ChartSubType>SID-27-RNAV</ChartSubType>
+        </Charts>
     </Waypoint>
     <Waypoint>
         <ID>GOL</ID>
@@ -117,6 +159,10 @@
         <Elevation>1300</Elevation>
         <Latitude>43.095000</Latitude>
         <Longitude>24.220556</Longitude>
+        <Charts>
+            <ChartSubType>SID-09-RNAV</ChartSubType>
+            <ChartSubType>SID-27-RNAV</ChartSubType>
+        </Charts>
     </Waypoint>
     <Waypoint>
         <ID>BLO</ID>
@@ -129,24 +175,39 @@
         <Elevation>3100</Elevation>
         <Latitude>42.667198</Latitude>
         <Longitude>23.813900</Longitude>
+        <Charts>
+            <ChartSubType>SID-27-RNAV</ChartSubType>
+        </Charts>
     </Waypoint>
     <Waypoint>
         <ID>UMPIT</ID>
         <Type>WPT-C-FB</Type>
         <Latitude>42.779722</Latitude>
         <Longitude>24.174167</Longitude>
+        <Charts>
+            <ChartSubType>SID-09-RNAV</ChartSubType>
+            <ChartSubType>SID-27-RNAV</ChartSubType>
+        </Charts>
      </Waypoint>
     <Waypoint>
         <ID>GAPVO</ID>
         <Type>WPT-C-FB</Type>
         <Latitude>42.681667</Latitude>
         <Longitude>24.145556</Longitude>
+        <Charts>
+            <ChartSubType>SID-09-RNAV</ChartSubType>
+            <ChartSubType>SID-27-RNAV</ChartSubType>
+        </Charts>
     </Waypoint>
     <Waypoint>
         <ID>DEDIN</ID>
         <Type>WPT-C-FB</Type>
         <Latitude>42.594167</Latitude>
         <Longitude>24.079444</Longitude>
+        <Charts>
+            <ChartSubType>SID-09-RNAV</ChartSubType>
+            <ChartSubType>SID-27-RNAV</ChartSubType>
+        </Charts>
     </Waypoint>
     <Waypoint>
         <ID>Dolna Banya</ID>
@@ -158,6 +219,10 @@
             <X>-60</X>
             <Y>-22</Y>
         </CaptionOffset>
+        <Charts>
+            <ChartSubType>SID-09-RNAV</ChartSubType>
+            <ChartSubType>SID-27-RNAV</ChartSubType>
+        </Charts>
     </Waypoint>
     <Waypoint>
         <ID>Belchin</ID>
@@ -169,6 +234,10 @@
             <X>-40</X>
             <Y>-10</Y>
         </CaptionOffset>
+        <Charts>
+            <ChartSubType>SID-09-RNAV</ChartSubType>
+            <ChartSubType>SID-27-RNAV</ChartSubType>
+        </Charts>
     </Waypoint>
     <Waypoint>
         <ID>Lozen</ID>
@@ -179,6 +248,10 @@
             <X>-40</X>
             <Y>-10</Y>
         </CaptionOffset>
+        <Charts>
+            <ChartSubType>SID-09-RNAV</ChartSubType>
+            <ChartSubType>SID-27-RNAV</ChartSubType>
+        </Charts>
     </Waypoint>
     <Waypoint>
         <ID>Slivnitsa</ID>
@@ -190,6 +263,10 @@
             <X>-60</X>
             <Y>-22</Y>
         </CaptionOffset>
+        <Charts>
+            <ChartSubType>SID-09-RNAV</ChartSubType>
+            <ChartSubType>SID-27-RNAV</ChartSubType>
+        </Charts>
     </Waypoint>
     <Waypoint>
         <ID>Lesnovo</ID>
@@ -201,6 +278,10 @@
             <X>-60</X>
             <Y>-22</Y>
         </CaptionOffseot>
+        <Charts>
+            <ChartSubType>SID-09-RNAV</ChartSubType>
+            <ChartSubType>SID-27-RNAV</ChartSubType>
+        </Charts>
     </Waypoint>
     <Waypoint>
         <ID>Sofia West</ID>
@@ -212,6 +293,10 @@
             <X>-60</X>
             <Y>-22</Y>
         </CaptionOffset>
+        <Charts>
+            <ChartSubType>SID-09-RNAV</ChartSubType>
+            <ChartSubType>SID-27-RNAV</ChartSubType>
+        </Charts>
     </Waypoint>
     <Waypoint>
         <ID>Ihtiman</ID>
@@ -223,6 +308,10 @@
             <X>-60</X>
             <Y>-22</Y>
         </CaptionOffset>
+        <Charts>
+            <ChartSubType>SID-09-RNAV</ChartSubType>
+            <ChartSubType>SID-27-RNAV</ChartSubType>
+        </Charts>
     </Waypoint>
     <Waypoint>
         <ID>Sofia</ID>
@@ -260,6 +349,10 @@
                 <Y>2</Y>
             </PolygonPoint>
         </PolygonPoints>
+        <Charts>
+            <ChartSubType>SID-09-RNAV</ChartSubType>
+            <ChartSubType>SID-27-RNAV</ChartSubType>
+        </Charts>
     </Waypoint>
     <Waypoint>
         <ID>MSA</ID>
@@ -270,17 +363,28 @@
             <X>-20</X>
             <Y>-90</Y>
         </CaptionOffset>
+        <Charts>
+            <ChartSubType>SID-09-RNAV</ChartSubType>
+            <ChartSubType>SID-27-RNAV</ChartSubType>
+        </Charts>
     </Waypoint>
     <Waypoint>
         <ID>SF701</ID>
         <Type>WPT-OR-FO</Type>
         <Latitude>42.847472</Latitude>
         <Longitude>23.330306</Longitude>
+        <Charts>
+            <ChartSubType>SID-27-RNAV</ChartSubType>
+        </Charts>
     </Waypoint>
     <Waypoint>
         <ID>SF702</ID>
         <Type>WPT-OR-FB</Type>
         <Latitude>42.781444</Latitude>
         <Longitude>23.613222</Longitude>
+        <Charts>
+            <ChartSubType>SID-09-RNAV</ChartSubType>
+            <ChartSubType>SID-27-RNAV</ChartSubType>
+        </Charts>
     </Waypoint>
 </Waypoins>

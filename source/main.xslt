@@ -153,7 +153,7 @@
 
                                                     </xsl:if>
                                                     <!-- and finally the waypoints -->
-                                                    <xsl:for-each select="Waypoints/Waypoint[not(WPTID='-')]">
+                                                    <xsl:for-each select="Waypoints/Waypoint[not(WPTID='-')] ">
                                                         <xsl:variable name="pointX"><xsl:value-of select="floor(($waypoints/Waypoins/Waypoint[ID=current()/WPTID]/Longitude * ($math_PI div 180) * $web_mercator_earth_radius) div //Airport/Chart/Zoom) + //Airport/Chart/Offset_X"/></xsl:variable>
                                                         <xsl:variable name="pointY"><xsl:value-of select="$svg_size - floor((math:log(math:tan($waypoints/Waypoins/Waypoint[ID=current()/WPTID]/Latitude * ($math_PI div 180) div 2 + $math_PI div 4)) * $web_mercator_earth_radius) div (//Airport/Chart/Zoom)) + //Airport/Chart/Offset_Y"/></xsl:variable>
                                                         L <xsl:value-of select="$pointX"/><xsl:text> </xsl:text><xsl:value-of select="$pointY"/><xsl:text> </xsl:text>
@@ -266,7 +266,7 @@
                                         <line x1="999" y1="0" x2="999" y2="$svg_size" stroke="gray"></line>
                                         -->
                                         <!-- waypoints -->
-                                        <xsl:for-each select="$waypoints/Waypoins/Waypoint">
+                                        <xsl:for-each select="$waypoints/Waypoins/Waypoint[Charts/ChartSubType=/Airport/Chart/SubType]">
                                             <xsl:variable name="pointX"><xsl:value-of select="floor((Longitude * ($math_PI div 180) * $web_mercator_earth_radius) div //Airport/Chart/Zoom) + //Airport/Chart/Offset_X"/></xsl:variable>
                                             <xsl:variable name="pointY"><xsl:value-of select="$svg_size - floor((math:log(math:tan(Latitude * ($math_PI div 180) div 2 + $math_PI div 4)) * $web_mercator_earth_radius) div (//Airport/Chart/Zoom)) + //Airport/Chart/Offset_Y"/></xsl:variable>
                                             <xsl:variable name="pointType"><xsl:value-of select="Type"/></xsl:variable>

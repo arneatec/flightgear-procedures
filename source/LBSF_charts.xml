@@ -10,7 +10,7 @@
         <ID>LBSF AD 2 - 53.1</ID>
         <Publisher>AIP FIRST BULGARIAN KINGDOM</Publisher>
         <Publisher_Local>AIP ПЪРВО БЪЛГАРСКО ЦАРСТВО</Publisher_Local>
-        <Published_On>25 JAN 24</Published_On>
+        <Published_On>25 JAN 24</Published_On><a></a>
         <Name>STANDARD DEPARTURE CHART - INSTRUMENT (SID) - ICAO</Name>
         <Transition_Altitude_ft>10500</Transition_Altitude_ft>
         <Transition_Level>BY ATC</Transition_Level>
@@ -144,7 +144,11 @@
             <Omnidirectional_Departure>MNM climb gradient of 5% (304 FT/NM) to 9600 FT</Omnidirectional_Departure>
         </Omnidirectional_Departures>
         <SID_Page>
-            <Page>2</Page>
+            <ID>LBSF AD 2 - 53.2</ID>
+            <Publisher>AIP FIRST BULGARIAN KINGDOM</Publisher>
+            <Publisher_Local>AIP ПЪРВО БЪЛГАРСКО ЦАРСТВО</Publisher_Local>
+            <Published_On>18 JUN 20</Published_On>
+            <Page>2.0</Page>
             <Header_Columns>
                 <Header_Column>
                     <Caption>P/T</Caption>
@@ -400,6 +404,63 @@
                 </Waypoints>
                 <PT></PT>
             </SID_Core>
+        </SID_Page>
+        <SID_Page>
+            <ID>LBSF AD 2 - 53.3</ID>
+            <Publisher>AIP FIRST BULGARIAN KINGDOM</Publisher>
+            <Publisher_Local>AIP ПЪРВО БЪЛГАРСКО ЦАРСТВО</Publisher_Local>
+            <Published_On>18 MAY 23</Published_On><a></a>
+            <Page>3.0</Page>
+            <Header_Columns>
+                <Header_Column>
+                    <Caption>P/T</Caption>
+                    <Percent>7.6</Percent>
+                </Header_Column>
+                <Header_Column>
+                    <Caption>WPT ID</Caption>
+                    <Percent>12</Percent>
+                </Header_Column>
+                <Header_Column>
+                    <Caption>Flyover</Caption>
+                    <Percent>9</Percent>
+                </Header_Column>
+                <Header_Column>
+                    <Caption>Track</Caption>
+                    <Sub_Caption>MAG(GEO)</Sub_Caption>
+                    <Sub_Caption_Bold>no</Sub_Caption_Bold>
+                    <Percent>17</Percent>
+                </Header_Column>
+                <Header_Column>
+                    <Caption>Dist</Caption>
+                    <Sub_Caption>NM</Sub_Caption>
+                    <Sub_Caption_Bold>no</Sub_Caption_Bold>
+                    <Percent>10</Percent>
+                </Header_Column>
+                <Header_Column>
+                    <Caption>Turn</Caption>
+                    <Sub_Caption>Direction</Sub_Caption>
+                    <Sub_Caption_Bold>yes</Sub_Caption_Bold>
+                    <Percent>12</Percent>
+                </Header_Column>
+                <Header_Column>
+                    <Caption>Speed</Caption>
+                    <Sub_Caption>KT</Sub_Caption>
+                    <Sub_Caption_Bold>no</Sub_Caption_Bold>
+                    <Percent>9</Percent>
+                </Header_Column>
+                <Header_Column>
+                    <Caption>ALT</Caption>
+                    <Sub_Caption>FT</Sub_Caption>
+                    <Sub_Caption_Bold>no</Sub_Caption_Bold>
+                    <Percent>9</Percent>
+                </Header_Column>
+                <Header_Column>
+                    <Caption>Additional</Caption>
+                    <Sub_Caption>Requirements</Sub_Caption>
+                    <Sub_Caption_Bold>yes</Sub_Caption_Bold>
+                    <Percent>15</Percent>
+                </Header_Column>
+                </Header_Columns>
             <SID_Core>
                 <ID>DEDIN 2S</ID>
                 <Name>DEDIN TWO SIERRA DEPARTURE</Name>

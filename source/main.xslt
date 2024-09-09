@@ -491,9 +491,34 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-12">
-                                <xsl:for-each select="/Airport/Chart/SID_Page">
+
+                        <xsl:for-each select="/Airport/Chart/SID_Page">
+                            <xsl:choose>
+                                <xsl:when test="(Page mod 2)">
+                                    <div class="row">
+                                        <div class="col-6 font-weight-bold"><xsl:value-of select="Publisher_Local"/></div>
+                                        <div class="col-6 text-right font-weight-bold"><xsl:value-of select="ID"/></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6 font-weight-bold"><xsl:value-of select="Publisher"/></div>
+                                        <div class="col-6 text-right font-weight-bold"><xsl:value-of select="Published_On"/></div>
+                                    </div>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <div class="row">
+                                        <div class="col-6 font-weight-bold"><xsl:value-of select="ID"/></div>
+                                        <div class="col-6 text-right font-weight-bold"><xsl:value-of select="Publisher_Local"/> </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6 font-weight-bold"><xsl:value-of select="Published_On"/></div>
+                                        <div class="col-6 text-right font-weight-bold"><xsl:value-of select="Publisher"/></div>
+
+                                    </div>
+                                </xsl:otherwise>
+                            </xsl:choose>
+
+                            <div class="row">
+                                <div class="col-12">
                                     <table class="table table-bordered text-center">
                                         <tr>
                                             <xsl:for-each select="Header_Columns/Header_Column">
@@ -503,24 +528,25 @@
                                                 </th>
                                             </xsl:for-each>
                                         </tr>
-                                        <tr>
-                                            <td>
-                                                <xsl:attribute name="colspan"><xsl:value-of select="count(Header_Columns/Header_Column)"/></xsl:attribute>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="font-weight-bold text-left">
-                                                <xsl:attribute name="colspan"><xsl:value-of select="count(Header_Columns/Header_Column)"/></xsl:attribute>
-                                                <xsl:value-of select="SID_Core/ID"/>
-                                            </td>
-                                        </tr>
-                                        <tr>
+                                        <xsl:for-each select="SID_Core">
+                                            <tr>
+                                                <td>
+                                                    <xsl:attribute name="colspan"><xsl:value-of select="count(../Header_Columns/Header_Column)"/></xsl:attribute>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="font-weight-bold text-left">
+                                                    <xsl:attribute name="colspan"><xsl:value-of select="count(../Header_Columns/Header_Column)"/></xsl:attribute>
+                                                    <xsl:value-of select="ID"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
                                             <td class="text-left">
-                                                <xsl:attribute name="colspan"><xsl:value-of select="count(Header_Columns/Header_Column)"/></xsl:attribute>
-                                                <xsl:value-of select="SID_Core/Name"/>
+                                                <xsl:attribute name="colspan"><xsl:value-of select="count(../Header_Columns/Header_Column)"/></xsl:attribute>
+                                                <xsl:value-of select="Name"/>
                                             </td>
                                         </tr>
-                                        <xsl:for-each select="SID_Core/Waypoints/Waypoint">
+                                        <xsl:for-each select="Waypoints/Waypoint">
                                             <tr>
                                                 <xsl:for-each select="*">
                                                     <td>
@@ -529,10 +555,12 @@
                                                 </xsl:for-each>
                                             </tr>
                                         </xsl:for-each>
+                                        </xsl:for-each>
                                     </table>
-                                </xsl:for-each>
+                                </div>
                             </div>
-                        </div>
+                        </xsl:for-each>
+
                 </div>
             <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"/>
             <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"/>

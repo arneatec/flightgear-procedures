@@ -119,6 +119,18 @@
         <Longitude>24.220556</Longitude>
     </Waypoint>
     <Waypoint>
+        <ID>BLO</ID>
+        <Type>VOR-DME-OR-FB</Type>
+        <Name>BAILOVO</Name>
+        <Frequency>117.5</Frequency>
+        <Additional>122xx</Additional>
+        <MorseCodeLetters>BLO</MorseCodeLetters>
+        <MorseCodeSigns>-··· ·-·· ---</MorseCodeSigns>
+        <Elevation>3100</Elevation>
+        <Latitude>42.667198</Latitude>
+        <Longitude>23.813900</Longitude>
+    </Waypoint>
+    <Waypoint>
         <ID>UMPIT</ID>
         <Type>WPT-C-FB</Type>
         <Latitude>42.779722</Latitude>
@@ -264,5 +276,11 @@
         <Type>WPT-OR-FO</Type>
         <Latitude>42.847472</Latitude>
         <Longitude>23.330306</Longitude>
+    </Waypoint>
+    <Waypoint>
+        <ID>SF702</ID>
+        <Type>WPT-OR-FB</Type>
+        <Latitude>42.781444</Latitude>
+        <Longitude>23.613222</Longitude>
     </Waypoint>
 </Waypoins>

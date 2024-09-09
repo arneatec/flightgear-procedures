@@ -245,6 +245,151 @@
                 </Waypoints>
                 <PT></PT>
             </SID_Core>
+            <SID_Core>
+                <ID>OGOTA 2T</ID>
+                <Name>OGOTA TWO TANGO DEPARTURE</Name>
+                <Description>MNM climb gradient of 5% (304FT/NM) to 7400FT AMSL due to terrain.</Description>
+                <Waypoints>
+                    <Waypoint>
+                        <PT>CA</PT>
+                        <WPTID>-</WPTID>
+                        <Flyover>-</Flyover>
+                        <Track>269°(274.7°T)</Track>
+                        <DIST>-</DIST>
+                        <Turn>Right</Turn>
+                        <Speed>205-</Speed>
+                        <Altitude>2300+</Altitude>
+                        <Additional>-</Additional>
+                    </Waypoint>
+                    <Waypoint>
+                        <PT>CF</PT>
+                        <WPTID>SF701</WPTID>
+                        <Flyover>Yes</Flyover>
+                        <Track>348°(353.0°T)</Track>
+                        <DIST>-</DIST>
+                        <Turn>-</Turn>
+                        <Speed>--</Speed>
+                        <Altitude>-</Altitude>
+                        <Additional>-</Additional>
+                    </Waypoint>
+                    <Waypoint>
+                        <PT>DF</PT>
+                        <WPTID>OGOTA</WPTID>
+                        <Flyover>-</Flyover>
+                        <Track>-</Track>
+                        <DIST>-</DIST>
+                        <Turn>-</Turn>
+                        <Speed>-</Speed>
+                        <Altitude>-</Altitude>
+                        <Additional>-</Additional>
+                    </Waypoint>
+                </Waypoints>
+                <PT></PT>
+            </SID_Core>
+            <SID_Core>
+                <ID>GOL 2T</ID>
+                <Name>GOLYAMA TWO TANGO DEPARTURE</Name>
+                <Description>MNM climb gradient of 5% (304FT/NM) to 8500FT AMSL due to terrain.</Description>
+                <Waypoints>
+                    <Waypoint>
+                        <PT>CA</PT>
+                        <WPTID>-</WPTID>
+                        <Flyover>-</Flyover>
+                        <Track>269°(274.7°T)</Track>
+                        <DIST>-</DIST>
+                        <Turn>Right</Turn>
+                        <Speed>205-</Speed>
+                        <Altitude>2300+</Altitude>
+                        <Additional>-</Additional>
+                    </Waypoint>
+                    <Waypoint>
+                        <PT>CF</PT>
+                        <WPTID>SF701</WPTID>
+                        <Flyover>Yes</Flyover>
+                        <Track>348°(353.0°T)</Track>
+                        <DIST>-</DIST>
+                        <Turn>Right</Turn>
+                        <Speed>--</Speed>
+                        <Altitude>-</Altitude>
+                        <Additional>-</Additional>
+                    </Waypoint>
+                    <Waypoint>
+                        <PT>DF</PT>
+                        <WPTID>GOL</WPTID>
+                        <Flyover>-</Flyover>
+                        <Track>-</Track>
+                        <DIST>-</DIST>
+                        <Turn>-</Turn>
+                        <Speed>-</Speed>
+                        <Altitude>-</Altitude>
+                        <Additional>-</Additional>
+                    </Waypoint>
+                </Waypoints>
+                <PT></PT>
+            </SID_Core>
+            <SID_Core>
+                <ID>UMPIT 2T</ID>
+                <Name>UMPIT TWO TANGO DEPARTURE</Name>
+                <Description>MNM climb gradient of 5% (304FT/NM) to 9000FT AMSL due to terrain.</Description>
+                <Waypoints>
+                    <Waypoint>
+                        <PT>CA</PT>
+                        <WPTID>-</WPTID>
+                        <Flyover>-</Flyover>
+                        <Track>269°(274.7°T)</Track>
+                        <DIST>-</DIST>
+                        <Turn>Right</Turn>
+                        <Speed>205-</Speed>
+                        <Altitude>2300+</Altitude>
+                        <Additional>-</Additional>
+                    </Waypoint>
+                    <Waypoint>
+                        <PT>CF</PT>
+                        <WPTID>SF701</WPTID>
+                        <Flyover>Yes</Flyover>
+                        <Track>348°(353.0°T)</Track>
+                        <DIST>-</DIST>
+                        <Turn>Right</Turn>
+                        <Speed>--</Speed>
+                        <Altitude>-</Altitude>
+                        <Additional>-</Additional>
+                    </Waypoint>
+                    <Waypoint>
+                        <PT>DF</PT>
+                        <WPTID>SF702</WPTID>
+                        <Flyover>-</Flyover>
+                        <Track>348°(353.0°T)</Track>
+                        <DIST>-</DIST>
+                        <Turn>Right</Turn>
+                        <Speed>--</Speed>
+                        <Altitude>10000+</Altitude>
+                        <Additional>-</Additional>
+                    </Waypoint>
+                    <Waypoint>
+                        <PT>TF</PT>
+                        <WPTID>BLO</WPTID>
+                        <Flyover>-</Flyover>
+                        <Track>122°(127.6°T)</Track>
+                        <DIST>11.2</DIST>
+                        <Turn>Left</Turn>
+                        <Speed>-</Speed>
+                        <Altitude>-</Altitude>
+                        <Additional>-</Additional>
+                    </Waypoint>
+                    <Waypoint>
+                        <PT>TF</PT>
+                        <WPTID>UMPIT</WPTID>
+                        <Flyover>-</Flyover>
+                        <Track>062°(066.9°T)</Track>
+                        <DIST>17.3</DIST>
+                        <Turn>-</Turn>
+                        <Speed>-</Speed>
+                        <Altitude>-</Altitude>
+                        <Additional>-</Additional>
+                    </Waypoint>
+                </Waypoints>
+                <PT></PT>
+            </SID_Core>
 
         </SID_Page>
     </Chart>

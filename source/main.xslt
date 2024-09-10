@@ -637,14 +637,18 @@
                                                 <td class="font-weight-bold text-left">
                                                     <xsl:attribute name="colspan"><xsl:value-of select="count(../Header_Columns/Header_Column)"/></xsl:attribute>
                                                     <xsl:value-of select="ID"/>
+                                                    <br/>
+                                                    <span class="font-weight-normal">
+                                                        <xsl:value-of select="Name"/>
+                                                    </span>
                                                 </td>
                                             </tr>
                                             <tr>
-                                            <td class="text-left">
-                                                <xsl:attribute name="colspan"><xsl:value-of select="count(../Header_Columns/Header_Column)"/></xsl:attribute>
-                                                <xsl:value-of select="Name"/>
-                                            </td>
-                                        </tr>
+                                                <td class="text-left">
+                                                    <xsl:attribute name="colspan"><xsl:value-of select="count(../Header_Columns/Header_Column)"/></xsl:attribute>
+                                                    <xsl:value-of select="Description"/>
+                                                </td>
+                                            </tr>
                                         <xsl:for-each select="Waypoints/Waypoint">
                                             <tr>
                                                 <xsl:for-each select="*">

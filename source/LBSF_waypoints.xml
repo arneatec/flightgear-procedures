@@ -386,4 +386,40 @@
             <ChartSubType>SID-27-RNAV</ChartSubType>
         </Charts>
     </Waypoint>
+    <Waypoint>
+        <ID>SF704</ID>
+        <Type>WPT-OR-FB</Type>
+        <Latitude>42.734472</Latitude>
+        <Longitude>23.529917</Longitude>
+        <Charts>
+            <ChartSubType>SID-27-RNAV</ChartSubType>
+        </Charts>
+    </Waypoint>
+    <Waypoint>
+        <ID>SF705</ID>
+        <Type>WPT-OR-FB</Type>
+        <Latitude>42.514139</Latitude>
+        <Longitude>23.661611</Longitude>
+        <Charts>
+            <ChartSubType>SID-27-RNAV</ChartSubType>
+        </Charts>
+    </Waypoint>
+    <Waypoint>
+        <ID>SF706</ID>
+        <Type>WPT-OR-FB</Type>
+        <Latitude>42.766750</Latitude>
+        <Longitude>23.267861</Longitude>
+        <Charts>
+            <ChartSubType>SID-27-RNAV</ChartSubType>
+        </Charts>
+    </Waypoint>
+    <Waypoint>
+        <ID>SF707</ID>
+        <Type>WPT-OR-FB</Type>
+        <Latitude>42.769167</Latitude>
+        <Longitude>23.095111</Longitude>
+        <Charts>
+            <ChartSubType>SID-27-RNAV</ChartSubType>
+        </Charts>
+    </Waypoint>
 </Waypoins>

@@ -2,6 +2,15 @@
 <Airport>
     <Name>Sofia Airport</Name>
     <ICAO>LBSF</ICAO>
+        <ControlPoint>
+        <Latitude>
+            42.69500
+        </Latitude>
+        <Longitude>
+            23.40833
+        </Longitude>
+    </ControlPoint>
+    <ElevationFeet>1745</ElevationFeet>
     <Chart>
         <SubType>SID-27-RNAV</SubType>
         <Zoom>180</Zoom>
@@ -206,6 +215,7 @@
                 </Header_Column>
             </Header_Columns>
             <SID_Core>
+                <ClimbGradientFeetPerNauticalMile>200</ClimbGradientFeetPerNauticalMile>
                 <ID>GODEK 2T</ID>
                 <Name>GODEK TWO TANGO DEPARTURE</Name>
                 <Description>MNM climb gradient of 5% (304FT/NM) to 10000FT AMSL due to terrain.</Description>
@@ -247,6 +257,7 @@
                 <PT></PT>
             </SID_Core>
             <SID_Core>
+                <ClimbGradientFeetPerNauticalMile>200</ClimbGradientFeetPerNauticalMile>
                 <ID>OGOTA 2T</ID>
                 <Name>OGOTA TWO TANGO DEPARTURE</Name>
                 <Description>MNM climb gradient of 5% (304FT/NM) to 7400FT AMSL due to terrain.</Description>
@@ -288,6 +299,7 @@
                 <PT></PT>
             </SID_Core>
             <SID_Core>
+                <ClimbGradientFeetPerNauticalMile>200</ClimbGradientFeetPerNauticalMile>
                 <ID>GOL 2T</ID>
                 <Name>GOLYAMA TWO TANGO DEPARTURE</Name>
                 <Description>MNM climb gradient of 5% (304FT/NM) to 8500FT AMSL due to terrain.</Description>
@@ -329,6 +341,7 @@
                 <PT></PT>
             </SID_Core>
             <SID_Core>
+                <ClimbGradientFeetPerNauticalMile>200</ClimbGradientFeetPerNauticalMile>
                 <ID>UMPIT 2T</ID>
                 <Name>UMPIT TWO TANGO DEPARTURE</Name>
                 <Description>MNM climb gradient of 5% (304FT/NM) to 9000FT AMSL due to terrain.</Description>
@@ -449,6 +462,7 @@
                 </Header_Column>
             </Header_Columns>
             <SID_Core>
+                <ClimbGradientFeetPerNauticalMile>200</ClimbGradientFeetPerNauticalMile>
                 <ID>GAPVO 2T</ID>
                 <Name>GAPVO TWO TANGO DEPARTURE</Name>
                 <Description>MNM climb gradient of 5% (304FT/NM) to 9000FT AMSL due to terrain.</Description>
@@ -512,6 +526,7 @@
                 <PT></PT>
             </SID_Core>
             <SID_Core>
+                <ClimbGradientFeetPerNauticalMile>200</ClimbGradientFeetPerNauticalMile>
                 <ID>DEDIN 2T</ID>
                 <Name>DEDIN TWO TANGO DEPARTURE</Name>
                 <Description>MNM climb gradient of 5% (304FT/NM) to 9000FT AMSL due to terrain.</Description>
@@ -575,6 +590,7 @@
                 <PT></PT>
             </SID_Core>
             <SID_Core>
+                <ClimbGradientFeetPerNauticalMile>200</ClimbGradientFeetPerNauticalMile>
                 <ID>RUMEN 2T</ID>
                 <Name>RUMEN TWO TANGO DEPARTURE</Name>
                 <Description>MNM climb gradient of 5% (304FT/NM) to 10000FT AMSL due to airspace restrictions..</Description>
@@ -638,6 +654,7 @@
                 <PT></PT>
             </SID_Core>
             <SID_Core>
+                <ClimbGradientFeetPerNauticalMile>200</ClimbGradientFeetPerNauticalMile>
                 <ID>DILVO 2T</ID>
                 <Name>DILVO TWO TANGO DEPARTURE</Name>
                 <Description>MNM climb gradient of 5% (304FT/NM) to 10000FT AMSL due to airspace restrictions.</Description>
@@ -758,6 +775,7 @@
                 </Header_Column>
             </Header_Columns>
             <SID_Core>
+                <ClimbGradientFeetPerNauticalMile>200</ClimbGradientFeetPerNauticalMile>
                 <ID>OMENO 2T</ID>
                 <Name>OMENO TWO TANGO DEPARTURE</Name>
                 <Description>MNM climb gradient of 5% (304FT/NM) to 10000FT AMSL due to airspace restrictions.</Description>
@@ -821,6 +839,7 @@
                 <PT></PT>
             </SID_Core>
             <SID_Core>
+                <ClimbGradientFeetPerNauticalMile>200</ClimbGradientFeetPerNauticalMile>
                 <ID>NAPET 2T</ID>
                 <Name>NAPET TWO TANGO DEPARTURE</Name>
                 <Description>MNM climb gradient of 5% (304FT/NM) to 7000FT AMSL due to terrain.</Description>

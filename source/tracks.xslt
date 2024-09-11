@@ -332,9 +332,9 @@
                                                         <circle>
                                                             <xsl:attribute name="cx"><xsl:value-of select="$pointX - (($pointX - $next_pointX) div 2)"/></xsl:attribute>
                                                             <xsl:attribute name="cy"><xsl:value-of select="$pointY - (($pointY - $next_pointY) div 2)"/></xsl:attribute>
-                                                            <xsl:attribute name="r"><xsl:value-of select="$map_label_circle_radius + 3"/></xsl:attribute>
-                                                            <xsl:attribute name="fill">none</xsl:attribute>
-                                                            <xsl:attribute name="stroke">green</xsl:attribute>
+                                                            <xsl:attribute name="r"><xsl:value-of select="$map_label_circle_radius - 7"/></xsl:attribute>
+                                                            <xsl:attribute name="fill">white</xsl:attribute>
+                                                            <xsl:attribute name="stroke">none</xsl:attribute>
                                                         </circle>
                                                         <text>
                                                             <xsl:attribute name="text-anchor">middle</xsl:attribute>

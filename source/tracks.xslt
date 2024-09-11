@@ -312,6 +312,7 @@
                                                         <xsl:variable name="result_NM">
                                                             <xsl:value-of select="round(($result div $geo_nm_in_meters ) * 10) div 10"/>
                                                         </xsl:variable>
+                                                        <!--
                                                         <debug>
                                                             squared_sin_latitude_delta: <xsl:value-of select="$squared_sin_latitude_delta"/>
                                                             squared_sin_longitude_delta: <xsl:value-of select="$squared_sin_longitude_delta"/>
@@ -324,6 +325,7 @@
                                                             result_NM: <xsl:value-of select="$result_NM"/>
 
                                                         </debug>
+                                                        -->
                                                         <!--
                                                         <xsl:variable name="test">
                                                             <xsl:value-of select="math:sqrt(number($squared_sin_latitude_delta))"/>

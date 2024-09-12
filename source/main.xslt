@@ -12,6 +12,7 @@
 
     <!-- geodesic constants -->
     <xsl:variable name="geo_nm_in_meters" select="1852"/>
+    <xsl:variable name="geo_feet_in_meters" select="3.2808"/>
     <xsl:variable name="geo_earth_radius" select="6378137" />
     <xsl:variable name="geo_magnetic_variation" select="/Airport/Chart/MagneticVariation"/>
 
@@ -23,7 +24,7 @@
     <xsl:variable name="map_base_airport_rwy_direction" select="/Airport/Chart/RunwayDirection"/>
 
     <!-- minor map constants -->
-    <xsl:variable name="map_label_circle_radius" select="22"/>
+    <xsl:variable name="map_label_circle_radius" select="24"/>
     <xsl:variable name="map_secondary_airport_radius" select="8"/>
     <xsl:variable name="map_secondary_airport_runway_length" select="10"/>
 
@@ -39,6 +40,13 @@
     </xsl:variable>
     <xsl:variable name="runwayY">
         <xsl:value-of select="$svg_size - floor((math:log(math:tan(/Airport/Chart/RunwayThreshold/Latitude * $math_deg_to_rad div 2 + $math_PI div 4)) * $geo_earth_radius) div ($map_zoom)) + $map_offset_Y"/>
+    </xsl:variable>
+
+    <xsl:variable name="control_point_X">
+        <xsl:value-of select="floor((/Airport/ControlPoint/Longitude * $math_deg_to_rad * $geo_earth_radius) div $map_zoom) + $map_offset_X"/>
+    </xsl:variable>
+    <xsl:variable name="control_point_Y">
+        <xsl:value-of select="$svg_size - floor((math:log(math:tan(/Airport/ControlPoint/Latitude * $math_deg_to_rad div 2 + $math_PI div 4)) * $geo_earth_radius) div ($map_zoom)) + $map_offset_Y"/>
     </xsl:variable>
 
     <!-- length of the runway 'fly away extension' -->
@@ -199,6 +207,9 @@
                                                 <xsl:variable name="next_pointY"><xsl:value-of select="$svg_size - floor((math:log(math:tan($waypoints/Waypoins/Waypoint[ID=current()/following-sibling::Waypoint/WPTID]/Latitude * $math_deg_to_rad div 2 + $math_PI div 4)) * $geo_earth_radius) div ($map_zoom)) + //Airport/Chart/Offset_Y"/></xsl:variable>
                                                 <xsl:variable name="previous_pointX"><xsl:value-of select="floor(($waypoints/Waypoins/Waypoint[ID=current()/preceding-sibling::Waypoint/WPTID]/Longitude * $math_deg_to_rad * $geo_earth_radius) div $map_zoom) + $map_offset_X"/></xsl:variable>
                                                 <xsl:variable name="previous_pointY"><xsl:value-of select="$svg_size - floor((math:log(math:tan($waypoints/Waypoins/Waypoint[ID=current()/preceding-sibling::Waypoint/WPTID]/Latitude * $math_deg_to_rad div 2 + $math_PI div 4)) * $geo_earth_radius) div ($map_zoom)) + //Airport/Chart/Offset_Y"/></xsl:variable>
+                                                <xsl:variable name="midway_distance_in_pixels">
+                                                    <xsl:value-of select="(((DIST * $geo_nm_in_meters) div $map_zoom) div 2) div math:cos($waypoints/Waypoins/Waypoint[ID=current()/WPTID]/Latitude * $math_deg_to_rad)"/>
+                                                </xsl:variable>
 
                                                 <xsl:variable name="geo_track"><xsl:value-of select="substring-before(substring-after(Track, '('),'°')"/></xsl:variable>
                                                 <!-- check that $geo_track contains a number (a valid track to this point) -->
@@ -213,15 +224,15 @@
                                                     <xsl:comment>WARN: No next_pointY (<xsl:value-of select="$next_pointY"/>  ) for waypoint <xsl:value-of select="WPTID"/> , sibling is <xsl:value-of select="current()/following-sibling::Waypoint/WPTID"/>!</xsl:comment>
                                                 </xsl:if>
                                                 <xsl:variable name="oneX">
-                                                    <xsl:value-of select="$pointX - floor((DIST div 1.5 * $geo_nm_in_meters div ($map_zoom)) * math:cos((($geo_track - 90 ) * $math_deg_to_rad)))"/>
+                                                    <xsl:value-of select="$pointX - floor($midway_distance_in_pixels * math:cos((($geo_track - 90 ) * $math_deg_to_rad)))"/>
                                                 </xsl:variable>
                                                 <xsl:variable name="oneY">
-                                                    <xsl:value-of select="$pointY  + floor((DIST div 1.5 * $geo_nm_in_meters div ($map_zoom)) * math:sin((($geo_track + 90 ) * $math_deg_to_rad)))"/></xsl:variable>
+                                                    <xsl:value-of select="$pointY + floor($midway_distance_in_pixels * math:sin((($geo_track + 90 ) * $math_deg_to_rad)))"/>
+                                                </xsl:variable>
                                                 <xsl:variable name="distanceX">
-                                                    <xsl:value-of select="$pointX - floor((DIST div 1.5 * $geo_nm_in_meters div ($map_zoom)) * math:cos((($geo_track - 90 - ($map_label_circle_radius div 2)) * $math_deg_to_rad)))"/></xsl:variable>
+                                                    <xsl:value-of select="$pointX - floor($midway_distance_in_pixels * math:cos((($geo_track - 90 - ($map_label_circle_radius div 2)) * $math_deg_to_rad)))"/></xsl:variable>
                                                 <xsl:variable name="distanceY">
-                                                    <xsl:value-of select="$pointY  + floor((DIST div 1.5 * $geo_nm_in_meters div ($map_zoom)) * math:sin((($geo_track + 90 - ($map_label_circle_radius div 2)) * $math_deg_to_rad)))"/></xsl:variable>
-
+                                                    <xsl:value-of select="$pointY  + floor($midway_distance_in_pixels * math:sin((($geo_track + 90 - ($map_label_circle_radius div 2)) * $math_deg_to_rad)))"/></xsl:variable>
                                                 <!-- circle for direction -->
                                                  <circle>
                                                      <xsl:choose>
@@ -261,31 +272,18 @@
                                                         </xsl:choose>
                                                         )</xsl:attribute>
                                                     <xsl:attribute name="fill">black</xsl:attribute>
-                                                    <xsl:if test="$oneX &lt; ($svg_size div 2)">
-                                                        <xsl:text>&lt;</xsl:text>
-                                                    </xsl:if>
-                                                    <xsl:value-of select="substring-before(Track,'(')"/>
-                                                    <xsl:if test="not($oneX &lt; ($svg_size div 2))">
-                                                        <xsl:text>&gt;</xsl:text>
-                                                    </xsl:if>
-                                                 </text>
-                                                <!-- distance -->
-                                                <text>
-                                                    <xsl:attribute name="text-anchor">middle</xsl:attribute>
-                                                    <xsl:attribute name="alignment-baseline">middle</xsl:attribute>
-                                                    <xsl:attribute name="transform">translate(<xsl:value-of select="$distanceX"/>, <xsl:value-of select="$distanceY"/>) rotate(
-                                                        <xsl:choose>
-                                                            <xsl:when test="$geo_track > 180">
-                                                                <xsl:value-of select="$geo_track  -  90 - 180"/>
-                                                            </xsl:when>
-                                                            <xsl:otherwise>
-                                                                <xsl:value-of select="$geo_track -  90"/>
-                                                            </xsl:otherwise>
-                                                        </xsl:choose>
-
-                                                        )</xsl:attribute>
-                                                    <xsl:attribute name="fill">black</xsl:attribute>
-                                                    <xsl:value-of select="DIST"/>
+                                                    <tspan x="0" dy="0em">
+                                                        <xsl:if test="$oneX &lt; ($svg_size div 2)">
+                                                            <xsl:text>&lt;</xsl:text>
+                                                        </xsl:if>
+                                                        <xsl:value-of select="substring-before(Track,'(')"/>
+                                                        <xsl:if test="not($oneX &lt; ($svg_size div 2))">
+                                                            <xsl:text>&gt;</xsl:text>
+                                                        </xsl:if>
+                                                    </tspan>
+                                                    <tspan x="0" dy="0.8em">
+                                                        <xsl:value-of select="DIST"/>
+                                                    </tspan>
                                                  </text>
                                             </xsl:for-each>
                                         </xsl:for-each>
@@ -534,11 +532,20 @@
                                                         <xsl:attribute name="fill">gray</xsl:attribute>
                                                         <xsl:attribute name="stroke">gray</xsl:attribute>
                                                     </polygon>
+                                                    <xsl:variable name="runway_length">
+                                                        <xsl:value-of select="((($map_base_airport_rwy_length) div $map_zoom)) div math:cos(/Airport/Chart/RunwayThreshold/Latitude * $math_deg_to_rad)"/>
+                                                    </xsl:variable>
                                                    <line>
-                                                        <xsl:attribute name="x1"><xsl:value-of select="$pointX - floor(($map_base_airport_rwy_length  div $map_zoom ) * math:cos(($map_base_airport_rwy_direction + 90) * $math_deg_to_rad))"/></xsl:attribute>
-                                                        <xsl:attribute name="y1"><xsl:value-of select="$pointY + floor(($map_base_airport_rwy_length  div $map_zoom )  * math:sin(($map_base_airport_rwy_direction - 90) * $math_deg_to_rad))"/></xsl:attribute>
-                                                        <xsl:attribute name="x2"><xsl:value-of select="$pointX + floor(($map_base_airport_rwy_length  div $map_zoom )  * math:cos(($map_base_airport_rwy_direction + 90) * $math_deg_to_rad))"/></xsl:attribute>
-                                                        <xsl:attribute name="y2"><xsl:value-of select="$pointY - floor(($map_base_airport_rwy_length  div $map_zoom )  * math:sin(($map_base_airport_rwy_direction - 90) * $math_deg_to_rad))"/></xsl:attribute>
+                                                        <xsl:attribute name="x1"><xsl:value-of select="$runwayX"/></xsl:attribute>
+                                                        <xsl:attribute name="y1"><xsl:value-of select="$runwayY"/></xsl:attribute>
+
+                                                        <xsl:attribute name="x2">
+                                                            <xsl:value-of select="$runwayX - floor($runway_length * math:cos((($map_base_airport_rwy_direction - 90 ) * $math_deg_to_rad)))"/>
+                                                        </xsl:attribute>
+                                                       <!--
+                                                        <xsl:attribute name="x2"><xsl:value-of select="$runwayX + floor((((($map_base_airport_rwy_length * $geo_nm_in_meters) div $map_zoom) div 2) div math:cos($waypoints/Waypoins/Waypoint[ID=current()/WPTID]/Latitude * $math_deg_to_rad))  * math:cos(($map_base_airport_rwy_direction + 90) * $math_deg_to_rad))"/></xsl:attribute>
+                                                        -->
+                                                        <xsl:attribute name="y2"><xsl:value-of select="$runwayY - floor(($map_base_airport_rwy_length  div $map_zoom )  * math:sin(($map_base_airport_rwy_direction - 90) * $math_deg_to_rad))"/></xsl:attribute>
                                                         <xsl:attribute name="stroke">white</xsl:attribute>
                                                         <xsl:attribute name="stroke-width">2</xsl:attribute>
                                                    </line>

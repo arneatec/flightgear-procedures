@@ -24,8 +24,10 @@
     <xsl:variable name="map_zoom" select="/Chart/Zoom"/>
     <xsl:variable name="map_offset_X" select="/Chart/Offset_X"/>
     <xsl:variable name="map_offset_Y" select="/Chart/Offset_Y"/>
-    <xsl:variable name="map_base_airport_rwy_length" select="$airport/Airport/Chart/RunwayLenght"/>
-    <xsl:variable name="map_base_airport_rwy_direction" select="$airport/Airport/Chart/RunwayDirection"/>
+
+    <xsl:variable name="map_base_airport_rwy" select="$airport/Airport/Runways/Runway[ID=/Chart/Chart_Object_ID]"/>
+    <xsl:variable name="map_base_airport_rwy_length" select="$map_base_airport_rwy/RunwayLenght"/>
+    <xsl:variable name="map_base_airport_rwy_direction" select="$map_base_airport_rwy/RunwayDirection"/>
 
     <!-- minor map constants -->
     <xsl:variable name="map_label_circle_radius" select="24"/>
@@ -40,10 +42,10 @@
 
     <!-- major calculated values -->
     <xsl:variable name="runwayX">
-        <xsl:value-of select="floor(($airport/Airport/RunwayThreshold/Longitude * $math_deg_to_rad * $geo_earth_radius) div $map_zoom) + $map_offset_X"/>
+        <xsl:value-of select="floor(($map_base_airport_rwy/RunwayThreshold/Longitude * $math_deg_to_rad * $geo_earth_radius) div $map_zoom) + $map_offset_X"/>
     </xsl:variable>
     <xsl:variable name="runwayY">
-        <xsl:value-of select="$svg_size - floor((math:log(math:tan($airport/Airport/RunwayThreshold/Latitude * $math_deg_to_rad div 2 + $math_PI div 4)) * $geo_earth_radius) div ($map_zoom)) + $map_offset_Y"/>
+        <xsl:value-of select="$svg_size - floor((math:log(math:tan($map_base_airport_rwy/RunwayThreshold/Latitude * $math_deg_to_rad div 2 + $math_PI div 4)) * $geo_earth_radius) div ($map_zoom)) + $map_offset_Y"/>
     </xsl:variable>
 
     <xsl:variable name="control_point_X">
@@ -62,6 +64,9 @@
 
     <xsl:template match="/">
         <html>
+            <xsl:comment>
+                map_base_airport_rwy : <xsl:value-of select="$map_base_airport_rwy"/>
+            </xsl:comment>
             <head>
                 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"/>
             </head>

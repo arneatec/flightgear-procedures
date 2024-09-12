@@ -1,16 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Airport>
-    <Name>Sofia Airport</Name>
-    <ICAO>LBSF</ICAO>
-        <ControlPoint>
-        <Latitude>
-            42.69500
-        </Latitude>
-        <Longitude>
-            23.40833
-        </Longitude>
-    </ControlPoint>
-    <ElevationFeet>1745</ElevationFeet>
+
     <Chart>
         <SubType>SID-27-RNAV</SubType>
         <Zoom>180</Zoom>
@@ -893,4 +882,4 @@
             </SID_Core>
         </SID_Page>
     </Chart>
-</Airport>
+

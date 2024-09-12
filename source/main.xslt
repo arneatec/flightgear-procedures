@@ -62,7 +62,6 @@
     <xsl:variable name="endExtensionY"><xsl:value-of select="$runwayY + floor($takeOffExtension * math:sin(($map_base_airport_rwy_direction - 90) * $math_deg_to_rad))"/></xsl:variable>
 
     <xsl:template match="/">
-        runwayX : <xsl:value-of select="$runwayX"/>
         <html>
             <head>
                 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"/>

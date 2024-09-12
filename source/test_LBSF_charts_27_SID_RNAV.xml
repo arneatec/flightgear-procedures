@@ -1,73 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Airport>
-    <Name>Sofia Airport</Name>
-    <ICAO>LBSF</ICAO>
-    <ControlPoint>
-        <Latitude>
-            42.69500
-        </Latitude>
-        <Longitude>
-            23.40833
-        </Longitude>
-    </ControlPoint>
-    <ElevationFeet>1745</ElevationFeet>
-    <Chart>
+<Chart>
         <SubType>SID-27-RNAV</SubType>
         <Zoom>180</Zoom>
         <Offset_X>-14100</Offset_X>
         <Offset_Y>28730</Offset_Y>
-        <MagneticVariation>5</MagneticVariation>
+
         <ID>LBSF AD 2 - 53.7</ID>
         <Publisher>AIP FIRST BULGARIAN KINGDOM</Publisher>
         <Publisher_Local>AIP ПЪРВО БЪЛГАРСКО ЦАРСТВО</Publisher_Local>
         <Published_On>25 JAN 24</Published_On><a></a>
         <Name>STANDARD DEPARTURE CHART - INSTRUMENT (SID) - ICAO</Name>
-        <Transition_Altitude_ft>10500</Transition_Altitude_ft>
-        <Transition_Level>BY ATC</Transition_Level>
-        <Radio_Role>
-            <ID>APP</ID>
-            <Name>Sofia Approach</Name>
-            <Radio_Frequencies>
-                <Radio_Frequency>123.700</Radio_Frequency>
-                <Radio_Frequency>129.90</Radio_Frequency>
-                <Radio_Frequency>247.575</Radio_Frequency>
-                <Radio_Frequency>121.500</Radio_Frequency>
-                <Radio_Frequency>243.000</Radio_Frequency>
-            </Radio_Frequencies>
-        </Radio_Role>
-        <Radio_Role>
-            <ID>TWR</ID>
-            <Name>Sofia Tower</Name>
-            <Radio_Frequencies>
-                <Radio_Frequency>118.100</Radio_Frequency>
-                <Radio_Frequency>120.200</Radio_Frequency>
-                <Radio_Frequency>336.400</Radio_Frequency>
-                <Radio_Frequency>121.500</Radio_Frequency>
-                <Radio_Frequency>243.000</Radio_Frequency>
-            </Radio_Frequencies>
-        </Radio_Role>
-        <Radio_Role>
-            <ID>ATIS</ID>
-            <Name>Sofia ATIS</Name>
-            <Radio_Frequencies>
-                <Radio_Frequency>126.680</Radio_Frequency>
-            </Radio_Frequencies>
-        </Radio_Role>
         <Airport_Location>SOFIA</Airport_Location>
         <Chart_Type>RNAV</Chart_Type>
         <Chart_Object>RNW</Chart_Object>
         <Chart_Object_ID>27</Chart_Object_ID>
-        <RunwayThreshold>
-            <Latitude>42.697782</Latitude>
-            <Longitude>23.394506</Longitude>
-        </RunwayThreshold>
-        <RunwayDirection>
-             269.45
-        </RunwayDirection>
-        <RunwayLenght>
-            <!-- note this is in meters -->
-            3600
-        </RunwayLenght>
+
         <TakeOffFlyRunwayHeadingDistance>
             <!-- note this is approximate and in the local coordinate system [1-1000] -->
             14
@@ -258,4 +205,3 @@
             </SID_Core>
         </SID_Page>
     </Chart>
-</Airport>

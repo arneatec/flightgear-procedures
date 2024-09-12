@@ -2,6 +2,10 @@
 <xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:math="http://exslt.org/math"
                 xmlns:xls="http://www.w3.org/1999/XSL/Transform"
                 extension-element-prefixes="math">
+        <!-- imports -->
+    <xsl:variable name="airport" select="document('LBSF_airport.xml')"/>
+    <xsl:variable name="waypoints" select="document('LBSF_waypoints.xml')"/>
+    <xsl:variable name="maplines" select="document('map_lines.xml')"/>
 
     <!-- page related constants -->
     <xsl:variable name="svg_size" select="1000"/>
@@ -14,14 +18,14 @@
     <xsl:variable name="geo_nm_in_meters" select="1852"/>
     <xsl:variable name="geo_feet_in_meters" select="3.2808"/>
     <xsl:variable name="geo_earth_radius" select="6378137" />
-    <xsl:variable name="geo_magnetic_variation" select="/Airport/Chart/MagneticVariation"/>
+    <xsl:variable name="geo_magnetic_variation" select="$airport/Airport/MagneticVariation"/>
 
     <!-- major map constants -->
-    <xsl:variable name="map_zoom" select="/Airport/Chart/Zoom"/>
-    <xsl:variable name="map_offset_X" select="/Airport/Chart/Offset_X"/>
-    <xsl:variable name="map_offset_Y" select="/Airport/Chart/Offset_Y"/>
-    <xsl:variable name="map_base_airport_rwy_length" select="/Airport/Chart/RunwayLenght"/>
-    <xsl:variable name="map_base_airport_rwy_direction" select="/Airport/Chart/RunwayDirection"/>
+    <xsl:variable name="map_zoom" select="/Chart/Zoom"/>
+    <xsl:variable name="map_offset_X" select="/Chart/Offset_X"/>
+    <xsl:variable name="map_offset_Y" select="/Chart/Offset_Y"/>
+    <xsl:variable name="map_base_airport_rwy_length" select="$airport/Airport/Chart/RunwayLenght"/>
+    <xsl:variable name="map_base_airport_rwy_direction" select="$airport/Airport/Chart/RunwayDirection"/>
 
     <!-- minor map constants -->
     <xsl:variable name="map_label_circle_radius" select="24"/>
@@ -36,28 +40,25 @@
 
     <!-- major calculated values -->
     <xsl:variable name="runwayX">
-        <xsl:value-of select="floor((/Airport/Chart/RunwayThreshold/Longitude * $math_deg_to_rad * $geo_earth_radius) div $map_zoom) + $map_offset_X"/>
+        <xsl:value-of select="floor(($airport/Airport/RunwayThreshold/Longitude * $math_deg_to_rad * $geo_earth_radius) div $map_zoom) + $map_offset_X"/>
     </xsl:variable>
     <xsl:variable name="runwayY">
-        <xsl:value-of select="$svg_size - floor((math:log(math:tan(/Airport/Chart/RunwayThreshold/Latitude * $math_deg_to_rad div 2 + $math_PI div 4)) * $geo_earth_radius) div ($map_zoom)) + $map_offset_Y"/>
+        <xsl:value-of select="$svg_size - floor((math:log(math:tan($airport/Airport/RunwayThreshold/Latitude * $math_deg_to_rad div 2 + $math_PI div 4)) * $geo_earth_radius) div ($map_zoom)) + $map_offset_Y"/>
     </xsl:variable>
 
     <xsl:variable name="control_point_X">
-        <xsl:value-of select="floor((/Airport/ControlPoint/Longitude * $math_deg_to_rad * $geo_earth_radius) div $map_zoom) + $map_offset_X"/>
+        <xsl:value-of select="floor(($airport/Airport/ControlPoint/Longitude * $math_deg_to_rad * $geo_earth_radius) div $map_zoom) + $map_offset_X"/>
     </xsl:variable>
     <xsl:variable name="control_point_Y">
-        <xsl:value-of select="$svg_size - floor((math:log(math:tan(/Airport/ControlPoint/Latitude * $math_deg_to_rad div 2 + $math_PI div 4)) * $geo_earth_radius) div ($map_zoom)) + $map_offset_Y"/>
+        <xsl:value-of select="$svg_size - floor((math:log(math:tan($airport/Airport/ControlPoint/Latitude * $math_deg_to_rad div 2 + $math_PI div 4)) * $geo_earth_radius) div ($map_zoom)) + $map_offset_Y"/>
     </xsl:variable>
 
     <!-- length of the runway 'fly away extension' -->
-    <xsl:variable name="takeOffExtension"><xsl:value-of select="/Airport/Chart/TakeOffFlyRunwayHeadingDistance"/></xsl:variable>
+    <xsl:variable name="takeOffExtension"><xsl:value-of select="/Chart/TakeOffFlyRunwayHeadingDistance"/></xsl:variable>
     <!-- extension end coordinates -->
     <xsl:variable name="endExtensionX"><xsl:value-of select="$runwayX + floor($takeOffExtension * math:cos(($map_base_airport_rwy_direction - 90) * $math_deg_to_rad))"/></xsl:variable>
     <xsl:variable name="endExtensionY"><xsl:value-of select="$runwayY + floor($takeOffExtension * math:sin(($map_base_airport_rwy_direction - 90) * $math_deg_to_rad))"/></xsl:variable>
 
-    <!-- imports -->
-    <xsl:variable name="waypoints" select="document('LBSF_waypoints.xml')"/>
-    <xsl:variable name="maplines" select="document('map_lines.xml')"/>
 
     <xsl:template match="/">
         <html>
@@ -83,7 +84,7 @@
                                 <xsl:attribute name="r">3</xsl:attribute>
                                 <xsl:attribute name="fill">green</xsl:attribute>
                             </circle>
-                            <xsl:for-each select="/Airport/Chart/SID_Page/SID_Core">
+                            <xsl:for-each select="/Chart/SID_Page/SID_Core">
                                 <path>
                                     <xsl:attribute name="d">
                                     M <xsl:value-of select="$runwayX"/><xsl:text> </xsl:text><xsl:value-of select="$runwayY"/>
@@ -121,7 +122,7 @@
                                                         FUTURE: the turn calculation left/right (sin,cos, whatever) is somewhat arbitrary, we need to test with the 09 SIDs to be sure it works generically
                                                 -->
                                                 <xsl:variable name="ca_length_meters">
-                                                    <xsl:value-of select="((number(translate(Altitude, '-+','')) - /Airport/ElevationFeet) div ../../ClimbGradientFeetPerNauticalMile) * $geo_nm_in_meters"/>
+                                                    <xsl:value-of select="((number(translate(Altitude, '-+','')) - $airport/Airport/ElevationFeet) div ../../ClimbGradientFeetPerNauticalMile) * $geo_nm_in_meters"/>
                                                 </xsl:variable>
                                                 <xsl:variable name="ca_end_x">
                                                     <xsl:value-of select="$runwayX + floor(($ca_length_meters div $map_zoom) * math:cos((($track_geo - 90 ) * $math_deg_to_rad)))"/>

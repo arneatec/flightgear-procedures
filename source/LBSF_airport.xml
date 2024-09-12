@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Airport>
+    <Name>Sofia Airport</Name>
+    <ICAO>LBSF</ICAO>
+    <ControlPoint>
+        <Latitude>
+            42.69500
+        </Latitude>
+        <Longitude>
+            23.40833
+        </Longitude>
+    </ControlPoint>
+    <ElevationFeet>1745</ElevationFeet>
+    <Transition_Altitude_ft>10500</Transition_Altitude_ft>
+    <Transition_Level>BY ATC</Transition_Level>
+    <MagneticVariation>5</MagneticVariation>
+    <Radio_Role>
+            <ID>APP</ID>
+            <Name>Sofia Approach</Name>
+            <Radio_Frequencies>
+                <Radio_Frequency>123.700</Radio_Frequency>
+                <Radio_Frequency>129.90</Radio_Frequency>
+                <Radio_Frequency>247.575</Radio_Frequency>
+                <Radio_Frequency>121.500</Radio_Frequency>
+                <Radio_Frequency>243.000</Radio_Frequency>
+            </Radio_Frequencies>
+        </Radio_Role>
+        <Radio_Role>
+            <ID>TWR</ID>
+            <Name>Sofia Tower</Name>
+            <Radio_Frequencies>
+                <Radio_Frequency>118.100</Radio_Frequency>
+                <Radio_Frequency>120.200</Radio_Frequency>
+                <Radio_Frequency>336.400</Radio_Frequency>
+                <Radio_Frequency>121.500</Radio_Frequency>
+                <Radio_Frequency>243.000</Radio_Frequency>
+            </Radio_Frequencies>
+        </Radio_Role>
+        <Radio_Role>
+            <ID>ATIS</ID>
+            <Name>Sofia ATIS</Name>
+            <Radio_Frequencies>
+                <Radio_Frequency>126.680</Radio_Frequency>
+            </Radio_Frequencies>
+        </Radio_Role>
+    <Runways>
+        <Runway>
+            <ID>27</ID>
+            <RunwayThreshold>
+                <Latitude>42.697782</Latitude>
+                <Longitude>23.394506</Longitude>
+            </RunwayThreshold>
+            <RunwayDirection>
+                 269.45
+            </RunwayDirection>
+            <RunwayLenght>
+                <!-- note this is in meters -->
+                3600
+            </RunwayLenght>
+        </Runway>
+        <Runway>
+            <ID>09</ID>
+            <RunwayThreshold>
+                <Latitude>42.695106</Latitude>
+                <Longitude>23.439722</Longitude>
+            </RunwayThreshold>
+            <RunwayDirection>
+                 94.64
+            </RunwayDirection>
+            <RunwayLenght>
+                <!-- note this is in meters -->
+                3600
+            </RunwayLenght>
+        </Runway>
+    </Runways>
+</Airport>

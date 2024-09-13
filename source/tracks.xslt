@@ -101,6 +101,29 @@
                                         <xsl:variable name="next_pointY"><xsl:value-of select="$svg_size - floor((math:log(math:tan($waypoints/Waypoins/Waypoint[ID=current()/following-sibling::Waypoint[1]/WPTID]/Latitude * $math_deg_to_rad div 2 + $math_PI div 4)) * $geo_earth_radius) div ($map_zoom)) + $map_offset_Y"/></xsl:variable>
                                         <xsl:variable name="previous_pointX"><xsl:value-of select="floor(($waypoints/Waypoins/Waypoint[ID=current()/preceding-sibling::Waypoint[1]/WPTID]/Longitude * $math_deg_to_rad * $geo_earth_radius) div $map_zoom) + $map_offset_X"/></xsl:variable>
                                         <xsl:variable name="previous_pointY"><xsl:value-of select="$svg_size - floor((math:log(math:tan($waypoints/Waypoins/Waypoint[ID=current()/preceding-sibling::Waypoint[1]/WPTID]/Latitude * $math_deg_to_rad div 2 + $math_PI div 4)) * $geo_earth_radius) div ($map_zoom)) + $map_offset_Y"/></xsl:variable>
+                                        <xsl:variable name="this_point_turn_direction"><xsl:value-of select="Turn"/></xsl:variable>
+
+                                        <xsl:variable name="turn_radius_meters">
+                                            <xsl:value-of select="(math:power((220 * $geo_nm_in_meters) div 3600, 2) div ($geo_one_g * math:tan(12.5 * $math_deg_to_rad)))"/>
+                                        </xsl:variable>
+                                        <xsl:variable name="turn_radius_pixels">
+                                            <xsl:value-of select="$turn_radius_meters div $map_zoom"/>
+                                        </xsl:variable>
+                                        <xsl:variable name="turn_radius_pixels_signed">
+                                        <xsl:choose>
+                                            <xsl:when test="$this_point_turn_direction='Right'">
+                                                <xsl:value-of select="$turn_radius_pixels"/>
+                                            </xsl:when>
+                                            <xsl:when test="Turn='Left'">
+                                                <xsl:value-of select="$turn_radius_pixels * -1"/>
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                WARN : Unexpected turn direction
+                                            </xsl:otherwise>
+                                        </xsl:choose>
+                                    </xsl:variable>
+
+
                                         <xsl:variable name="track_geo">
                                             <xsl:value-of select="substring-before(substring-after(Track, '('),'°')"/>
                                         </xsl:variable>
@@ -140,7 +163,7 @@
                                                 </xsl:variable>
                                                 Q <xsl:value-of select="$ca_end_x"/><xsl:text> </xsl:text><xsl:value-of select="$ca_end_y"/><xsl:text> </xsl:text><xsl:value-of select="$next_pointX"/><xsl:text> </xsl:text><xsl:value-of select="$next_pointY"/>
                                             </xsl:when>
-                                            <xsl:when test="preceding-sibling::Waypoint[1]/Flyover='Yes'">
+                                            <xsl:when test="Flyover='Yes' and not(Turn='-')">
                                                 <!-- a point that needs to draw a Bézier curve (calculated rather randomly on the chart it looks at first glance)
                                                     let's try to unravel:
                                                      1. the aircraft will always continue on the previous_point:track and make the left/right turn
@@ -158,26 +181,149 @@
                                                     5. we assume the Vt is something like 220 knots
                                                     6. turn radius is thus 2800+ m, sounds reasonable
                                                 -->
-                                                <xsl:variable name="turn_radius_meters">
-                                                    <xsl:value-of select="(math:power((220 * $geo_nm_in_meters) div 3600, 2) div ($geo_one_g * math:tan(25 * $math_deg_to_rad)))"/>
-                                                </xsl:variable>
-                                                <xsl:variable name="turn_radius_pixels">
-                                                    <xsl:value-of select="$turn_radius_meters div $map_zoom"/>
-                                                </xsl:variable>
-                                                <!-- we now have the turn radius, but this needs to become an arc -->
+                                               <!-- thanks to https://stackoverflow.com/questions/49968720/find-tangent-points-in-a-circle-from-a-point -->
+
+                                            <!-- now we need to get to the tangential point on the circle
+                                            center of arc circle : <xsl:value-of select="$pointX + $turn_radius_pixels"/><xsl:text>, </xsl:text><xsl:value-of select="$pointY"/>
+                                            next point: <xsl:value-of select="$next_pointX"/><xsl:text>, </xsl:text><xsl:value-of select="$next_pointY"/>
+                                            tangent point:
+                                            -->
+
+                                            <xsl:variable name="Cx">
+                                                <xsl:value-of select="$pointX + (($turn_radius_pixels_signed) div math:cos($pointY * $math_deg_to_rad) )"/>
+                                            </xsl:variable>
+                                            <xsl:variable name="Cy">
+                                                <xsl:value-of select="$pointY"/>
+                                            </xsl:variable>
+                                            <xsl:variable name="Px">
+                                                <xsl:value-of select="$next_pointX"/>
+                                            </xsl:variable>
+                                            <xsl:variable name="Py">
+                                                <xsl:value-of select="$next_pointY"/>
+                                            </xsl:variable>
+                                            <xsl:variable name="a">
+                                                <xsl:value-of select="$turn_radius_pixels"/>
+                                            </xsl:variable>
+                                            <xsl:variable name="b">
+                                                <xsl:value-of select="math:sqrt(math:power($Px - $Cx, 2) + math:power($Py - $Cy, 2))"/>
+                                            </xsl:variable>
+                                            <xsl:variable name="th">
+                                                <xsl:value-of select="math:acos($a div $b)"/>
+                                            </xsl:variable>
+
+                                            <!--
+                                            d = atan2(Py - Cy, Px - Cx)  # direction angle of point P from C
+                                            -->
+                                            <xsl:variable name="d">
+                                                <xsl:value-of select="math:atan2($Py - $Cy, $Px - $Cx)"/>
+                                            </xsl:variable>
+
+                                            <!--
+                                            d1 = d + th  # direction angle of point T1 from C
+                                            -->
+                                            <xsl:variable name="d1">
+                                                <xsl:value-of select="$d + $th"/>
+                                            </xsl:variable>
+
+                                            <!--
+                                            d2 = d - th  # direction angle of point T2 from C
+                                            -->
+                                            <xsl:variable name="d2">
+                                                <xsl:value-of select="$d - $th"/>
+                                            </xsl:variable>
+
+                                            <!--
+                                            T1x = Cx + a * cos(d1)
+                                            -->
+                                            <xsl:variable name="T1x">
+                                                <xsl:value-of select="$Cx + $a * math:cos(number($d1))"/>
+                                            </xsl:variable>
+
+                                            <!--
+                                            T1y = Cy + a * sin(d1)
+                                            -->
+                                            <xsl:variable name="T1y">
+                                                <xsl:value-of select="$Cy + $a * math:sin(number($d1))"/>
+                                            </xsl:variable>
+
+                                            <!--
+                                            T2x = Cx + a * cos(d1)
+                                            -->
+                                            <xsl:variable name="T2x">
+                                                <xsl:value-of select="$Cx + $a * math:cos(number($d2))"/>
+                                            </xsl:variable>
+
+                                            <!--
+                                            T2y = Cy + a * sin(d1)
+                                            -->
+                                            <xsl:variable name="T2y">
+                                                <xsl:value-of select="$Cy + $a * math:sin(number($d2))"/>
+                                            </xsl:variable>
 
 
 
+                                            <!--
+                                            center_of_arc_circle_x : <xsl:value-of select="$Cx"/>
+                                            center_of_arc_circle_y : <xsl:value-of select="$Cy"/>
+                                            radius : <xsl:value-of select="$a"/>
+                                            direction angle of point P from C : <xsl:value-of select="$d"/>
+                                            direction angle of point T1 from C : <xsl:value-of select="$d1"/>
+                                            direction angle of point T2 from C <xsl:value-of select="$d2"/>
+
+                                            tangent point 1 x: <xsl:value-of select="$T1x"/>
+                                            tangent point 1 y: <xsl:value-of select="$T1y"/>
+                                            -->
+
+                                            <xsl:variable name="arch_clockwise_flag">
                                                 <xsl:choose>
-                                                    <xsl:when test="Turn='Left'">
-                                                        Q  <xsl:value-of select="$previous_pointX"/><xsl:text> </xsl:text><xsl:value-of select="$previous_pointY + ($turn_radius_pixels)"/><xsl:text> </xsl:text><xsl:value-of select="$pointX"/><xsl:text> </xsl:text><xsl:value-of select="$pointY"/>
+                                                    <xsl:when test="$this_point_turn_direction='Right'">
+                                                        1
+                                                    </xsl:when>
+                                                    <xsl:when test="$this_point_turn_direction='Left'">
+                                                        0
                                                     </xsl:when>
                                                     <xsl:otherwise>
-                                                        Q  <xsl:value-of select="$previous_pointX - $turn_radius_pixels + 3"/><xsl:text> </xsl:text><xsl:value-of select="$previous_pointY - $turn_radius_pixels * 3"/><xsl:text> </xsl:text><xsl:value-of select="$pointX"/><xsl:text> </xsl:text><xsl:value-of select="$pointY"/>
+                                                        WARN : Unable to establish turn direction for <xsl:value-of select="WPTID"/>
                                                     </xsl:otherwise>
                                                 </xsl:choose>
+                                            </xsl:variable>
 
-                                            </xsl:when>
+                                            <xsl:variable name="TtrueX">
+                                                <xsl:choose>
+                                                    <xsl:when test="$this_point_turn_direction='Left'">
+                                                        <xsl:value-of select="$T1x"/>
+                                                    </xsl:when>
+                                                    <xsl:when test="$this_point_turn_direction='Right'">
+                                                        <xsl:value-of select="$T2x"/>
+                                                    </xsl:when>
+                                                    <xsl:otherwise>
+                                                        WARN : Unable to establish turn direction for <xsl:value-of select="WPTID"/>
+                                                    </xsl:otherwise>
+                                                </xsl:choose>
+                                            </xsl:variable>
+
+                                            <xsl:variable name="TtrueY">
+                                                <xsl:choose>
+                                                    <xsl:when test="$this_point_turn_direction='Left'">
+                                                        <xsl:value-of select="$T1y"/>
+                                                    </xsl:when>
+                                                    <xsl:when test="$this_point_turn_direction='Right'">
+                                                        <xsl:value-of select="$T2y"/>
+                                                    </xsl:when>
+                                                    <xsl:otherwise>
+                                                        WARN : Unable to establish turn direction for <xsl:value-of select="WPTID"/>
+                                                    </xsl:otherwise>
+                                                </xsl:choose>
+                                            </xsl:variable>
+
+                                            A <xsl:value-of select="$turn_radius_pixels"/><xsl:text> </xsl:text><xsl:value-of select="$turn_radius_pixels"/><xsl:text> </xsl:text>0<xsl:text> </xsl:text>0<xsl:text> </xsl:text><xsl:value-of select="$arch_clockwise_flag"/><xsl:text> </xsl:text><xsl:value-of select="$TtrueX"/><xsl:text> </xsl:text><xsl:value-of select="$TtrueY"/>
+
+
+                                            <!--
+                                            L <xsl:value-of select="$T2x"/><xsl:text> </xsl:text><xsl:value-of select="$T2y"/>
+                                            -->
+                                            L <xsl:value-of select="$next_pointX"/><xsl:text> </xsl:text><xsl:value-of select="$next_pointY"/>
+                                        </xsl:when>
                                             <xsl:otherwise>
                                                 L <xsl:value-of select="$pointX"/><xsl:text> </xsl:text><xsl:value-of select="$pointY"/>
                                             </xsl:otherwise>
@@ -209,13 +355,6 @@
                                             <xsl:attribute name="cy"><xsl:value-of select="$pointY"/></xsl:attribute>
                                             <xsl:attribute name="r">3</xsl:attribute>
                                             <xsl:attribute name="fill">green</xsl:attribute>
-                                        </circle>
-                                        <circle>
-                                            <xsl:attribute name="cx"><xsl:value-of select="$pointX + 15.561684165137192"/></xsl:attribute>
-                                            <xsl:attribute name="cy"><xsl:value-of select="$pointY"/></xsl:attribute>
-                                            <xsl:attribute name="r">15.561684165137192</xsl:attribute>
-                                            <xsl:attribute name="fill">none</xsl:attribute>
-                                            <xsl:attribute name="stroke">pink</xsl:attribute>
                                         </circle>
                                         <xsl:if test="WPTID='GOL'">
                                             <circle>

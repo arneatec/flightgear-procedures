@@ -1,62 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
     <Chart>
         <SubType>SID-27-RNAV</SubType>
         <Zoom>180</Zoom>
         <Offset_X>-14100</Offset_X>
         <Offset_Y>28730</Offset_Y>
-        <MagneticVariation>5</MagneticVariation>
         <ID>LBSF AD 2 - 53.7</ID>
         <Publisher>AIP FIRST BULGARIAN KINGDOM</Publisher>
         <Publisher_Local>AIP ПЪРВО БЪЛГАРСКО ЦАРСТВО</Publisher_Local>
         <Published_On>25 JAN 24</Published_On><a></a>
         <Name>STANDARD DEPARTURE CHART - INSTRUMENT (SID) - ICAO</Name>
-        <Transition_Altitude_ft>10500</Transition_Altitude_ft>
-        <Transition_Level>BY ATC</Transition_Level>
-        <Radio_Role>
-            <ID>APP</ID>
-            <Name>Sofia Approach</Name>
-            <Radio_Frequencies>
-                <Radio_Frequency>123.700</Radio_Frequency>
-                <Radio_Frequency>129.90</Radio_Frequency>
-                <Radio_Frequency>247.575</Radio_Frequency>
-                <Radio_Frequency>121.500</Radio_Frequency>
-                <Radio_Frequency>243.000</Radio_Frequency>
-            </Radio_Frequencies>
-        </Radio_Role>
-        <Radio_Role>
-            <ID>TWR</ID>
-            <Name>Sofia Tower</Name>
-            <Radio_Frequencies>
-                <Radio_Frequency>118.100</Radio_Frequency>
-                <Radio_Frequency>120.200</Radio_Frequency>
-                <Radio_Frequency>336.400</Radio_Frequency>
-                <Radio_Frequency>121.500</Radio_Frequency>
-                <Radio_Frequency>243.000</Radio_Frequency>
-            </Radio_Frequencies>
-        </Radio_Role>
-        <Radio_Role>
-            <ID>ATIS</ID>
-            <Name>Sofia ATIS</Name>
-            <Radio_Frequencies>
-                <Radio_Frequency>126.680</Radio_Frequency>
-            </Radio_Frequencies>
-        </Radio_Role>
         <Airport_Location>SOFIA</Airport_Location>
         <Chart_Type>RNAV</Chart_Type>
         <Chart_Object>RNW</Chart_Object>
         <Chart_Object_ID>27</Chart_Object_ID>
-        <RunwayThreshold>
-            <Latitude>42.697782</Latitude>
-            <Longitude>23.394506</Longitude>
-        </RunwayThreshold>
-        <RunwayDirection>
-             269.45
-        </RunwayDirection>
-        <RunwayLenght>
-            <!-- note this is in meters -->
-            3600
-        </RunwayLenght>
         <TakeOffFlyRunwayHeadingDistance>
             <!-- note this is approximate and in the local coordinate system [1-1000] -->
             14
@@ -204,10 +160,12 @@
                 </Header_Column>
             </Header_Columns>
             <SID_Core>
-                <ClimbGradientFeetPerNauticalMile>200</ClimbGradientFeetPerNauticalMile>
                 <ID>GODEK 2T</ID>
                 <Name>GODEK TWO TANGO DEPARTURE</Name>
-                <Description>MNM climb gradient of 5% (304FT/NM) to 10000FT AMSL due to terrain.</Description>
+                <ClimbGradientPercent>5</ClimbGradientPercent>
+                <ClimbGradientFeetPerNM>304</ClimbGradientFeetPerNM>
+                <ClimbGradientRestrictionsToFeet>10000</ClimbGradientRestrictionsToFeet>
+                <ClimbGradientRestrictionsReason>terrain</ClimbGradientRestrictionsReason>
                 <Waypoints>
                     <Waypoint>
                         <PT>CA</PT>
@@ -246,10 +204,12 @@
                 <PT></PT>
             </SID_Core>
             <SID_Core>
-                <ClimbGradientFeetPerNauticalMile>200</ClimbGradientFeetPerNauticalMile>
                 <ID>OGOTA 2T</ID>
                 <Name>OGOTA TWO TANGO DEPARTURE</Name>
-                <Description>MNM climb gradient of 5% (304FT/NM) to 7400FT AMSL due to terrain.</Description>
+                <ClimbGradientPercent>5</ClimbGradientPercent>
+                <ClimbGradientFeetPerNM>304</ClimbGradientFeetPerNM>
+                <ClimbGradientRestrictionsToFeet>7400</ClimbGradientRestrictionsToFeet>
+                <ClimbGradientRestrictionsReason>terrain</ClimbGradientRestrictionsReason>
                 <Waypoints>
                     <Waypoint>
                         <PT>CA</PT>
@@ -288,10 +248,12 @@
                 <PT></PT>
             </SID_Core>
             <SID_Core>
-                <ClimbGradientFeetPerNauticalMile>200</ClimbGradientFeetPerNauticalMile>
                 <ID>GOL 2T</ID>
                 <Name>GOLYAMA TWO TANGO DEPARTURE</Name>
-                <Description>MNM climb gradient of 5% (304FT/NM) to 8500FT AMSL due to terrain.</Description>
+                <ClimbGradientPercent>5</ClimbGradientPercent>
+                <ClimbGradientFeetPerNM>304</ClimbGradientFeetPerNM>
+                <ClimbGradientRestrictionsToFeet>8500</ClimbGradientRestrictionsToFeet>
+                <ClimbGradientRestrictionsReason>terrain</ClimbGradientRestrictionsReason>
                 <Waypoints>
                     <Waypoint>
                         <PT>CA</PT>
@@ -330,10 +292,12 @@
                 <PT></PT>
             </SID_Core>
             <SID_Core>
-                <ClimbGradientFeetPerNauticalMile>200</ClimbGradientFeetPerNauticalMile>
                 <ID>UMPIT 2T</ID>
                 <Name>UMPIT TWO TANGO DEPARTURE</Name>
-                <Description>MNM climb gradient of 5% (304FT/NM) to 9000FT AMSL due to terrain.</Description>
+                <ClimbGradientPercent>5</ClimbGradientPercent>
+                <ClimbGradientFeetPerNM>304</ClimbGradientFeetPerNM>
+                <ClimbGradientRestrictionsToFeet>9000</ClimbGradientRestrictionsToFeet>
+                <ClimbGradientRestrictionsReason>terrain</ClimbGradientRestrictionsReason>
                 <Waypoints>
                     <Waypoint>
                         <PT>CA</PT>
@@ -451,10 +415,12 @@
                 </Header_Column>
             </Header_Columns>
             <SID_Core>
-                <ClimbGradientFeetPerNauticalMile>200</ClimbGradientFeetPerNauticalMile>
                 <ID>GAPVO 2T</ID>
                 <Name>GAPVO TWO TANGO DEPARTURE</Name>
-                <Description>MNM climb gradient of 5% (304FT/NM) to 9000FT AMSL due to terrain.</Description>
+                <ClimbGradientPercent>5</ClimbGradientPercent>
+                <ClimbGradientFeetPerNM>304</ClimbGradientFeetPerNM>
+                <ClimbGradientRestrictionsToFeet>9000</ClimbGradientRestrictionsToFeet>
+                <ClimbGradientRestrictionsReason>terrain</ClimbGradientRestrictionsReason>
                 <Waypoints>
                     <Waypoint>
                         <PT>CA</PT>
@@ -515,10 +481,13 @@
                 <PT></PT>
             </SID_Core>
             <SID_Core>
-                <ClimbGradientFeetPerNauticalMile>200</ClimbGradientFeetPerNauticalMile>
+                <ClimbGradientFeetPerNauticalMile>746</ClimbGradientFeetPerNauticalMile>
                 <ID>DEDIN 2T</ID>
                 <Name>DEDIN TWO TANGO DEPARTURE</Name>
-                <Description>MNM climb gradient of 5% (304FT/NM) to 9000FT AMSL due to terrain.</Description>
+                <ClimbGradientPercent>5</ClimbGradientPercent>
+                <ClimbGradientFeetPerNM>304</ClimbGradientFeetPerNM>
+                <ClimbGradientRestrictionsToFeet>9000</ClimbGradientRestrictionsToFeet>
+                <ClimbGradientRestrictionsReason>terrain</ClimbGradientRestrictionsReason>
                 <Waypoints>
                     <Waypoint>
                         <PT>CA</PT>
@@ -579,10 +548,13 @@
                 <PT></PT>
             </SID_Core>
             <SID_Core>
-                <ClimbGradientFeetPerNauticalMile>200</ClimbGradientFeetPerNauticalMile>
+                <ClimbGradientFeetPerNauticalMile>746</ClimbGradientFeetPerNauticalMile>
                 <ID>RUMEN 2T</ID>
                 <Name>RUMEN TWO TANGO DEPARTURE</Name>
-                <Description>MNM climb gradient of 5% (304FT/NM) to 10000FT AMSL due to airspace restrictions..</Description>
+                <ClimbGradientPercent>5</ClimbGradientPercent>
+                <ClimbGradientFeetPerNM>304</ClimbGradientFeetPerNM>
+                <ClimbGradientRestrictionsToFeet>10000</ClimbGradientRestrictionsToFeet>
+                <ClimbGradientRestrictionsReason>airspace restrictions</ClimbGradientRestrictionsReason>
                 <Waypoints>
                     <Waypoint>
                         <PT>CA</PT>
@@ -643,10 +615,12 @@
                 <PT></PT>
             </SID_Core>
             <SID_Core>
-                <ClimbGradientFeetPerNauticalMile>200</ClimbGradientFeetPerNauticalMile>
                 <ID>DILVO 2T</ID>
                 <Name>DILVO TWO TANGO DEPARTURE</Name>
-                <Description>MNM climb gradient of 5% (304FT/NM) to 10000FT AMSL due to airspace restrictions.</Description>
+                <ClimbGradientPercent>5</ClimbGradientPercent>
+                <ClimbGradientFeetPerNM>304</ClimbGradientFeetPerNM>
+                <ClimbGradientRestrictionsToFeet>10000</ClimbGradientRestrictionsToFeet>
+                <ClimbGradientRestrictionsReason>airspace restrictions</ClimbGradientRestrictionsReason>
                 <Waypoints>
                     <Waypoint>
                         <PT>CA</PT>
@@ -764,10 +738,12 @@
                 </Header_Column>
             </Header_Columns>
             <SID_Core>
-                <ClimbGradientFeetPerNauticalMile>200</ClimbGradientFeetPerNauticalMile>
                 <ID>OMENO 2T</ID>
                 <Name>OMENO TWO TANGO DEPARTURE</Name>
-                <Description>MNM climb gradient of 5% (304FT/NM) to 10000FT AMSL due to airspace restrictions.</Description>
+                <ClimbGradientPercent>5</ClimbGradientPercent>
+                <ClimbGradientFeetPerNM>304</ClimbGradientFeetPerNM>
+                <ClimbGradientRestrictionsToFeet>10000</ClimbGradientRestrictionsToFeet>
+                <ClimbGradientRestrictionsReason>airspace restrictions</ClimbGradientRestrictionsReason>
                 <Waypoints>
                     <Waypoint>
                         <PT>CA</PT>
@@ -828,10 +804,12 @@
                 <PT></PT>
             </SID_Core>
             <SID_Core>
-                <ClimbGradientFeetPerNauticalMile>200</ClimbGradientFeetPerNauticalMile>
                 <ID>NAPET 2T</ID>
                 <Name>NAPET TWO TANGO DEPARTURE</Name>
-                <Description>MNM climb gradient of 5% (304FT/NM) to 7000FT AMSL due to terrain.</Description>
+                <ClimbGradientPercent>5</ClimbGradientPercent>
+                <ClimbGradientFeetPerNM>304</ClimbGradientFeetPerNM>
+                <ClimbGradientRestrictionsToFeet>7000</ClimbGradientRestrictionsToFeet>
+                <ClimbGradientRestrictionsReason>terrain</ClimbGradientRestrictionsReason>
                 <Waypoints>
                     <Waypoint>
                         <PT>CA</PT>

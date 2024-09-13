@@ -56,13 +56,6 @@
         <xsl:value-of select="$svg_size - floor((math:log(math:tan($airport/Airport/ControlPoint/Latitude * $math_deg_to_rad div 2 + $math_PI div 4)) * $geo_earth_radius) div ($map_zoom)) + $map_offset_Y"/>
     </xsl:variable>
 
-    <!-- length of the runway 'fly away extension' -->
-    <xsl:variable name="takeOffExtension"><xsl:value-of select="/Chart/TakeOffFlyRunwayHeadingDistance"/></xsl:variable>
-    <!-- extension end coordinates -->
-    <xsl:variable name="endExtensionX"><xsl:value-of select="$runwayX + floor($takeOffExtension * math:cos(($map_base_airport_rwy_direction - 90) * $math_deg_to_rad))"/></xsl:variable>
-    <xsl:variable name="endExtensionY"><xsl:value-of select="$runwayY + floor($takeOffExtension * math:sin(($map_base_airport_rwy_direction - 90) * $math_deg_to_rad))"/></xsl:variable>
-
-
     <xsl:template match="/">
         <html>
             <xsl:comment>

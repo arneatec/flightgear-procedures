@@ -1,0 +1,20 @@
+<Chart>
+    <Zoom>180</Zoom>
+    <Offset_X>-14100</Offset_X>
+    <Offset_Y>28730</Offset_Y>
+    <Arc>
+        <Point>
+            <ID>SF701</ID>
+            <Latitude>42.847472</Latitude>
+            <Longitude>23.330306</Longitude>
+            <fill>green</fill>
+            <Turn>Right</Turn>
+        </Point>
+        <Point>
+            <ID>GOL</ID>
+            <Latitude>43.095000</Latitude>
+            <Longitude>24.220556</Longitude>
+            <fill>red</fill>
+        </Point>
+    </Arc>
+</Chart>

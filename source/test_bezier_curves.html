@@ -1,22 +1,20 @@
 <html>
 <body>
     <svg width="1000" height="1000">
-        <rect width="200" height="200" x="500" y="500" fill="none" stroke="black" />
+        <circle cx="500" cy="500" r="3" stroke="none" fill="green"></circle>
+        <circle cx="500" cy="500" r="15" stroke="pink" fill="none"></circle>
+        <circle cx="515" cy="500" r="15" stroke="blue" fill="none"></circle>
+        <circle cx="700" cy="420" r="3" stroke="none" fill="red"></circle>
+        <line x1="700" x2="500" y1="420" y2="500" stroke="black"></line>
+        <line x1="700" x2="485" y1="420" y2="496" stroke="gray"></line>
+
+        <!-- start at 500 500 (green dot) -->
         <path d="
-            M 500, 700
-            Q 500, 500 700, 500
-        "
-        fill="none"
-        stroke="red"
-        >
-        </path>
-        <path d="
-            M 500, 700
-            Q 400, 400 700, 500
-        "
-        fill="none"
-        stroke="pink"
-        >
+            M 500 500
+
+            "
+            fill="none"
+            stroke="red">
         </path>
     </svg>
 </body>

@@ -19,6 +19,7 @@
     <xsl:variable name="geo_feet_in_meters" select="3.2808"/>
     <xsl:variable name="geo_earth_radius" select="6378137" />
     <xsl:variable name="geo_magnetic_variation" select="$airport/Airport/MagneticVariation"/>
+    <xsl:variable name="geo_one_g" select="9.80665"/>
 
     <!-- major map constants -->
     <xsl:variable name="map_zoom" select="/Chart/Zoom"/>
@@ -98,6 +99,8 @@
                                         <xsl:variable name="pointY"><xsl:value-of select="$svg_size - floor((math:log(math:tan($waypoints/Waypoins/Waypoint[ID=current()/WPTID]/Latitude * $math_deg_to_rad div 2 + $math_PI div 4)) * $geo_earth_radius) div ($map_zoom)) + $map_offset_Y"/></xsl:variable>
                                         <xsl:variable name="next_pointX"><xsl:value-of select="floor(($waypoints/Waypoins/Waypoint[ID=current()/following-sibling::Waypoint[1]/WPTID]/Longitude * $math_deg_to_rad * $geo_earth_radius) div $map_zoom) + $map_offset_X"/></xsl:variable>
                                         <xsl:variable name="next_pointY"><xsl:value-of select="$svg_size - floor((math:log(math:tan($waypoints/Waypoins/Waypoint[ID=current()/following-sibling::Waypoint[1]/WPTID]/Latitude * $math_deg_to_rad div 2 + $math_PI div 4)) * $geo_earth_radius) div ($map_zoom)) + $map_offset_Y"/></xsl:variable>
+                                        <xsl:variable name="previous_pointX"><xsl:value-of select="floor(($waypoints/Waypoins/Waypoint[ID=current()/preceding-sibling::Waypoint[1]/WPTID]/Longitude * $math_deg_to_rad * $geo_earth_radius) div $map_zoom) + $map_offset_X"/></xsl:variable>
+                                        <xsl:variable name="previous_pointY"><xsl:value-of select="$svg_size - floor((math:log(math:tan($waypoints/Waypoins/Waypoint[ID=current()/preceding-sibling::Waypoint[1]/WPTID]/Latitude * $math_deg_to_rad div 2 + $math_PI div 4)) * $geo_earth_radius) div ($map_zoom)) + $map_offset_Y"/></xsl:variable>
                                         <xsl:variable name="track_geo">
                                             <xsl:value-of select="substring-before(substring-after(Track, '('),'°')"/>
                                         </xsl:variable>
@@ -137,6 +140,44 @@
                                                 </xsl:variable>
                                                 Q <xsl:value-of select="$ca_end_x"/><xsl:text> </xsl:text><xsl:value-of select="$ca_end_y"/><xsl:text> </xsl:text><xsl:value-of select="$next_pointX"/><xsl:text> </xsl:text><xsl:value-of select="$next_pointY"/>
                                             </xsl:when>
+                                            <xsl:when test="preceding-sibling::Waypoint[1]/Flyover='Yes'">
+                                                <!-- a point that needs to draw a Bézier curve (calculated rather randomly on the chart it looks at first glance)
+                                                    let's try to unravel:
+                                                     1. the aircraft will always continue on the previous_point:track and make the left/right turn
+                                                     2. the aircraft goes into a new track when done with the turn, this  new track will take it to the current_point:location
+
+                                                    https://en.wikipedia.org/wiki/Standard_rate_turn
+                                                    the angle of the curve has several constraint:
+                                                    1. the aircraft has a standard turn rate; normally it does not exceed it (making it a max turn rate)
+                                                    2. the aircraft has a half turn rate, and also an arbitrary turn rate, none of which exceed the standard turn rate
+                                                    3. we can assume that the pilot/autopilot will do a standard turn for any course change, especially on climb-out
+                                                        when the passengers are secured by seatbelts
+                                                    4. so the formula for the radius, if given velocity and the angle of bank are given. is:
+                                                    r = (Vt.Vt/g*tan(phi)
+                                                    where g is the gravitational acceleration, Vt is the speed in m/sec, angle of bank is in .. what, degrees, rads?
+                                                    5. we assume the Vt is something like 220 knots
+                                                    6. turn radius is thus 2800+ m, sounds reasonable
+                                                -->
+                                                <xsl:variable name="turn_radius_meters">
+                                                    <xsl:value-of select="(math:power((220 * $geo_nm_in_meters) div 3600, 2) div ($geo_one_g * math:tan(25 * $math_deg_to_rad)))"/>
+                                                </xsl:variable>
+                                                <xsl:variable name="turn_radius_pixels">
+                                                    <xsl:value-of select="$turn_radius_meters div $map_zoom"/>
+                                                </xsl:variable>
+                                                <!-- we now have the turn radius, but this needs to become an arc -->
+
+
+
+                                                <xsl:choose>
+                                                    <xsl:when test="Turn='Left'">
+                                                        Q  <xsl:value-of select="$previous_pointX"/><xsl:text> </xsl:text><xsl:value-of select="$previous_pointY + ($turn_radius_pixels)"/><xsl:text> </xsl:text><xsl:value-of select="$pointX"/><xsl:text> </xsl:text><xsl:value-of select="$pointY"/>
+                                                    </xsl:when>
+                                                    <xsl:otherwise>
+                                                        Q  <xsl:value-of select="$previous_pointX - $turn_radius_pixels + 3"/><xsl:text> </xsl:text><xsl:value-of select="$previous_pointY - $turn_radius_pixels * 3"/><xsl:text> </xsl:text><xsl:value-of select="$pointX"/><xsl:text> </xsl:text><xsl:value-of select="$pointY"/>
+                                                    </xsl:otherwise>
+                                                </xsl:choose>
+
+                                            </xsl:when>
                                             <xsl:otherwise>
                                                 L <xsl:value-of select="$pointX"/><xsl:text> </xsl:text><xsl:value-of select="$pointY"/>
                                             </xsl:otherwise>
@@ -163,6 +204,19 @@
                                         <xsl:variable name="track_geo">
                                             <xsl:value-of select="substring-before(substring-after(current()/Track, '('),'°')"/>
                                         </xsl:variable>
+                                        <circle>
+                                            <xsl:attribute name="cx"><xsl:value-of select="$pointX"/></xsl:attribute>
+                                            <xsl:attribute name="cy"><xsl:value-of select="$pointY"/></xsl:attribute>
+                                            <xsl:attribute name="r">3</xsl:attribute>
+                                            <xsl:attribute name="fill">green</xsl:attribute>
+                                        </circle>
+                                        <circle>
+                                            <xsl:attribute name="cx"><xsl:value-of select="$pointX + 15.561684165137192"/></xsl:attribute>
+                                            <xsl:attribute name="cy"><xsl:value-of select="$pointY"/></xsl:attribute>
+                                            <xsl:attribute name="r">15.561684165137192</xsl:attribute>
+                                            <xsl:attribute name="fill">none</xsl:attribute>
+                                            <xsl:attribute name="stroke">pink</xsl:attribute>
+                                        </circle>
                                         <xsl:if test="WPTID='GOL'">
                                             <circle>
                                                 <xsl:attribute name="cx"><xsl:value-of select="$pointX"/></xsl:attribute>

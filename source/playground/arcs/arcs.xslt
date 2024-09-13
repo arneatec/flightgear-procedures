@@ -26,15 +26,6 @@
                     <xsl:attribute name="width"><xsl:value-of select="$svg_size"/></xsl:attribute>
                     <xsl:attribute name="height"><xsl:value-of select="$svg_size"/></xsl:attribute>
 
-                    <!-- draw the turn circle here -->
-                    <circle>
-                        <xsl:attribute name="cx"><xsl:value-of select="343.909"/></xsl:attribute>
-                        <xsl:attribute name="cy"><xsl:value-of select="348"/></xsl:attribute>
-                        <xsl:attribute name="r">573.31</xsl:attribute>
-                        <xsl:attribute name="stroke">pink</xsl:attribute>
-                        <xsl:attribute name="fill">none</xsl:attribute>
-                    </circle>
-
                     <!-- draw points and lines -->
                     <xsl:for-each select="/Chart/Arc/Point">
                         <xsl:variable name="pointX"><xsl:value-of select="floor((Longitude * $math_deg_to_rad * $geo_earth_radius) div $map_zoom) + $map_offset_X"/></xsl:variable>

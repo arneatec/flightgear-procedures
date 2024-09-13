@@ -11,9 +11,9 @@
             <Turn>Right</Turn>
         </Point>
         <Point>
-            <ID>GOL</ID>
-            <Latitude>43.095000</Latitude>
-            <Longitude>24.220556</Longitude>
+            <ID>SF704</ID>
+            <Latitude>42.734472</Latitude>
+            <Longitude>23.529917</Longitude>
             <fill>red</fill>
         </Point>
     </Arc>

@@ -13,10 +13,6 @@
         <Chart_Type>RNAV</Chart_Type>
         <Chart_Object>RNW</Chart_Object>
         <Chart_Object_ID>27</Chart_Object_ID>
-        <TakeOffFlyRunwayHeadingDistance>
-            <!-- note this is approximate and in the local coordinate system [1-1000] -->
-            14
-        </TakeOffFlyRunwayHeadingDistance>
         <Includes>
             <SID_ID>DEDIN 2T</SID_ID>
             <SID_ID>DILVO 2T</SID_ID>

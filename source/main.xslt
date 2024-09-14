@@ -163,7 +163,7 @@
                                                             <xsl:value-of select="((number(translate(Altitude, '-+','')) - $airport/Airport/ElevationFeet) div ../../ClimbGradientFeetPerNM) * $geo_nm_in_meters"/>
                                                         </xsl:variable>
 
-                                                        <xsl:variable name="bank_angle_for_fligh_phase">
+                                                        <xsl:variable name="bank_angle_for_flight_phase">
                                                             <xsl:choose>
                                                                 <xsl:when test="Flyover = 'Yes'">
                                                                     12.5
@@ -174,10 +174,8 @@
                                                             </xsl:choose>
                                                         </xsl:variable>
 
-
-
                                                         <xsl:variable name="turn_radius_meters">
-                                                            <xsl:value-of select="(math:power((220 * $geo_nm_in_meters) div 3600, 2) div ($geo_one_g * math:tan($bank_angle_for_fligh_phase * $math_deg_to_rad)))"/>
+                                                            <xsl:value-of select="(math:power((220 * $geo_nm_in_meters) div 3600, 2) div ($geo_one_g * math:tan($bank_angle_for_flight_phase * $math_deg_to_rad)))"/>
                                                         </xsl:variable>
                                                         <xsl:variable name="turn_radius_pixels">
                                                             <xsl:value-of select="$turn_radius_meters div $map_zoom"/>
@@ -199,10 +197,10 @@
                                                             <xsl:value-of select="substring-before(substring-after(Track, '('),'°')"/>
                                                         </xsl:variable>
                                                         <xsl:variable name="ca_end_x">
-                                                            <xsl:value-of select="$runwayX + floor((($ca_length_meters div math:cos($airport/Airport/ControlPoint/Longitude * $math_deg_to_rad)) div $map_zoom ) * math:cos((($track_geo - 90 ) * $math_deg_to_rad)))"/>
+                                                            <xsl:value-of select="$runwayX + floor(((($ca_length_meters ) div $map_zoom ) * math:cos((($track_geo - 90 ) * $math_deg_to_rad))) div math:cos($map_base_airport_rwy/RunwayThreshold/Longitude * $math_deg_to_rad))"/>
                                                         </xsl:variable>
                                                         <xsl:variable name="ca_end_y">
-                                                            <xsl:value-of select="$runwayY + floor(($ca_length_meters div $map_zoom) * math:sin((($track_geo + 90 ) * $math_deg_to_rad)))"/>
+                                                            <xsl:value-of select="$runwayY + floor(($ca_length_meters div $map_zoom) * math:sin((($track_geo - 90 ) * $math_deg_to_rad)))"/>
                                                         </xsl:variable>
                                                         <xsl:variable name="next_track_geo">
                                                             <xsl:value-of select="substring-before(substring-after(current()/following-sibling::Waypoint[1]/Track, '('),'°')"/>

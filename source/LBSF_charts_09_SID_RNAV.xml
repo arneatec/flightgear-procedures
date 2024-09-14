@@ -13,10 +13,6 @@
     <Chart_Type>RNAV</Chart_Type>
     <Chart_Object>RNW</Chart_Object>
     <Chart_Object_ID>09</Chart_Object_ID>
-    <TakeOffFlyRunwayHeadingDistance>
-        <!-- note this is approximate and in the local coordinate system [1-1000] -->
-        60
-    </TakeOffFlyRunwayHeadingDistance>
     <Includes>
         <SID_ID>DEDIN 2S</SID_ID>
         <SID_ID>DILVO 2S</SID_ID>
@@ -157,7 +153,10 @@
         <SID_Core>
             <ID>GODEK 3S</ID>
             <Name>GODEK THREE SIERRA DEPARTURE</Name>
-            <Description>MNM climb gradient of 5.3% (322FT/NM) to 9000FT AMSL due to terrain.</Description>
+            <ClimbGradientPercent>5.3</ClimbGradientPercent>
+            <ClimbGradientFeetPerNM>322</ClimbGradientFeetPerNM>
+            <ClimbGradientRestrictionsToFeet>9000</ClimbGradientRestrictionsToFeet>
+            <ClimbGradientRestrictionsReason>terrain</ClimbGradientRestrictionsReason>
             <Waypoints>
                 <Waypoint>
                     <PT>CA</PT>
@@ -198,7 +197,10 @@
         <SID_Core>
             <ID>OGOTA 3S</ID>
             <Name>OGOTA THREE SIERRA DEPARTURE</Name>
-            <Description>MNM climb gradient of 5.3% (322FT/NM) to 9000FT AMSL due to terrain.</Description>
+            <ClimbGradientPercent>5.3</ClimbGradientPercent>
+            <ClimbGradientFeetPerNM>322</ClimbGradientFeetPerNM>
+            <ClimbGradientRestrictionsToFeet>9000</ClimbGradientRestrictionsToFeet>
+            <ClimbGradientRestrictionsReason>terrain</ClimbGradientRestrictionsReason>
             <Waypoints>
                 <Waypoint>
                     <PT>CA</PT>
@@ -239,7 +241,10 @@
         <SID_Core>
             <ID>GOL 3S</ID>
             <Name>GOLYAMA THREE SIERRA DEPARTURE</Name>
-            <Description>MNM climb gradient of 5% (304FT/NM) to 8200FT AMSL due to terrain.</Description>
+            <ClimbGradientPercent>5</ClimbGradientPercent>
+            <ClimbGradientFeetPerNM>304</ClimbGradientFeetPerNM>
+            <ClimbGradientRestrictionsToFeet>8200</ClimbGradientRestrictionsToFeet>
+            <ClimbGradientRestrictionsReason>terrain</ClimbGradientRestrictionsReason>
             <Waypoints>
                 <Waypoint>
                     <PT>CA</PT>
@@ -291,7 +296,10 @@
         <SID_Core>
             <ID>UMPIT 3S</ID>
             <Name>UMPIT THREE SIERRA DEPARTURE</Name>
-            <Description>MNM climb gradient of 5% (304FT/NM) to 9000FT AMSL due to terrain.</Description>
+            <ClimbGradientPercent>5</ClimbGradientPercent>
+            <ClimbGradientFeetPerNM>304</ClimbGradientFeetPerNM>
+            <ClimbGradientRestrictionsToFeet>9000</ClimbGradientRestrictionsToFeet>
+            <ClimbGradientRestrictionsReason>terrain</ClimbGradientRestrictionsReason>
             <Waypoints>
                 <Waypoint>
                     <PT>CA</PT>
@@ -332,7 +340,10 @@
         <SID_Core>
             <ID>GAPVO 2S</ID>
             <Name>GAPVO TWO SIERRA DEPARTURE</Name>
-            <Description>MNM climb gradient of 5% (304FT/NM) to 9200FT AMSL due to terrain.</Description>
+            <ClimbGradientPercent>5</ClimbGradientPercent>
+            <ClimbGradientFeetPerNM>304</ClimbGradientFeetPerNM>
+            <ClimbGradientRestrictionsToFeet>9200</ClimbGradientRestrictionsToFeet>
+            <ClimbGradientRestrictionsReason>terrain</ClimbGradientRestrictionsReason>
             <Waypoints>
                 <Waypoint>
                     <PT>CF</PT>
@@ -419,7 +430,10 @@
         <SID_Core>
             <ID>DEDIN 2S</ID>
             <Name>DEDIN TWO SIERRA DEPARTURE</Name>
-            <Description>MNM climb gradient of 5% (304FT/NM) to 9300FT AMSL due to terrain.</Description>
+            <ClimbGradientPercent>5</ClimbGradientPercent>
+            <ClimbGradientFeetPerNM>304</ClimbGradientFeetPerNM>
+            <ClimbGradientRestrictionsToFeet>9300</ClimbGradientRestrictionsToFeet>
+            <ClimbGradientRestrictionsReason>terrain</ClimbGradientRestrictionsReason>
             <Waypoints>
                 <Waypoint>
                     <PT>CF</PT>
@@ -449,7 +463,10 @@
         <SID_Core>
             <ID>RUMEN 2S</ID>
             <Name>RUMEN TWO SIERRA DEPARTURE</Name>
-            <Description>MNM climb gradient of 5% (304FT/NM) to 9500FT AMSL due to terrain.</Description>
+            <ClimbGradientPercent>5</ClimbGradientPercent>
+            <ClimbGradientFeetPerNM>304</ClimbGradientFeetPerNM>
+            <ClimbGradientRestrictionsToFeet>9500</ClimbGradientRestrictionsToFeet>
+            <ClimbGradientRestrictionsReason>terrain</ClimbGradientRestrictionsReason>
             <Waypoints>
                 <Waypoint>
                     <PT>CA</PT>
@@ -490,7 +507,10 @@
         <SID_Core>
             <ID>DILVO 2S</ID>
             <Name>DILVO TWO SIERRA DEPARTURE</Name>
-            <Description>MNM climb gradient of 5% (304FT/NM) to 9000FT AMSL due to terrain.</Description>
+            <ClimbGradientPercent>5</ClimbGradientPercent>
+            <ClimbGradientFeetPerNM>304</ClimbGradientFeetPerNM>
+            <ClimbGradientRestrictionsToFeet>9000</ClimbGradientRestrictionsToFeet>
+            <ClimbGradientRestrictionsReason>terrain</ClimbGradientRestrictionsReason>
             <Waypoints>
                 <Waypoint>
                     <PT>CA</PT>
@@ -531,7 +551,10 @@
         <SID_Core>
             <ID>OMENO 3S</ID>
             <Name>OMENO THREE SIERRA DEPARTURE</Name>
-            <Description>MNM climb gradient of 6% (365FT/NM) to TRL due to terrain.</Description>
+            <ClimbGradientPercent>6</ClimbGradientPercent>
+            <ClimbGradientFeetPerNM>365</ClimbGradientFeetPerNM>
+            <ClimbGradientRestrictionsToFeet>TRL</ClimbGradientRestrictionsToFeet>
+            <ClimbGradientRestrictionsReason>terrain</ClimbGradientRestrictionsReason>
             <Waypoints>
                 <Waypoint>
                     <PT>CA</PT>
@@ -572,7 +595,10 @@
         <SID_Core>
             <ID>NAPET 2S</ID>
             <Name>OMENO TWO SIERRA DEPARTURE</Name>
-            <Description>MNM climb gradient of 6% (365FT/NM) to 9000FT AMSL due to terrain.</Description>
+            <ClimbGradientPercent>6</ClimbGradientPercent>
+            <ClimbGradientFeetPerNM>365</ClimbGradientFeetPerNM>
+            <ClimbGradientRestrictionsToFeet>9000</ClimbGradientRestrictionsToFeet>
+            <ClimbGradientRestrictionsReason>terrain</ClimbGradientRestrictionsReason>
             <Waypoints>
                 <Waypoint>
                     <PT>CA</PT>

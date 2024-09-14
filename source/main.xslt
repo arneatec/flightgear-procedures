@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:math="http://exslt.org/math"
                 xmlns:xls="http://www.w3.org/1999/XSL/Transform"
-                extension-element-prefixes="math">
+                extension-element-prefixes="math"
+                xmlns:exsl="http://exslt.org/common"
+>
     <!-- imports -->
     <xsl:variable name="airport" select="document('LBSF_airport.xml')"/>
     <xsl:variable name="waypoints" select="document('LBSF_waypoints.xml')"/>
@@ -47,7 +49,7 @@
         <xsl:value-of select="floor(($map_base_airport_rwy_longitude * $math_deg_to_rad * $geo_earth_radius) div $map_zoom) + $map_offset_X"/>
     </xsl:variable>
     <xsl:variable name="runwayY">
-        <xsl:value-of select="$svg_size - floor((math:log(math:tan($map_base_airport_rwy_latitude * $math_deg_to_rad div 2 + $math_PI div 4)) * $geo_earth_radius) div ($map_zoom)) + $map_offset_Y"/>
+        <xsl:value-of select="$svg_size - (math:log(math:tan($map_base_airport_rwy_latitude * $math_deg_to_rad div 2 + $math_PI div 4)) * $geo_earth_radius div ($map_zoom)) + $map_offset_Y"/>
     </xsl:variable>
         <xsl:variable name="runway_length">
         <xsl:value-of select="((($map_base_airport_rwy_length) div $map_zoom)) div math:cos($map_base_airport_rwy_latitude * $math_deg_to_rad)"/>
@@ -156,15 +158,15 @@
 
                                                     <!-- and finally the waypoints -->
                                                     <xsl:for-each select="Waypoints/Waypoint">
-                                                        <xsl:variable name="pointX"><xsl:value-of select="floor(($waypoints/Waypoins/Waypoint[ID=current()/WPTID]/Longitude * $math_deg_to_rad * $geo_earth_radius) div $map_zoom) + $map_offset_X"/></xsl:variable>
+                                                       <xsl:variable name="pointX"><xsl:value-of select="floor(($waypoints/Waypoins/Waypoint[ID=current()/WPTID]/Longitude * $math_deg_to_rad * $geo_earth_radius) div $map_zoom) + $map_offset_X"/></xsl:variable>
                                                         <xsl:variable name="pointY"><xsl:value-of select="$svg_size - floor((math:log(math:tan($waypoints/Waypoins/Waypoint[ID=current()/WPTID]/Latitude * $math_deg_to_rad div 2 + $math_PI div 4)) * $geo_earth_radius) div ($map_zoom)) + $map_offset_Y"/></xsl:variable>
                                                         <xsl:variable name="next_pointX"><xsl:value-of select="floor(($waypoints/Waypoins/Waypoint[ID=current()/following-sibling::Waypoint[1]/WPTID]/Longitude * $math_deg_to_rad * $geo_earth_radius) div $map_zoom) + $map_offset_X"/></xsl:variable>
                                                         <xsl:variable name="next_pointY"><xsl:value-of select="$svg_size - floor((math:log(math:tan($waypoints/Waypoins/Waypoint[ID=current()/following-sibling::Waypoint[1]/WPTID]/Latitude * $math_deg_to_rad div 2 + $math_PI div 4)) * $geo_earth_radius) div ($map_zoom)) + $map_offset_Y"/></xsl:variable>
-                                                        <xsl:variable name="previous_pointX"><xsl:value-of select="floor(($waypoints/Waypoins/Waypoint[ID=current()/preceding-sibling::Waypoint[1]/WPTID]/Longitude * $math_deg_to_rad * $geo_earth_radius) div $map_zoom) + $map_offset_X"/></xsl:variable>
-                                                        <xsl:variable name="previous_pointY"><xsl:value-of select="$svg_size - floor((math:log(math:tan($waypoints/Waypoins/Waypoint[ID=current()/preceding-sibling::Waypoint[1]/WPTID]/Latitude * $math_deg_to_rad div 2 + $math_PI div 4)) * $geo_earth_radius) div ($map_zoom)) + $map_offset_Y"/></xsl:variable>
                                                         <xsl:variable name="this_point_turn_direction"><xsl:value-of select="Turn"/></xsl:variable>
+                                                        <!-- hacky:  the LBSF original charts shows unrealistic curves, probably for presentation purposes only, sooooo... thry to emulate them by introducing coeeficients and stuff  -->
+                                                        <xsl:variable name="runway_climnout_correction_factor">0.7</xsl:variable>
                                                         <xsl:variable name="ca_length_meters">
-                                                            <xsl:value-of select="((number(translate(Altitude, '-+','')) - $airport/Airport/ElevationFeet) div ../../ClimbGradientFeetPerNM) * $geo_nm_in_meters"/>
+                                                            <xsl:value-of select="(((number(translate(Altitude, '-+','')) - $airport/Airport/ElevationFeet) div ../../ClimbGradientFeetPerNM) * $geo_nm_in_meters) * $runway_climnout_correction_factor"/>
                                                         </xsl:variable>
 
                                                         <xsl:variable name="bank_angle_for_flight_phase">
@@ -201,7 +203,7 @@
                                                             <xsl:value-of select="substring-before(substring-after(Track, '('),'°')"/>
                                                         </xsl:variable>
                                                         <xsl:variable name="ca_end_x">
-                                                            <xsl:value-of select="$runwayX + floor(((($ca_length_meters ) div $map_zoom ) * math:cos((($track_geo - 90 ) * $math_deg_to_rad))) div math:cos($map_base_airport_rwy_longitude * $math_deg_to_rad))"/>
+                                                            <xsl:value-of select="$runwayX + floor(((($ca_length_meters) div $map_zoom ) * math:cos((($track_geo - 90 ) * $math_deg_to_rad))) div math:cos($map_base_airport_rwy_longitude * $math_deg_to_rad))"/>
                                                         </xsl:variable>
                                                         <xsl:variable name="ca_end_y">
                                                             <xsl:value-of select="$runwayY + floor(($ca_length_meters div $map_zoom) * math:sin((($track_geo - 90 ) * $math_deg_to_rad)))"/>

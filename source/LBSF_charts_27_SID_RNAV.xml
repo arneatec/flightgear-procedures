@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
     <Chart>
         <SubType>SID-27-RNAV</SubType>
-        <Zoom>170</Zoom>
+        <Zoom>150</Zoom>
         <MapCenter>
             <Latitude>
                 42.78594479734309

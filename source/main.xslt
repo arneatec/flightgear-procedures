@@ -806,7 +806,9 @@
                                                     <polygon>
                                                         <xsl:attribute name="points">
                                                             <xsl:for-each select="PolygonPoints/PolygonPoint">
-                                                                <xsl:value-of select="$pointX + X"/>,<xsl:value-of select="$pointY + Y"/><xsl:text> </xsl:text>
+                                                                <xsl:variable name="base_airport_polygon_X"><xsl:value-of select="floor((Longitude * $math_deg_to_rad * $geo_earth_radius) div $map_zoom) + $map_offset_X"/></xsl:variable>
+                                                                <xsl:variable name="base_airport_polygon_Y"><xsl:value-of select="$svg_size - floor((math:log(math:tan(Latitude * $math_deg_to_rad div 2 + $math_PI div 4)) * $geo_earth_radius) div ($map_zoom)) + $map_offset_Y"/></xsl:variable>
+                                                                <xsl:value-of select="$base_airport_polygon_X"/>,<xsl:value-of select="$base_airport_polygon_Y"/><xsl:text> </xsl:text>
                                                             </xsl:for-each>
                                                         </xsl:attribute>
                                                         <xsl:attribute name="fill">gray</xsl:attribute>

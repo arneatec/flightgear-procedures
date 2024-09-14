@@ -321,32 +321,28 @@
         <Runway>09</Runway>
         <PolygonPoints>
             <PolygonPoint>
-                <X>3</X>
-                <Y>8</Y>
+                <Latitude>42.688568</Latitude>
+                <Longitude>23.408765</Longitude>
             </PolygonPoint>
             <PolygonPoint>
-                <X>12</X>
-                <Y>2</Y>
+                <Latitude>42.691947</Latitude>
+                <Longitude>23.424343</Longitude>
             </PolygonPoint>
             <PolygonPoint>
-                <X>20</X>
-                <Y>2</Y>
+                <Latitude>42.692548</Latitude>
+                <Longitude>23.443350</Longitude>
             </PolygonPoint>
             <PolygonPoint>
-                <X>20</X>
-                <Y>-1</Y>
+                <Latitude>42.696280</Latitude>
+                <Longitude>23.443830</Longitude>
             </PolygonPoint>
             <PolygonPoint>
-                <X>-15</X>
-                <Y>-3</Y>
+                <Latitude>42.699220</Latitude>
+                <Longitude>23.390105</Longitude>
             </PolygonPoint>
             <PolygonPoint>
-                <X>-15</X>
-                <Y>1</Y>
-            </PolygonPoint>
-            <PolygonPoint>
-                <X>-13</X>
-                <Y>2</Y>
+                <Latitude>42.693256</Latitude>
+                <Longitude>23.388805</Longitude>
             </PolygonPoint>
         </PolygonPoints>
         <Charts>

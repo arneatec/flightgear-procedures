@@ -515,13 +515,15 @@
                                                  </text>
                                             </xsl:for-each>
                                         </xsl:for-each>
-
+                                        <xsl:comment>
+                                            map lines start
+                                        </xsl:comment>
                                         <!-- map lines -->
-                                        <xsl:for-each select="$maplines/MapLines/MapLine">
-                                            <xsl:variable name="pointX1"><xsl:value-of select="floor((Longitude_Start * $math_deg_to_rad * $geo_earth_radius) div $map_zoom) + $map_offset_X"/></xsl:variable>
-                                            <xsl:variable name="pointY1"><xsl:value-of select="$svg_size - floor((math:log(math:tan(Latitude_Start * $math_deg_to_rad div 2 + $math_PI div 4)) * $geo_earth_radius) div ($map_zoom)) + $map_offset_Y"/></xsl:variable>
-                                            <xsl:variable name="pointX2"><xsl:value-of select="floor((Longitude_End * $math_deg_to_rad * $geo_earth_radius) div $map_zoom) + $map_offset_X"/></xsl:variable>
-                                            <xsl:variable name="pointY2"><xsl:value-of select="$svg_size - floor((math:log(math:tan(Latitude_End * $math_deg_to_rad div 2 + $math_PI div 4)) * $geo_earth_radius) div ($map_zoom)) + $map_offset_Y"/></xsl:variable>
+                                        <xsl:for-each select="$maplines/MapLines/Lines/LatitudeLines/LatitudeLine">
+                                            <xsl:variable name="pointX1"><xsl:value-of select="floor(($maplines/MapLines/ZoneLimits/Longitude_Start * $math_deg_to_rad * $geo_earth_radius) div $map_zoom) + $map_offset_X"/></xsl:variable>
+                                            <xsl:variable name="pointY1"><xsl:value-of select="$svg_size - floor((math:log(math:tan(text() * $math_deg_to_rad div 2 + $math_PI div 4)) * $geo_earth_radius) div ($map_zoom)) + $map_offset_Y"/></xsl:variable>
+                                            <xsl:variable name="pointX2"><xsl:value-of select="floor(($maplines/MapLines/ZoneLimits/Longitude_End * $math_deg_to_rad * $geo_earth_radius) div $map_zoom) + $map_offset_X"/></xsl:variable>
+                                            <xsl:variable name="pointY2"><xsl:value-of select="$svg_size - floor((math:log(math:tan(text() * $math_deg_to_rad div 2 + $math_PI div 4)) * $geo_earth_radius) div ($map_zoom)) + $map_offset_Y"/></xsl:variable>
                                             <line>
                                                 <xsl:attribute name="x1"><xsl:value-of select="$pointX1"/></xsl:attribute>
                                                 <xsl:attribute name="y1"><xsl:value-of select="$pointY1"/></xsl:attribute>
@@ -530,7 +532,22 @@
                                                 <xsl:attribute name="stroke">gray</xsl:attribute>
                                             </line>
                                         </xsl:for-each>
-
+                                        <xsl:for-each select="$maplines/MapLines/Lines/LongitudeLines/LongitudeLine">
+                                            <xsl:variable name="pointX1"><xsl:value-of select="floor((text() * $math_deg_to_rad * $geo_earth_radius) div $map_zoom) + $map_offset_X"/></xsl:variable>
+                                            <xsl:variable name="pointY1"><xsl:value-of select="$svg_size - floor((math:log(math:tan($maplines/MapLines/ZoneLimits/Latitude_Start * $math_deg_to_rad div 2 + $math_PI div 4)) * $geo_earth_radius) div ($map_zoom)) + $map_offset_Y"/></xsl:variable>
+                                            <xsl:variable name="pointX2"><xsl:value-of select="floor((text() * $math_deg_to_rad * $geo_earth_radius) div $map_zoom) + $map_offset_X"/></xsl:variable>
+                                            <xsl:variable name="pointY2"><xsl:value-of select="$svg_size - floor((math:log(math:tan($maplines/MapLines/ZoneLimits/Latitude_End  * $math_deg_to_rad div 2 + $math_PI div 4)) * $geo_earth_radius) div ($map_zoom)) + $map_offset_Y"/></xsl:variable>
+                                            <line>
+                                                <xsl:attribute name="x1"><xsl:value-of select="$pointX1"/></xsl:attribute>
+                                                <xsl:attribute name="y1"><xsl:value-of select="$pointY1"/></xsl:attribute>
+                                                <xsl:attribute name="x2"><xsl:value-of select="$pointX2"/></xsl:attribute>
+                                                <xsl:attribute name="y2"><xsl:value-of select="$pointY2"/></xsl:attribute>
+                                                <xsl:attribute name="stroke">gray</xsl:attribute>
+                                            </line>
+                                        </xsl:for-each>
+                                        <xsl:comment>
+                                            map lines end
+                                        </xsl:comment>
                                         <!-- map line captions -->
                                         <xsl:for-each select="$maplines/MapLines/Caption">
                                             <xsl:variable name="pointX"><xsl:value-of select="floor((Longitude * $math_deg_to_rad * $geo_earth_radius) div $map_zoom) + $map_offset_X"/></xsl:variable>

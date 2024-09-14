@@ -1,4 +1,39 @@
 <MapLines>
+    <ZoneLimits>
+        <Latitude_Start>41.0</Latitude_Start>
+        <Latitude_End>46.0</Latitude_End>
+        <Longitude_Start>22.0</Longitude_Start>
+        <Longitude_End>26.0</Longitude_End>
+    </ZoneLimits>
+    <Lines>
+        <LatitudeLines>
+            <LatitudeLine>40.0</LatitudeLine>
+            <LatitudeLine>40.5</LatitudeLine>
+            <LatitudeLine>41.0</LatitudeLine>
+            <LatitudeLine>41.5</LatitudeLine>
+            <LatitudeLine>42.0</LatitudeLine>
+            <LatitudeLine>42.5</LatitudeLine>
+            <LatitudeLine>43.0</LatitudeLine>
+            <LatitudeLine>43.5</LatitudeLine>
+            <LatitudeLine>44.0</LatitudeLine>
+            <LatitudeLine>44.5</LatitudeLine>
+            <LatitudeLine>45.0</LatitudeLine>
+            <LatitudeLine>45.5</LatitudeLine>
+            <LatitudeLine>46.0</LatitudeLine>
+        </LatitudeLines>
+        <LongitudeLines>
+            <LongitudeLine>22.0</LongitudeLine>
+            <LongitudeLine>22.5</LongitudeLine>
+            <LongitudeLine>23.0</LongitudeLine>
+            <LongitudeLine>23.5</LongitudeLine>
+            <LongitudeLine>24.0</LongitudeLine>
+            <LongitudeLine>24.5</LongitudeLine>
+            <LongitudeLine>25.0</LongitudeLine>
+            <LongitudeLine>25.5</LongitudeLine>
+            <LongitudeLine>26.0</LongitudeLine>
+        </LongitudeLines>
+    </Lines>
+
     <!-- vertical lines -->
     <MapLine>
         <Latitude_Start>41.0</Latitude_Start>

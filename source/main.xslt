@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:math="http://exslt.org/math"
                 xmlns:xls="http://www.w3.org/1999/XSL/Transform"
-                extension-element-prefixes="math"
-                xmlns:exsl="http://exslt.org/common"
->
+                extension-element-prefixes="math">
     <!-- imports -->
     <xsl:variable name="airport" select="document('LBSF_airport.xml')"/>
     <xsl:variable name="waypoints" select="document('LBSF_waypoints.xml')"/>
     <xsl:variable name="maplines" select="document('map_lines.xml')"/>
 
     <!-- page related constants -->
-    <xsl:variable name="svg_size" select="1000"/>
+    <xsl:variable name="svg_size" select="1130"/>
 
     <!-- math constants -->
     <xsl:variable name="math_PI" select="3.14159265"/>
@@ -25,8 +23,12 @@
 
     <!-- major map constants -->
     <xsl:variable name="map_zoom" select="/Chart/Zoom"/>
-    <xsl:variable name="map_offset_X" select="/Chart/Offset_X"/>
-    <xsl:variable name="map_offset_Y" select="/Chart/Offset_Y"/>
+
+    <xsl:variable name="map_offset_X" select="((/Chart/MapCenter/Longitude * $math_deg_to_rad * $geo_earth_radius) div $map_zoom) * -1 + ($svg_size div 2)"/>
+    <xsl:variable name="map_offset_Y" select="(math:log(math:tan(/Chart/MapCenter/Latitude * $math_deg_to_rad div 2 + $math_PI div 4)) * $geo_earth_radius div ($map_zoom)) - ($svg_size div 2)"/>
+
+    <xsl:variable name="map_offset_X_legacy" select="/Chart/Offset_X"/>
+    <xsl:variable name="map_offset_Y_legacy" select="/Chart/Offset_Y"/>
 
     <xsl:variable name="map_base_airport_rwy" select="$airport/Airport/Runways/Runway[ID=/Chart/Chart_Object_ID]"/>
     <xsl:variable name="map_base_airport_rwy_latitude" select="$map_base_airport_rwy/RunwayThreshold/Latitude"/>
@@ -68,6 +70,16 @@
                 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"/>
             </head>
             <body>
+
+
+            <comment>
+                map_offset_X: <xsl:value-of select="$map_offset_X"/>
+                map_offset_Y: <xsl:value-of select="$map_offset_Y"/>
+                map_offset_X_legacy: <xsl:value-of select="$map_offset_X_legacy"/>
+                map_offset_Y_legacy: <xsl:value-of select="$map_offset_Y_legacy"/>
+            </comment>
+
+
                 <div class="container">
                         <div class="row">
                             <div class="col-6">
@@ -524,6 +536,10 @@
                                             <xsl:variable name="pointY1"><xsl:value-of select="$svg_size - floor((math:log(math:tan(text() * $math_deg_to_rad div 2 + $math_PI div 4)) * $geo_earth_radius) div ($map_zoom)) + $map_offset_Y"/></xsl:variable>
                                             <xsl:variable name="pointX2"><xsl:value-of select="floor(($maplines/MapLines/ZoneLimits/Longitude_End * $math_deg_to_rad * $geo_earth_radius) div $map_zoom) + $map_offset_X"/></xsl:variable>
                                             <xsl:variable name="pointY2"><xsl:value-of select="$svg_size - floor((math:log(math:tan(text() * $math_deg_to_rad div 2 + $math_PI div 4)) * $geo_earth_radius) div ($map_zoom)) + $map_offset_Y"/></xsl:variable>
+                                            <xsl:variable name="caption_new">
+                                                <xsl:value-of select="format-number(number(text()), '00')"/>°<xsl:value-of select="format-number(((text() - floor(text())) * 60) , '00')"/>''
+                                            </xsl:variable>
+
                                             <line>
                                                 <xsl:attribute name="x1"><xsl:value-of select="$pointX1"/></xsl:attribute>
                                                 <xsl:attribute name="y1"><xsl:value-of select="$pointY1"/></xsl:attribute>
@@ -531,12 +547,29 @@
                                                 <xsl:attribute name="y2"><xsl:value-of select="$pointY2"/></xsl:attribute>
                                                 <xsl:attribute name="stroke">gray</xsl:attribute>
                                             </line>
+                                            <text>
+                                                <xsl:attribute name="text-anchor">middle</xsl:attribute>
+                                                <xsl:attribute name="alignment-baseline">middle</xsl:attribute>
+                                                <xsl:attribute name="transform">translate(<xsl:value-of select="20"/>, <xsl:value-of select="$pointY1"/>) rotate(270)</xsl:attribute>
+                                                <xsl:attribute name="fill">gray</xsl:attribute>
+                                                <xsl:value-of select="$caption_new"/>
+                                             </text>
+                                            <text>
+                                                <xsl:attribute name="text-anchor">middle</xsl:attribute>
+                                                <xsl:attribute name="alignment-baseline">middle</xsl:attribute>
+                                                <xsl:attribute name="transform">translate(<xsl:value-of select="$svg_size - 20"/>, <xsl:value-of select="$pointY1"/>) rotate(270)</xsl:attribute>
+                                                <xsl:attribute name="fill">gray</xsl:attribute>
+                                                <xsl:value-of select="$caption_new"/>
+                                             </text>
                                         </xsl:for-each>
                                         <xsl:for-each select="$maplines/MapLines/Lines/LongitudeLines/LongitudeLine">
                                             <xsl:variable name="pointX1"><xsl:value-of select="floor((text() * $math_deg_to_rad * $geo_earth_radius) div $map_zoom) + $map_offset_X"/></xsl:variable>
                                             <xsl:variable name="pointY1"><xsl:value-of select="$svg_size - floor((math:log(math:tan($maplines/MapLines/ZoneLimits/Latitude_Start * $math_deg_to_rad div 2 + $math_PI div 4)) * $geo_earth_radius) div ($map_zoom)) + $map_offset_Y"/></xsl:variable>
                                             <xsl:variable name="pointX2"><xsl:value-of select="floor((text() * $math_deg_to_rad * $geo_earth_radius) div $map_zoom) + $map_offset_X"/></xsl:variable>
                                             <xsl:variable name="pointY2"><xsl:value-of select="$svg_size - floor((math:log(math:tan($maplines/MapLines/ZoneLimits/Latitude_End  * $math_deg_to_rad div 2 + $math_PI div 4)) * $geo_earth_radius) div ($map_zoom)) + $map_offset_Y"/></xsl:variable>
+                                            <xsl:variable name="caption_new">
+                                                <xsl:value-of select="format-number(number(text()), '00')"/>°<xsl:value-of select="format-number(((text() - floor(text())) * 60) , '00')"/>''
+                                            </xsl:variable>
                                             <line>
                                                 <xsl:attribute name="x1"><xsl:value-of select="$pointX1"/></xsl:attribute>
                                                 <xsl:attribute name="y1"><xsl:value-of select="$pointY1"/></xsl:attribute>
@@ -544,22 +577,24 @@
                                                 <xsl:attribute name="y2"><xsl:value-of select="$pointY2"/></xsl:attribute>
                                                 <xsl:attribute name="stroke">gray</xsl:attribute>
                                             </line>
+                                            <text>
+                                                <xsl:attribute name="text-anchor">middle</xsl:attribute>
+                                                <xsl:attribute name="alignment-baseline">middle</xsl:attribute>
+                                                <xsl:attribute name="transform">translate(<xsl:value-of select="$pointX1"/>, <xsl:value-of select="20"/>) rotate(0)</xsl:attribute>
+                                                <xsl:attribute name="fill">gray</xsl:attribute>
+                                                <xsl:value-of select="$caption_new"/>
+                                             </text>
+                                            <text>
+                                                <xsl:attribute name="text-anchor">middle</xsl:attribute>
+                                                <xsl:attribute name="alignment-baseline">middle</xsl:attribute>
+                                                <xsl:attribute name="transform">translate(<xsl:value-of select="$pointX1"/>, <xsl:value-of select="$svg_size - 20"/>) rotate(0)</xsl:attribute>
+                                                <xsl:attribute name="fill">gray</xsl:attribute>
+                                                <xsl:value-of select="$caption_new"/>
+                                             </text>
                                         </xsl:for-each>
                                         <xsl:comment>
                                             map lines end
                                         </xsl:comment>
-                                        <!-- map line captions -->
-                                        <xsl:for-each select="$maplines/MapLines/Caption">
-                                            <xsl:variable name="pointX"><xsl:value-of select="floor((Longitude * $math_deg_to_rad * $geo_earth_radius) div $map_zoom) + $map_offset_X"/></xsl:variable>
-                                            <xsl:variable name="pointY"><xsl:value-of select="$svg_size - floor((math:log(math:tan(Latitude * $math_deg_to_rad div 2 + $math_PI div 4)) * $geo_earth_radius) div ($map_zoom)) + $map_offset_Y"/></xsl:variable>
-                                            <text>
-                                                <xsl:attribute name="text-anchor">middle</xsl:attribute>
-                                                <xsl:attribute name="alignment-baseline">middle</xsl:attribute>
-                                                <xsl:attribute name="transform">translate(<xsl:value-of select="$pointX"/>, <xsl:value-of select="$pointY"/>) rotate(<xsl:value-of select="Rotate"/>)</xsl:attribute>
-                                                <xsl:attribute name="fill">gray</xsl:attribute>
-                                                <xsl:value-of select="Text"/>
-                                             </text>
-                                        </xsl:for-each>
                                         <!-- guide lines
                                         <line x1="1" y1="0" x2="1" y2="$svg_size" stroke="gray"></line>
                                         <line x1="200" y1="0" x2="200" y2="$svg_size" stroke="gray"></line>

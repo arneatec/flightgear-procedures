@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
     <Chart>
         <SubType>SID-27-RNAV</SubType>
-        <Zoom>180</Zoom>
+        <Zoom>170</Zoom>
+        <MapCenter>
+            <Latitude>
+                42.78594479734309
+            </Latitude>
+            <Longitude>
+                23.620357505810496
+            </Longitude>
+        </MapCenter>
         <Offset_X>-14100</Offset_X>
         <Offset_Y>28730</Offset_Y>
         <ID>LBSF AD 2 - 53.7</ID>

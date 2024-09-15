@@ -198,19 +198,6 @@
                                                         <xsl:variable name="turn_radius_pixels">
                                                             <xsl:value-of select="$turn_radius_meters div $map_zoom"/>
                                                         </xsl:variable>
-                                                        <xsl:variable name="turn_radius_pixels_signed">
-                                                            <xsl:choose>
-                                                                <xsl:when test="$this_point_turn_direction='Right'">
-                                                                    <xsl:value-of select="$turn_radius_pixels"/>
-                                                                </xsl:when>
-                                                                <xsl:when test="Turn='Left'">
-                                                                    <xsl:value-of select="$turn_radius_pixels * -1"/>
-                                                                </xsl:when>
-                                                                <xsl:otherwise>
-                                                                    WARN : Unexpected turn direction
-                                                                </xsl:otherwise>
-                                                            </xsl:choose>
-                                                        </xsl:variable>
                                                         <xsl:variable name="track_geo">
                                                             <xsl:value-of select="substring-before(substring-after(Track, '('),'°')"/>
                                                         </xsl:variable>
@@ -247,11 +234,27 @@
                                                             </xsl:choose>
                                                         </xsl:variable>
 
+                                                            <xsl:variable name="turn_circle_track">
+                                                                <xsl:choose>
+                                                                    <xsl:when test="$this_point_turn_direction='Right'">
+                                                                        <xsl:value-of select="($track_geo) mod 360"/>
+                                                                    </xsl:when>
+                                                                    <xsl:when test="$this_point_turn_direction='Left'">
+                                                                        <xsl:value-of select="($track_geo - 180) mod 360"/>
+                                                                    </xsl:when>
+                                                                    <xsl:otherwise>
+                                                                        WARN : Unable to establish turn direction for <xsl:value-of select="WPTID"/>
+                                                                    </xsl:otherwise>
+                                                                </xsl:choose>
+                                                            </xsl:variable>
+
+
+
                                                             <xsl:variable name="Cx">
-                                                                <xsl:value-of select="$real_pointX + (($turn_radius_pixels_signed * math:cos($track_geo * $math_deg_to_rad)  ) div math:cos($real_pointY * $math_deg_to_rad))"/>
+                                                                <xsl:value-of select="$real_pointX + (($turn_radius_pixels * math:cos($turn_circle_track * $math_deg_to_rad)))"/>
                                                             </xsl:variable>
                                                             <xsl:variable name="Cy">
-                                                                <xsl:value-of select="$real_pointY + (($turn_radius_pixels_signed * math:sin($track_geo * $math_deg_to_rad)))"/>
+                                                                <xsl:value-of select="$real_pointY + (($turn_radius_pixels * math:sin($turn_circle_track * $math_deg_to_rad)))"/>
                                                             </xsl:variable>
                                                             <xsl:variable name="Px">
                                                                 <xsl:value-of select="$next_pointX"/>
@@ -443,13 +446,217 @@
                                                 <xsl:comment>track for waypoint <xsl:value-of select="WPTID"/></xsl:comment>
                                                 <xsl:variable name="pointX"><xsl:value-of select="floor(($waypoints/Waypoins/Waypoint[ID=current()/WPTID]/Longitude * $math_deg_to_rad * $geo_earth_radius) div $map_zoom) + $map_offset_X"/></xsl:variable>
                                                 <xsl:variable name="pointY"><xsl:value-of select="$svg_size - floor((math:log(math:tan($waypoints/Waypoins/Waypoint[ID=current()/WPTID]/Latitude * $math_deg_to_rad div 2 + $math_PI div 4)) * $geo_earth_radius) div ($map_zoom)) + $map_offset_Y"/></xsl:variable>
-                                                <xsl:variable name="next_pointX"><xsl:value-of select="floor(($waypoints/Waypoins/Waypoint[ID=current()/following-sibling::Waypoint/WPTID]/Longitude * $math_deg_to_rad * $geo_earth_radius) div $map_zoom) + $map_offset_X"/></xsl:variable>
-                                                <xsl:variable name="next_pointY"><xsl:value-of select="$svg_size - floor((math:log(math:tan($waypoints/Waypoins/Waypoint[ID=current()/following-sibling::Waypoint/WPTID]/Latitude * $math_deg_to_rad div 2 + $math_PI div 4)) * $geo_earth_radius) div ($map_zoom)) + $map_offset_Y"/></xsl:variable>
-                                                <xsl:variable name="previous_pointX"><xsl:value-of select="floor(($waypoints/Waypoins/Waypoint[ID=current()/preceding-sibling::Waypoint/WPTID]/Longitude * $math_deg_to_rad * $geo_earth_radius) div $map_zoom) + $map_offset_X"/></xsl:variable>
-                                                <xsl:variable name="previous_pointY"><xsl:value-of select="$svg_size - floor((math:log(math:tan($waypoints/Waypoins/Waypoint[ID=current()/preceding-sibling::Waypoint/WPTID]/Latitude * $math_deg_to_rad div 2 + $math_PI div 4)) * $geo_earth_radius) div ($map_zoom)) + $map_offset_Y"/></xsl:variable>
+                                                <xsl:variable name="next_pointX"><xsl:value-of select="floor(($waypoints/Waypoins/Waypoint[ID=current()/following-sibling::Waypoint[1]/WPTID]/Longitude * $math_deg_to_rad * $geo_earth_radius) div $map_zoom) + $map_offset_X"/></xsl:variable>
+                                                <xsl:variable name="next_pointY"><xsl:value-of select="$svg_size - floor((math:log(math:tan($waypoints/Waypoins/Waypoint[ID=current()/following-sibling::Waypoint[1]/WPTID]/Latitude * $math_deg_to_rad div 2 + $math_PI div 4)) * $geo_earth_radius) div ($map_zoom)) + $map_offset_Y"/></xsl:variable>
+                                                <xsl:variable name="previous_pointX"><xsl:value-of select="floor(($waypoints/Waypoins/Waypoint[ID=current()/preceding-sibling::Waypoint[1]/WPTID]/Longitude * $math_deg_to_rad * $geo_earth_radius) div $map_zoom) + $map_offset_X"/></xsl:variable>
+                                                <xsl:variable name="previous_pointY"><xsl:value-of select="$svg_size - floor((math:log(math:tan($waypoints/Waypoins/Waypoint[ID=current()/preceding-sibling::Waypoint[1]/WPTID]/Latitude * $math_deg_to_rad div 2 + $math_PI div 4)) * $geo_earth_radius) div ($map_zoom)) + $map_offset_Y"/></xsl:variable>
                                                 <xsl:variable name="midway_distance_in_pixels">
                                                     <xsl:value-of select="(((DIST * $geo_nm_in_meters) div $map_zoom) div 2) div math:cos($waypoints/Waypoins/Waypoint[ID=current()/WPTID]/Latitude * $math_deg_to_rad)"/>
                                                 </xsl:variable>
+
+                                                <xsl:variable name="this_point_turn_direction"><xsl:value-of select="Turn"/></xsl:variable>
+                                                        <!-- hacky:  the LBSF original charts shows unrealistic curves, probably for presentation purposes only, sooooo... thry to emulate them by introducing coeeficients and stuff  -->
+                                                        <xsl:variable name="runway_climnout_correction_factor">0.7</xsl:variable>
+                                                        <xsl:variable name="ca_length_meters">
+                                                            <xsl:value-of select="(((number(translate(Altitude, '-+','')) - $airport/Airport/ElevationFeet) div ../../ClimbGradientFeetPerNM) * $geo_nm_in_meters) * $runway_climnout_correction_factor"/>
+                                                        </xsl:variable>
+
+                                                        <xsl:variable name="bank_angle_for_flight_phase">
+                                                            <xsl:choose>
+                                                                <xsl:when test="Flyover = 'Yes'">
+                                                                    12.5
+                                                                </xsl:when>
+                                                                <xsl:otherwise>
+                                                                    25
+                                                                </xsl:otherwise>
+                                                            </xsl:choose>
+                                                        </xsl:variable>
+
+                                                        <xsl:variable name="turn_radius_meters">
+                                                            <xsl:value-of select="(math:power((220 * $geo_nm_in_meters) div 3600, 2) div ($geo_one_g * math:tan($bank_angle_for_flight_phase * $math_deg_to_rad)))"/>
+                                                        </xsl:variable>
+                                                        <xsl:variable name="turn_radius_pixels">
+                                                            <xsl:value-of select="$turn_radius_meters div $map_zoom"/>
+                                                        </xsl:variable>
+
+                                                        <xsl:variable name="track_geo">
+                                                            <xsl:value-of select="substring-before(substring-after(Track, '('),'°')"/>
+                                                        </xsl:variable>
+                                                        <xsl:variable name="ca_end_x">
+                                                            <xsl:value-of select="$runwayX + floor(((($ca_length_meters) div $map_zoom ) * math:cos((($track_geo - 90 ) * $math_deg_to_rad))) div math:cos($map_base_airport_rwy_longitude * $math_deg_to_rad))"/>
+                                                        </xsl:variable>
+                                                        <xsl:variable name="ca_end_y">
+                                                            <xsl:value-of select="$runwayY + floor(($ca_length_meters div $map_zoom) * math:sin((($track_geo - 90 ) * $math_deg_to_rad)))"/>
+                                                        </xsl:variable>
+                                                        <xsl:variable name="next_track_geo">
+                                                            <xsl:value-of select="substring-before(substring-after(current()/following-sibling::Waypoint[1]/Track, '('),'°')"/>
+                                                        </xsl:variable>
+
+
+                                                        <!-- CA waypoints have no coordinate, sue the extension termination coordinates instead to calculate the arc -->
+                                                        <xsl:variable name="real_pointX">
+                                                            <xsl:choose>
+                                                                <xsl:when test="PT='CA'">
+                                                                    <xsl:value-of select="$ca_end_x"/>
+                                                                </xsl:when>
+                                                                <xsl:otherwise>
+                                                                    <xsl:value-of select="$pointX"/>
+                                                                </xsl:otherwise>
+                                                            </xsl:choose>
+                                                        </xsl:variable>
+                                                        <xsl:variable name="real_pointY">
+                                                            <xsl:choose>
+                                                                <xsl:when test="PT='CA'">
+                                                                    <xsl:value-of select="$ca_end_y"/>
+                                                                </xsl:when>
+                                                                <xsl:otherwise>
+                                                                    <xsl:value-of select="$pointY"/>
+                                                                </xsl:otherwise>
+                                                            </xsl:choose>
+                                                        </xsl:variable>
+                                                <xsl:variable name="turn_circle_track">
+                                                    <xsl:choose>
+                                                        <xsl:when test="$this_point_turn_direction='Right'">
+                                                            <xsl:value-of select="($track_geo) mod 360"/>
+                                                        </xsl:when>
+                                                        <xsl:when test="$this_point_turn_direction='Left'">
+                                                            <xsl:value-of select="($track_geo - 180) mod 360"/>
+                                                        </xsl:when>
+                                                        <xsl:otherwise>
+                                                            WARN : Unable to establish turn direction for <xsl:value-of select="WPTID"/>
+                                                        </xsl:otherwise>
+                                                    </xsl:choose>
+                                                </xsl:variable>
+
+
+
+                                                            <!-- CODE HERE -->
+                                                            <xsl:variable name="Cx">
+                                                                <xsl:value-of select="$real_pointX + (($turn_radius_pixels * math:cos($turn_circle_track * $math_deg_to_rad)))"/>
+                                                            </xsl:variable>
+                                                            <xsl:variable name="Cy">
+                                                                <xsl:value-of select="$real_pointY + (($turn_radius_pixels * math:sin($turn_circle_track * $math_deg_to_rad)))"/>
+                                                            </xsl:variable>
+                                                            <xsl:variable name="Px">
+                                                                <xsl:value-of select="$next_pointX"/>
+                                                            </xsl:variable>
+                                                            <xsl:variable name="Py">
+                                                                <xsl:value-of select="$next_pointY"/>
+                                                            </xsl:variable>
+                                                            <xsl:variable name="a">
+                                                                <xsl:value-of select="$turn_radius_pixels"/>
+                                                            </xsl:variable>
+                                                            <xsl:variable name="b">
+                                                                <xsl:value-of select="math:sqrt(math:power($Px - $Cx, 2) + math:power($Py - $Cy, 2))"/>
+                                                            </xsl:variable>
+                                                            <xsl:variable name="th">
+                                                                <xsl:value-of select="math:acos($a div $b)"/>
+                                                            </xsl:variable>
+
+                                                            <!--
+                                                            d = atan2(Py - Cy, Px - Cx)  # direction angle of point P from C
+                                                            -->
+                                                            <xsl:variable name="d">
+                                                                <xsl:value-of select="math:atan2($Py - $Cy, $Px - $Cx)"/>
+                                                            </xsl:variable>
+
+                                                            <!--
+                                                            d1 = d + th  # direction angle of point T1 from C
+                                                            -->
+                                                            <xsl:variable name="d1">
+                                                                <xsl:value-of select="$d + $th"/>
+                                                            </xsl:variable>
+
+                                                            <!--
+                                                            d2 = d - th  # direction angle of point T2 from C
+                                                            -->
+                                                            <xsl:variable name="d2">
+                                                                <xsl:value-of select="$d - $th"/>
+                                                            </xsl:variable>
+
+                                                            <!--
+                                                            T1x = Cx + a * cos(d1)
+                                                            -->
+                                                            <xsl:variable name="T1x">
+                                                                <xsl:value-of select="$Cx + $a * math:cos(number($d1))"/>
+                                                            </xsl:variable>
+
+                                                            <!--
+                                                            T1y = Cy + a * sin(d1)
+                                                            -->
+                                                            <xsl:variable name="T1y">
+                                                                <xsl:value-of select="$Cy + $a * math:sin(number($d1))"/>
+                                                            </xsl:variable>
+
+                                                            <!--
+                                                            T2x = Cx + a * cos(d1)
+                                                            -->
+                                                            <xsl:variable name="T2x">
+                                                                <xsl:value-of select="$Cx + $a * math:cos(number($d2))"/>
+                                                            </xsl:variable>
+
+                                                            <!--
+                                                            T2y = Cy + a * sin(d1)
+                                                            -->
+                                                            <xsl:variable name="T2y">
+                                                                <xsl:value-of select="$Cy + $a * math:sin(number($d2))"/>
+                                                            </xsl:variable>
+
+                                                            <!--
+                                                            ca_length_meters: <xsl:value-of select="$ca_length_meters"/>
+                                                            center_of_arc_circle_x : <xsl:value-of select="$Cx"/>
+                                                            center_of_arc_circle_y : <xsl:value-of select="$Cy"/>
+                                                            radius : <xsl:value-of select="$a"/>
+                                                            direction angle of point P from C : <xsl:value-of select="$d"/>
+                                                            direction angle of point T1 from C : <xsl:value-of select="$d1"/>
+                                                            direction angle of point T2 from C <xsl:value-of select="$d2"/>
+
+                                                            tangent point 1 x: <xsl:value-of select="$T1x"/>
+                                                            tangent point 1 y: <xsl:value-of select="$T1y"/>
+                                                            -->
+
+                                                            <xsl:variable name="arch_clockwise_flag">
+                                                                <xsl:choose>
+                                                                    <xsl:when test="$this_point_turn_direction='Right'">
+                                                                        1
+                                                                    </xsl:when>
+                                                                    <xsl:when test="$this_point_turn_direction='Left'">
+                                                                        0
+                                                                    </xsl:when>
+                                                                    <xsl:otherwise>
+                                                                        WARN : Unable to establish turn direction for <xsl:value-of select="WPTID"/>
+                                                                    </xsl:otherwise>
+                                                                </xsl:choose>
+                                                            </xsl:variable>
+
+                                                            <xsl:variable name="TtrueX">
+                                                                <xsl:choose>
+                                                                    <xsl:when test="$this_point_turn_direction='Left'">
+                                                                        <xsl:value-of select="$T1x"/>
+                                                                    </xsl:when>
+                                                                    <xsl:when test="$this_point_turn_direction='Right'">
+                                                                        <xsl:value-of select="$T2x"/>
+                                                                    </xsl:when>
+                                                                    <xsl:otherwise>
+                                                                        WARN : Unable to establish turn direction for <xsl:value-of select="WPTID"/>
+                                                                    </xsl:otherwise>
+                                                                </xsl:choose>
+                                                            </xsl:variable>
+
+                                                            <xsl:variable name="TtrueY">
+                                                                <xsl:choose>
+                                                                    <xsl:when test="$this_point_turn_direction='Left'">
+                                                                        <xsl:value-of select="$T1y"/>
+                                                                    </xsl:when>
+                                                                    <xsl:when test="$this_point_turn_direction='Right'">
+                                                                        <xsl:value-of select="$T2y"/>
+                                                                    </xsl:when>
+                                                                    <xsl:otherwise>
+                                                                        WARN : Unable to establish turn direction for <xsl:value-of select="WPTID"/>
+                                                                    </xsl:otherwise>
+                                                                </xsl:choose>
+                                                            </xsl:variable>
+
 
                                                 <xsl:variable name="geo_track"><xsl:value-of select="substring-before(substring-after(Track, '('),'°')"/></xsl:variable>
                                                 <!-- check that $geo_track contains a number (a valid track to this point) -->
@@ -473,6 +680,88 @@
                                                     <xsl:value-of select="$pointX - floor($midway_distance_in_pixels * math:cos((($geo_track - 90 - ($map_label_circle_radius div 2)) * $math_deg_to_rad)))"/></xsl:variable>
                                                 <xsl:variable name="distanceY">
                                                     <xsl:value-of select="$pointY  + floor($midway_distance_in_pixels * math:sin((($geo_track + 90 - ($map_label_circle_radius div 2)) * $math_deg_to_rad)))"/></xsl:variable>
+                                                <xsl:comment>
+                                                    drawing debug turn circle for <xsl:value-of select="current()/WPTID"/>, next is <xsl:value-of select="current()/following-sibling::Waypoint[1]/WPTID"/>
+                                                    turn is: <xsl:value-of select="current()/Turn"/>
+                                                    turn_circle_track: <xsl:value-of select="$turn_circle_track"/>
+                                                    turn_radius_pixels: <xsl:value-of select="$turn_radius_pixels"/>
+                                                    Flyover is: <xsl:value-of select="current()/Flyover"/>
+                                                    ----
+                                                    pointX: <xsl:value-of select="$pointX"/>
+                                                    pointY: <xsl:value-of select="$pointY"/>
+                                                    Cx: <xsl:value-of select="$Cx"/>
+                                                    Cy: <xsl:value-of select="$Cy"/>
+                                                    Cx delta: <xsl:value-of select="$Cx - $pointX"/>
+                                                    Cy delta: <xsl:value-of select="$Cy - $pointY"/>
+                                                </xsl:comment>
+                                                 <!-- draw the debug circles -->
+                                                <!--
+                                                <circle>
+                                                    <xsl:attribute name="cx"><xsl:value-of select="$Cx"/></xsl:attribute>
+                                                    <xsl:attribute name="cy"><xsl:value-of select="$Cy"/></xsl:attribute>
+                                                    <xsl:attribute name="r"><xsl:value-of select="$turn_radius_pixels"/></xsl:attribute>
+                                                    <xsl:attribute name="fill">none</xsl:attribute>
+                                                    <xsl:attribute name="stroke">blue</xsl:attribute>
+                                                </circle>
+                                                <text>
+                                                    <xsl:attribute name="x"><xsl:value-of select="$Cx"/></xsl:attribute>
+                                                    <xsl:attribute name="y"><xsl:value-of select="$Cy"/></xsl:attribute>
+                                                    <xsl:attribute name="fill">green</xsl:attribute>
+                                                    <xsl:attribute name="stroke">none</xsl:attribute>
+                                                    To <xsl:value-of select="current()/following-sibling::Waypoint[1]/WPTID"/> turn circle
+                                                </text>
+                                                -->
+
+                                                <xsl:variable name="text_display_coord_x">
+                                                    <xsl:choose>
+                                                        <xsl:when test="number($oneX) = $oneX"><xsl:value-of select="$oneX"/></xsl:when>
+                                                        <xsl:otherwise><xsl:value-of select="$pointX - (($pointX -$previous_pointX) div 2)"/></xsl:otherwise>
+                                                    </xsl:choose>
+                                                </xsl:variable>
+
+                                                <xsl:variable name="text_display_coord_y">
+                                                    <xsl:choose>
+                                                        <xsl:when test="number($oneY) = $oneY"><xsl:value-of select="$oneY"/></xsl:when>
+                                                        <xsl:otherwise><xsl:value-of select="$pointY - (($pointY - $previous_pointY) div 2)"/></xsl:otherwise>
+                                                    </xsl:choose>
+                                                </xsl:variable>
+                                                <xsl:variable name="current_point_latitude">
+                                                    <xsl:value-of select="number($waypoints/Waypoins/Waypoint[ID=current()/WPTID]/Latitude)"/>
+                                                </xsl:variable>
+                                                <xsl:variable name="current_point_longitude">
+                                                    <xsl:value-of select="number($waypoints/Waypoins/Waypoint[ID=current()/WPTID]/Longitude)"/>
+                                                </xsl:variable>
+                                                <xsl:variable name="next_point_latitude">
+                                                    <xsl:value-of select="number($waypoints/Waypoins/Waypoint[ID=current()/preceding-sibling::Waypoint[1]/WPTID]/Latitude)"/>
+                                                </xsl:variable>
+                                                <xsl:variable name="next_point_longitude">
+                                                    <xsl:value-of select="number($waypoints/Waypoins/Waypoint[ID=current()/preceding-sibling::Waypoint[1]/WPTID]/Longitude)"/>
+                                                </xsl:variable>
+                                                <xsl:variable name="squared_sin_latitude_delta">
+                                                    <xsl:value-of select="number(math:power(math:sin((($next_point_latitude - $current_point_latitude) * $math_deg_to_rad ) div 2), 2))"/>
+                                                </xsl:variable>
+                                                <xsl:variable name="squared_sin_longitude_delta">
+                                                    <xsl:value-of select="number(math:power(math:sin((($next_point_longitude - $current_point_longitude) * $math_deg_to_rad) div 2), 2))"/>
+                                                </xsl:variable>
+
+                                                <xsl:variable name="square_root_inside_brackets">
+                                                    <xsl:value-of select="number(math:sqrt($squared_sin_latitude_delta + number(math:cos($next_point_latitude * $math_deg_to_rad)) * number(math:cos($current_point_latitude * $math_deg_to_rad)) * $squared_sin_longitude_delta))"/>
+                                                </xsl:variable>
+
+                                                <xsl:variable name="result">
+                                                    <xsl:value-of select="2 * $geo_earth_radius * math:asin(number($square_root_inside_brackets))"/>
+                                                </xsl:variable>
+                                                <xsl:variable name="result_NM">
+                                                    <xsl:value-of select="round(($result div $geo_nm_in_meters ) * 10) div 10"/>
+                                                </xsl:variable>
+
+                                                <xsl:comment>
+                                                    computed distance values when distance is not available in the chart for point: <xsl:value-of select="current()/WPTID"/>
+                                                    current_point_latitude: <xsl:value-of select="$current_point_latitude"/>
+                                                </xsl:comment>
+
+
+
                                                 <!-- circle for direction -->
                                                  <circle>
                                                      <xsl:choose>
@@ -492,37 +781,60 @@
                                                             <xsl:attribute name="fill">white</xsl:attribute>
                                                          </xsl:when>
                                                          <xsl:otherwise>
-                                                             <xsl:attribute name="fill">red</xsl:attribute>
+                                                             <xsl:attribute name="fill">white</xsl:attribute>
                                                          </xsl:otherwise>
                                                      </xsl:choose>
 
                                                     <xsl:attribute name="stroke">none</xsl:attribute>
                                                 </circle>
+                                                <xsl:comment>
+                                                    text for track/dist for <xsl:value-of select="current()/WPTID"/>
+                                                </xsl:comment>
                                                 <text>
                                                     <xsl:attribute name="text-anchor">middle</xsl:attribute>
                                                     <xsl:attribute name="alignment-baseline">middle</xsl:attribute>
-                                                    <xsl:attribute name="transform">translate(<xsl:value-of select="$oneX"/>, <xsl:value-of select="$oneY"/>) rotate(
+                                                    <xsl:attribute name="transform">translate(<xsl:value-of select="$text_display_coord_x"/>, <xsl:value-of select="$text_display_coord_y"/>) rotate(
                                                         <xsl:choose>
-                                                            <xsl:when test="$geo_track > 180">
-                                                                <xsl:value-of select="$geo_track - 90 - 180"/>
+                                                            <xsl:when test="number($geo_track) = $geo_track">
+                                                                <xsl:choose>
+                                                                    <xsl:when test="$geo_track > 180">
+                                                                        <xsl:value-of select="$geo_track - 90 - 180"/>
+                                                                    </xsl:when>
+                                                                    <xsl:otherwise>
+                                                                        <xsl:value-of select="$geo_track  -  90"/>
+                                                                    </xsl:otherwise>
+                                                                </xsl:choose>
                                                             </xsl:when>
                                                             <xsl:otherwise>
-                                                                <xsl:value-of select="$geo_track  -  90"/>
+                                                                0
                                                             </xsl:otherwise>
                                                         </xsl:choose>
                                                         )</xsl:attribute>
                                                     <xsl:attribute name="fill">black</xsl:attribute>
-                                                    <tspan x="0" dy="0em">
-                                                        <xsl:if test="$oneX &lt; ($svg_size div 2)">
-                                                            <xsl:text>&lt;</xsl:text>
+                                                        <!-- if there is track info, show it-->
+                                                        <xsl:if test="not(Track='-')">
+                                                            <tspan x="0" dy="0.3em">
+                                                                <xsl:if test="$oneX &lt; ($svg_size div 2)">
+                                                                    <xsl:text>&lt;</xsl:text>
+                                                                </xsl:if>
+                                                                <xsl:value-of select="substring-before(Track,'(')"/>
+                                                                <xsl:if test="not($oneX &lt; ($svg_size div 2))">
+                                                                    <xsl:text>&gt;</xsl:text>
+                                                                </xsl:if>
+                                                            </tspan>
                                                         </xsl:if>
-                                                        <xsl:value-of select="substring-before(Track,'(')"/>
-                                                        <xsl:if test="not($oneX &lt; ($svg_size div 2))">
-                                                            <xsl:text>&gt;</xsl:text>
-                                                        </xsl:if>
-                                                    </tspan>
-                                                    <tspan x="0" dy="0.8em">
-                                                        <xsl:value-of select="DIST"/>
+                                                    <tspan>
+                                                        <xsl:attribute name="x">0</xsl:attribute>
+                                                        <xsl:attribute name="dy"><xsl:choose><xsl:when test="Track='-'">0.0em </xsl:when><xsl:otherwise>0.8em</xsl:otherwise></xsl:choose></xsl:attribute>
+                                                        <xsl:choose>
+                                                            <xsl:when test="number(DIST) = DIST">
+                                                                <xsl:value-of select="DIST"/>
+                                                            </xsl:when>
+                                                            <xsl:otherwise>
+                                                                <xsl:value-of select="$result_NM"/>*
+                                                            </xsl:otherwise>
+                                                        </xsl:choose>
+
                                                     </tspan>
                                                  </text>
                                             </xsl:for-each>

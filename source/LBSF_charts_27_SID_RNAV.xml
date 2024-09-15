@@ -15,7 +15,7 @@
         <ID>LBSF AD 2 - 53.7</ID>
         <Publisher>AIP FIRST BULGARIAN KINGDOM</Publisher>
         <Publisher_Local>AIP ПЪРВО БЪЛГАРСКО ЦАРСТВО</Publisher_Local>
-        <Published_On>25 JAN 24</Published_On><a></a>
+        <Published_On>25 JAN 24</Published_On>
         <Name>STANDARD DEPARTURE CHART - INSTRUMENT (SID) - ICAO</Name>
         <Airport_Location>SOFIA</Airport_Location>
         <Chart_Type>RNAV</Chart_Type>
@@ -33,7 +33,6 @@
             <SID_ID>RUMEN 2T</SID_ID>
             <SID_ID>UMPIT 2T</SID_ID>
         </Includes>
-        <Image></Image>
         <Scale>1:700 000</Scale>
         <!-- Performance Based Navigation Type info -->
         <PBN_Requirements>
@@ -91,7 +90,7 @@
         <General_Requirements>
             <Header>GENERAL REQUIREMENTS</Header>
             <General_Requirement>After take-off immediately contact SOFIA APPROACH</General_Requirement>
-            <General_Requirement></General_Requirement>
+            <General_Requirement> </General_Requirement>
             <General_Requirement>In case of activation of TRA 63 departures to RUMEN might be required to climb FL170 before the boundary of TRA 63. If unable to comply inform ATC in good time so that alternative clearance can be issued.</General_Requirement>
         </General_Requirements>
         <Warnings>
@@ -205,7 +204,6 @@
                         <Additional>-</Additional>
                     </Waypoint>
                 </Waypoints>
-                <PT></PT>
             </SID_Core>
             <SID_Core>
                 <ID>OGOTA 2T</ID>
@@ -249,7 +247,6 @@
                         <Additional>-</Additional>
                     </Waypoint>
                 </Waypoints>
-                <PT></PT>
             </SID_Core>
             <SID_Core>
                 <ID>GOL 2T</ID>
@@ -293,7 +290,6 @@
                         <Additional>-</Additional>
                     </Waypoint>
                 </Waypoints>
-                <PT></PT>
             </SID_Core>
             <SID_Core>
                 <ID>UMPIT 2T</ID>
@@ -359,7 +355,6 @@
                         <Additional>-</Additional>
                     </Waypoint>
                 </Waypoints>
-                <PT></PT>
             </SID_Core>
         </SID_Page>
         <SID_Page>
@@ -482,7 +477,6 @@
                         <Additional>-</Additional>
                     </Waypoint>
                 </Waypoints>
-                <PT></PT>
             </SID_Core>
             <SID_Core>
                 <ClimbGradientFeetPerNauticalMile>746</ClimbGradientFeetPerNauticalMile>
@@ -549,7 +543,6 @@
                         <Additional>-</Additional>
                     </Waypoint>
                 </Waypoints>
-                <PT></PT>
             </SID_Core>
             <SID_Core>
                 <ClimbGradientFeetPerNauticalMile>746</ClimbGradientFeetPerNauticalMile>
@@ -616,7 +609,6 @@
                         <Additional>5% to FL170 if LBTRA63 is active</Additional>
                     </Waypoint>
                 </Waypoints>
-                <PT></PT>
             </SID_Core>
             <SID_Core>
                 <ID>DILVO 2T</ID>
@@ -682,7 +674,6 @@
                         <Additional>-</Additional>
                     </Waypoint>
                 </Waypoints>
-                <PT></PT>
             </SID_Core>
         </SID_Page>
         <SID_Page>
@@ -805,7 +796,6 @@
                         <Additional>-</Additional>
                     </Waypoint>
                 </Waypoints>
-                <PT></PT>
             </SID_Core>
             <SID_Core>
                 <ID>NAPET 2T</ID>
@@ -860,7 +850,6 @@
                         <Additional>-</Additional>
                     </Waypoint>
                 </Waypoints>
-                <PT></PT>
             </SID_Core>
         </SID_Page>
     </Chart>

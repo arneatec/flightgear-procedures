@@ -15,7 +15,7 @@
     <ID>LBSF AD 2 - 53.1</ID>
     <Publisher>AIP FIRST BULGARIAN KINGDOM</Publisher>
     <Publisher_Local>AIP ПЪРВО БЪЛГАРСКО ЦАРСТВО</Publisher_Local>
-    <Published_On>25 JAN 24</Published_On><a></a>
+    <Published_On>25 JAN 24</Published_On>
     <Name>STANDARD DEPARTURE CHART - INSTRUMENT (SID) - ICAO</Name>
     <Airport_Location>SOFIA</Airport_Location>
     <Chart_Type>RNAV</Chart_Type>
@@ -33,7 +33,6 @@
         <SID_ID>RUMEN 2S</SID_ID>
         <SID_ID>UMPIT 3S</SID_ID>
     </Includes>
-    <Image></Image>
     <Scale>1:700 000</Scale>
     <!-- Performance Based Navigation Type info -->
     <PBN_Requirements>
@@ -86,7 +85,7 @@
     <General_Requirements>
         <Header>GENERAL REQUIREMENTS</Header>
         <General_Requirement>After take-off immediately contact SOFIA APPROACH</General_Requirement>
-        <General_Requirement></General_Requirement>
+        <General_Requirement> </General_Requirement>
         <General_Requirement>In case of activation of TRA 63 departures to RUMEN might be required to climb FL170 before the boundary of TRA 63. If unable to comply inform ATC in good time so that alternative clearance can be issued.</General_Requirement>
     </General_Requirements>
     <Warnings>
@@ -200,7 +199,6 @@
                     <Additional>-</Additional>
                 </Waypoint>
             </Waypoints>
-            <PT></PT>
         </SID_Core>
         <SID_Core>
             <ID>OGOTA 3S</ID>
@@ -244,7 +242,6 @@
                     <Additional>-</Additional>
                 </Waypoint>
             </Waypoints>
-            <PT></PT>
         </SID_Core>
         <SID_Core>
             <ID>GOL 3S</ID>
@@ -299,7 +296,6 @@
                     <Additional>-</Additional>
                 </Waypoint>
             </Waypoints>
-            <PT></PT>
         </SID_Core>
         <SID_Core>
             <ID>UMPIT 3S</ID>
@@ -343,7 +339,6 @@
                     <Additional>-</Additional>
                 </Waypoint>
             </Waypoints>
-            <PT></PT>
         </SID_Core>
         <SID_Core>
             <ID>GAPVO 2S</ID>
@@ -376,14 +371,13 @@
                     <Additional>-</Additional>
                 </Waypoint>
             </Waypoints>
-            <PT></PT>
         </SID_Core>
     </SID_Page>
     <SID_Page>
         <ID>LBSF AD 2 - 53.3</ID>
         <Publisher>AIP FIRST BULGARIAN KINGDOM</Publisher>
         <Publisher_Local>AIP ПЪРВО БЪЛГАРСКО ЦАРСТВО</Publisher_Local>
-        <Published_On>18 MAY 23</Published_On><a></a>
+        <Published_On>18 MAY 23</Published_On>
         <Page>3.0</Page>
         <Header_Columns>
             <Header_Column>
@@ -466,7 +460,6 @@
                     <Additional>-</Additional>
                 </Waypoint>
             </Waypoints>
-            <PT></PT>
         </SID_Core>
         <SID_Core>
             <ID>RUMEN 2S</ID>
@@ -510,7 +503,6 @@
                     <Additional>-</Additional>
                 </Waypoint>
             </Waypoints>
-            <PT></PT>
         </SID_Core>
         <SID_Core>
             <ID>DILVO 2S</ID>
@@ -554,7 +546,6 @@
                     <Additional>-</Additional>
                 </Waypoint>
             </Waypoints>
-            <PT></PT>
         </SID_Core>
         <SID_Core>
             <ID>OMENO 3S</ID>
@@ -598,7 +589,6 @@
                     <Additional>-</Additional>
                 </Waypoint>
             </Waypoints>
-            <PT></PT>
         </SID_Core>
         <SID_Core>
             <ID>NAPET 2S</ID>
@@ -642,7 +632,6 @@
                     <Additional>-</Additional>
                 </Waypoint>
             </Waypoints>
-            <PT></PT>
         </SID_Core>
     </SID_Page>
 </Chart>

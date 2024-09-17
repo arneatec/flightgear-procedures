@@ -47,18 +47,15 @@
     <xsl:variable name="element_msa_outer_circle" select="65"/>
 
     <!-- major calculated values -->
-    <xsl:variable name="runwayX">
-        <xsl:value-of select="floor(($map_base_airport_rwy_longitude * $math_deg_to_rad * $geo_earth_radius) div $map_zoom) + $map_offset_X"/>
-    </xsl:variable>
+    <xsl:variable name="runwayX"><xsl:call-template name="pointToPixelX"><xsl:with-param name="coordX" select="$map_base_airport_rwy_longitude"/></xsl:call-template></xsl:variable>
+
     <xsl:variable name="runwayY">
         <xsl:value-of select="$svg_size - (math:log(math:tan($map_base_airport_rwy_latitude * $math_deg_to_rad div 2 + $math_PI div 4)) * $geo_earth_radius div ($map_zoom)) + $map_offset_Y"/>
     </xsl:variable>
         <xsl:variable name="runway_length">
         <xsl:value-of select="((($map_base_airport_rwy_length) div $map_zoom)) div math:cos($map_base_airport_rwy_latitude * $math_deg_to_rad)"/>
     </xsl:variable>
-    <xsl:variable name="control_point_X">
-        <xsl:value-of select="floor(($airport/Airport/ControlPoint/Longitude * $math_deg_to_rad * $geo_earth_radius) div $map_zoom) + $map_offset_X"/>
-    </xsl:variable>
+    <xsl:variable name="control_point_X"><xsl:call-template name="pointToPixelX"><xsl:with-param name="coordX" select="$airport/Airport/ControlPoint/Longitude"/></xsl:call-template></xsl:variable>
     <xsl:variable name="control_point_Y">
         <xsl:value-of select="$svg_size - floor((math:log(math:tan($airport/Airport/ControlPoint/Latitude * $math_deg_to_rad div 2 + $math_PI div 4)) * $geo_earth_radius) div ($map_zoom)) + $map_offset_Y"/>
     </xsl:variable>
@@ -163,10 +160,10 @@
 
                                                     <!-- and finally the waypoints -->
                                                     <xsl:for-each select="Waypoints/Waypoint">
-                                                       <xsl:variable name="pointX"><xsl:value-of select="floor(($waypoints/Waypoins/Waypoint[ID=current()/WPTID]/Longitude * $math_deg_to_rad * $geo_earth_radius) div $map_zoom) + $map_offset_X"/></xsl:variable>
-                                                        <xsl:variable name="pointY"><xsl:value-of select="$svg_size - floor((math:log(math:tan($waypoints/Waypoins/Waypoint[ID=current()/WPTID]/Latitude * $math_deg_to_rad div 2 + $math_PI div 4)) * $geo_earth_radius) div ($map_zoom)) + $map_offset_Y"/></xsl:variable>
-                                                        <xsl:variable name="next_pointX"><xsl:value-of select="floor(($waypoints/Waypoins/Waypoint[ID=current()/following-sibling::Waypoint[1]/WPTID]/Longitude * $math_deg_to_rad * $geo_earth_radius) div $map_zoom) + $map_offset_X"/></xsl:variable>
-                                                        <xsl:variable name="next_pointY"><xsl:value-of select="$svg_size - floor((math:log(math:tan($waypoints/Waypoins/Waypoint[ID=current()/following-sibling::Waypoint[1]/WPTID]/Latitude * $math_deg_to_rad div 2 + $math_PI div 4)) * $geo_earth_radius) div ($map_zoom)) + $map_offset_Y"/></xsl:variable>
+                                                        <xsl:variable name="pointX"><xsl:call-template name="pointToPixelX"><xsl:with-param name="coordX" select="$waypoints/Waypoins/Waypoint[ID=current()/WPTID]/Longitude"/></xsl:call-template></xsl:variable>
+                                                        <xsl:variable name="pointY"><xsl:call-template name="pointToPixelY"><xsl:with-param name="coordY" select="$waypoints/Waypoins/Waypoint[ID=current()/WPTID]/Latitude"/></xsl:call-template></xsl:variable>
+                                                        <xsl:variable name="next_pointX"><xsl:call-template name="pointToPixelX"><xsl:with-param name="coordX" select="$waypoints/Waypoins/Waypoint[ID=current()/following-sibling::Waypoint[1]/WPTID]/Longitude"/></xsl:call-template></xsl:variable>
+                                                        <xsl:variable name="next_pointY"><xsl:call-template name="pointToPixelY"><xsl:with-param name="coordY" select="$waypoints/Waypoins/Waypoint[ID=current()/following-sibling::Waypoint[1]/WPTID]/Latitude"/></xsl:call-template></xsl:variable>
                                                         <xsl:variable name="this_point_turn_direction"><xsl:value-of select="Turn"/></xsl:variable>
                                                         <!-- hacky:  the LBSF original charts shows unrealistic curves, probably for presentation purposes only, sooooo... thry to emulate them by introducing coeeficients and stuff  -->
                                                         <xsl:variable name="runway_climnout_correction_factor">0.7</xsl:variable>
@@ -437,12 +434,15 @@
                                             <!-- sid track -->
                                             <xsl:for-each select="Waypoints/Waypoint">
                                                 <xsl:comment>track for waypoint <xsl:value-of select="WPTID"/></xsl:comment>
-                                                <xsl:variable name="pointX"><xsl:value-of select="floor(($waypoints/Waypoins/Waypoint[ID=current()/WPTID]/Longitude * $math_deg_to_rad * $geo_earth_radius) div $map_zoom) + $map_offset_X"/></xsl:variable>
-                                                <xsl:variable name="pointY"><xsl:value-of select="$svg_size - floor((math:log(math:tan($waypoints/Waypoins/Waypoint[ID=current()/WPTID]/Latitude * $math_deg_to_rad div 2 + $math_PI div 4)) * $geo_earth_radius) div ($map_zoom)) + $map_offset_Y"/></xsl:variable>
-                                                <xsl:variable name="next_pointX"><xsl:value-of select="floor(($waypoints/Waypoins/Waypoint[ID=current()/following-sibling::Waypoint[1]/WPTID]/Longitude * $math_deg_to_rad * $geo_earth_radius) div $map_zoom) + $map_offset_X"/></xsl:variable>
-                                                <xsl:variable name="next_pointY"><xsl:value-of select="$svg_size - floor((math:log(math:tan($waypoints/Waypoins/Waypoint[ID=current()/following-sibling::Waypoint[1]/WPTID]/Latitude * $math_deg_to_rad div 2 + $math_PI div 4)) * $geo_earth_radius) div ($map_zoom)) + $map_offset_Y"/></xsl:variable>
-                                                <xsl:variable name="previous_pointX"><xsl:value-of select="floor(($waypoints/Waypoins/Waypoint[ID=current()/preceding-sibling::Waypoint[1]/WPTID]/Longitude * $math_deg_to_rad * $geo_earth_radius) div $map_zoom) + $map_offset_X"/></xsl:variable>
-                                                <xsl:variable name="previous_pointY"><xsl:value-of select="$svg_size - floor((math:log(math:tan($waypoints/Waypoins/Waypoint[ID=current()/preceding-sibling::Waypoint[1]/WPTID]/Latitude * $math_deg_to_rad div 2 + $math_PI div 4)) * $geo_earth_radius) div ($map_zoom)) + $map_offset_Y"/></xsl:variable>
+                                                <xsl:variable name="pointX"><xsl:call-template name="pointToPixelX"><xsl:with-param name="coordX" select="$waypoints/Waypoins/Waypoint[ID=current()/WPTID]/Longitude"/></xsl:call-template></xsl:variable>
+                                                <xsl:variable name="pointY"><xsl:call-template name="pointToPixelY"><xsl:with-param name="coordY" select="$waypoints/Waypoins/Waypoint[ID=current()/WPTID]/Latitude"/></xsl:call-template></xsl:variable>
+
+                                                <xsl:variable name="next_pointX"><xsl:call-template name="pointToPixelX"><xsl:with-param name="coordX" select="$waypoints/Waypoins/Waypoint[ID=current()/following-sibling::Waypoint[1]/WPTID]/Longitude"/></xsl:call-template></xsl:variable>
+                                                <xsl:variable name="next_pointY"><xsl:call-template name="pointToPixelY"><xsl:with-param name="coordY" select="$waypoints/Waypoins/Waypoint[ID=current()/following-sibling::Waypoint[1]/WPTID]/Latitude"/></xsl:call-template></xsl:variable>
+
+                                                <xsl:variable name="previous_pointX"><xsl:call-template name="pointToPixelX"><xsl:with-param name="coordX" select="$waypoints/Waypoins/Waypoint[ID=current()/preceding-sibling::Waypoint[1]/WPTID]/Longitude"/></xsl:call-template></xsl:variable>
+                                                <xsl:variable name="previous_pointY"><xsl:call-template name="pointToPixelY"><xsl:with-param name="coordY" select="$waypoints/Waypoins/Waypoint[ID=current()/preceding-sibling::Waypoint[1]/WPTID]/Latitude"/></xsl:call-template></xsl:variable>
+
                                                 <xsl:variable name="midway_distance_in_pixels">
                                                     <xsl:value-of select="(((DIST * $geo_nm_in_meters) div $map_zoom) div 2) div math:cos($waypoints/Waypoins/Waypoint[ID=current()/WPTID]/Latitude * $math_deg_to_rad)"/>
                                                 </xsl:variable>
@@ -869,10 +869,10 @@
                                         </xsl:comment>
                                         <!-- map lines -->
                                         <xsl:for-each select="$maplines/MapLines/Lines/LatitudeLines/LatitudeLine">
-                                            <xsl:variable name="pointX1"><xsl:value-of select="floor(($maplines/MapLines/ZoneLimits/Longitude_Start * $math_deg_to_rad * $geo_earth_radius) div $map_zoom) + $map_offset_X"/></xsl:variable>
-                                            <xsl:variable name="pointY1"><xsl:value-of select="$svg_size - floor((math:log(math:tan(text() * $math_deg_to_rad div 2 + $math_PI div 4)) * $geo_earth_radius) div ($map_zoom)) + $map_offset_Y"/></xsl:variable>
-                                            <xsl:variable name="pointX2"><xsl:value-of select="floor(($maplines/MapLines/ZoneLimits/Longitude_End * $math_deg_to_rad * $geo_earth_radius) div $map_zoom) + $map_offset_X"/></xsl:variable>
-                                            <xsl:variable name="pointY2"><xsl:value-of select="$svg_size - floor((math:log(math:tan(text() * $math_deg_to_rad div 2 + $math_PI div 4)) * $geo_earth_radius) div ($map_zoom)) + $map_offset_Y"/></xsl:variable>
+                                            <xsl:variable name="pointX1"><xsl:call-template name="pointToPixelX"><xsl:with-param name="coordX" select="$maplines/MapLines/ZoneLimits/Longitude_Start"/></xsl:call-template></xsl:variable>
+                                            <xsl:variable name="pointY1"><xsl:call-template name="pointToPixelY"><xsl:with-param name="coordY" select="text()"/></xsl:call-template></xsl:variable>
+                                            <xsl:variable name="pointX2"><xsl:call-template name="pointToPixelX"><xsl:with-param name="coordX" select="$maplines/MapLines/ZoneLimits/Longitude_End"/></xsl:call-template></xsl:variable>
+                                            <xsl:variable name="pointY2"><xsl:call-template name="pointToPixelY"><xsl:with-param name="coordY" select="text()"/></xsl:call-template></xsl:variable>
                                             <xsl:variable name="caption_new">
                                                 <xsl:value-of select="format-number(number(text()), '00')"/>°<xsl:value-of select="format-number(((text() - floor(text())) * 60) , '00')"/>''
                                             </xsl:variable>
@@ -900,10 +900,11 @@
                                              </text>
                                         </xsl:for-each>
                                         <xsl:for-each select="$maplines/MapLines/Lines/LongitudeLines/LongitudeLine">
-                                            <xsl:variable name="pointX1"><xsl:value-of select="floor((text() * $math_deg_to_rad * $geo_earth_radius) div $map_zoom) + $map_offset_X"/></xsl:variable>
-                                            <xsl:variable name="pointY1"><xsl:value-of select="$svg_size - floor((math:log(math:tan($maplines/MapLines/ZoneLimits/Latitude_Start * $math_deg_to_rad div 2 + $math_PI div 4)) * $geo_earth_radius) div ($map_zoom)) + $map_offset_Y"/></xsl:variable>
-                                            <xsl:variable name="pointX2"><xsl:value-of select="floor((text() * $math_deg_to_rad * $geo_earth_radius) div $map_zoom) + $map_offset_X"/></xsl:variable>
-                                            <xsl:variable name="pointY2"><xsl:value-of select="$svg_size - floor((math:log(math:tan($maplines/MapLines/ZoneLimits/Latitude_End  * $math_deg_to_rad div 2 + $math_PI div 4)) * $geo_earth_radius) div ($map_zoom)) + $map_offset_Y"/></xsl:variable>
+                                            <xsl:variable name="pointX1"><xsl:call-template name="pointToPixelX"><xsl:with-param name="coordX" select="text()"/></xsl:call-template></xsl:variable>
+                                            <xsl:variable name="pointY1"><xsl:call-template name="pointToPixelY"><xsl:with-param name="coordY" select="$maplines/MapLines/ZoneLimits/Latitude_Start"/></xsl:call-template></xsl:variable>
+                                            <xsl:variable name="pointX2"><xsl:call-template name="pointToPixelX"><xsl:with-param name="coordX" select="text()"/></xsl:call-template></xsl:variable>
+                                            <xsl:variable name="pointY2"><xsl:call-template name="pointToPixelY"><xsl:with-param name="coordY" select="$maplines/MapLines/ZoneLimits/Latitude_End"/></xsl:call-template></xsl:variable>
+
                                             <xsl:variable name="caption_new">
                                                 <xsl:value-of select="format-number(number(text()), '00')"/>°<xsl:value-of select="format-number(((text() - floor(text())) * 60) , '00')"/>''
                                             </xsl:variable>
@@ -943,8 +944,8 @@
 
                                         <!-- waypoints related to this chart (filtered )-->
                                         <xsl:for-each select="$waypoints/Waypoins/Waypoint[Charts/ChartSubType=/Chart/SubType]">
-                                            <xsl:variable name="pointX"><xsl:value-of select="floor((Longitude * $math_deg_to_rad * $geo_earth_radius) div $map_zoom) + $map_offset_X"/></xsl:variable>
-                                            <xsl:variable name="pointY"><xsl:value-of select="$svg_size - floor((math:log(math:tan(Latitude * $math_deg_to_rad div 2 + $math_PI div 4)) * $geo_earth_radius) div ($map_zoom)) + $map_offset_Y"/></xsl:variable>
+                                            <xsl:variable name="pointX"><xsl:call-template name="pointToPixelX"><xsl:with-param name="coordX" select="Longitude"/></xsl:call-template></xsl:variable>
+                                            <xsl:variable name="pointY"><xsl:call-template name="pointToPixelY"><xsl:with-param name="coordY" select="Latitude"/></xsl:call-template></xsl:variable>
                                             <xsl:variable name="pointType"><xsl:value-of select="Type"/></xsl:variable>
 
                                             <xsl:choose>
@@ -1143,7 +1144,7 @@
                                                     <polygon>
                                                         <xsl:attribute name="points">
                                                             <xsl:for-each select="PolygonPoints/PolygonPoint">
-                                                                <xsl:variable name="base_airport_polygon_X"><xsl:value-of select="floor((Longitude * $math_deg_to_rad * $geo_earth_radius) div $map_zoom) + $map_offset_X"/></xsl:variable>
+                                                                <xsl:variable name="base_airport_polygon_X"><xsl:call-template name="pointToPixelX"><xsl:with-param name="coordX" select="Longitude"/></xsl:call-template></xsl:variable>
                                                                 <xsl:variable name="base_airport_polygon_Y"><xsl:value-of select="$svg_size - floor((math:log(math:tan(Latitude * $math_deg_to_rad div 2 + $math_PI div 4)) * $geo_earth_radius) div ($map_zoom)) + $map_offset_Y"/></xsl:variable>
                                                                 <xsl:value-of select="$base_airport_polygon_X"/>,<xsl:value-of select="$base_airport_polygon_Y"/><xsl:text> </xsl:text>
                                                             </xsl:for-each>
@@ -1327,5 +1328,19 @@
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"/>
             </body>
         </html>
+    </xsl:template>
+
+    <!--    GIS calculations templates
+            All calculations are in the Web Mercator Projection
+    -->
+
+    <xsl:template name="pointToPixelX" match="/Chart">
+        <xsl:param name="coordX"/>
+        <xsl:value-of select="floor(($coordX * $math_deg_to_rad * $geo_earth_radius) div $map_zoom) + $map_offset_X"/>
+    </xsl:template>
+
+    <xsl:template name="pointToPixelY" match="/Chart">
+        <xsl:param name="coordY"/>
+        <xsl:value-of select="$svg_size - floor((math:log(math:tan($coordY * $math_deg_to_rad div 2 + $math_PI div 4)) * $geo_earth_radius) div ($map_zoom)) + $map_offset_Y"/>
     </xsl:template>
 </xsl:stylesheet>

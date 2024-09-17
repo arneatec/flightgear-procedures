@@ -13,6 +13,7 @@
     <!-- math constants -->
     <xsl:variable name="math_PI" select="math:constant('PI', 9)"/>
     <xsl:variable name="math_deg_to_rad"><xsl:value-of select="$math_PI div 180"/></xsl:variable>
+    <xsl:variable name="hour_in_seconds">3600</xsl:variable>
 
     <!-- geodesic constants -->
     <xsl:variable name="geo_nm_in_meters" select="1852"/>
@@ -23,6 +24,8 @@
 
     <!-- major map constants -->
     <xsl:variable name="map_zoom" select="/Chart/Zoom"/>
+    <xsl:variable name="standard_turn_speed" select="220"/>
+
 
     <xsl:variable name="map_offset_X" select="((/Chart/MapCenter/Longitude * $math_deg_to_rad * $geo_earth_radius) div $map_zoom) * -1 + ($svg_size div 2)"/>
     <xsl:variable name="map_offset_Y" select="(math:log(math:tan(/Chart/MapCenter/Latitude * $math_deg_to_rad div 2 + $math_PI div 4)) * $geo_earth_radius div ($map_zoom)) - ($svg_size div 2)"/>
@@ -175,7 +178,7 @@
                                                         </xsl:variable>
 
                                                         <xsl:variable name="turn_radius_meters">
-                                                            <xsl:value-of select="(math:power((220 * $geo_nm_in_meters) div 3600, 2) div ($geo_one_g * math:tan($bank_angle_for_flight_phase * $math_deg_to_rad)))"/>
+                                                            <xsl:value-of select="(math:power(($standard_turn_speed * $geo_nm_in_meters) div $hour_in_seconds, 2) div ($geo_one_g * math:tan($bank_angle_for_flight_phase * $math_deg_to_rad)))"/>
                                                         </xsl:variable>
                                                         <xsl:variable name="turn_radius_pixels">
                                                             <xsl:value-of select="$turn_radius_meters div $map_zoom"/>
@@ -399,7 +402,7 @@
                                                                     4. so the formula for the radius, if given velocity and the angle of bank are given. is:
                                                                     r = (Vt.Vt/g*tan(phi)
                                                                     where g is the gravitational acceleration, Vt is the speed in m/sec, angle of bank is in .. what, degrees, rads?
-                                                                    5. we assume the Vt is something like 220 knots
+                                                                    5. we assume the Vt is something like 220 knots (standard_turn_speed)
                                                                     6. turn radius is thus 2800+ m, sounds reasonable
                                                                 -->
                                                                <!-- thanks to https://stackoverflow.com/questions/49968720/find-tangent-points-in-a-circle-from-a-point -->
@@ -461,7 +464,7 @@
                                                 </xsl:variable>
 
                                                 <xsl:variable name="turn_radius_meters">
-                                                    <xsl:value-of select="(math:power((220 * $geo_nm_in_meters) div 3600, 2) div ($geo_one_g * math:tan($bank_angle_for_flight_phase * $math_deg_to_rad)))"/>
+                                                    <xsl:value-of select="(math:power(($standard_turn_speed * $geo_nm_in_meters) div $hour_in_seconds, 2) div ($geo_one_g * math:tan($bank_angle_for_flight_phase * $math_deg_to_rad)))"/>
                                                 </xsl:variable>
                                                 <xsl:variable name="turn_radius_pixels">
                                                     <xsl:value-of select="$turn_radius_meters div $map_zoom"/>

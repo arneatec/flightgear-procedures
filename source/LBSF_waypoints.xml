@@ -189,6 +189,7 @@
         <Charts>
             <ChartSubType>SID-09-RNAV</ChartSubType>
             <ChartSubType>SID-27-RNAV</ChartSubType>
+            <ChartSubType>STAR-09-RNAV</ChartSubType>
         </Charts>
      </Waypoint>
     <Waypoint>
@@ -199,6 +200,7 @@
         <Charts>
             <ChartSubType>SID-09-RNAV</ChartSubType>
             <ChartSubType>SID-27-RNAV</ChartSubType>
+            <ChartSubType>STAR-09-RNAV</ChartSubType>
         </Charts>
     </Waypoint>
     <Waypoint>
@@ -578,6 +580,119 @@
         <Type>WPT-OR-FB</Type>
         <Latitude>42.780472</Latitude>
         <Longitude>23.411000</Longitude>
+        <Charts>
+            <ChartSubType>STAR-09-RNAV</ChartSubType>
+        </Charts>
+    </Waypoint>
+    <Waypoint>
+        <ID>MOREK</ID>
+        <Type>WPT-OR-FB</Type>
+        <Latitude>42.291944</Latitude>
+        <Longitude>23.319167</Longitude>
+        <CaptionOffset>
+            <X>-78</X>
+            <Y>-2</Y>
+        </CaptionOffset>
+        <Charts>
+            <ChartSubType>STAR-09-RNAV</ChartSubType>
+        </Charts>
+    </Waypoint>
+    <Waypoint>
+        <ID>SF425</ID>
+        <Type>WPT-OR-FB</Type>
+        <Latitude>42.526139</Latitude>
+        <Longitude>23.178667</Longitude>
+        <CaptionOffset>
+            <X>-48</X>
+            <Y>32</Y>
+        </CaptionOffset>
+        <Charts>
+            <ChartSubType>STAR-09-RNAV</ChartSubType>
+        </Charts>
+    </Waypoint>
+    <Waypoint>
+        <ID>SF424</ID>
+        <Type>WPT-OR-FB</Type>
+        <Latitude>42.579639</Latitude>
+        <Longitude>23.124833</Longitude>
+        <CaptionOffset>
+            <X>-58</X>
+            <Y>25</Y>
+        </CaptionOffset>
+        <Charts>
+            <ChartSubType>STAR-09-RNAV</ChartSubType>
+        </Charts>
+    </Waypoint>
+    <Waypoint>
+        <ID>SF423</ID>
+        <Type>WPT-OR-FB</Type>
+        <Latitude>42.633111</Latitude>
+        <Longitude>23.070889</Longitude>
+        <CaptionOffset>
+            <X>-26</X>
+            <Y>-25</Y>
+        </CaptionOffset>
+        <Charts>
+            <ChartSubType>STAR-09-RNAV</ChartSubType>
+        </Charts>
+    </Waypoint>
+    <Waypoint>
+        <ID>XIMRI</ID>
+        <Type>WPT-OR-FB</Type>
+        <Latitude>42.639444</Latitude>
+        <Longitude>22.958333</Longitude>
+        <CaptionOffset>
+            <X>-20</X>
+            <Y>35</Y>
+        </CaptionOffset>
+        <Charts>
+            <ChartSubType>STAR-09-RNAV</ChartSubType>
+        </Charts>
+    </Waypoint>
+    <Waypoint>
+        <ID>SF421</ID>
+        <Type>WPT-OR-FB</Type>
+        <Latitude>42.644500</Latitude>
+        <Longitude>22.868222</Longitude>
+        <CaptionOffset>
+            <X>-20</X>
+            <Y>35</Y>
+        </CaptionOffset>
+        <Charts>
+            <ChartSubType>STAR-09-RNAV</ChartSubType>
+        </Charts>
+    </Waypoint>
+    <Waypoint>
+        <ID>SF420</ID>
+        <Type>WPT-OR-FB</Type>
+        <Latitude>42.649444</Latitude>
+        <Longitude>22.778139</Longitude>
+        <CaptionOffset>
+            <X>-20</X>
+            <Y>35</Y>
+        </CaptionOffset>
+        <Charts>
+            <ChartSubType>STAR-09-RNAV</ChartSubType>
+        </Charts>
+    </Waypoint>
+        <Waypoint>
+        <ID>LANGI</ID>
+        <Type>WPT-OR-FB</Type>
+        <Latitude>42.744722</Latitude>
+        <Longitude>23.983056</Longitude>
+        <CaptionOffset>
+            <X>-20</X>
+            <Y>35</Y>
+        </CaptionOffset>
+        <Charts>
+            <ChartSubType>STAR-09-RNAV</ChartSubType>
+        </Charts>
+    </Waypoint>
+    <Waypoint>
+        <ID>VANET</ID>
+        <Type>WPT-OR-FB</Type>
+        <Latitude>42.294722</Latitude>
+        <Longitude>23.410278</Longitude>
         <Charts>
             <ChartSubType>STAR-09-RNAV</ChartSubType>
         </Charts>

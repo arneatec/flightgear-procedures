@@ -870,6 +870,7 @@
                                                         <xsl:attribute name="fill">black</xsl:attribute>
                                                     </polygon>
                                                 </xsl:if>
+                                                 <xsl:comment>END track for waypoint <xsl:value-of select="WPTID"/></xsl:comment>
                                             </xsl:for-each>
                                         </xsl:for-each>
                                         <xsl:comment>

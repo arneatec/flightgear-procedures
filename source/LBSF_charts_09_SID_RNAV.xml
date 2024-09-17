@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Chart>
+    <ImageSizePixels>
+        <X>1130</X>
+        <Y>1130</Y>
+    </ImageSizePixels>
     <SubType>SID-09-RNAV</SubType>
     <Zoom>147</Zoom>
     <MapCenter>

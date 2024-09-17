@@ -1,0 +1,437 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Chart>
+    <ImageSizePixels>
+        <X>1130</X>
+        <Y>800</Y>
+    </ImageSizePixels>
+    <SubType>STAR-09-RNAV</SubType>
+    <Zoom>164</Zoom>
+    <MapCenter>
+        <Latitude>
+            42.58594479734309
+        </Latitude>
+        <Longitude>
+            23.5320357505810496
+        </Longitude>
+    </MapCenter>
+    <Offset_X>-14100</Offset_X>
+    <Offset_Y>28730</Offset_Y>
+    <ID>LBSF AD 2 - 55.1</ID>
+    <Publisher>AIP FIRST BULGARIAN KINGDOM</Publisher>
+    <Publisher_Local>AIP ПЪРВО БЪЛГАРСКО ЦАРСТВО</Publisher_Local>
+    <Published_On>25 JAN 24</Published_On>
+    <Name>STANDARD ARRIVAL CHART - INSTRUMENT (STAR) - ICAO</Name>
+    <Airport_Location>SOFIA</Airport_Location>
+    <Chart_Type>RNAV</Chart_Type>
+    <Chart_Object>RNW</Chart_Object>
+    <Chart_Object_ID>09</Chart_Object_ID>
+    <Includes>
+        <SID_ID>DEDIN 5D</SID_ID>
+        <SID_ID>GAPVO 5D</SID_ID>
+        <SID_ID>GOL 5D</SID_ID>
+        <SID_ID>MOREK 5D</SID_ID>
+        <SID_ID>NISVA 4D</SID_ID>
+        <SID_ID>RUMEN 5D</SID_ID>
+        <SID_ID>UMPIT 5D</SID_ID>
+        <SID_ID>VANET 5D</SID_ID>
+    </Includes>
+    <Scale>1:500 000</Scale>
+    <!-- Performance Based Navigation Type info -->
+    <PBN_Requirements>
+        <Header>PBN</Header>
+        <PBN_Requirement>RNAV 1</PBN_Requirement>
+        <PBN_Requirement>GNSS or DME/DME/IRU required</PBN_Requirement>
+    </PBN_Requirements>
+    <Critical_DMEs>
+        <Header>Critical DME</Header>
+        <Critical_DME>
+            <DME>BLO</DME>
+            <DME>VIT</DME>
+            <SID_ID>GODEK 3S</SID_ID>
+            <SID_ID>OGOTA 3S</SID_ID>
+            <SID_ID>OMENO 3S</SID_ID>
+        </Critical_DME>
+        <Critical_DME>
+            <DME>BLO</DME>
+            <DME>VIT</DME>
+            <DME>KAL</DME>
+            <SID_ID>DEDIN 2S</SID_ID>
+            <SID_ID>DILVO 2S</SID_ID>
+            <SID_ID>GAPVO 2S</SID_ID>
+            <SID_ID>NAPET 2S</SID_ID>
+        </Critical_DME>
+        <Critical_DME>
+            <DME>BLO</DME>
+            <DME>VIT</DME>
+            <DME>KAL</DME>
+            <DME>PDV</DME>
+            <DME>ROZ</DME>
+            <SID_ID>RUMEN 2S</SID_ID>
+        </Critical_DME>
+        <Critical_DME>
+            <DME>BLO</DME>
+            <DME>VIT</DME>
+            <DME>SOF</DME>
+            <DME>GOL</DME>
+            <DME>GRN</DME>
+            <SID_ID>GOL 3S</SID_ID>
+        </Critical_DME>
+        <Critical_DME>
+            <DME>BLO</DME>
+            <DME>VIT</DME>
+            <DME>GOL</DME>
+            <DME>PDV</DME>
+            <SID_ID>UMPIT 3S</SID_ID>
+        </Critical_DME>
+    </Critical_DMEs>
+    <General_Requirements>
+        <Header>GENERAL REQUIREMENTS</Header>
+        <General_Requirement>After take-off immediately contact SOFIA APPROACH</General_Requirement>
+        <General_Requirement> </General_Requirement>
+        <General_Requirement>In case of activation of TRA 63 departures to RUMEN might be required to climb FL170 before the boundary of TRA 63. If unable to comply inform ATC in good time so that alternative clearance can be issued.</General_Requirement>
+    </General_Requirements>
+    <Warnings>
+        <Header>WARNING:</Header>
+        <Warning>When given a clearance to a level higher than the specified in the SID, follow published SID profile, unless restrictions are explicitly cancelled by ATC.</Warning>
+    </Warnings>
+    <Non_RNAV_1_Aircrafts>
+        <Non_RNAV_1_Aircrafts>Report "UNABLE RNAV" at first contact to ATC.</Non_RNAV_1_Aircrafts>
+        <Non_RNAV_1_Aircrafts>Expect conventional or omnidirectional DEP and/ or vectoring to be provided by ATC.</Non_RNAV_1_Aircrafts>
+
+    </Non_RNAV_1_Aircrafts>
+    <Omnidirectional_Departures>
+        <Omnidirectional_Departure>Climb straight ahead to 6800 FT, turn to the corresponding point or as cleared by ATC</Omnidirectional_Departure>
+        <Omnidirectional_Departure>MNM climb gradient of 5% (304 FT/NM) to 9600 FT</Omnidirectional_Departure>
+    </Omnidirectional_Departures>
+    <SID_Page>
+        <ID>LBSF AD 2 - 53.2</ID>
+        <Publisher>AIP FIRST BULGARIAN KINGDOM</Publisher>
+        <Publisher_Local>AIP ПЪРВО БЪЛГАРСКО ЦАРСТВО</Publisher_Local>
+        <Published_On>18 JUN 20</Published_On>
+        <Page>2.0</Page>
+        <Header_Columns>
+            <Header_Column>
+                <Caption>P/T</Caption>
+                <Percent>7.6</Percent>
+            </Header_Column>
+            <Header_Column>
+                <Caption>WPT ID</Caption>
+                <Percent>12</Percent>
+            </Header_Column>
+            <Header_Column>
+                <Caption>Flyover</Caption>
+                <Percent>9</Percent>
+            </Header_Column>
+            <Header_Column>
+                <Caption>Track</Caption>
+                <Sub_Caption>MAG(GEO)</Sub_Caption>
+                <Sub_Caption_Bold>no</Sub_Caption_Bold>
+                <Percent>17</Percent>
+            </Header_Column>
+            <Header_Column>
+                <Caption>Dist</Caption>
+                <Sub_Caption>NM</Sub_Caption>
+                <Sub_Caption_Bold>no</Sub_Caption_Bold>
+                <Percent>10</Percent>
+            </Header_Column>
+            <Header_Column>
+                <Caption>Turn</Caption>
+                <Sub_Caption>Direction</Sub_Caption>
+                <Sub_Caption_Bold>yes</Sub_Caption_Bold>
+                <Percent>12</Percent>
+            </Header_Column>
+            <Header_Column>
+                <Caption>Speed</Caption>
+                <Sub_Caption>KT</Sub_Caption>
+                <Sub_Caption_Bold>no</Sub_Caption_Bold>
+                <Percent>9</Percent>
+            </Header_Column>
+            <Header_Column>
+                <Caption>ALT</Caption>
+                <Sub_Caption>FT</Sub_Caption>
+                <Sub_Caption_Bold>no</Sub_Caption_Bold>
+                <Percent>9</Percent>
+            </Header_Column>
+            <Header_Column>
+                <Caption>Additional</Caption>
+                <Sub_Caption>Requirements</Sub_Caption>
+                <Sub_Caption_Bold>yes</Sub_Caption_Bold>
+                <Percent>15</Percent>
+            </Header_Column>
+        </Header_Columns>
+        <SID_Core>
+            <ID>NISVA 4D</ID>
+            <Name>NISVA FOUR DELTA ARRIVAL</Name>
+            <ClimbGradientPercent>5.3</ClimbGradientPercent>
+            <ClimbGradientFeetPerNM>322</ClimbGradientFeetPerNM>
+            <ClimbGradientRestrictionsToFeet>9000</ClimbGradientRestrictionsToFeet>
+            <ClimbGradientRestrictionsReason>terrain</ClimbGradientRestrictionsReason>
+            <Waypoints>
+                <Waypoint>
+                    <PT>IF</PT>
+                    <WPTID>NISVA</WPTID>
+                    <Flyover>-</Flyover>
+                    <Track>-</Track>
+                    <DIST>-</DIST>
+                    <Turn>-</Turn>
+                    <Speed>--</Speed>
+                    <Altitude>-</Altitude>
+                    <Additional>-</Additional>
+                </Waypoint>
+                <Waypoint>
+                    <PT>TF</PT>
+                    <WPTID>SF412</WPTID>
+                    <Flyover>-</Flyover>
+                    <Track>117°(122.1°T)</Track>
+                    <DIST>9.4</DIST>
+                    <Turn>Left</Turn>
+                    <Speed>-</Speed>
+                    <Altitude>-</Altitude>
+                    <Additional>-</Additional>
+                </Waypoint>
+                <Waypoint>
+                    <PT>TF</PT>
+                    <WPTID>SF411</WPTID>
+                    <Flyover>-</Flyover>
+                    <Track>089°(094.4°T)</Track>
+                    <DIST>6.8</DIST>
+                    <Turn>-</Turn>
+                    <Speed>-</Speed>
+                    <Altitude>-</Altitude>
+                    <Additional>-</Additional>
+                </Waypoint>
+                <Waypoint>
+                    <PT>TF</PT>
+                    <WPTID>SF410</WPTID>
+                    <Flyover>-</Flyover>
+                    <Track>089°(094.5°T)</Track>
+                    <DIST>4.8</DIST>
+                    <Turn>Right</Turn>
+                    <Speed>210-</Speed>
+                    <Altitude>-</Altitude>
+                    <Additional>-</Additional>
+                </Waypoint>
+                <Waypoint>
+                    <PT>TF</PT>
+                    <WPTID>SF409</WPTID>
+                    <Flyover>-</Flyover>
+                    <Track>179°(184.5°T)</Track>
+                    <DIST>5.0</DIST>
+                    <Turn>Right</Turn>
+                    <Speed>-</Speed>
+                    <Altitude>-</Altitude>
+                    <Additional>-</Additional>
+                </Waypoint>
+                <Waypoint>
+                    <PT>TF</PT>
+                    <WPTID>LEMDO</WPTID>
+                    <Flyover>-</Flyover>
+                    <Track>269°(274.5°T)</Track>
+                    <DIST>7.3</DIST>
+                    <Turn>-</Turn>
+                    <Speed>210-</Speed>
+                    <Altitude>-</Altitude>
+                    <Additional>-</Additional>
+                </Waypoint>
+                <Waypoint>
+                    <PT>TF</PT>
+                    <WPTID>SF407</WPTID>
+                    <Flyover>-</Flyover>
+                    <Track>269°(274.4°T)</Track>
+                    <DIST>4.0</DIST>
+                    <Turn>-</Turn>
+                    <Speed>-</Speed>
+                    <Altitude>-</Altitude>
+                    <Additional>-</Additional>
+                </Waypoint>
+                <Waypoint>
+                    <PT>TF</PT>
+                    <WPTID>SF406</WPTID>
+                    <Flyover>-</Flyover>
+                    <Track>269°(274.4°T)</Track>
+                    <DIST>4.0</DIST>
+                    <Turn>-</Turn>
+                    <Speed>-</Speed>
+                    <Altitude>-</Altitude>
+                    <Additional>-</Additional>
+                </Waypoint>
+                <Waypoint>
+                    <PT>TF</PT>
+                    <WPTID>SF405</WPTID>
+                    <Flyover>-</Flyover>
+                    <Track>269°(274.4°T)</Track>
+                    <DIST>4.0</DIST>
+                    <Turn>Left</Turn>
+                    <Speed>-</Speed>
+                    <Altitude>-</Altitude>
+                    <Additional>-</Additional>
+                </Waypoint>
+                <Waypoint>
+                    <PT>TF</PT>
+                    <WPTID>SF404</WPTID>
+                    <Flyover>-</Flyover>
+                    <Track>179°(184.2°T)</Track>
+                    <DIST>5.0</DIST>
+                    <Turn>Left</Turn>
+                    <Speed>-</Speed>
+                    <Altitude>-</Altitude>
+                    <Additional>-</Additional>
+                </Waypoint>
+                <Waypoint>
+                    <PT>TF</PT>
+                    <WPTID>SF403</WPTID>
+                    <Flyover>-</Flyover>
+                    <Track>089°(094.2°T)</Track>
+                    <DIST>4.0</DIST>
+                    <Turn>-</Turn>
+                    <Speed>-</Speed>
+                    <Altitude>-</Altitude>
+                    <Additional>-</Additional>
+                </Waypoint>
+                <Waypoint>
+                    <PT>TF</PT>
+                    <WPTID>BENGO/IAF</WPTID>
+                    <Flyover>-</Flyover>
+                    <Track>089°(094.2°T)</Track>
+                    <DIST>4.0</DIST>
+                    <Turn>-</Turn>
+                    <Speed>-</Speed>
+                    <Altitude>A7000+</Altitude>
+                    <Additional>-</Additional>
+                </Waypoint>
+            </Waypoints>
+        </SID_Core>
+        <SID_Core>
+            <ID>GOL 5D</ID>
+            <Name>GOLYAMA FIVE DELTA ARRIVAL</Name>
+            <ClimbGradientPercent>5.3</ClimbGradientPercent>
+            <ClimbGradientFeetPerNM>322</ClimbGradientFeetPerNM>
+            <ClimbGradientRestrictionsToFeet>9000</ClimbGradientRestrictionsToFeet>
+            <ClimbGradientRestrictionsReason>terrain</ClimbGradientRestrictionsReason>
+            <Waypoints>
+                <Waypoint>
+                    <PT>IF</PT>
+                    <WPTID>GOL</WPTID>
+                    <Flyover>-</Flyover>
+                    <Track>-</Track>
+                    <DIST>-</DIST>
+                    <Turn>-</Turn>
+                    <Speed>--</Speed>
+                    <Altitude>-</Altitude>
+                    <Additional>-</Additional>
+                </Waypoint>
+                <Waypoint>
+                    <PT>TF</PT>
+                    <WPTID>SF417</WPTID>
+                    <Flyover>-</Flyover>
+                    <Track>233°(238.1°T)</Track>
+                    <DIST>36.2</DIST>
+                    <Turn>Right</Turn>
+                    <Speed>-</Speed>
+                    <Altitude>-</Altitude>
+                    <Additional>-</Additional>
+                </Waypoint>
+                <Waypoint>
+                    <PT>TF</PT>
+                    <WPTID>SF416</WPTID>
+                    <Flyover>-</Flyover>
+                    <Track>269°(274.7°T)</Track>
+                    <DIST>5.0</DIST>
+                    <Turn>-</Turn>
+                    <Speed>-</Speed>
+                    <Altitude>F130+</Altitude>
+                    <Additional>-</Additional>
+                </Waypoint>
+                <Waypoint>
+                    <PT>TF</PT>
+                    <WPTID>SF409</WPTID>
+                    <Flyover>-</Flyover>
+                    <Track>269°(274.7°T)</Track>
+                    <DIST>8.0</DIST>
+                    <Turn>-</Turn>
+                    <Speed>-</Speed>
+                    <Altitude>-</Altitude>
+                    <Additional>-</Additional>
+                </Waypoint>
+                <Waypoint>
+                    <PT>TF</PT>
+                    <WPTID>LEMDO</WPTID>
+                    <Flyover>-</Flyover>
+                    <Track>269°(274.5°T)</Track>
+                    <DIST>7.3</DIST>
+                    <Turn>-</Turn>
+                    <Speed>210-</Speed>
+                    <Altitude>-</Altitude>
+                    <Additional>-</Additional>
+                </Waypoint>
+                <Waypoint>
+                    <PT>TF</PT>
+                    <WPTID>SF407</WPTID>
+                    <Flyover>-</Flyover>
+                    <Track>269°(274.4°T)</Track>
+                    <DIST>4.0</DIST>
+                    <Turn>-</Turn>
+                    <Speed>-</Speed>
+                    <Altitude>-</Altitude>
+                    <Additional>-</Additional>
+                </Waypoint>
+                <Waypoint>
+                    <PT>TF</PT>
+                    <WPTID>SF406</WPTID>
+                    <Flyover>-</Flyover>
+                    <Track>269°(274.4°T)</Track>
+                    <DIST>4.0</DIST>
+                    <Turn>-</Turn>
+                    <Speed>-</Speed>
+                    <Altitude>-</Altitude>
+                    <Additional>-</Additional>
+                </Waypoint>
+                <Waypoint>
+                    <PT>TF</PT>
+                    <WPTID>SF405</WPTID>
+                    <Flyover>-</Flyover>
+                    <Track>269°(274.4°T)</Track>
+                    <DIST>4.0</DIST>
+                    <Turn>Left</Turn>
+                    <Speed>-</Speed>
+                    <Altitude>-</Altitude>
+                    <Additional>-</Additional>
+                </Waypoint>
+                <Waypoint>
+                    <PT>TF</PT>
+                    <WPTID>SF404</WPTID>
+                    <Flyover>-</Flyover>
+                    <Track>179°(184.2°T)</Track>
+                    <DIST>5.0</DIST>
+                    <Turn>Left</Turn>
+                    <Speed>-</Speed>
+                    <Altitude>-</Altitude>
+                    <Additional>-</Additional>
+                </Waypoint>
+                <Waypoint>
+                    <PT>TF</PT>
+                    <WPTID>SF403</WPTID>
+                    <Flyover>-</Flyover>
+                    <Track>089°(094.2°T)</Track>
+                    <DIST>4.0</DIST>
+                    <Turn>-</Turn>
+                    <Speed>-</Speed>
+                    <Altitude>-</Altitude>
+                    <Additional>-</Additional>
+                </Waypoint>
+                <Waypoint>
+                    <PT>TF</PT>
+                    <WPTID>BENGO/IAF</WPTID>
+                    <Flyover>-</Flyover>
+                    <Track>089°(094.2°T)</Track>
+                    <DIST>4.0</DIST>
+                    <Turn>-</Turn>
+                    <Speed>-</Speed>
+                    <Altitude>A7000+</Altitude>
+                    <Additional>-</Additional>
+                </Waypoint>
+            </Waypoints>
+        </SID_Core>
+    </SID_Page>
+</Chart>
+

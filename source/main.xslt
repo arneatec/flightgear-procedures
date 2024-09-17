@@ -8,7 +8,8 @@
     <xsl:variable name="maplines" select="document('map_lines.xml')"/>
 
     <!-- page related constants -->
-    <xsl:variable name="svg_size" select="1130"/>
+    <xsl:variable name="svg_size_X" select="/Chart/ImageSizePixels/X"/>
+    <xsl:variable name="svg_size_Y" select="/Chart/ImageSizePixels/Y"/>
 
     <!-- math constants -->
     <xsl:variable name="math_PI" select="math:constant('PI', 9)"/>
@@ -26,9 +27,10 @@
     <xsl:variable name="map_zoom" select="/Chart/Zoom"/>
     <xsl:variable name="standard_turn_speed" select="220"/>
 
+    <xsl:variable name="chart_type" select="substring-before(/Chart/SubType ,'-')"/>
 
-    <xsl:variable name="map_offset_X" select="((/Chart/MapCenter/Longitude * $math_deg_to_rad * $geo_earth_radius) div $map_zoom) * -1 + ($svg_size div 2)"/>
-    <xsl:variable name="map_offset_Y" select="(math:log(math:tan(/Chart/MapCenter/Latitude * $math_deg_to_rad div 2 + $math_PI div 4)) * $geo_earth_radius div ($map_zoom)) - ($svg_size div 2)"/>
+    <xsl:variable name="map_offset_X" select="((/Chart/MapCenter/Longitude * $math_deg_to_rad * $geo_earth_radius) div $map_zoom) * -1 + ($svg_size_X div 2)"/>
+    <xsl:variable name="map_offset_Y" select="(math:log(math:tan(/Chart/MapCenter/Latitude * $math_deg_to_rad div 2 + $math_PI div 4)) * $geo_earth_radius div ($map_zoom)) - ($svg_size_Y div 2)"/>
 
     <xsl:variable name="map_offset_X_legacy" select="/Chart/Offset_X"/>
     <xsl:variable name="map_offset_Y_legacy" select="/Chart/Offset_Y"/>
@@ -131,8 +133,8 @@
                             <div class="card border-dark">
                                 <div class="card-body  p-0 m-0">
                                     <svg>
-                                        <xsl:attribute name="width"><xsl:value-of select="$svg_size"/></xsl:attribute>
-                                        <xsl:attribute name="height"><xsl:value-of select="$svg_size"/></xsl:attribute>
+                                        <xsl:attribute name="width"><xsl:value-of select="$svg_size_X"/></xsl:attribute>
+                                        <xsl:attribute name="height"><xsl:value-of select="$svg_size_Y"/></xsl:attribute>
 
                                         <!-- SID -->
                                         <xsl:for-each select="/Chart/SID_Page/SID_Core">
@@ -157,7 +159,9 @@
                                                 <xsl:attribute name="d">
                                                     <!-- runway termination coordinates -->
                                                     <!-- start drawing -->
-                                                    M <xsl:value-of select="$runwayX"/><xsl:text> </xsl:text><xsl:value-of select="$runwayY"/>
+                                                    <xsl:if test="$chart_type='SID'">
+                                                        M <xsl:value-of select="$runwayX"/><xsl:text> </xsl:text><xsl:value-of select="$runwayY"/>
+                                                    </xsl:if>
 
                                                     <!-- and finally the waypoints -->
                                                     <xsl:for-each select="Waypoints/Waypoint">
@@ -368,6 +372,9 @@
                                                             </xsl:variable>
 
                                                         <xsl:choose>
+                                                            <xsl:when test="PT='IF'">
+                                                                M <xsl:value-of select="$pointX"/><xsl:text> </xsl:text><xsl:value-of select="$pointY"/>
+                                                            </xsl:when>
                                                             <xsl:when test="PT='CA'">
                                                                 <!-- CA - climb to altitude, cannot use pointX, pointX
                                                                     to calculate:
@@ -816,11 +823,11 @@
                                                         <!-- if there is track info, show it-->
                                                         <xsl:if test="not(Track='-')">
                                                             <tspan x="0" dy="0.3em">
-                                                                <xsl:if test="$oneX &lt; ($svg_size div 2)">
+                                                                <xsl:if test="$oneX &lt; ($svg_size_X div 2)">
                                                                     <xsl:text>&lt;</xsl:text>
                                                                 </xsl:if>
                                                                 <xsl:value-of select="substring-before(Track,'(')"/>
-                                                                <xsl:if test="not($oneX &lt; ($svg_size div 2))">
+                                                                <xsl:if test="not($oneX &lt; ($svg_size_X div 2))">
                                                                     <xsl:text>&gt;</xsl:text>
                                                                 </xsl:if>
                                                             </tspan>
@@ -895,7 +902,7 @@
                                             <text>
                                                 <xsl:attribute name="text-anchor">middle</xsl:attribute>
                                                 <xsl:attribute name="alignment-baseline">middle</xsl:attribute>
-                                                <xsl:attribute name="transform">translate(<xsl:value-of select="$svg_size - 20"/>, <xsl:value-of select="$pointY1"/>) rotate(270)</xsl:attribute>
+                                                <xsl:attribute name="transform">translate(<xsl:value-of select="$svg_size_X - 20"/>, <xsl:value-of select="$pointY1"/>) rotate(270)</xsl:attribute>
                                                 <xsl:attribute name="fill">gray</xsl:attribute>
                                                 <xsl:value-of select="$caption_new"/>
                                              </text>
@@ -926,7 +933,7 @@
                                             <text>
                                                 <xsl:attribute name="text-anchor">middle</xsl:attribute>
                                                 <xsl:attribute name="alignment-baseline">middle</xsl:attribute>
-                                                <xsl:attribute name="transform">translate(<xsl:value-of select="$pointX1"/>, <xsl:value-of select="$svg_size - 20"/>) rotate(0)</xsl:attribute>
+                                                <xsl:attribute name="transform">translate(<xsl:value-of select="$pointX1"/>, <xsl:value-of select="$svg_size_Y - 20"/>) rotate(0)</xsl:attribute>
                                                 <xsl:attribute name="fill">gray</xsl:attribute>
                                                 <xsl:value-of select="$caption_new"/>
                                              </text>
@@ -948,7 +955,9 @@
                                             <xsl:variable name="pointX"><xsl:call-template name="pointToPixelX"><xsl:with-param name="coordX" select="Longitude"/></xsl:call-template></xsl:variable>
                                             <xsl:variable name="pointY"><xsl:call-template name="pointToPixelY"><xsl:with-param name="coordY" select="Latitude"/></xsl:call-template></xsl:variable>
                                             <xsl:variable name="pointType"><xsl:value-of select="Type"/></xsl:variable>
-
+                                            <xsl:comment>
+                                                drawing waypoint object (circles, polygons, etc.) for <xsl:value-of select="WPTID"></xsl:value-of>
+                                            </xsl:comment>
                                             <xsl:choose>
                                                 <!-- Waypoint - Compulsory / FlyBy -->
                                                 <xsl:when test="$pointType='WPT-C-FB'">
@@ -1342,6 +1351,6 @@
 
     <xsl:template name="pointToPixelY" match="/Chart">
         <xsl:param name="coordY"/>
-        <xsl:value-of select="$svg_size - floor((math:log(math:tan($coordY * $math_deg_to_rad div 2 + $math_PI div 4)) * $geo_earth_radius) div ($map_zoom)) + $map_offset_Y"/>
+        <xsl:value-of select="$svg_size_Y - floor((math:log(math:tan($coordY * $math_deg_to_rad div 2 + $math_PI div 4)) * $geo_earth_radius) div ($map_zoom)) + $map_offset_Y"/>
     </xsl:template>
 </xsl:stylesheet>

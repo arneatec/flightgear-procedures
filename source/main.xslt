@@ -11,7 +11,7 @@
     <xsl:variable name="svg_size" select="1130"/>
 
     <!-- math constants -->
-    <xsl:variable name="math_PI" select="3.14159265"/>
+    <xsl:variable name="math_PI" select="math:constant('PI', 9)"/>
     <xsl:variable name="math_deg_to_rad"><xsl:value-of select="$math_PI div 180"/></xsl:variable>
 
     <!-- geodesic constants -->

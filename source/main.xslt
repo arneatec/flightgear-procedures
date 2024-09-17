@@ -111,11 +111,17 @@
                                                 </ul>
                                             </div>
                                         </xsl:for-each>
-                                        <div rowspan='3' class="col-3 text-right "><br/><br/>
-                                            <xsl:for-each select="/Chart/Includes/SID_ID">
-                                                <xsl:if test="position() > 1">, </xsl:if>
-                                                <xsl:value-of select="current()"/>
-                                            </xsl:for-each>
+                                        <div class="col-3 font-weight-bold text-right">
+                                            <xsl:value-of select="/Chart/Chart_Type"/><xsl:text> </xsl:text>
+                                            <xsl:value-of select="/Chart/Chart_Object"/><xsl:text> </xsl:text>
+                                            <xsl:value-of select="/Chart/Chart_Object_ID"/><xsl:text> </xsl:text>
+
+                                            <div rowspan='3' class="text-right font-weight-normal"><br/><br/>
+                                                <xsl:for-each select="/Chart/Includes/SID_ID">
+                                                    <xsl:if test="position() > 1">, </xsl:if>
+                                                    <xsl:value-of select="current()"/>
+                                                </xsl:for-each>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

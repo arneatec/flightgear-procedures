@@ -152,6 +152,9 @@
                                             </circle>
                                             -->
                                             <!-- each SID starts with the runway threshold -->
+                                            <xsl:comment>
+                                                drawing lines for <xsl:value-of select="ID"/>
+                                            </xsl:comment>
                                             <path>
                                                 <xsl:attribute name="fill">none</xsl:attribute>
                                                 <xsl:attribute name="stroke">black</xsl:attribute>
@@ -665,10 +668,10 @@
                                                     <!-- no geo_track, we are unable to use the point to print a direction over the path -->
                                                     <xsl:comment>WARN: No geotrack for waypoint <xsl:value-of select="WPTID"/> !</xsl:comment>
                                                 </xsl:if>
-                                                <xsl:if test="not(number($next_pointX) = $next_pointX)">
+                                                <xsl:if test="not(number($next_pointX) = $next_pointX) and $chart_type='SID'">
                                                     <xsl:comment>WARN: No next_pointX (<xsl:value-of select="$next_pointX"/>  ) for waypoint <xsl:value-of select="WPTID"/> , sibling is <xsl:value-of select="current()/following-sibling::Waypoint/WPTID"/>!</xsl:comment>
                                                 </xsl:if>
-                                                <xsl:if test="not(number($next_pointY) = $next_pointY)">
+                                                <xsl:if test="not(number($next_pointY) = $next_pointY) and $chart_type='SID'">
                                                     <xsl:comment>WARN: No next_pointY (<xsl:value-of select="$next_pointY"/>  ) for waypoint <xsl:value-of select="WPTID"/> , sibling is <xsl:value-of select="current()/following-sibling::Waypoint/WPTID"/>!</xsl:comment>
                                                 </xsl:if>
                                                 <xsl:variable name="oneX">
@@ -690,20 +693,20 @@
                                                     <xsl:value-of select="$pointY  + floor($midway_distance_in_pixels * math:sin((($geo_track + 90 - ($map_label_circle_radius div 2)) * $math_deg_to_rad)))"/>
                                                 </xsl:variable>
 
-                                                <xsl:comment>
+                                                <!--
                                                     drawing debug turn circle for <xsl:value-of select="current()/WPTID"/>, next is <xsl:value-of select="current()/following-sibling::Waypoint[1]/WPTID"/>
                                                     turn is: <xsl:value-of select="current()/Turn"/>
                                                     turn_circle_track: <xsl:value-of select="$turn_circle_track"/>
                                                     turn_radius_pixels: <xsl:value-of select="$turn_radius_pixels"/>
                                                     Flyover is: <xsl:value-of select="current()/Flyover"/>
-                                                    ----
+                                                    _________
                                                     pointX: <xsl:value-of select="$pointX"/>
                                                     pointY: <xsl:value-of select="$pointY"/>
                                                     Cx: <xsl:value-of select="$Cx"/>
                                                     Cy: <xsl:value-of select="$Cy"/>
                                                     Cx delta: <xsl:value-of select="$Cx - $pointX"/>
                                                     Cy delta: <xsl:value-of select="$Cy - $pointY"/>
-                                                </xsl:comment>
+                                                -->
                                                  <!-- draw the debug circles -->
                                                 <!--
                                                 <circle>
@@ -725,14 +728,37 @@
                                                 <xsl:variable name="text_display_coord_x">
                                                     <xsl:choose>
                                                         <xsl:when test="number($oneX) = $oneX"><xsl:value-of select="$oneX"/></xsl:when>
-                                                        <xsl:otherwise><xsl:value-of select="$pointX - (($pointX -$previous_pointX) div 2)"/></xsl:otherwise>
+
+                                                        <xsl:otherwise>
+                                                            <xsl:choose>
+                                                                <xsl:when test="$chart_type='SID'">
+                                                                    <xsl:value-of select="$pointX - (($pointX -$previous_pointX) div 2)"/>
+                                                                </xsl:when>
+                                                                <xsl:when test="$chart_type='STAR'">
+                                                                    <xsl:value-of select="$pointX - (($pointX -$next_pointX) div 2)"/>
+                                                                </xsl:when>
+                                                            </xsl:choose>
+                                                        </xsl:otherwise>
+
                                                     </xsl:choose>
                                                 </xsl:variable>
 
                                                 <xsl:variable name="text_display_coord_y">
                                                     <xsl:choose>
                                                         <xsl:when test="number($oneY) = $oneY"><xsl:value-of select="$oneY"/></xsl:when>
-                                                        <xsl:otherwise><xsl:value-of select="$pointY - (($pointY - $previous_pointY) div 2)"/></xsl:otherwise>
+                                                        <xsl:otherwise>
+                                                             <xsl:choose>
+                                                                <xsl:when test="$chart_type='SID'">
+                                                                    <xsl:value-of select="$pointY - (($pointY - $previous_pointY) div 2)"/>
+                                                                </xsl:when>
+                                                                 <xsl:when test="$chart_type='STAR'">
+                                                                    <xsl:value-of select="$pointY - (($pointY - $next_pointY) div 2)"/>
+                                                                </xsl:when>
+                                                                <xsl:otherwise>
+                                                                    WARN : Unknown chart type : <xsl:value-of select="$chart_type"/>
+                                                                </xsl:otherwise>
+                                                             </xsl:choose>
+                                                        </xsl:otherwise>
                                                     </xsl:choose>
                                                 </xsl:variable>
                                                 <xsl:variable name="current_point_latitude">
@@ -742,10 +768,31 @@
                                                     <xsl:value-of select="number($waypoints/Waypoins/Waypoint[ID=current()/WPTID]/Longitude)"/>
                                                 </xsl:variable>
                                                 <xsl:variable name="next_point_latitude">
-                                                    <xsl:value-of select="number($waypoints/Waypoins/Waypoint[ID=current()/preceding-sibling::Waypoint[1]/WPTID]/Latitude)"/>
+                                                    <xsl:choose>
+                                                        <xsl:when test="$chart_type='SID'">
+                                                            <xsl:value-of select="number($waypoints/Waypoins/Waypoint[ID=current()/preceding-sibling::Waypoint[1]/WPTID]/Latitude)"/>
+                                                        </xsl:when>
+                                                        <xsl:when test="$chart_type='STAR'">
+                                                            <xsl:value-of select="number($waypoints/Waypoins/Waypoint[ID=current()/following-sibling::Waypoint[1]/WPTID]/Latitude)"/>
+                                                        </xsl:when>
+                                                        <xsl:otherwise>
+                                                            WARN : Unknown chart type <xsl:value-of select="$chart_type"/>
+                                                        </xsl:otherwise>
+                                                    </xsl:choose>
                                                 </xsl:variable>
+
                                                 <xsl:variable name="next_point_longitude">
-                                                    <xsl:value-of select="number($waypoints/Waypoins/Waypoint[ID=current()/preceding-sibling::Waypoint[1]/WPTID]/Longitude)"/>
+                                                    <xsl:choose>
+                                                        <xsl:when test="$chart_type='SID'">
+                                                            <xsl:value-of select="number($waypoints/Waypoins/Waypoint[ID=current()/preceding-sibling::Waypoint[1]/WPTID]/Longitude)"/>
+                                                        </xsl:when>
+                                                        <xsl:when test="$chart_type='STAR'">
+                                                            <xsl:value-of select="number($waypoints/Waypoins/Waypoint[ID=current()/following-sibling::Waypoint[1]/WPTID]/Longitude)"/>
+                                                        </xsl:when>
+                                                        <xsl:otherwise>
+                                                            WARN : Unknown chart type <xsl:value-of select="$chart_type"/>
+                                                        </xsl:otherwise>
+                                                    </xsl:choose>
                                                 </xsl:variable>
                                                 <xsl:variable name="squared_sin_latitude_delta">
                                                     <xsl:value-of select="number(math:power(math:sin((($next_point_latitude - $current_point_latitude) * $math_deg_to_rad ) div 2), 2))"/>
@@ -779,8 +826,25 @@
                                                             <xsl:attribute name="cy"><xsl:value-of select="$oneY"/></xsl:attribute>
                                                          </xsl:when>
                                                          <xsl:otherwise>
-                                                             <xsl:attribute name="cx"><xsl:value-of select="$pointX - (($pointX -$previous_pointX) div 2)"/></xsl:attribute>
-                                                            <xsl:attribute name="cy"><xsl:value-of select="$pointY - (($pointY - $previous_pointY) div 2)"/></xsl:attribute>
+                                                             <!--
+                                                                unable to draw with point and distance, need to do a poor man's 'coordinate delta' draw
+                                                                we need to establsih if this is a sid or star.
+                                                                if SID, we do this 'previous point'  ; if it is a STAR, it is next point
+                                                                 -->
+                                                             <xsl:choose>
+                                                                 <xsl:when test="$chart_type='SID'">
+                                                                    <xsl:attribute name="cx"><xsl:value-of select="$pointX - (($pointX -$previous_pointX) div 2)"/></xsl:attribute>
+                                                                    <xsl:attribute name="cy"><xsl:value-of select="$pointY - (($pointY - $previous_pointY) div 2)"/></xsl:attribute>
+                                                                 </xsl:when>
+                                                                 <xsl:when test="$chart_type='STAR'">
+                                                                     <xsl:attribute name="cx"><xsl:value-of select="$pointX - (($pointX -$next_pointX) div 2)"/></xsl:attribute>
+                                                                    <xsl:attribute name="cy"><xsl:value-of select="$pointY - (($pointY - $next_pointY) div 2)"/></xsl:attribute>
+                                                                 </xsl:when>
+                                                                 <xsl:otherwise>
+                                                                     WARN : unknown chart type <xsl:value-of select="$chart_type"/>
+                                                                 </xsl:otherwise>
+                                                             </xsl:choose>
+
                                                          </xsl:otherwise>
                                                      </xsl:choose>
                                                     <xsl:attribute name="r"><xsl:value-of select="$map_label_circle_radius"/></xsl:attribute>
@@ -789,7 +853,7 @@
                                                             <xsl:attribute name="fill">white</xsl:attribute>
                                                          </xsl:when>
                                                          <xsl:otherwise>
-                                                             <xsl:attribute name="fill">white</xsl:attribute>
+                                                             <xsl:attribute name="fill">pink</xsl:attribute>
                                                          </xsl:otherwise>
                                                      </xsl:choose>
 

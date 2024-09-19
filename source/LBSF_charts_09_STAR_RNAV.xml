@@ -1259,8 +1259,8 @@
             </Waypoints>
         </SID_Core>
         <SID_Core>
-            <ID>VANET 5D</ID>
-            <Name>VANET FIVE DELTA ARRIVAL</Name>
+            <ID>RUMEN 5D</ID>
+            <Name>RUMEN FIVE DELTA ARRIVAL</Name>
             <ClimbGradientPercent>5.3</ClimbGradientPercent>
             <ClimbGradientFeetPerNM>322</ClimbGradientFeetPerNM>
             <ClimbGradientRestrictionsToFeet>9000</ClimbGradientRestrictionsToFeet>
@@ -1268,7 +1268,7 @@
             <Waypoints>
                 <Waypoint>
                     <PT>IF</PT>
-                    <WPTID>VANET</WPTID>
+                    <WPTID>RUMEN</WPTID>
                     <Flyover>-</Flyover>
                     <Track>-</Track>
                     <DIST>-</DIST>
@@ -1277,12 +1277,23 @@
                     <Altitude>-</Altitude>
                     <Additional>-</Additional>
                 </Waypoint>
+                               <Waypoint>
+                    <PT>TF</PT>
+                    <WPTID>SF434</WPTID>
+                    <Flyover>-</Flyover>
+                    <Track>261°(266.1°T)</Track>
+                    <DIST>8.8</DIST>
+                    <Turn>Right</Turn>
+                    <Speed>--</Speed>
+                    <Altitude>-</Altitude>
+                    <Additional>-</Additional>
+                </Waypoint>
                 <Waypoint>
                     <PT>TF</PT>
-                    <WPTID>SF425</WPTID>
+                    <WPTID>SF430</WPTID>
                     <Flyover>-</Flyover>
-                    <Track>318°(323.5°T)</Track>
-                    <DIST>17.3</DIST>
+                    <Track>270°(275.0°T)</Track>
+                    <DIST>21.7</DIST>
                     <Turn>-</Turn>
                     <Speed>-</Speed>
                     <Altitude>F130+</Altitude>
@@ -1290,10 +1301,10 @@
                 </Waypoint>
                 <Waypoint>
                     <PT>TF</PT>
-                    <WPTID>SF424</WPTID>
+                    <WPTID>SF429</WPTID>
                     <Flyover>-</Flyover>
-                    <Track>318°(323.4°T)</Track>
-                    <DIST>4.0</DIST>
+                    <Track>269°(274.6°T)</Track>
+                    <DIST>9.3</DIST>
                     <Turn>-</Turn>
                     <Speed>-</Speed>
                     <Altitude>A9600+</Altitude>

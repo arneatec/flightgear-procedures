@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:math="http://exslt.org/math"
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:math="http://exslt.org/math"
                 xmlns:xls="http://www.w3.org/1999/XSL/Transform"
                 extension-element-prefixes="math">
     <!-- imports -->
@@ -35,7 +35,7 @@
     <xsl:variable name="map_offset_X_legacy" select="/Chart/Offset_X"/>
     <xsl:variable name="map_offset_Y_legacy" select="/Chart/Offset_Y"/>
 
-    <xsl:variable name="map_base_airport_rwy" select="$airport/Airport/Runways/Runway[ID=/Chart/Chart_Object_ID]"/>
+    <xsl:variable name="map_base_airport_rwy" select="$airport/Airport/Runways/Runway[ID=current()/Chart/Chart_Object_ID]"/>
     <xsl:variable name="map_base_airport_rwy_latitude" select="$map_base_airport_rwy/RunwayThreshold/Latitude"/>
     <xsl:variable name="map_base_airport_rwy_longitude" select="$map_base_airport_rwy/RunwayThreshold/Longitude"/>
     <xsl:variable name="map_base_airport_rwy_length" select="$map_base_airport_rwy/RunwayLenght"/>
@@ -64,6 +64,10 @@
                 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"/>
             </head>
             <body>
+                airport count nodes: <xsl:value-of select="count($airport//*)"/>
+                runwayX : <xsl:value-of select="$runwayX"/>
+                chart_type: <xsl:value-of select="$chart_type"/>
+                    x_map_base_airport_rwy : <xsl:value-of select="$airport/Airport/Runways/Runway[ID=current()/Chart/Chart_Object_ID]"/>
 
                 <div class="container">
                         <div class="row">
@@ -153,7 +157,7 @@
                                             -->
                                             <!-- each SID starts with the runway threshold -->
                                             <xsl:comment>
-                                                drawing lines for <xsl:value-of select="ID"/>
+                                                drawing lines for (<xsl:value-of select="ID"/>)
                                             </xsl:comment>
                                             <path>
                                                 <xsl:attribute name="fill">none</xsl:attribute>
@@ -241,7 +245,7 @@
                                                                         <xsl:value-of select="($track_geo - 180) mod 360"/>
                                                                     </xsl:when>
                                                                     <xsl:otherwise>
-                                                                        WARN : Unable to establish turn direction for <xsl:value-of select="WPTID"/>
+                                                                        WARN : Unable to establish turn direction for (<xsl:value-of select="WPTID"/>)
                                                                     </xsl:otherwise>
                                                                 </xsl:choose>
                                                             </xsl:variable>
@@ -341,7 +345,7 @@
                                                                         0
                                                                     </xsl:when>
                                                                     <xsl:otherwise>
-                                                                        WARN : Unable to establish turn direction for <xsl:value-of select="WPTID"/>
+                                                                        WARN : Unable to establish turn direction for (<xsl:value-of select="WPTID"/>)
                                                                     </xsl:otherwise>
                                                                 </xsl:choose>
                                                             </xsl:variable>
@@ -355,7 +359,7 @@
                                                                         <xsl:value-of select="$T2x"/>
                                                                     </xsl:when>
                                                                     <xsl:otherwise>
-                                                                        WARN : Unable to establish turn direction for <xsl:value-of select="WPTID"/>
+                                                                        WARN : Unable to establish turn direction for (<xsl:value-of select="WPTID"/>)
                                                                     </xsl:otherwise>
                                                                 </xsl:choose>
                                                             </xsl:variable>
@@ -369,7 +373,7 @@
                                                                         <xsl:value-of select="$T2y"/>
                                                                     </xsl:when>
                                                                     <xsl:otherwise>
-                                                                        WARN : Unable to establish turn direction for <xsl:value-of select="WPTID"/>
+                                                                        WARN : Unable to establish turn direction for (<xsl:value-of select="WPTID"/>)
                                                                     </xsl:otherwise>
                                                                 </xsl:choose>
                                                             </xsl:variable>
@@ -444,7 +448,7 @@
                                             </path>
                                             <!-- sid track balloon, text, etc-->
                                             <xsl:for-each select="Waypoints/Waypoint">
-                                                <xsl:comment>track for waypoint <xsl:value-of select="WPTID"/></xsl:comment>
+                                                <xsl:comment>track for waypoint (<xsl:value-of select="WPTID"/>)</xsl:comment>
                                                 <xsl:variable name="pointX"><xsl:call-template name="pointToPixelX"><xsl:with-param name="coordX" select="$waypoints/Waypoins/Waypoint[ID=current()/WPTID]/Longitude"/></xsl:call-template></xsl:variable>
                                                 <xsl:variable name="pointY"><xsl:call-template name="pointToPixelY"><xsl:with-param name="coordY" select="$waypoints/Waypoins/Waypoint[ID=current()/WPTID]/Latitude"/></xsl:call-template></xsl:variable>
 
@@ -529,7 +533,7 @@
                                                             <xsl:value-of select="($track_geo - 180) mod 360"/>
                                                         </xsl:when>
                                                         <xsl:otherwise>
-                                                            WARN : Unable to establish turn direction for <xsl:value-of select="WPTID"/>
+                                                            WARN : Unable to establish turn direction for (<xsl:value-of select="WPTID"/>)
                                                         </xsl:otherwise>
                                                     </xsl:choose>
                                                 </xsl:variable>
@@ -628,7 +632,7 @@
                                                             0
                                                         </xsl:when>
                                                         <xsl:otherwise>
-                                                            WARN : Unable to establish turn direction for <xsl:value-of select="WPTID"/>
+                                                            WARN : Unable to establish turn direction for (<xsl:value-of select="WPTID"/>)
                                                         </xsl:otherwise>
                                                     </xsl:choose>
                                                 </xsl:variable>
@@ -642,7 +646,7 @@
                                                             <xsl:value-of select="$T2x"/>
                                                         </xsl:when>
                                                         <xsl:otherwise>
-                                                            WARN : Unable to establish turn direction for <xsl:value-of select="WPTID"/>
+                                                            WARN : Unable to establish turn direction for (<xsl:value-of select="WPTID"/>)
                                                         </xsl:otherwise>
                                                     </xsl:choose>
                                                 </xsl:variable>
@@ -656,7 +660,7 @@
                                                             <xsl:value-of select="$T2y"/>
                                                         </xsl:when>
                                                         <xsl:otherwise>
-                                                            WARN : Unable to establish turn direction for <xsl:value-of select="WPTID"/>
+                                                            WARN : Unable to establish turn direction for (<xsl:value-of select="WPTID"/>)
                                                         </xsl:otherwise>
                                                     </xsl:choose>
                                                 </xsl:variable>
@@ -665,13 +669,13 @@
                                                 <!-- check that $geo_track contains a number (a valid track to this point) -->
                                                 <xsl:if test="not(number($geo_track) = $geo_track)">
                                                     <!-- no geo_track, we are unable to use the point to print a direction over the path -->
-                                                    <xsl:comment>WARN: No geotrack for waypoint <xsl:value-of select="WPTID"/> !</xsl:comment>
+                                                    <xsl:comment>WARN: No geotrack for waypoint (<xsl:value-of select="WPTID"/>) !</xsl:comment>
                                                 </xsl:if>
                                                 <xsl:if test="not(number($next_pointX) = $next_pointX) and $chart_type='SID'">
-                                                    <xsl:comment>WARN: No next_pointX (<xsl:value-of select="$next_pointX"/>  ) for waypoint <xsl:value-of select="WPTID"/> , sibling is <xsl:value-of select="current()/following-sibling::Waypoint/WPTID"/>!</xsl:comment>
+                                                    <xsl:comment>WARN: No next_pointX (<xsl:value-of select="$next_pointX"/>  ) for waypoint (<xsl:value-of select="WPTID"/>) , sibling is <xsl:value-of select="current()/following-sibling::Waypoint/WPTID"/>!</xsl:comment>
                                                 </xsl:if>
                                                 <xsl:if test="not(number($next_pointY) = $next_pointY) and $chart_type='SID'">
-                                                    <xsl:comment>WARN: No next_pointY (<xsl:value-of select="$next_pointY"/>  ) for waypoint <xsl:value-of select="WPTID"/> , sibling is <xsl:value-of select="current()/following-sibling::Waypoint/WPTID"/>!</xsl:comment>
+                                                    <xsl:comment>WARN: No next_pointY (<xsl:value-of select="$next_pointY"/>  ) for waypoint (<xsl:value-of select="WPTID"/>) , sibling is <xsl:value-of select="current()/following-sibling::Waypoint/WPTID"/>!</xsl:comment>
                                                 </xsl:if>
                                                 <xsl:variable name="oneX">
                                                     <xsl:value-of select="$pointX - floor($midway_distance_in_pixels * math:cos((($geo_track - 90 ) * $math_deg_to_rad)))"/>
@@ -844,6 +848,7 @@
                                                          <xsl:otherwise>
                                                              <!--
                                                                 unable to draw with point and distance, need to do a poor man's 'coordinate delta' draw
+
                                                                  -->
                                                             <xsl:attribute name="cx"><xsl:value-of select="$pointX - (($pointX - $other_point_X) div 2)"/></xsl:attribute>
                                                             <xsl:attribute name="cy"><xsl:value-of select="$pointY - (($pointY - $other_point_Y) div 2)"/></xsl:attribute>
@@ -862,7 +867,7 @@
                                                     <xsl:attribute name="stroke">none</xsl:attribute>
                                                 </circle>
                                                 <xsl:comment>
-                                                    text for track/dist for <xsl:value-of select="current()/WPTID"/>
+                                                    text for track/dist for (<xsl:value-of select="current()/WPTID"/>)
                                                 </xsl:comment>
                                                 <!-- track and direction text -->
                                                 <text>
@@ -901,8 +906,14 @@
                                                     <tspan>
                                                         <xsl:attribute name="x">0</xsl:attribute>
                                                         <xsl:attribute name="dy"><xsl:choose><xsl:when test="Track='-'">0.0em </xsl:when><xsl:otherwise>0.8em</xsl:otherwise></xsl:choose></xsl:attribute>
+                                                        <xsl:comment>
+                                                            DIST: <xsl:value-of select="DIST"></xsl:value-of>
+                                                            result_NM: <xsl:value-of select="result_NM"></xsl:value-of>
+                                                            number(DIST) = DIST: <xsl:value-of select="number(DIST) = DIST"></xsl:value-of>
+                                                        </xsl:comment>
+
                                                         <xsl:choose>
-                                                            <xsl:when test="number(DIST) = DIST">
+                                                            <xsl:when test="not(DIST='-')">
                                                                 <xsl:value-of select="DIST"/>
                                                             </xsl:when>
                                                             <xsl:otherwise>
@@ -936,7 +947,7 @@
                                                         <xsl:attribute name="fill">black</xsl:attribute>
                                                     </polygon>
                                                 </xsl:if>
-                                                 <xsl:comment>END track for waypoint <xsl:value-of select="WPTID"/></xsl:comment>
+                                                 <xsl:comment>END track for waypoint (<xsl:value-of select="WPTID"/>)</xsl:comment>
                                             </xsl:for-each>
                                         </xsl:for-each>
                                         <xsl:comment>
@@ -1018,12 +1029,12 @@
                                         -->
 
                                         <!-- waypoints related to this chart (filtered )-->
-                                        <xsl:for-each select="$waypoints/Waypoins/Waypoint[Charts/ChartSubType=/Chart/SubType]">
+                                        <xsl:for-each select="$waypoints/Waypoins/Waypoint[Charts/ChartSubType=current()/Chart/SubType]">
                                             <xsl:variable name="pointX"><xsl:call-template name="pointToPixelX"><xsl:with-param name="coordX" select="Longitude"/></xsl:call-template></xsl:variable>
                                             <xsl:variable name="pointY"><xsl:call-template name="pointToPixelY"><xsl:with-param name="coordY" select="Latitude"/></xsl:call-template></xsl:variable>
                                             <xsl:variable name="pointType"><xsl:value-of select="Type"/></xsl:variable>
                                             <xsl:comment>
-                                                drawing waypoint object (circles, polygons, etc.) for <xsl:value-of select="WPTID"></xsl:value-of>
+                                                drawing waypoint object (circles, polygons, etc.) for (<xsl:value-of select="WPTID"></xsl:value-of>)
                                             </xsl:comment>
                                             <xsl:choose>
                                                 <!-- Waypoint - Compulsory / FlyBy -->

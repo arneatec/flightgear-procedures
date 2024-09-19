@@ -218,20 +218,295 @@
 
     <xsl:template name="svg_waypoint_and_text" match="/Chart">
         <xsl:param name="waypoint_node"/>
-        <circle>
-            <xsl:attribute name="cx">90</xsl:attribute>
-            <xsl:attribute name="cy">150</xsl:attribute>
-            <xsl:attribute name="r">5</xsl:attribute>
-            <xsl:attribute name="fill">green</xsl:attribute>
-            <xsl:attribute name="stroke">none</xsl:attribute>
-        </circle>
-        <text>
-            <xsl:attribute name="x">90</xsl:attribute>
-            <xsl:attribute name="y">170</xsl:attribute>
-            <xsl:attribute name="fill">black</xsl:attribute>
-            <xsl:attribute name="stroke">black</xsl:attribute>
-            Waypoint
-        </text>
+
+        <xsl:variable name="pointX"><xsl:call-template name="pointToPixelX"><xsl:with-param name="coordX" select="$waypoint_node/Longitude"/></xsl:call-template></xsl:variable>
+        <xsl:variable name="pointY"><xsl:call-template name="pointToPixelY"><xsl:with-param name="coordY" select="$waypoint_node/Latitude"/></xsl:call-template></xsl:variable>
+        <xsl:variable name="pointType"><xsl:value-of select="current()/Type"/></xsl:variable>
+
+        <xsl:choose>
+            <!-- Waypoint - Compulsory / FlyBy -->
+            <xsl:when test="$pointType='WPT-C-FB'">
+                <polygon>
+                    <xsl:attribute name="points">
+                        <xsl:value-of select="$pointX - 10"/>,<xsl:value-of select="$pointY + 10">
+                        </xsl:value-of><xsl:text>
+                        </xsl:text><xsl:value-of select="$pointX"/>,<xsl:value-of select="$pointY - 10"/>
+                        <xsl:text> </xsl:text>
+                        <xsl:value-of select="$pointX + 10"/>,<xsl:value-of select="$pointY + 10"/>
+                    </xsl:attribute>
+                </polygon>
+            </xsl:when>
+            <!-- Waypoint - On Request / (FlyBy or Flyover) -->
+            <xsl:when test="$pointType='WPT-OR-FB' or $pointType='WPT-OR-FO'">
+                <!-- polygon -->
+                <polygon>
+                    <xsl:attribute name="points">
+                        <xsl:value-of select="$pointX"/>,<xsl:value-of select="$pointY + 15"/>
+                        <xsl:text> </xsl:text>
+                        <xsl:value-of select="$pointX - 5"/>,<xsl:value-of select="$pointY + 5"/>
+                        <xsl:text> </xsl:text>
+                        <xsl:value-of select="$pointX - 15"/>,<xsl:value-of select="$pointY"/>
+                        <xsl:text> </xsl:text>
+                        <xsl:value-of select="$pointX - 5"/>,<xsl:value-of select="$pointY - 5"/>
+                        <xsl:text> </xsl:text>
+                        <xsl:value-of select="$pointX"/>,<xsl:value-of select="$pointY - 15"/>
+                        <xsl:text> </xsl:text>
+                        <xsl:value-of select="$pointX + 5"/>,<xsl:value-of select="$pointY - 5"/>
+                        <xsl:text> </xsl:text>
+                        <xsl:value-of select="$pointX + 15"/>,<xsl:value-of select="$pointY"/>
+                        <xsl:text> </xsl:text>
+                        <xsl:value-of select="$pointX + 5"/>,<xsl:value-of select="$pointY + 5"/>
+                    </xsl:attribute>
+                    <xsl:attribute name="stroke">black</xsl:attribute>
+                    <xsl:attribute name="fill">
+                        <xsl:choose>
+                            <xsl:when test="$pointType='WPT-OR-FB'">
+                                <!-- fly-by nodes are transparent -->
+                                none
+                            </xsl:when>
+                            <xsl:when test="$pointType='WPT-OR-FO'">
+                                <!-- fly-over nodes are black -->
+                                black
+                            </xsl:when>
+                        </xsl:choose>
+                    </xsl:attribute>
+
+                </polygon>
+                <circle>
+                    <xsl:attribute name="cx"><xsl:value-of select="$pointX"/></xsl:attribute>
+                    <xsl:attribute name="cy"><xsl:value-of select="$pointY"/></xsl:attribute>
+                    <xsl:attribute name="r">7</xsl:attribute>
+                    <xsl:attribute name="fill">white</xsl:attribute>
+                    <xsl:attribute name="stroke">black</xsl:attribute>
+                </circle>
+                <xsl:if test="$pointType='WPT-OR-FO'">
+                    <circle>
+                        <xsl:attribute name="cx"><xsl:value-of select="$pointX"/></xsl:attribute>
+                        <xsl:attribute name="cy"><xsl:value-of select="$pointY"/></xsl:attribute>
+                        <xsl:attribute name="r">15</xsl:attribute>
+                        <xsl:attribute name="fill">none</xsl:attribute>
+                        <xsl:attribute name="stroke">black</xsl:attribute>
+                    </circle>
+                </xsl:if>
+            </xsl:when>
+            <!-- VOR/DME - On Request / FlyBy -->
+            <xsl:when test="$pointType='VOR-DME-OR-FB'">
+                <circle>
+                    <xsl:attribute name="cx"><xsl:value-of select="$pointX"/></xsl:attribute>
+                    <xsl:attribute name="cy"><xsl:value-of select="$pointY"/></xsl:attribute>
+                    <xsl:attribute name="r">2</xsl:attribute>
+                </circle>
+                <!-- vor/dme rectangle -->
+                <polygon>
+                    <xsl:attribute name="points">
+                        <xsl:value-of select="$pointX - $element_vor_rectangle_x_side"/>,<xsl:value-of select="$pointY + $element_vor_rectangle_y_side"/>
+                        <xsl:text> </xsl:text>
+                        <xsl:value-of select="$pointX - $element_vor_rectangle_x_side"/>,<xsl:value-of select="$pointY - $element_vor_rectangle_y_side"/>
+                        <xsl:text> </xsl:text>
+                        <xsl:value-of select="$pointX + $element_vor_rectangle_x_side"/>,<xsl:value-of select="$pointY - $element_vor_rectangle_y_side"/>
+                        <xsl:text> </xsl:text>
+                        <xsl:value-of select="$pointX + $element_vor_rectangle_x_side"/>,<xsl:value-of select="$pointY + $element_vor_rectangle_y_side"/>
+                    </xsl:attribute>
+                    <xsl:attribute name="stroke">black</xsl:attribute>
+                    <xsl:attribute name="fill">none</xsl:attribute>
+                </polygon>
+                <!-- polygon -->
+                <polygon>
+                    <xsl:attribute name="points">
+                        <xsl:value-of select="$pointX - 5"/>,<xsl:value-of select="$pointY + $element_vor_rectangle_y_side"/>
+                        <xsl:text> </xsl:text>
+                        <xsl:value-of select="$pointX - $element_vor_rectangle_x_side"/>,<xsl:value-of select="$pointY"/>
+                        <xsl:text> </xsl:text>
+                        <xsl:value-of select="$pointX - 5"/>,<xsl:value-of select="$pointY - $element_vor_rectangle_y_side"/>
+                        <xsl:text> </xsl:text>
+                        <xsl:value-of select="$pointX + 5"/>,<xsl:value-of select="$pointY - $element_vor_rectangle_y_side"/>
+                        <xsl:text> </xsl:text>
+                        <xsl:value-of select="$pointX + $element_vor_rectangle_x_side"/>,<xsl:value-of select="$pointY"/>
+                        <xsl:text> </xsl:text>
+                        <xsl:value-of select="$pointX + 5"/>,<xsl:value-of select="$pointY + $element_vor_rectangle_y_side"/>
+                    </xsl:attribute>
+                    <xsl:attribute name="stroke">black</xsl:attribute>
+                    <xsl:attribute name="fill">none</xsl:attribute>
+                </polygon>
+                <text>
+                    <xsl:attribute name="x"><xsl:value-of select="$pointX - 50"/></xsl:attribute>
+                    <xsl:attribute name="y"><xsl:value-of select="$pointY - 60"/></xsl:attribute>
+                    <xsl:value-of select="Name"/>
+                </text>
+                <text>
+                    <xsl:attribute name="x"><xsl:value-of select="$pointX - 50"/></xsl:attribute>
+                    <xsl:attribute name="y"><xsl:value-of select="$pointY - 47"/></xsl:attribute>
+                    <xsl:value-of select="Frequency"/><xsl:text> </xsl:text><xsl:value-of select="ID"/><xsl:text> </xsl:text><xsl:value-of select="Additional"/>
+                </text>
+                <text>
+                    <xsl:attribute name="x"><xsl:value-of select="$pointX - 50"/></xsl:attribute>
+                    <xsl:attribute name="y"><xsl:value-of select="$pointY - 34"/></xsl:attribute>
+                    <xsl:attribute name="fosnt-weight">bold</xsl:attribute>
+                    <xsl:value-of select="MorseCodeSigns"/>
+                </text>
+                <text>
+                    <xsl:attribute name="x"><xsl:value-of select="$pointX - 50"/></xsl:attribute>
+                    <xsl:attribute name="y"><xsl:value-of select="$pointY - 22"/></xsl:attribute>
+                    ELEV <xsl:value-of select="Elevation"/>
+                </text>
+            </xsl:when>
+            <!-- secondary airports -->
+            <xsl:when test="$pointType='Airport'">
+                <xsl:variable name="seconday_runway_direction">
+                    <xsl:value-of select="Runway * 10"/>
+                </xsl:variable>
+                <circle>
+                    <xsl:attribute name="cx"><xsl:value-of select="$pointX"/></xsl:attribute>
+                    <xsl:attribute name="cy"><xsl:value-of select="$pointY"/></xsl:attribute>
+                    <xsl:attribute name="r"><xsl:value-of select="$map_secondary_airport_radius"/></xsl:attribute>
+                    <xsl:attribute name="stroke">black</xsl:attribute>
+                    <xsl:attribute name="fill">none</xsl:attribute>
+                </circle>
+               <line>
+                    <xsl:attribute name="x1"><xsl:value-of select="$pointX - floor($map_secondary_airport_runway_length * math:cos(($seconday_runway_direction - 90) * $math_deg_to_rad))"/></xsl:attribute>
+                    <xsl:attribute name="y1"><xsl:value-of select="$pointY + floor($map_secondary_airport_runway_length * math:sin(($seconday_runway_direction + 90) * $math_deg_to_rad))"/></xsl:attribute>
+                    <xsl:attribute name="x2"><xsl:value-of select="$pointX + floor($map_secondary_airport_runway_length * math:cos(($seconday_runway_direction - 90) * $math_deg_to_rad))"/></xsl:attribute>
+                    <xsl:attribute name="y2"><xsl:value-of select="$pointY - floor($map_secondary_airport_runway_length * math:sin(($seconday_runway_direction + 90) * $math_deg_to_rad))"/></xsl:attribute>
+                    <xsl:attribute name="stroke">black</xsl:attribute>
+                    <xsl:attribute name="stroke-width">2</xsl:attribute>
+               </line>
+            </xsl:when>
+            <!-- inactive secondary airports -->
+            <xsl:when test="$pointType='Airport-Inactive'">
+                <circle>
+                    <xsl:attribute name="cx"><xsl:value-of select="$pointX"/></xsl:attribute>
+                    <xsl:attribute name="cy"><xsl:value-of select="$pointY"/></xsl:attribute>
+                    <xsl:attribute name="r"><xsl:value-of select="$map_secondary_airport_radius"/></xsl:attribute>
+                    <xsl:attribute name="stroke">black</xsl:attribute>
+                    <xsl:attribute name="fill">none</xsl:attribute>
+                </circle>
+                <!-- text in the center of the circle (note div 2) -->
+               <text>
+                   <xsl:attribute name="x"><xsl:value-of select="$pointX - ($map_secondary_airport_radius div 2)"/></xsl:attribute>
+                   <xsl:attribute name="y"><xsl:value-of select="$pointY + ($map_secondary_airport_radius div 2)"/></xsl:attribute>
+                   <xsl:text>x</xsl:text>
+               </text>
+            </xsl:when>
+             <!-- inactive secondary airports -->
+            <xsl:when test="$pointType='Helipad'">
+                <circle>
+                    <xsl:attribute name="cx"><xsl:value-of select="$pointX"/></xsl:attribute>
+                    <xsl:attribute name="cy"><xsl:value-of select="$pointY"/></xsl:attribute>
+                    <xsl:attribute name="r"><xsl:value-of select="$map_secondary_airport_radius"/></xsl:attribute>
+                    <xsl:attribute name="stroke">black</xsl:attribute>
+                    <xsl:attribute name="fill">none</xsl:attribute>
+                </circle>
+                <!-- text in the center of rectangle (note the div 2) -->
+               <text>
+                   <xsl:attribute name="x"><xsl:value-of select="$pointX - ($element_vor_rectangle_x_side div 2)"/></xsl:attribute>
+                   <xsl:attribute name="y"><xsl:value-of select="$pointY + ($element_vor_rectangle_y_side div 2)"/></xsl:attribute>
+                   <xsl:text>H</xsl:text>
+               </text>
+            </xsl:when>
+            <!-- base airport -->
+            <xsl:when test="$pointType='BaseAirport'">
+                <polygon>
+                    <xsl:attribute name="points">
+                        <xsl:for-each select="PolygonPoints/PolygonPoint">
+                            <xsl:variable name="base_airport_polygon_X"><xsl:call-template name="pointToPixelX"><xsl:with-param name="coordX" select="Longitude"/></xsl:call-template></xsl:variable>
+                            <xsl:variable name="base_airport_polygon_Y"><xsl:call-template name="pointToPixelY"><xsl:with-param name="coordY" select="Latitude"/></xsl:call-template></xsl:variable>
+                            <xsl:value-of select="$base_airport_polygon_X"/>,<xsl:value-of select="$base_airport_polygon_Y"/><xsl:text> </xsl:text>
+                        </xsl:for-each>
+                    </xsl:attribute>
+                    <xsl:attribute name="fill">gray</xsl:attribute>
+                    <xsl:attribute name="stroke">gray</xsl:attribute>
+                </polygon>
+
+               <line>
+                    <xsl:attribute name="x1"><xsl:value-of select="$runwayX"/></xsl:attribute>
+                    <xsl:attribute name="y1"><xsl:value-of select="$runwayY"/></xsl:attribute>
+
+                    <xsl:attribute name="x2">
+                        <xsl:value-of select="$runwayX - floor($runway_length * math:cos((($map_base_airport_rwy_direction - 90 ) * $math_deg_to_rad)))"/>
+                    </xsl:attribute>
+                   <!--
+                    <xsl:attribute name="x2"><xsl:value-of select="$runwayX + floor((((($map_base_airport_rwy_length * $geo_nm_in_meters) div $map_zoom) div 2) div math:cos($waypoints/Waypoins/Waypoint[ID=current()/WPTID]/Latitude * $math_deg_to_rad))  * math:cos(($map_base_airport_rwy_direction + 90) * $math_deg_to_rad))"/></xsl:attribute>
+                    -->
+                    <xsl:attribute name="y2"><xsl:value-of select="$runwayY - floor(($map_base_airport_rwy_length  div $map_zoom )  * math:sin(($map_base_airport_rwy_direction - 90) * $math_deg_to_rad))"/></xsl:attribute>
+                    <xsl:attribute name="stroke">white</xsl:attribute>
+                    <xsl:attribute name="stroke-width">2</xsl:attribute>
+               </line>
+            </xsl:when>
+            <!-- MSA -->
+            <xsl:when test="$pointType='MSA'">
+                <circle>
+                    <xsl:attribute name="cx"><xsl:value-of select="$pointX"/></xsl:attribute>
+                    <xsl:attribute name="cy"><xsl:value-of select="$pointY"/></xsl:attribute>
+                    <xsl:attribute name="r">2</xsl:attribute>
+                </circle>
+                <!-- square -->
+                <polygon>
+                    <xsl:attribute name="points">
+                        <xsl:value-of select="$pointX - $element_vor_rectangle_x_side"/>,<xsl:value-of select="$pointY + $element_vor_rectangle_y_side"/>
+                        <xsl:text> </xsl:text>
+                        <xsl:value-of select="$pointX - $element_vor_rectangle_x_side"/>,<xsl:value-of select="$pointY - $element_vor_rectangle_y_side"/>
+                        <xsl:text> </xsl:text>
+                        <xsl:value-of select="$pointX + $element_vor_rectangle_x_side"/>,<xsl:value-of select="$pointY - $element_vor_rectangle_y_side"/>
+                        <xsl:text> </xsl:text>
+                        <xsl:value-of select="$pointX + $element_vor_rectangle_x_side"/>,<xsl:value-of select="$pointY + $element_vor_rectangle_y_side"/>
+                    </xsl:attribute>
+                    <xsl:attribute name="stroke">black</xsl:attribute>
+                    <xsl:attribute name="fill">none</xsl:attribute>
+                </polygon>
+                <!-- polygon -->
+                <polygon>
+                    <xsl:attribute name="points">
+                        <xsl:value-of select="$pointX - 5"/>,<xsl:value-of select="$pointY + $element_vor_rectangle_y_side"/>
+                        <xsl:text> </xsl:text>
+                        <xsl:value-of select="$pointX - $element_vor_rectangle_x_side"/>,<xsl:value-of select="$pointY"/>
+                        <xsl:text> </xsl:text>
+                        <xsl:value-of select="$pointX - 5"/>,<xsl:value-of select="$pointY - $element_vor_rectangle_y_side"/>
+                        <xsl:text> </xsl:text>
+                        <xsl:value-of select="$pointX + 5"/>,<xsl:value-of select="$pointY - $element_vor_rectangle_y_side"/>
+                        <xsl:text> </xsl:text>
+                        <xsl:value-of select="$pointX + $element_vor_rectangle_x_side"/>,<xsl:value-of select="$pointY"/>
+                        <xsl:text> </xsl:text>
+                        <xsl:value-of select="$pointX + 5"/>,<xsl:value-of select="$pointY + $element_vor_rectangle_y_side"/>
+                    </xsl:attribute>
+                    <xsl:attribute name="stroke">black</xsl:attribute>
+                    <xsl:attribute name="fill">none</xsl:attribute>
+                </polygon>
+                <circle>
+                    <xsl:attribute name="cx"><xsl:value-of select="$pointX"/></xsl:attribute>
+                    <xsl:attribute name="cy"><xsl:value-of select="$pointY"/></xsl:attribute>
+                    <xsl:attribute name="r"><xsl:value-of select="$element_msa_outer_circle"/></xsl:attribute>
+                    <xsl:attribute name="fill">none</xsl:attribute>
+                    <xsl:attribute name="stroke">black</xsl:attribute>
+                </circle>
+            </xsl:when>
+        </xsl:choose>
+        <!-- do not output text for specific types that supply their own, non-generic captions) -->
+        <xsl:if test="not($pointType='VOR-DME-OR-FB')">
+            <!-- waypoint ID text -->
+            <text>
+                <xsl:attribute name="x">
+                    <xsl:choose>
+                        <xls:when test="CaptionOffset">
+                            <xsl:value-of select="$pointX  + CaptionOffset/X"/>
+                        </xls:when>
+                        <xsl:otherwise>
+                            <xsl:value-of select="$pointX + 15"/>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:attribute>
+                <xsl:attribute name="y">
+                    <xsl:choose>
+                        <xls:when test="CaptionOffset">
+                            <xsl:value-of select="$pointY  + CaptionOffset/Y"/>
+                        </xls:when>
+                        <xsl:otherwise>
+                            <xsl:value-of select="$pointY + 15"/>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:attribute>
+                <xsl:value-of select="ID"/>
+            </text>
+        </xsl:if>
     </xsl:template>
 
 

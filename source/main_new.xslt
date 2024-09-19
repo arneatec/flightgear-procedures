@@ -479,6 +479,9 @@
                     <xsl:attribute name="stroke">black</xsl:attribute>
                 </circle>
             </xsl:when>
+            <xsl:otherwise>
+                WARNING : Unknown waypoint type '<xsl:value-of select="$pointType"/>' for waypoint '<xsl:value-of select="WPTID"/>'
+            </xsl:otherwise>
         </xsl:choose>
         <!-- do not output text for specific types that supply their own, non-generic captions) -->
         <xsl:if test="not($pointType='VOR-DME-OR-FB')">

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:math="http://exslt.org/math"
-                xmlns:xls="http://www.w3.org/1999/XSL/Transform"
+                xmlns:xls="http://www.w3.org/1999/XSL/Transform" xmlns:csl="http://www.w3.org/1999/XSL/Transform"
                 extension-element-prefixes="math">
     <!-- imports -->
     <xsl:variable name="airport" select="document('LBSF_airport.xml')"/>
@@ -140,13 +140,15 @@
 
                                         <!-- LAYER 2 : SID/STAR paths -->
                                         <xsl:for-each select="/Chart/SID_Page/SID_Core">
-                                            <xsl:call-template name="svg_path_for_sid_star">
+                                            <xsl:call-template name="svg_path_or_text_for_sid_star">
                                                     <xsl:with-param name="sid_star_node" select="current()"/>
+                                                    <xsl:with-param name="return_type" select="'Path'"/>
                                             </xsl:call-template>
 
                                             <!-- LAYER 3 : SID/STAR text -->
-                                            <xsl:call-template name="svg_text_for_sid_star">
+                                            <xsl:call-template name="svg_path_or_text_for_sid_star">
                                                     <xsl:with-param name="sid_star_node" select="current()"/>
+                                                    <xsl:with-param name="return_type" select="'Text'"/>
                                             </xsl:call-template>
                                         </xsl:for-each>
 
@@ -184,18 +186,44 @@
         <xsl:value-of select="$svg_size_Y - floor((math:log(math:tan($coordY * $math_deg_to_rad div 2 + $math_PI div 4)) * $geo_earth_radius) div ($map_zoom)) + $map_offset_Y"/>
     </xsl:template>
 
-    <xsl:template name="svg_path_for_sid_star" match="/Chart">
+    <xsl:template name="svg_path_or_text_for_sid_star" match="/Chart">
         <xsl:param name="sid_star_node"/>
-        <path>
-            <xsl:attribute name="fill">none</xsl:attribute>
-            <xsl:attribute name="stroke">black</xsl:attribute>
-            <xsl:attribute name="stroke-width">2</xsl:attribute>
-            <xsl:attribute name="d">
-                M 500 500
-                L 100 100
-                L 200 200
-            </xsl:attribute>
-        </path>
+        <xsl:param name="return_type"/>
+
+        <xsl:choose>
+            <xsl:when test="$return_type='Path'">
+                <path>
+                    <xsl:attribute name="fill">none</xsl:attribute>
+                    <xsl:attribute name="stroke">green</xsl:attribute>
+                    <xsl:attribute name="stroke-width">2</xsl:attribute>
+                    <xsl:attribute name="d">
+                        <xsl:for-each select="$sid_star_node/Waypoints/Waypoint">
+                            <xsl:call-template name="svg_point_to_objects">
+                                <xsl:with-param name="sid_star_node" select="current()"/>
+                                <xsl:with-param name="return_type" select="'Path'"/>
+                            </xsl:call-template>
+                        </xsl:for-each>
+                        <!--
+                        L 100 100
+                        L 200 200
+                        -->
+                    </xsl:attribute>
+                </path>
+            </xsl:when>
+            <xsl:when test="$return_type='Text'">
+                <xsl:for-each select="$sid_star_node/Waypoints/Waypoint">
+                    <xsl:call-template name="svg_point_to_objects">
+                        <xsl:with-param name="sid_star_node" select="current()"/>
+                        <xsl:with-param name="return_type" select="'Text'"/>
+                    </xsl:call-template>
+                </xsl:for-each>
+            </xsl:when>
+            <xsl:otherwise>
+                WARNING : Unknown return type '<xsl:value-of select="$return_type"/>' in svg_path_or_text_for_sid_star
+            </xsl:otherwise>
+        </xsl:choose>
+
+
     </xsl:template>
 
     <xsl:template name="svg_text_for_sid_star" match="/Chart">
@@ -512,7 +540,6 @@
         </xsl:if>
     </xsl:template>
 
-
     <xsl:template name="draw_map_lines" match="/Chart">
         <xsl:for-each select="$maplines/MapLines/Lines/LatitudeLines/LatitudeLine">
             <xsl:variable name="pointX1"><xsl:call-template name="pointToPixelX"><xsl:with-param name="coordX" select="$maplines/MapLines/ZoneLimits/Longitude_Start"/></xsl:call-template></xsl:variable>
@@ -578,4 +605,610 @@
         </xsl:for-each>
     </xsl:template>
 
+    <xsl:template name="svg_point_to_objects" match="/Chart">
+        <!-- returns a properly formated svg path or a set of svg object representing the required property of the waypoint -->
+        <!-- the return can be :
+            * Path - a path describing the SID
+            * Text - a set of objects describing the track and distance
+
+          -->
+        <xsl:param name="sid_star_node"/>
+        <xsl:param name="return_type"/>
+
+        <xsl:variable name="pointX"><xsl:call-template name="pointToPixelX"><xsl:with-param name="coordX" select="$waypoints/Waypoins/Waypoint[ID=current()/WPTID]/Longitude"/></xsl:call-template></xsl:variable>
+        <xsl:variable name="pointY"><xsl:call-template name="pointToPixelY"><xsl:with-param name="coordY" select="$waypoints/Waypoins/Waypoint[ID=current()/WPTID]/Latitude"/></xsl:call-template></xsl:variable>
+        <xsl:variable name="next_pointX"><xsl:call-template name="pointToPixelX"><xsl:with-param name="coordX" select="$waypoints/Waypoins/Waypoint[ID=current()/following-sibling::Waypoint[1]/WPTID]/Longitude"/></xsl:call-template></xsl:variable>
+        <xsl:variable name="next_pointY"><xsl:call-template name="pointToPixelY"><xsl:with-param name="coordY" select="$waypoints/Waypoins/Waypoint[ID=current()/following-sibling::Waypoint[1]/WPTID]/Latitude"/></xsl:call-template></xsl:variable>
+        <xsl:variable name="previous_pointX"><xsl:call-template name="pointToPixelX"><xsl:with-param name="coordX" select="$waypoints/Waypoins/Waypoint[ID=current()/preceding-sibling::Waypoint[1]/WPTID]/Longitude"/></xsl:call-template></xsl:variable>
+        <xsl:variable name="previous_pointY"><xsl:call-template name="pointToPixelY"><xsl:with-param name="coordY" select="$waypoints/Waypoins/Waypoint[ID=current()/preceding-sibling::Waypoint[1]/WPTID]/Latitude"/></xsl:call-template></xsl:variable>
+
+        <xsl:variable name="this_point_turn_direction"><xsl:value-of select="Turn"/></xsl:variable>
+        <!-- hacky:  the LBSF original charts shows unrealistic curves, probably for presentation purposes only, sooooo... thry to emulate them by introducing coeeficients and stuff  -->
+        <xsl:variable name="runway_climnout_correction_factor">0.7</xsl:variable>
+        <xsl:variable name="ca_length_meters">
+            <xsl:value-of select="(((number(translate(Altitude, '-+','')) - $airport/Airport/ElevationFeet) div ../../ClimbGradientFeetPerNM) * $geo_nm_in_meters) * $runway_climnout_correction_factor"/>
+        </xsl:variable>
+
+        <xsl:variable name="bank_angle_for_flight_phase">
+            <xsl:choose>
+                <xsl:when test="Flyover = 'Yes'">
+                    12.5
+                </xsl:when>
+                <xsl:otherwise>
+                    25
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+
+        <xsl:variable name="turn_radius_meters">
+            <xsl:value-of select="(math:power(($standard_turn_speed * $geo_nm_in_meters) div $hour_in_seconds, 2) div ($geo_one_g * math:tan($bank_angle_for_flight_phase * $math_deg_to_rad)))"/>
+        </xsl:variable>
+        <xsl:variable name="turn_radius_pixels">
+            <xsl:value-of select="$turn_radius_meters div $map_zoom"/>
+        </xsl:variable>
+        <xsl:variable name="track_geo">
+            <xsl:value-of select="substring-before(substring-after(Track, '('),'°')"/>
+        </xsl:variable>
+        <xsl:variable name="ca_end_x">
+            <xsl:value-of select="$runwayX + floor(((($ca_length_meters) div $map_zoom ) * math:cos((($track_geo - 90 ) * $math_deg_to_rad))) div math:cos($map_base_airport_rwy_longitude * $math_deg_to_rad))"/>
+        </xsl:variable>
+        <xsl:variable name="ca_end_y">
+            <xsl:value-of select="$runwayY + floor(($ca_length_meters div $map_zoom) * math:sin((($track_geo - 90 ) * $math_deg_to_rad)))"/>
+        </xsl:variable>
+        <xsl:variable name="next_track_geo">
+            <xsl:value-of select="substring-before(substring-after(current()/following-sibling::Waypoint[1]/Track, '('),'°')"/>
+        </xsl:variable>
+
+
+        <!-- CA waypoints have no coordinate, sue the extension termination coordinates instead to calculate the arc -->
+        <xsl:variable name="real_pointX">
+            <xsl:choose>
+                <xsl:when test="PT='CA'">
+                    <xsl:value-of select="$ca_end_x"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:value-of select="$pointX"/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <xsl:variable name="real_pointY">
+            <xsl:choose>
+                <xsl:when test="PT='CA'">
+                    <xsl:value-of select="$ca_end_y"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:value-of select="$pointY"/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+
+        <xsl:variable name="turn_circle_track">
+            <xsl:choose>
+                <xsl:when test="$this_point_turn_direction='Right'">
+                    <xsl:value-of select="($track_geo) mod 360"/>
+                </xsl:when>
+                <xsl:when test="$this_point_turn_direction='Left'">
+                    <xsl:value-of select="($track_geo - 180) mod 360"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    WARN : Unable to establish turn direction for (<xsl:value-of select="WPTID"/>)
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+
+        <xsl:variable name="Cx">
+            <xsl:value-of select="$real_pointX + (($turn_radius_pixels * math:cos($turn_circle_track * $math_deg_to_rad)))"/>
+        </xsl:variable>
+        <xsl:variable name="Cy">
+            <xsl:value-of select="$real_pointY + (($turn_radius_pixels * math:sin($turn_circle_track * $math_deg_to_rad)))"/>
+        </xsl:variable>
+        <xsl:variable name="Px">
+            <xsl:value-of select="$next_pointX"/>
+        </xsl:variable>
+        <xsl:variable name="Py">
+            <xsl:value-of select="$next_pointY"/>
+        </xsl:variable>
+        <xsl:variable name="a">
+            <xsl:value-of select="$turn_radius_pixels"/>
+        </xsl:variable>
+        <xsl:variable name="b">
+            <xsl:value-of select="math:sqrt(math:power($Px - $Cx, 2) + math:power($Py - $Cy, 2))"/>
+        </xsl:variable>
+        <xsl:variable name="th">
+            <xsl:value-of select="math:acos($a div $b)"/>
+        </xsl:variable>
+
+        <!--
+        d = atan2(Py - Cy, Px - Cx)  # direction angle of point P from C
+        -->
+        <xsl:variable name="d">
+            <xsl:value-of select="math:atan2($Py - $Cy, $Px - $Cx)"/>
+        </xsl:variable>
+
+        <!--
+        d1 = d + th  # direction angle of point T1 from C
+        -->
+        <xsl:variable name="d1">
+            <xsl:value-of select="$d + $th"/>
+        </xsl:variable>
+
+        <!--
+        d2 = d - th  # direction angle of point T2 from C
+        -->
+        <xsl:variable name="d2">
+            <xsl:value-of select="$d - $th"/>
+        </xsl:variable>
+
+        <!--
+        T1x = Cx + a * cos(d1)
+        -->
+        <xsl:variable name="T1x">
+            <xsl:value-of select="$Cx + $a * math:cos(number($d1))"/>
+        </xsl:variable>
+
+        <!--
+        T1y = Cy + a * sin(d1)
+        -->
+        <xsl:variable name="T1y">
+            <xsl:value-of select="$Cy + $a * math:sin(number($d1))"/>
+        </xsl:variable>
+
+        <!--
+        T2x = Cx + a * cos(d1)
+        -->
+        <xsl:variable name="T2x">
+            <xsl:value-of select="$Cx + $a * math:cos(number($d2))"/>
+        </xsl:variable>
+
+        <!--
+        T2y = Cy + a * sin(d1)
+        -->
+        <xsl:variable name="T2y">
+            <xsl:value-of select="$Cy + $a * math:sin(number($d2))"/>
+        </xsl:variable>
+
+        <!--
+        ca_length_meters: <xsl:value-of select="$ca_length_meters"/>
+        center_of_arc_circle_x : <xsl:value-of select="$Cx"/>
+        center_of_arc_circle_y : <xsl:value-of select="$Cy"/>
+        radius : <xsl:value-of select="$a"/>
+        direction angle of point P from C : <xsl:value-of select="$d"/>
+        direction angle of point T1 from C : <xsl:value-of select="$d1"/>
+        direction angle of point T2 from C <xsl:value-of select="$d2"/>
+
+        tangent point 1 x: <xsl:value-of select="$T1x"/>
+        tangent point 1 y: <xsl:value-of select="$T1y"/>
+        -->
+
+        <xsl:variable name="arch_clockwise_flag">
+            <xsl:choose>
+                <xsl:when test="$this_point_turn_direction='Right'">
+                    1
+                </xsl:when>
+                <xsl:when test="$this_point_turn_direction='Left'">
+                    0
+                </xsl:when>
+                <xsl:otherwise>
+                    WARN : Unable to establish turn direction for (<xsl:value-of select="WPTID"/>)
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+
+        <xsl:variable name="TtrueX">
+            <xsl:choose>
+                <xsl:when test="$this_point_turn_direction='Left'">
+                    <xsl:value-of select="$T1x"/>
+                </xsl:when>
+                <xsl:when test="$this_point_turn_direction='Right'">
+                    <xsl:value-of select="$T2x"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    WARN : Unable to establish turn direction for (<xsl:value-of select="WPTID"/>)
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+
+        <xsl:variable name="TtrueY">
+            <xsl:choose>
+                <xsl:when test="$this_point_turn_direction='Left'">
+                    <xsl:value-of select="$T1y"/>
+                </xsl:when>
+                <xsl:when test="$this_point_turn_direction='Right'">
+                    <xsl:value-of select="$T2y"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    WARN : Unable to establish turn direction for (<xsl:value-of select="WPTID"/>)
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+
+        <!-- calculate the climb-out circle and text coordinates here
+             we calculate in reverse - from the next point (!!!) back to the start of the tangent line
+          -->
+        <xsl:variable name="curved_line_circle_X">
+            <xsl:value-of select="$next_pointX - (($next_pointX - $TtrueX) div 2)"/>
+        </xsl:variable>
+
+        <xsl:variable name="curved_line_circle_Y">
+            <xsl:value-of select="$next_pointY - (($next_pointY - $TtrueY) div 2)"/>
+        </xsl:variable>
+
+
+        <xsl:variable name="point_has_curve">
+            <xsl:choose>
+                <xsl:when test="($chart_type='SID' and not($sid_star_node/preceding-sibling::Waypoint[1])) or (($sid_star_node/Flyover='Yes') and not($sid_star_node/Turn='-'))">Yes</xsl:when>
+                <xsl:otherwise>No</xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+
+
+
+        <xsl:variable name="previous_point_has_curve">
+            <xsl:choose>
+                <xsl:when test="($chart_type='SID' and ($sid_star_node/preceding-sibling::Waypoint[1]))">
+                    <!-- this is not a first node (a first node has no previous node) -->
+                    <xsl:choose>
+                        <xsl:when test="$sid_star_node/preceding-sibling::Waypoint[1]/PT='CA'">Yes</xsl:when>
+                        <xsl:when test="$sid_star_node/preceding-sibling::Waypoint[1]/Flyover='Yes'">Yes</xsl:when>
+                        <xsl:otherwise>No</xsl:otherwise>
+                    </xsl:choose>
+                </xsl:when>
+                <xsl:otherwise>No</xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <xsl:comment>
+            current(): <xsl:value-of select="current()"/>
+            previous : <xsl:value-of select="$sid_star_node/preceding-sibling::Waypoint[1]"/>
+            $sid_star_node/preceding-sibling::Waypoint[2] : '<xsl:value-of select="$sid_star_node/preceding-sibling::Waypoint[2]"/>'
+            $sid_star_node/preceding-sibling::Waypoint[1]/Flyover='Yes' : '<xsl:value-of select="$sid_star_node/preceding-sibling::Waypoint[1]/Flyover='Yes'"/>'
+            $sid_star_node/preceding-sibling::Waypoint[1]/Turn : '<xsl:value-of select="$sid_star_node/preceding-sibling::Waypoint[1]/Turn"/>'
+            $previous_point_has_curve: <xsl:value-of select="$previous_point_has_curve"/>
+        </xsl:comment>
+
+        <!-- main <xsl:choose> for the  return type, decide what to return -->
+        <xsl:choose>
+            <xsl:when test="$return_type='Path'">
+                <xsl:choose>
+                    <xsl:when test="$chart_type='SID' and not($sid_star_node/preceding-sibling::Waypoint[1])">
+                        <!-- this is a SID chart and this is the first waypoint
+
+                            1. we need to start with an M at the runway threshold coordinates
+                            2. then draw the climb to altitude
+                            3. then draw the arc for the turn
+                        -->
+                        M <xsl:value-of select="$runwayX"/><xsl:text> </xsl:text><xsl:value-of select="$runwayY"/>
+                        <xsl:choose>
+                            <xsl:when test="$sid_star_node/PT='CA'">
+                                <!-- create the line that is the climbout -->
+                                L <xsl:text> </xsl:text><xsl:value-of select="$ca_end_x"/><xsl:text> </xsl:text><xsl:value-of select="$ca_end_y"/>
+
+
+                                L <xsl:value-of select="$ca_end_x"/><xsl:text> </xsl:text><xsl:value-of select="$ca_end_y"/>
+                                A <xsl:value-of select="$turn_radius_pixels"/><xsl:text> </xsl:text><xsl:value-of select="$turn_radius_pixels"/><xsl:text> </xsl:text>0<xsl:text> </xsl:text>0<xsl:text> </xsl:text><xsl:value-of select="$arch_clockwise_flag"/><xsl:text> </xsl:text><xsl:value-of select="$TtrueX"/><xsl:text> </xsl:text><xsl:value-of select="$TtrueY"/>
+
+                            </xsl:when>
+                            <xsl:otherwise>
+                                WARNING : First node in SID '<xsl:value-of select="$sid_star_node/parent::SID_Core/ID"/>' is not a CA type node, it is <xsl:value-of select="$sid_star_node/PT"/>, this is very sus...
+                            </xsl:otherwise>
+                        </xsl:choose>
+
+                    </xsl:when>
+                    <xsl:when test="$chart_type='STAR' and $sid_star_node/PT='IF' and not($sid_star_node/preceding-sibling::Waypoint[1])">
+                        <!-- this is a STAR chart and this is the first waypoint, and it is an IF type waypoint (as expected)
+                            1. we need to start with an M at the point coordinates
+                        -->
+                        M <xsl:value-of select="$pointX"/><xsl:text> </xsl:text><xsl:value-of select="$pointY"/>
+                    </xsl:when>
+                    <xsl:when test="$chart_type='STAR' and not($sid_star_node/PT='IF') and not($sid_star_node/preceding-sibling::Waypoint[1])">
+                        <!-- this is a STAR chart and this is the first waypoint, but it is not an IF type waypoint (this is sus) -->
+                        WARNING : Unexpected point type '<xsl:value-of select="$sid_star_node/PT"/>' for waypoint '<xsl:value-of select="$sid_star_node/WPTID"/>'
+                    </xsl:when>
+                    <xsl:when test="(Flyover='Yes') and not(Turn='-')">
+                        <!-- a point that needs to draw a Bézier curve (calculated rather randomly on the chart it looks at first glance)
+                            let's try to unravel:
+                             1. the aircraft will always continue on the previous_point:track and make the left/right turn
+                             2. the aircraft goes into a new track when done with the turn, this  new track will take it to the current_point:location
+
+                            https://en.wikipedia.org/wiki/Standard_rate_turn
+                            the angle of the curve has several constraint:
+                            1. the aircraft has a standard turn rate; normally it does not exceed it (making it a max turn rate)
+                            2. the aircraft has a half turn rate, and also an arbitrary turn rate, none of which exceed the standard turn rate
+                            3. we can assume that the pilot/autopilot will do a standard turn for any course change, especially on climb-out
+                                when the passengers are secured by seatbelts
+                            4. so the formula for the radius, if given velocity and the angle of bank are given. is:
+                            r = (Vt.Vt/g*tan(phi)
+                            where g is the gravitational acceleration, Vt is the speed in m/sec, angle of bank is in .. what, degrees, rads?
+                            5. we assume the Vt is something like 220 knots (standard_turn_speed)
+                            6. turn radius is thus 2800+ m, sounds reasonable
+                        -->
+
+                       <!-- thanks to https://stackoverflow.com/questions/49968720/find-tangent-points-in-a-circle-from-a-point -->
+
+                            <!-- now we need to get to the tangential point on the circle
+                            center of arc circle : <xsl:value-of select="$pointX + $turn_radius_pixels"/><xsl:text>, </xsl:text><xsl:value-of select="$pointY"/>
+                            next point: <xsl:value-of select="$next_pointX"/><xsl:text>, </xsl:text><xsl:value-of select="$next_pointY"/>
+                            tangent point:
+                        -->
+                        <!-- if possible, terminate the present path by drawing a line before starting the arc -->
+
+                            L <xsl:value-of select="$pointX"/><xsl:text> </xsl:text><xsl:value-of select="$pointY"/>
+                            A <xsl:value-of select="$turn_radius_pixels"/><xsl:text> </xsl:text><xsl:value-of select="$turn_radius_pixels"/><xsl:text> </xsl:text>0<xsl:text> </xsl:text>0<xsl:text> </xsl:text><xsl:value-of select="$arch_clockwise_flag"/><xsl:text> </xsl:text><xsl:value-of select="$TtrueX"/><xsl:text> </xsl:text><xsl:value-of select="$TtrueY"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <!-- all other options exhausted, return a generic line to the point-->
+                        L <xsl:value-of select="$pointX"/><xsl:text> </xsl:text><xsl:value-of select="$pointY"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:when>
+            <xsl:when test="$return_type='Text'">
+                <xsl:variable name="midway_distance_in_pixels">
+                    <xsl:value-of select="(((DIST * $geo_nm_in_meters) div $map_zoom) div 2) div math:cos($waypoints/Waypoins/Waypoint[ID=current()/WPTID]/Latitude * $math_deg_to_rad)"/>
+                </xsl:variable>
+                <xsl:variable name="line_arrow_distance">
+                    <xsl:value-of select="(((DIST * $geo_nm_in_meters) div $map_zoom) div 8) div math:cos($waypoints/Waypoins/Waypoint[ID=current()/WPTID]/Latitude * $math_deg_to_rad)"/>
+                </xsl:variable>
+                <xsl:variable name="oneX">
+                    <xsl:value-of select="$pointX - floor($midway_distance_in_pixels * math:cos((($track_geo - 90 ) * $math_deg_to_rad)))"/>
+                </xsl:variable>
+                <xsl:variable name="oneY">
+                    <xsl:value-of select="$pointY + floor($midway_distance_in_pixels * math:sin((($track_geo + 90 ) * $math_deg_to_rad)))"/>
+                </xsl:variable>
+                <xsl:variable name="other_point_X">
+                    <xsl:choose>
+                        <xsl:when test="$chart_type='SID'">
+                            <xsl:value-of select="$previous_pointX"/>
+                        </xsl:when>
+                        <xsl:when test="$chart_type='STAR'">
+                            <xsl:value-of select="$next_pointX"/>
+                        </xsl:when>
+                    </xsl:choose>
+                </xsl:variable>
+                <xsl:variable name="other_point_Y">
+                    <xsl:choose>
+                        <xsl:when test="$chart_type='SID'">
+                            <xsl:value-of select="$previous_pointY"/>
+                        </xsl:when>
+                        <xsl:when test="$chart_type='STAR'">
+                            <xsl:value-of select="$next_pointY"/>
+                        </xsl:when>
+                    </xsl:choose>
+                </xsl:variable>
+
+                <xsl:variable name="text_display_coord_x">
+                    <xsl:choose>
+                        <xsl:when test="number($oneX) = $oneX">
+                            <!-- we have a point -->
+                            <xsl:value-of select="$oneX"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <!-- we don't have a point, calculate delta via poor mans division -->
+                            <xsl:value-of select="$pointX - (($pointX -$other_point_X) div 2)"/>
+                        </xsl:otherwise>
+
+                    </xsl:choose>
+                </xsl:variable>
+
+                <xsl:variable name="text_display_coord_y">
+                    <xsl:choose>
+                        <xsl:when test="number($oneY) = $oneY">
+                            <!-- we have a point -->
+                            <xsl:value-of select="$oneY"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <!-- we don't have a point, calculate delta via poor mans division -->
+                            <xsl:value-of select="$pointY - (($pointY - $other_point_Y) div 2)"/>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:variable>
+
+
+                   <xsl:variable name="current_point_latitude">
+                        <xsl:value-of select="number($waypoints/Waypoins/Waypoint[ID=current()/WPTID]/Latitude)"/>
+                    </xsl:variable>
+                    <xsl:variable name="current_point_longitude">
+                        <xsl:value-of select="number($waypoints/Waypoins/Waypoint[ID=current()/WPTID]/Longitude)"/>
+                    </xsl:variable>
+                    <xsl:variable name="next_point_latitude">
+                        <xsl:choose>
+                            <xsl:when test="$chart_type='SID'">
+                                <xsl:value-of select="number($waypoints/Waypoins/Waypoint[ID=current()/preceding-sibling::Waypoint[1]/WPTID]/Latitude)"/>
+                            </xsl:when>
+                            <xsl:when test="$chart_type='STAR'">
+                                <xsl:value-of select="number($waypoints/Waypoins/Waypoint[ID=current()/following-sibling::Waypoint[1]/WPTID]/Latitude)"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                WARN : Unknown chart type <xsl:value-of select="$chart_type"/>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:variable>
+
+                    <xsl:variable name="next_point_longitude">
+                        <xsl:choose>
+                            <xsl:when test="$chart_type='SID'">
+                                <xsl:value-of select="number($waypoints/Waypoins/Waypoint[ID=current()/preceding-sibling::Waypoint[1]/WPTID]/Longitude)"/>
+                            </xsl:when>
+                            <xsl:when test="$chart_type='STAR'">
+                                <xsl:value-of select="number($waypoints/Waypoins/Waypoint[ID=current()/following-sibling::Waypoint[1]/WPTID]/Longitude)"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                WARN : Unknown chart type <xsl:value-of select="$chart_type"/>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:variable>
+
+                    <xsl:variable name="squared_sin_latitude_delta">
+                        <xsl:value-of select="number(math:power(math:sin((($next_point_latitude - $current_point_latitude) * $math_deg_to_rad ) div 2), 2))"/>
+                    </xsl:variable>
+                    <xsl:variable name="squared_sin_longitude_delta">
+                        <xsl:value-of select="number(math:power(math:sin((($next_point_longitude - $current_point_longitude) * $math_deg_to_rad) div 2), 2))"/>
+                    </xsl:variable>
+
+                    <xsl:variable name="square_root_inside_brackets">
+                        <xsl:value-of select="number(math:sqrt($squared_sin_latitude_delta + number(math:cos($next_point_latitude * $math_deg_to_rad)) * number(math:cos($current_point_latitude * $math_deg_to_rad)) * $squared_sin_longitude_delta))"/>
+                    </xsl:variable>
+
+                 <xsl:variable name="result">
+                    <xsl:value-of select="2 * $geo_earth_radius * math:asin(number($square_root_inside_brackets))"/>
+                </xsl:variable>
+                <xsl:variable name="result_NM">
+                    <xsl:value-of select="round(($result div $geo_nm_in_meters ) * 10) div 10"/>
+                </xsl:variable>
+
+                <xsl:variable name="circle_point_x">
+                    <xsl:choose>
+                        <!-- simplest case - both points have known coordinates - point to point -->
+                        <xsl:when test="number($track_geo) = $track_geo and not($track_geo='-') and number($oneX) = $oneX and not(DIST='-')">
+                            <xsl:value-of select="$oneX"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                             <xsl:choose>
+                                <!-- curved point (arc and line) - circle and text must be in the center of the line part  -->
+                                <xsl:when test="$point_has_curve='Yes'">
+                                    <xsl:value-of select="$curved_line_circle_X"/>
+                                </xsl:when>
+                                 <!-- point to point, but had to use 'poor man's' coordinates deltas instead   -->
+                                <xsl:otherwise>
+                                    <xsl:value-of select="$pointX - (($pointX - $other_point_X) div 2)"/>
+                              </xsl:otherwise>
+                             </xsl:choose>
+                         </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:variable>
+
+                <xsl:variable name="circle_point_t">
+                    <xsl:choose>
+                        <!-- simplest case - both points have known coordinates - point to point -->
+                        <xsl:when test="number($track_geo) = $track_geo and not($track_geo='-') and number($oneY) = $oneY and not(DIST='-')">
+                            <xsl:value-of select="$oneY"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                             <xsl:choose>
+                                <!-- curved point (arc and line) - circle and text must be in the center of the line part  -->
+                                <xsl:when test="$point_has_curve='Yes'">
+                                    <xsl:value-of select="$curved_line_circle_Y"/>
+                                </xsl:when>
+                                 <!-- point to point, but had to use 'poor man's' coordinates deltas instead   -->
+                                <xsl:otherwise>
+                                    <xsl:value-of select="$pointY - (($pointY - $other_point_Y) div 2)"/>
+                              </xsl:otherwise>
+                             </xsl:choose>
+                         </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:variable>
+
+
+                <!-- only draw if the info has not previously been drawn -->
+                <!-- always draw if this itself is a curved point -->
+                <xsl:if test="$point_has_curve='Yes' or ($previous_point_has_curve='No')">
+                    <circle>
+                        <xsl:attribute name="debug">
+                             WPTID: <xsl:value-of select="current()/WPTID"/>
+                             point_has_curve: <xsl:value-of select="$point_has_curve"/>
+                             previous_point_has_curve: <xsl:value-of select="$previous_point_has_curve"/>
+                             pointX: <xsl:value-of select="$pointX"/>
+                             pointY: <xsl:value-of select="$pointY"/>
+                             TtrueX: <xsl:value-of select="$TtrueX"/>
+                             TtrueY: <xsl:value-of select="$TtrueY"/>
+                            other_point_X: <xsl:value-of select="$other_point_X"/>
+                            other_point_Y: <xsl:value-of select="$other_point_Y"/>
+                         </xsl:attribute>
+                         <xsl:choose>
+                             <!-- check if direction can be drawn using point, track and distance, this is the DEFAULT -->
+                             <xsl:when test="number($track_geo) = $track_geo and not($track_geo='-') and number($oneX) = $oneX and not(DIST='-')">
+                                 <xsl:attribute name="drawing">Via DEFAULT</xsl:attribute>
+                                <xsl:attribute name="cx"><xsl:value-of select="$oneX"/></xsl:attribute>
+                                <xsl:attribute name="cy"><xsl:value-of select="$oneY"/></xsl:attribute>
+                             </xsl:when>
+                             <xsl:otherwise>
+                                 <!--
+                                    unable to draw with point and distance, need to do a poor man's 'coordinate delta' draw
+                                     -->
+                                 <xsl:choose>
+                                     <xsl:when test="$point_has_curve='Yes'">
+                                        <xsl:attribute name="drawing">Via curved (poorman)</xsl:attribute>
+                                         <!-- is this curved due to a climbout or is it someting else -->
+                                         <xsl:attribute name="cx"><xsl:value-of select="$curved_line_circle_X"/></xsl:attribute>
+                                         <xsl:attribute name="cy"><xsl:value-of select="$curved_line_circle_Y"/></xsl:attribute>
+                                     </xsl:when>
+                                     <xsl:otherwise>
+                                         <xsl:attribute name="drawing">Via NON-curved (poorman)</xsl:attribute>
+                                        <xsl:attribute name="cx"><xsl:value-of select="$pointX - (($pointX - $other_point_X) div 2)"/></xsl:attribute>
+                                        <xsl:attribute name="cy"><xsl:value-of select="$pointY - (($pointY - $other_point_Y) div 2)"/></xsl:attribute>
+                                     </xsl:otherwise>
+                                 </xsl:choose>
+
+                             </xsl:otherwise>
+                         </xsl:choose>
+                        <xsl:attribute name="r"><xsl:value-of select="$map_label_circle_radius"/></xsl:attribute>
+                         <xsl:choose>
+                             <xsl:when test="$point_has_curve = 'Yes'">
+                                <xsl:attribute name="fill">cyan</xsl:attribute>
+                             </xsl:when>
+                             <xsl:otherwise>
+                                 <xsl:attribute name="fill">pink</xsl:attribute>
+                             </xsl:otherwise>
+                         </xsl:choose>
+
+                        <xsl:attribute name="stroke">none</xsl:attribute>
+                    </circle>
+                    <text>
+                        <xsl:attribute name="text-anchor">middle</xsl:attribute>
+                        <xsl:attribute name="alignment-baseline">middle</xsl:attribute>
+                        <xsl:attribute name="transform">translate(<xsl:value-of select="$text_display_coord_x"/>, <xsl:value-of select="$text_display_coord_y"/>) rotate(
+                            <xsl:choose>
+                                <xsl:when test="number($track_geo) = $track_geo">
+                                    <xsl:choose>
+                                        <xsl:when test="$track_geo > 180">
+                                            <xsl:value-of select="$track_geo - 90 - 180"/>
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <xsl:value-of select="$track_geo  -  90"/>
+                                        </xsl:otherwise>
+                                    </xsl:choose>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    0
+                                </xsl:otherwise>
+                            </xsl:choose>
+                            )</xsl:attribute>
+                        <xsl:attribute name="fill">black</xsl:attribute>
+                            <!-- if there is track info, show it-->
+                            <xsl:if test="not(Track='-')">
+                                <tspan x="0" dy="0.3em">
+                                    <xsl:if test="$oneX &lt; ($svg_size_X div 2)">
+                                        <xsl:text>&lt;</xsl:text>
+                                    </xsl:if>
+                                    <xsl:value-of select="substring-before(Track,'(')"/>
+                                    <xsl:if test="not($oneX &lt; ($svg_size_X div 2))">
+                                        <xsl:text>&gt;</xsl:text>
+                                    </xsl:if>
+                                </tspan>
+                            </xsl:if>
+                        <tspan>
+                            <xsl:attribute name="x">0</xsl:attribute>
+                            <xsl:attribute name="dy"><xsl:choose><xsl:when test="Track='-'">0.0em </xsl:when><xsl:otherwise>0.8em</xsl:otherwise></xsl:choose></xsl:attribute>
+                            <xsl:comment>
+                                DIST: <xsl:value-of select="DIST"></xsl:value-of>
+                                result_NM: <xsl:value-of select="result_NM"></xsl:value-of>
+                                number(DIST) = DIST: <xsl:value-of select="number(DIST) = DIST"></xsl:value-of>
+                            </xsl:comment>
+
+                            <xsl:choose>
+                                <xsl:when test="not(DIST='-')">
+                                    <xsl:value-of select="DIST"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:value-of select="$result_NM"/>*
+                                </xsl:otherwise>
+                            </xsl:choose>
+
+                        </tspan>
+                     </text>
+                </xsl:if>
+            </xsl:when>
+            <xsl:otherwise>
+                WARNING : Unknown return type '<xsl:value-of select="$return_type"/>' for '<xsl:value-of select="current()/WPTID"/>'
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
 </xsl:stylesheet>

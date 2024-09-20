@@ -1054,7 +1054,7 @@
                     <xsl:value-of select="round(($result div $geo_nm_in_meters ) * 10) div 10"/>
                 </xsl:variable>
 
-                <xsl:variable name="circle_point_x">
+                <xsl:variable name="circle_point_X">
                     <xsl:choose>
                         <!-- simplest case - both points have known coordinates - point to point -->
                         <xsl:when test="number($track_geo) = $track_geo and not($track_geo='-') and number($oneX) = $oneX and not(DIST='-')">
@@ -1075,7 +1075,7 @@
                     </xsl:choose>
                 </xsl:variable>
 
-                <xsl:variable name="circle_point_t">
+                <xsl:variable name="circle_point_Y">
                     <xsl:choose>
                         <!-- simplest case - both points have known coordinates - point to point -->
                         <xsl:when test="number($track_geo) = $track_geo and not($track_geo='-') and number($oneY) = $oneY and not(DIST='-')">
@@ -1101,44 +1101,8 @@
                 <!-- always draw if this itself is a curved point -->
                 <xsl:if test="$point_has_curve='Yes' or ($previous_point_has_curve='No')">
                     <circle>
-                        <xsl:attribute name="debug">
-                             WPTID: <xsl:value-of select="current()/WPTID"/>
-                             point_has_curve: <xsl:value-of select="$point_has_curve"/>
-                             previous_point_has_curve: <xsl:value-of select="$previous_point_has_curve"/>
-                             pointX: <xsl:value-of select="$pointX"/>
-                             pointY: <xsl:value-of select="$pointY"/>
-                             TtrueX: <xsl:value-of select="$TtrueX"/>
-                             TtrueY: <xsl:value-of select="$TtrueY"/>
-                            other_point_X: <xsl:value-of select="$other_point_X"/>
-                            other_point_Y: <xsl:value-of select="$other_point_Y"/>
-                         </xsl:attribute>
-                         <xsl:choose>
-                             <!-- check if direction can be drawn using point, track and distance, this is the DEFAULT -->
-                             <xsl:when test="number($track_geo) = $track_geo and not($track_geo='-') and number($oneX) = $oneX and not(DIST='-')">
-                                 <xsl:attribute name="drawing">Via DEFAULT</xsl:attribute>
-                                <xsl:attribute name="cx"><xsl:value-of select="$oneX"/></xsl:attribute>
-                                <xsl:attribute name="cy"><xsl:value-of select="$oneY"/></xsl:attribute>
-                             </xsl:when>
-                             <xsl:otherwise>
-                                 <!--
-                                    unable to draw with point and distance, need to do a poor man's 'coordinate delta' draw
-                                     -->
-                                 <xsl:choose>
-                                     <xsl:when test="$point_has_curve='Yes'">
-                                        <xsl:attribute name="drawing">Via curved (poorman)</xsl:attribute>
-                                         <!-- is this curved due to a climbout or is it someting else -->
-                                         <xsl:attribute name="cx"><xsl:value-of select="$curved_line_circle_X"/></xsl:attribute>
-                                         <xsl:attribute name="cy"><xsl:value-of select="$curved_line_circle_Y"/></xsl:attribute>
-                                     </xsl:when>
-                                     <xsl:otherwise>
-                                         <xsl:attribute name="drawing">Via NON-curved (poorman)</xsl:attribute>
-                                        <xsl:attribute name="cx"><xsl:value-of select="$pointX - (($pointX - $other_point_X) div 2)"/></xsl:attribute>
-                                        <xsl:attribute name="cy"><xsl:value-of select="$pointY - (($pointY - $other_point_Y) div 2)"/></xsl:attribute>
-                                     </xsl:otherwise>
-                                 </xsl:choose>
-
-                             </xsl:otherwise>
-                         </xsl:choose>
+                        <xsl:attribute name="cx"><xsl:value-of select="$circle_point_X"/></xsl:attribute>
+                        <xsl:attribute name="cy"><xsl:value-of select="$circle_point_Y"/></xsl:attribute>
                         <xsl:attribute name="r"><xsl:value-of select="$map_label_circle_radius"/></xsl:attribute>
                          <xsl:choose>
                              <xsl:when test="$point_has_curve = 'Yes'">
@@ -1154,7 +1118,7 @@
                     <text>
                         <xsl:attribute name="text-anchor">middle</xsl:attribute>
                         <xsl:attribute name="alignment-baseline">middle</xsl:attribute>
-                        <xsl:attribute name="transform">translate(<xsl:value-of select="$text_display_coord_x"/>, <xsl:value-of select="$text_display_coord_y"/>) rotate(
+                        <xsl:attribute name="transform">translate(<xsl:value-of select="$circle_point_X"/>, <xsl:value-of select="$circle_point_Y"/>) rotate(
                             <xsl:choose>
                                 <xsl:when test="number($track_geo) = $track_geo">
                                     <xsl:choose>

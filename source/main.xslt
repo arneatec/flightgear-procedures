@@ -1145,8 +1145,13 @@
                                     <xsl:when test="$this_point_turn_direction='Left'">
                                         <xsl:value-of select="$d1 * $math_radians_to_degrees"/>
                                     </xsl:when>
-                                    <xsl:otherwise>
+                                    <xsl:when test="$this_point_turn_direction='Right'">
                                         <xsl:value-of select="$d2 * $math_radians_to_degrees"/>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        WARNING: Unable to establish turn direction '<xsl:value-of
+                                            select="$this_point_turn_direction"/>' for '<xsl:value-of
+                                            select="$sid_star_node/WPTID"/>'
                                     </xsl:otherwise>
                                 </xsl:choose>
                             </xsl:when>

@@ -43,9 +43,9 @@
     <xsl:variable name="map_base_airport_rwy_direction" select="$map_base_airport_rwy/RunwayDirection"/>
 
     <!-- minor map constants -->
-    <xsl:variable name="map_label_circle_radius" select="24"/>
+    <xsl:variable name="map_label_circle_radius" select="20"/>
     <!-- circle when only dist is shon should be smaller -->
-    <xsl:variable name="map_label_dist_circle_radius" select="20"/>
+    <xsl:variable name="map_label_dist_circle_radius" select="17"/>
 
     <xsl:variable name="map_secondary_airport_radius" select="8"/>
     <xsl:variable name="map_secondary_airport_runway_length" select="10"/>
@@ -1204,6 +1204,7 @@
 
                     <text>
                         <xsl:attribute name="text-anchor">middle</xsl:attribute>
+                        <xsl:attribute name="font-size">smaller</xsl:attribute>
                         <xsl:attribute name="alignment-baseline">middle</xsl:attribute>
                         <xsl:attribute name="transform">translate(<xsl:value-of select="$circle_point_X"/>, <xsl:value-of select="$circle_point_Y"/>) rotate(
                             <xsl:choose>

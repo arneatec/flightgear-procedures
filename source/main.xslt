@@ -25,7 +25,7 @@
     <xsl:variable name="geo_one_g" select="9.80665"/>
 
     <!-- major map constants -->
-    <xsl:variable name="map_zoom" select="/Chart/Zoom"/>
+    <xsl:variable name="map_zoom" select="number(/Chart/Zoom)"/>
     <xsl:variable name="standard_turn_speed" select="250"/>
 
     <xsl:variable name="chart_type" select="substring-before(/Chart/SubType ,'-')"/>
@@ -44,6 +44,9 @@
 
     <!-- minor map constants -->
     <xsl:variable name="map_label_circle_radius" select="24"/>
+    <!-- circle when only dist is shon should be smaller -->
+    <xsl:variable name="map_label_dist_circle_radius" select="20"/>
+
     <xsl:variable name="map_secondary_airport_radius" select="8"/>
     <xsl:variable name="map_secondary_airport_runway_length" select="10"/>
 
@@ -195,7 +198,7 @@
             <xsl:when test="$return_type='Path'">
                 <path>
                     <xsl:attribute name="fill">none</xsl:attribute>
-                    <xsl:attribute name="stroke">green</xsl:attribute>
+                    <xsl:attribute name="stroke">black</xsl:attribute>
                     <xsl:attribute name="stroke-width">2</xsl:attribute>
                     <xsl:attribute name="d">
                         <xsl:for-each select="$sid_star_node/Waypoints/Waypoint">
@@ -688,11 +691,8 @@
                 <xsl:when test="$this_point_turn_direction='Right'">
                     <xsl:value-of select="($track_geo) mod 360"/>
                 </xsl:when>
-                <xsl:when test="$this_point_turn_direction='Left'">
-                    <xsl:value-of select="($track_geo - 180) mod 360"/>
-                </xsl:when>
                 <xsl:otherwise>
-                    WARN : Unable to establish turn direction for (<xsl:value-of select="WPTID"/>)
+                    <xsl:value-of select="($track_geo - 180) mod 360"/>
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:variable>
@@ -786,11 +786,8 @@
                 <xsl:when test="$this_point_turn_direction='Right'">
                     1
                 </xsl:when>
-                <xsl:when test="$this_point_turn_direction='Left'">
-                    0
-                </xsl:when>
                 <xsl:otherwise>
-                    WARN : Unable to establish turn direction for (<xsl:value-of select="WPTID"/>)
+                    0
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:variable>
@@ -800,11 +797,8 @@
                 <xsl:when test="$this_point_turn_direction='Left'">
                     <xsl:value-of select="$T1x"/>
                 </xsl:when>
-                <xsl:when test="$this_point_turn_direction='Right'">
-                    <xsl:value-of select="$T2x"/>
-                </xsl:when>
                 <xsl:otherwise>
-                    WARN : Unable to establish turn direction for (<xsl:value-of select="WPTID"/>)
+                    <xsl:value-of select="$T2x"/>
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:variable>
@@ -814,11 +808,8 @@
                 <xsl:when test="$this_point_turn_direction='Left'">
                     <xsl:value-of select="$T1y"/>
                 </xsl:when>
-                <xsl:when test="$this_point_turn_direction='Right'">
-                    <xsl:value-of select="$T2y"/>
-                </xsl:when>
                 <xsl:otherwise>
-                    WARN : Unable to establish turn direction for (<xsl:value-of select="WPTID"/>)
+                    <xsl:value-of select="$T2y"/>
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:variable>
@@ -837,12 +828,10 @@
 
         <xsl:variable name="point_has_curve">
             <xsl:choose>
-                <xsl:when test="($chart_type='SID' and not($sid_star_node/preceding-sibling::Waypoint[1])) or (($sid_star_node/Flyover='Yes') and not($sid_star_node/Turn='-'))">Yes</xsl:when>
+                <xsl:when test="($chart_type='SID' and not($sid_star_node/preceding-sibling::Waypoint[1])) or (($sid_star_node/Flyover='Yes'))">Yes</xsl:when>
                 <xsl:otherwise>No</xsl:otherwise>
             </xsl:choose>
         </xsl:variable>
-
-
 
         <xsl:variable name="previous_point_has_curve">
             <xsl:choose>
@@ -896,7 +885,7 @@
                         <!-- this is a STAR chart and this is the first waypoint, but it is not an IF type waypoint (this is sus) -->
                         WARNING : Unexpected point type '<xsl:value-of select="$sid_star_node/PT"/>' for waypoint '<xsl:value-of select="$sid_star_node/WPTID"/>'
                     </xsl:when>
-                    <xsl:when test="(Flyover='Yes') and not(Turn='-')">
+                    <xsl:when test="(Flyover='Yes')">
                         <!-- a point that needs to draw a Bézier curve (calculated rather randomly on the chart it looks at first glance)
                             let's try to unravel:
                              1. the aircraft will always continue on the previous_point:track and make the left/right turn
@@ -1125,10 +1114,20 @@
                     <circle>
                         <xsl:attribute name="cx"><xsl:value-of select="$circle_point_X"/></xsl:attribute>
                         <xsl:attribute name="cy"><xsl:value-of select="$circle_point_Y"/></xsl:attribute>
-                        <xsl:attribute name="r"><xsl:value-of select="$map_label_circle_radius"/></xsl:attribute>
+                        <xsl:attribute name="r">
+                            <xsl:choose>
+                                <xsl:when test="$point_has_curve = 'Yes'">
+                                    <xsl:value-of select="$map_label_dist_circle_radius"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:value-of select="$map_label_circle_radius"/>
+                                </xsl:otherwise>
+                            </xsl:choose>
+
+                        </xsl:attribute>
                          <xsl:choose>
                              <xsl:when test="$point_has_curve = 'Yes'">
-                                <xsl:attribute name="fill">cyan</xsl:attribute>
+                                <xsl:attribute name="fill">white</xsl:attribute>
                              </xsl:when>
                              <xsl:otherwise>
                                  <xsl:attribute name="fill">white</xsl:attribute>
@@ -1145,13 +1144,8 @@
                                     <xsl:when test="$this_point_turn_direction='Left'">
                                         <xsl:value-of select="$d1 * $math_radians_to_degrees"/>
                                     </xsl:when>
-                                    <xsl:when test="$this_point_turn_direction='Right'">
-                                        <xsl:value-of select="$d2 * $math_radians_to_degrees"/>
-                                    </xsl:when>
                                     <xsl:otherwise>
-                                        WARNING: Unable to establish turn direction '<xsl:value-of
-                                            select="$this_point_turn_direction"/>' for '<xsl:value-of
-                                            select="$sid_star_node/WPTID"/>'
+                                        <xsl:value-of select="$d2 * $math_radians_to_degrees"/>
                                     </xsl:otherwise>
                                 </xsl:choose>
                             </xsl:when>

@@ -310,8 +310,8 @@
         <Longitude>23.767222</Longitude>
         <Runway>13</Runway>
         <CaptionOffset>
-            <X>-60</X>
-            <Y>-22</Y>
+            <X>-70</X>
+            <Y>-8</Y>
         </CaptionOffset>
         <Charts>
             <ChartSubType>SID-09-RNAV</ChartSubType>
@@ -410,6 +410,10 @@
         <Type>WPT-OR-FB</Type>
         <Latitude>42.766750</Latitude>
         <Longitude>23.267861</Longitude>
+        <CaptionOffset>
+            <X>-40</X>
+            <Y>32</Y>
+        </CaptionOffset>
         <Charts>
             <ChartSubType>SID-27-RNAV</ChartSubType>
         </Charts>
@@ -419,6 +423,10 @@
         <Type>WPT-OR-FB</Type>
         <Latitude>42.769167</Latitude>
         <Longitude>23.095111</Longitude>
+        <CaptionOffset>
+            <X>-40</X>
+            <Y>-22</Y>
+        </CaptionOffset>
         <Charts>
             <ChartSubType>SID-27-RNAV</ChartSubType>
         </Charts>

@@ -870,7 +870,7 @@
 
                             </xsl:when>
                             <xsl:otherwise>
-                                WARNING : First node in SID '<xsl:value-of select="$sid_star_node/parent::SID_Core/ID"/>' is not a CA type node, it is <xsl:value-of select="$sid_star_node/PT"/>, this is very sus...
+                                L <xsl:value-of select="$pointX"/><xsl:text> </xsl:text><xsl:value-of select="$pointY"/>
                             </xsl:otherwise>
                         </xsl:choose>
 

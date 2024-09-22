@@ -1057,7 +1057,7 @@
                 </xsl:variable>
 
                  <xsl:variable name="result">
-                    <xsl:value-of select="$arc_line_part_length"/>  <!-- TODO this is incorect, it is not the circle radius, but part of the circumference!!! -->
+                    <xsl:value-of select="$arc_line_part_length"/>
                 </xsl:variable>
                 <xsl:variable name="result_NM">
                     <xsl:value-of select="round(($result div $geo_nm_in_meters ) * 10) div 10"/>

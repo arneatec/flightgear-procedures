@@ -519,6 +519,7 @@
         <xsl:if test="not($pointType='VOR-DME-OR-FB')">
             <!-- waypoint ID text -->
             <text>
+                <xsl:attribute name="font-size">smaller</xsl:attribute>
                 <xsl:attribute name="x">
                     <xsl:choose>
                         <xls:when test="CaptionOffset">

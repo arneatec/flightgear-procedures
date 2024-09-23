@@ -274,7 +274,6 @@
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:variable>
-
         <xsl:choose>
             <!-- Waypoint - Compulsory / FlyBy -->
             <xsl:when test="$pointType='WPT-C-FB'">
@@ -868,6 +867,17 @@
             </xsl:choose>
         </xsl:variable>
 
+        <xsl:variable name="line_arrow_distance">
+            <xsl:value-of select="(((DIST * $geo_nm_in_meters) div $map_zoom) div 8) div math:cos($waypoints/Waypoins/Waypoint[ID=current()/WPTID]/Latitude * $math_deg_to_radians)"/>
+        </xsl:variable>
+        <xsl:variable name="line_arrowX">
+            <xsl:value-of select="$pointX - floor($line_arrow_distance * math:cos((($track_geo - 90 ) * $math_deg_to_radians)))"/>
+        </xsl:variable>
+        <xsl:variable name="line_arrowY">
+            <xsl:value-of select="$pointY + floor($line_arrow_distance * math:sin((($track_geo + 90 ) * $math_deg_to_radians)))"/>
+        </xsl:variable>
+
+
         <!-- main <xsl:choose> for the  return type, decide what to return -->
         <xsl:choose>
             <xsl:when test="$return_type='Path'">
@@ -946,9 +956,6 @@
             <xsl:when test="$return_type='Text'">
                 <xsl:variable name="midway_distance_in_pixels">
                     <xsl:value-of select="(((DIST * $geo_nm_in_meters) div $map_zoom) div 2) div math:cos($waypoints/Waypoins/Waypoint[ID=current()/WPTID]/Latitude * $math_deg_to_radians)"/>
-                </xsl:variable>
-                <xsl:variable name="line_arrow_distance">
-                    <xsl:value-of select="(((DIST * $geo_nm_in_meters) div $map_zoom) div 8) div math:cos($waypoints/Waypoins/Waypoint[ID=current()/WPTID]/Latitude * $math_deg_to_radians)"/>
                 </xsl:variable>
                 <xsl:variable name="oneX">
                     <xsl:value-of select="$pointX - floor($midway_distance_in_pixels * math:cos((($track_geo - 90 ) * $math_deg_to_radians)))"/>
@@ -1266,6 +1273,33 @@
                         </tspan>
                         -->
                      </text>
+                </xsl:if>
+                <xsl:if test="$chart_type='SID' and number($line_arrowX) = $line_arrowX and (PT='DF' or PT='TF') and count(current()/following-sibling::Waypoint) = 0">
+                    <xsl:comment>
+                        drawing line arrows
+                    </xsl:comment>
+                    <xsl:variable name="arrow_short_side_length">900</xsl:variable>
+                    <xsl:variable name="arrow_long_side_length">1100</xsl:variable>
+
+                    <polygon>
+                        <xsl:attribute name="points">
+                            <!--
+                            <xsl:value-of select="0"/><xsl:text>, </xsl:text><xsl:value-of select="$line_arrowY"/><xsl:text> </xsl:text>
+                            <xsl:value-of select="$line_arrowX + 10"/><xsl:text>,</xsl:text><xsl:value-of select="$line_arrowY + 15"/><xsl:text> </xsl:text>
+                            <xsl:value-of select="$line_arrowX"/><xsl:text>,</xsl:text><xsl:value-of select="$line_arrowY - 15"/><xsl:text> </xsl:text>
+                            <xsl:value-of select="$line_arrowX - 10"/><xsl:text> </xsl:text><xsl:value-of select="$line_arrowY + 15"/><xsl:text> </xsl:text>
+                            -->
+                            <xsl:value-of select="0 div $map_zoom"/>,<xsl:value-of select="0 div $map_zoom"/> <xsl:text> </xsl:text>
+                            <xsl:value-of select="$arrow_short_side_length div $map_zoom"/>,<xsl:value-of select="$arrow_long_side_length div $map_zoom"/> <xsl:text> </xsl:text>
+                            <xsl:value-of select="0 div $map_zoom"/>,<xsl:value-of select="($arrow_long_side_length div $map_zoom) * -1"/> <xsl:text> </xsl:text>
+                            <xsl:value-of select="($arrow_short_side_length div $map_zoom) * -1"/>,<xsl:value-of select="$arrow_long_side_length div $map_zoom"/> <xsl:text> </xsl:text>
+                        </xsl:attribute>
+                        <xsl:attribute name="transform">
+                            translate(<xsl:value-of select="$line_arrowX"/>, <xsl:value-of select="$line_arrowY"/>) rotate(<xsl:value-of select="$track_geo"/>)
+                        </xsl:attribute>
+                        <xsl:attribute name="stroke">black</xsl:attribute>
+                        <xsl:attribute name="fill">black</xsl:attribute>
+                    </polygon>
                 </xsl:if>
             </xsl:when>
             <xsl:otherwise>

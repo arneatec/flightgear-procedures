@@ -160,6 +160,10 @@
         <Elevation>1300</Elevation>
         <Latitude>43.095000</Latitude>
         <Longitude>24.220556</Longitude>
+        <CaptionOffset>
+            <X>-30</X>
+            <Y>2</Y>
+        </CaptionOffset>
         <Charts>
             <ChartSubType>SID-09-RNAV</ChartSubType>
             <ChartSubType>SID-27-RNAV</ChartSubType>
@@ -783,6 +787,21 @@
         <Latitude>42.626639</Latitude>
         <Longitude>23.183444</Longitude>
         <Charts>
+            <ChartSubType>STAR-09-RNAV</ChartSubType>
+        </Charts>
+    </Waypoint>
+    <Waypoint>
+        <ID>Variation</ID>
+        <Type>Variation</Type>
+        <X>1080</X>
+        <Y>250</Y>
+        <CaptionOffset>
+            <X>-42</X>
+            <Y>22</Y>
+        </CaptionOffset>
+        <Charts>
+            <ChartSubType>SID-27-RNAV</ChartSubType>
+            <ChartSubType>SID-09-RNAV</ChartSubType>
             <ChartSubType>STAR-09-RNAV</ChartSubType>
         </Charts>
     </Waypoint>

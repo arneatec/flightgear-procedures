@@ -14,6 +14,12 @@
     <Transition_Altitude_ft>10500</Transition_Altitude_ft>
     <Transition_Level>BY ATC</Transition_Level>
     <MagneticVariation>5</MagneticVariation>
+    <MagneticVariationMeasure>°</MagneticVariationMeasure>
+    <MagneticVariationDirection>E</MagneticVariationDirection>
+    <MagneticVariationYear>2020</MagneticVariationYear>
+    <MagneticVariationAnnualChange>6.7</MagneticVariationAnnualChange>
+    <MagneticVariationAnnualChangeMeasure>'</MagneticVariationAnnualChangeMeasure>
+    <MagneticVariationAnnualDirection>E</MagneticVariationAnnualDirection>
     <Radio_Role>
             <ID>APP</ID>
             <Name>Sofia Approach</Name>

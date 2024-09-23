@@ -21,7 +21,7 @@
     <xsl:variable name="geo_nm_in_meters" select="1852"/>
     <xsl:variable name="geo_feet_in_meters" select="3.2808"/>
     <xsl:variable name="geo_earth_radius" select="6378137" />
-    <xsl:variable name="geo_magnetic_variation" select="$airport/Airport/MagneticVariation"/>
+    <xsl:variable name="geo_magnetic_variation" select="number($airport/Airport/MagneticVariation)"/>
     <xsl:variable name="geo_one_g" select="9.80665"/>
 
     <!-- major map constants -->
@@ -530,12 +530,77 @@
                     <xsl:attribute name="stroke">black</xsl:attribute>
                 </circle>
             </xsl:when>
+            <xsl:when test="$pointType='Variation'">
+                <xsl:variable name="pole_line_length_px">200</xsl:variable>
+                <xsl:variable name="variation_line_length_px">180</xsl:variable>
+                <xsl:variable name="variation_pointer_width">6</xsl:variable>
+                <xsl:variable name="variation_pointer_height">18</xsl:variable>
+                <xsl:variable name="variationX"><xsl:value-of select="$waypoint_node/X"/></xsl:variable>
+                <xsl:variable name="variationY"><xsl:value-of select="$waypoint_node/Y"/></xsl:variable>
+                <!-- line to the pole -->
+                <line>
+                    <xsl:attribute name="x1"><xsl:value-of select="$variationX"/></xsl:attribute>
+                    <xsl:attribute name="x2"><xsl:value-of select="$variationX"/></xsl:attribute>
+                    <xsl:attribute name="y1"><xsl:value-of select="$variationY"/></xsl:attribute>
+                    <xsl:attribute name="y2"><xsl:value-of select="$variationY - $pole_line_length_px"/></xsl:attribute>
+                    <xsl:attribute name="stroke">black</xsl:attribute>
+                </line>
+                <!-- variation line -->
+                <line>
+                    <xsl:attribute name="x1"><xsl:value-of select="$variationX"/></xsl:attribute>
+                    <xsl:attribute name="x2"><xsl:value-of select="$variationX + (math:cos((90 - $geo_magnetic_variation) * $math_deg_to_radians)) * $variation_line_length_px"/></xsl:attribute>
+                    <xsl:attribute name="y1"><xsl:value-of select="$variationY"/></xsl:attribute>
+                    <xsl:attribute name="y2"><xsl:value-of select="$variationY - $variation_line_length_px"/></xsl:attribute>
+                    <xsl:attribute name="stroke">black</xsl:attribute>
+                </line>
+                <!-- line to the pole pointer -->
+                <path>
+                    <xsl:attribute name="d">
+                        M <xsl:value-of select="$variationX"/><xsl:text> </xsl:text><xsl:value-of select="$variationY - $pole_line_length_px"/>
+                        L <xsl:value-of select="$variationX - $variation_pointer_width"/><xsl:text> </xsl:text><xsl:value-of select="$variationY - $pole_line_length_px + $variation_pointer_height"/>
+                        L <xsl:value-of select="$variationX + $variation_pointer_width"/><xsl:text> </xsl:text><xsl:value-of select="$variationY - $pole_line_length_px + $variation_pointer_height"/>
+                        L <xsl:value-of select="$variationX"/><xsl:text> </xsl:text><xsl:value-of select="$variationY - $pole_line_length_px"/>
+                    </xsl:attribute>
+                    <xsl:attribute name="stroke">black</xsl:attribute>
+                    <xsl:attribute name="fill">black</xsl:attribute>
+                </path>
+                <!-- variation line pointer -->
+                <path>
+                    <xsl:attribute name="d">
+                        M <xsl:value-of select="$variationX + (math:cos((90 - $geo_magnetic_variation) * $math_deg_to_radians)) * $variation_line_length_px"/><xsl:text> </xsl:text><xsl:value-of select="$variationY - $variation_line_length_px"/>
+                        L <xsl:value-of select="$variationX + (math:cos((90 - $geo_magnetic_variation) * $math_deg_to_radians)) * $variation_line_length_px + $variation_pointer_width"/><xsl:text> </xsl:text><xsl:value-of select="$variationY - $variation_line_length_px + $variation_pointer_height"/>
+                        L <xsl:value-of select="$variationX + (math:cos((90 - $geo_magnetic_variation) * $math_deg_to_radians)) * $variation_line_length_px - 2"/><xsl:text> </xsl:text><xsl:value-of select="$variationY - $variation_line_length_px + $variation_pointer_height"/>
+
+
+                    </xsl:attribute>
+                    <xsl:attribute name="stroke">black</xsl:attribute>
+                    <xsl:attribute name="fill">black</xsl:attribute>
+                </path>
+
+                <!-- variation text first line  -->
+                <text>
+                    <xsl:attribute name="text-anchor">middle</xsl:attribute>
+                    <xsl:attribute name="alignment-baseline">middle</xsl:attribute>
+                    <xsl:attribute name="transform">translate(<xsl:value-of select="$variationX + 20"/>, <xsl:value-of select="$variationY - 80"/>) rotate(<xsl:value-of
+                            select="270 + $geo_magnetic_variation"/>)</xsl:attribute>
+                    VAR <xsl:value-of select="$geo_magnetic_variation"/><xsl:value-of select="$airport/Airport/MagneticVariationMeasure"/><xsl:value-of select="$airport/Airport/MagneticVariationDirection"/> - <xsl:value-of select="$airport/Airport/MagneticVariationYear"/>
+
+                </text>
+                <!-- variation text first line  -->
+                <text>
+                    <xsl:attribute name="text-anchor">middle</xsl:attribute>
+                    <xsl:attribute name="alignment-baseline">middle</xsl:attribute>
+                    <xsl:attribute name="transform">translate(<xsl:value-of select="$variationX + 35"/>, <xsl:value-of select="$variationY - 80"/>) rotate(<xsl:value-of
+                            select="270 + $geo_magnetic_variation"/>)</xsl:attribute>
+                    Anual rate of change <xsl:value-of select="$airport/Airport/MagneticVariationAnnualChange"/><xsl:value-of select="$airport/Airport/MagneticVariationAnnualChangeMeasure"/><xsl:value-of select="$airport/Airport/MagneticVariationAnnualDirection"/>
+                </text>
+            </xsl:when>
             <xsl:otherwise>
                 WARNING : Unknown waypoint type '<xsl:value-of select="$pointType"/>' for waypoint '<xsl:value-of select="WPTID"/>'
             </xsl:otherwise>
         </xsl:choose>
         <!-- do not output text for specific types that supply their own, non-generic captions) -->
-        <xsl:if test="not($pointType='VOR-DME-OR-FB')">
+        <xsl:if test="not($pointType='VOR-DME-OR-FB') and not($pointType='Variation')">
             <!-- waypoint ID text -->
             <text>
                 <xsl:attribute name="font-size">smaller</xsl:attribute>

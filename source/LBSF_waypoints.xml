@@ -167,6 +167,25 @@
         </Charts>
     </Waypoint>
     <Waypoint>
+        <ID>SOF</ID>
+        <Type>VOR-DME-OR-FB</Type>
+        <Name>SOFIA</Name>
+        <Frequency>112.6</Frequency>
+        <Additional>73x</Additional>
+        <MorseCodeLetters>GOL</MorseCodeLetters>
+        <MorseCodeSigns>··· --- ··-·</MorseCodeSigns>
+        <Elevation>1800</Elevation>
+        <Latitude>42.698101</Latitude>
+        <Longitude>23.389400</Longitude>
+        <CaptionOffset>
+            <X>-90</X>
+            <Y>50</Y>
+        </CaptionOffset>
+        <Charts>
+            <ChartSubType>STAR-09-RNAV</ChartSubType>
+        </Charts>
+    </Waypoint>
+    <Waypoint>
         <ID>BLO</ID>
         <Type>VOR-DME-OR-FB</Type>
         <Name>BAILOVO</Name>
@@ -227,6 +246,7 @@
         <Charts>
             <ChartSubType>SID-09-RNAV</ChartSubType>
             <ChartSubType>SID-27-RNAV</ChartSubType>
+            <ChartSubType>STAR-09-RNAV</ChartSubType>
         </Charts>
     </Waypoint>
     <Waypoint>
@@ -242,6 +262,7 @@
         <Charts>
             <ChartSubType>SID-09-RNAV</ChartSubType>
             <ChartSubType>SID-27-RNAV</ChartSubType>
+            <ChartSubType>STAR-09-RNAV</ChartSubType>
         </Charts>
     </Waypoint>
     <Waypoint>
@@ -256,6 +277,7 @@
         <Charts>
             <ChartSubType>SID-09-RNAV</ChartSubType>
             <ChartSubType>SID-27-RNAV</ChartSubType>
+            <ChartSubType>STAR-09-RNAV</ChartSubType>
         </Charts>
     </Waypoint>
     <Waypoint>
@@ -286,6 +308,7 @@
         <Charts>
             <ChartSubType>SID-09-RNAV</ChartSubType>
             <ChartSubType>SID-27-RNAV</ChartSubType>
+            <ChartSubType>STAR-09-RNAV</ChartSubType>
         </Charts>
     </Waypoint>
     <Waypoint>
@@ -316,6 +339,7 @@
         <Charts>
             <ChartSubType>SID-09-RNAV</ChartSubType>
             <ChartSubType>SID-27-RNAV</ChartSubType>
+            <ChartSubType>STAR-09-RNAV</ChartSubType>
         </Charts>
     </Waypoint>
     <Waypoint>
@@ -353,6 +377,7 @@
         <Charts>
             <ChartSubType>SID-09-RNAV</ChartSubType>
             <ChartSubType>SID-27-RNAV</ChartSubType>
+            <ChartSubType>STAR-09-RNAV</ChartSubType>
         </Charts>
     </Waypoint>
     <Waypoint>
@@ -437,7 +462,7 @@
         <Latitude>42.972778</Latitude>
         <Longitude>22.797500</Longitude>
         <CaptionOffset>
-            <X>-60</X>
+            <X>-40</X>
             <Y>22</Y>
         </CaptionOffset>
         <Charts>
@@ -488,6 +513,10 @@
         <Type>WPT-OR-FB</Type>
         <Latitude>42.791139</Latitude>
         <Longitude>23.230528</Longitude>
+        <CaptionOffset>
+            <X>20</X>
+            <Y>-22</Y>
+        </CaptionOffset>
         <Charts>
             <ChartSubType>STAR-09-RNAV</ChartSubType>
         </Charts>
@@ -550,8 +579,8 @@
         <Latitude>42.732583</Latitude>
         <Longitude>22.786472</Longitude>
         <CaptionOffset>
-            <X>-58</X>
-            <Y>5</Y>
+            <X>-42</X>
+            <Y>22</Y>
         </CaptionOffset>
         <Charts>
             <ChartSubType>STAR-09-RNAV</ChartSubType>
@@ -562,6 +591,10 @@
         <Type>WPT-OR-FB</Type>
         <Latitude>42.727639</Latitude>
         <Longitude>22.876667</Longitude>
+        <CaptionOffset>
+            <X>-25</X>
+            <Y>-22</Y>
+        </CaptionOffset>
         <Charts>
             <ChartSubType>STAR-09-RNAV</ChartSubType>
         </Charts>
@@ -571,6 +604,10 @@
         <Type>WPT-OR-FB</Type>
         <Latitude>42.722500</Latitude>
         <Longitude>22.966944</Longitude>
+        <CaptionOffset>
+            <X>-25</X>
+            <Y>-22</Y>
+        </CaptionOffset>
         <Charts>
             <ChartSubType>STAR-09-RNAV</ChartSubType>
         </Charts>
@@ -580,6 +617,10 @@
         <Type>WPT-OR-FB</Type>
         <Latitude>42.773583</Latitude>
         <Longitude>23.524861</Longitude>
+        <CaptionOffset>
+            <X>-20</X>
+            <Y>-25</Y>
+        </CaptionOffset>
         <Charts>
             <ChartSubType>STAR-09-RNAV</ChartSubType>
         </Charts>
@@ -589,6 +630,10 @@
         <Type>WPT-OR-FB</Type>
         <Latitude>42.780472</Latitude>
         <Longitude>23.411000</Longitude>
+        <CaptionOffset>
+            <X>-20</X>
+            <Y>25</Y>
+        </CaptionOffset>
         <Charts>
             <ChartSubType>STAR-09-RNAV</ChartSubType>
         </Charts>
@@ -711,24 +756,23 @@
         <Type>WPT-OR-FB</Type>
         <Latitude>42.584306</Latitude>
         <Longitude>23.880583</Longitude>
+        <CaptionOffset>
+            <X>5</X>
+            <Y>-23</Y>
+        </CaptionOffset>
         <Charts>
             <ChartSubType>STAR-09-RNAV</ChartSubType>
         </Charts>
     </Waypoint>
     <Waypoint>
-        <ID>SF434</ID>
-        <Type>WPT-OR-FB</Type>
-        <Latitude>42.614306</Latitude>
-        <Longitude>23.392722</Longitude>
-        <Charts>
-            <ChartSubType>STAR-09-RNAV</ChartSubType>
-        </Charts>
-    </Waypoint>
-        <Waypoint>
         <ID>SF430</ID>
         <Type>WPT-OR-FB</Type>
         <Latitude>42.614306</Latitude>
         <Longitude>23.392722</Longitude>
+        <CaptionOffset>
+            <X>5</X>
+            <Y>25</Y>
+        </CaptionOffset>
         <Charts>
             <ChartSubType>STAR-09-RNAV</ChartSubType>
         </Charts>

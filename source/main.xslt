@@ -254,6 +254,26 @@
         <xsl:variable name="pointX"><xsl:call-template name="pointToPixelX"><xsl:with-param name="coordX" select="$waypoint_node/Longitude"/></xsl:call-template></xsl:variable>
         <xsl:variable name="pointY"><xsl:call-template name="pointToPixelY"><xsl:with-param name="coordY" select="$waypoint_node/Latitude"/></xsl:call-template></xsl:variable>
         <xsl:variable name="pointType"><xsl:value-of select="current()/Type"/></xsl:variable>
+        <xsl:variable name="caption_offset_X">
+            <xsl:choose>
+                <xsl:when test="$waypoint_node/CaptionOffset">
+                    <xsl:value-of select="$waypoint_node/CaptionOffset/X"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:value-of select="0"/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <xsl:variable name="caption_offset_Y">
+            <xsl:choose>
+                <xsl:when test="$waypoint_node/CaptionOffset">
+                    <xsl:value-of select="$waypoint_node/CaptionOffset/Y"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:value-of select="0"/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
 
         <xsl:choose>
             <!-- Waypoint - Compulsory / FlyBy -->
@@ -361,24 +381,24 @@
                     <xsl:attribute name="fill">none</xsl:attribute>
                 </polygon>
                 <text>
-                    <xsl:attribute name="x"><xsl:value-of select="$pointX - 50"/></xsl:attribute>
-                    <xsl:attribute name="y"><xsl:value-of select="$pointY - 60"/></xsl:attribute>
+                    <xsl:attribute name="x"><xsl:value-of select="$pointX + $caption_offset_X - 50"/></xsl:attribute>
+                    <xsl:attribute name="y"><xsl:value-of select="$pointY + $caption_offset_Y - 60"/></xsl:attribute>
                     <xsl:value-of select="Name"/>
                 </text>
                 <text>
-                    <xsl:attribute name="x"><xsl:value-of select="$pointX - 50"/></xsl:attribute>
-                    <xsl:attribute name="y"><xsl:value-of select="$pointY - 47"/></xsl:attribute>
+                    <xsl:attribute name="x"><xsl:value-of select="$pointX + $caption_offset_X - 50"/></xsl:attribute>
+                    <xsl:attribute name="y"><xsl:value-of select="$pointY + $caption_offset_Y - 47"/></xsl:attribute>
                     <xsl:value-of select="Frequency"/><xsl:text> </xsl:text><xsl:value-of select="ID"/><xsl:text> </xsl:text><xsl:value-of select="Additional"/>
                 </text>
                 <text>
-                    <xsl:attribute name="x"><xsl:value-of select="$pointX - 50"/></xsl:attribute>
-                    <xsl:attribute name="y"><xsl:value-of select="$pointY - 34"/></xsl:attribute>
+                    <xsl:attribute name="x"><xsl:value-of select="$pointX + $caption_offset_X - 50"/></xsl:attribute>
+                    <xsl:attribute name="y"><xsl:value-of select="$pointY + $caption_offset_Y - 34"/></xsl:attribute>
                     <xsl:attribute name="fosnt-weight">bold</xsl:attribute>
                     <xsl:value-of select="MorseCodeSigns"/>
                 </text>
                 <text>
-                    <xsl:attribute name="x"><xsl:value-of select="$pointX - 50"/></xsl:attribute>
-                    <xsl:attribute name="y"><xsl:value-of select="$pointY - 22"/></xsl:attribute>
+                    <xsl:attribute name="x"><xsl:value-of select="$pointX + $caption_offset_X - 50"/></xsl:attribute>
+                    <xsl:attribute name="y"><xsl:value-of select="$pointY + $caption_offset_Y - 22"/></xsl:attribute>
                     ELEV <xsl:value-of select="Elevation"/>
                 </text>
             </xsl:when>

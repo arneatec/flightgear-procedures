@@ -141,7 +141,10 @@
 
                                         <!-- LAYER 1 : Map lines and text-->
                                         <xsl:call-template name="draw_map_lines"/>
-
+                                        
+                                        <!-- LAYER 1 : Airport control zone -->
+                                        <xsl:call-template name="draw_airport_control_zone"/>
+                                        
                                         <!-- LAYER 2 : SID/STAR paths -->
                                         <xsl:for-each select="/Chart/SID_Page/SID_Core">
                                             <xsl:call-template name="svg_path_or_text_for_sid_star">
@@ -592,7 +595,7 @@
                     <xsl:attribute name="alignment-baseline">middle</xsl:attribute>
                     <xsl:attribute name="transform">translate(<xsl:value-of select="$variationX + 35"/>, <xsl:value-of select="$variationY - 80"/>) rotate(<xsl:value-of
                             select="270 + $geo_magnetic_variation"/>)</xsl:attribute>
-                    Anual rate of change <xsl:value-of select="$airport/Airport/MagneticVariationAnnualChange"/><xsl:value-of select="$airport/Airport/MagneticVariationAnnualChangeMeasure"/><xsl:value-of select="$airport/Airport/MagneticVariationAnnualDirection"/>
+                    Annual rate of change <xsl:value-of select="$airport/Airport/MagneticVariationAnnualChange"/><xsl:value-of select="$airport/Airport/MagneticVariationAnnualChangeMeasure"/><xsl:value-of select="$airport/Airport/MagneticVariationAnnualDirection"/>
                 </text>
             </xsl:when>
             <xsl:otherwise>
@@ -1371,5 +1374,29 @@
                 WARNING : Unknown return type '<xsl:value-of select="$return_type"/>' for '<xsl:value-of select="current()/WPTID"/>'
             </xsl:otherwise>
         </xsl:choose>
+    </xsl:template>
+    <xsl:template name="draw_airport_control_zone" match="/Chart">
+        <path>
+            <xsl:attribute name="d">
+                <xsl:for-each select="$airport/Airport/AirTrafficServicesAirspace/Zone/Point">
+                    <xsl:choose>
+                        <xsl:when test="not(current()/preceding-sibling::Point[1])">
+                            M <xsl:call-template name="pointToPixelX"><xsl:with-param name="coordX" select="Longitude"/></xsl:call-template><xsl:text> </xsl:text><xsl:call-template name="pointToPixelY"><xsl:with-param name="coordY" select="Latitude"/></xsl:call-template><xsl:text> </xsl:text>
+                        </xsl:when>
+
+                        <xsl:when test="Type='Arc'">
+                            A <xsl:value-of select="(Radius_NM * $geo_nm_in_meters) div $map_zoom"/><xsl:text> </xsl:text><xsl:value-of select="(Radius_NM * $geo_nm_in_meters) div $map_zoom"/> 0 1 1 <xsl:call-template name="pointToPixelX"><xsl:with-param name="coordX" select="CenterLongitude"/></xsl:call-template><xsl:text> </xsl:text><xsl:call-template name="pointToPixelY"><xsl:with-param name="coordY" select="CenterLatitude"/></xsl:call-template><xsl:text> </xsl:text>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            L <xsl:call-template name="pointToPixelX"><xsl:with-param name="coordX" select="Longitude"/></xsl:call-template><xsl:text> </xsl:text><xsl:call-template name="pointToPixelY"><xsl:with-param name="coordY" select="Latitude"/></xsl:call-template><xsl:text> </xsl:text>
+                        </xsl:otherwise>
+                    </xsl:choose>
+
+                </xsl:for-each>
+            </xsl:attribute>
+            <xsl:attribute name="fill">none</xsl:attribute>
+            <xsl:attribute name="stroke-width">3</xsl:attribute>
+            <xsl:attribute name="stroke">LightGray</xsl:attribute>
+        </path>
     </xsl:template>
 </xsl:stylesheet>

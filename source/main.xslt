@@ -1552,7 +1552,7 @@
             <text>
                 <xsl:attribute name="x"><xsl:value-of select="$svg_size_X div 2"/></xsl:attribute>
                 <xsl:attribute name="y">20</xsl:attribute>
-                SCALE 1: <xsl:value-of select="($km_scale_one_km_length div $svg_size_X) * 100000"/>
+                SCALE 1: <xsl:value-of select="$geo_earth_radius div  (($svg_size_X * $km_scale_one_km_length))"/>
             </text>
         </svg>
     </xsl:template>

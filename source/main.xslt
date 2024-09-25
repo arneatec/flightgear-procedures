@@ -908,9 +908,14 @@
         <xsl:variable name="curved_line_circle_X">
             <xsl:value-of select="$next_pointX - (($next_pointX - $TtrueX) div 2)"/>
         </xsl:variable>
-
         <xsl:variable name="curved_line_circle_Y">
             <xsl:value-of select="$next_pointY - (($next_pointY - $TtrueY) div 2)"/>
+        </xsl:variable>
+        <xsl:variable name="sid_name_line_circle_X">
+            <xsl:value-of select="$next_pointX - (($next_pointX - $TtrueX) div 10)"/>
+        </xsl:variable>
+        <xsl:variable name="sid_name_line_circle_Y">
+            <xsl:value-of select="$next_pointY - (($next_pointY - $TtrueY) div 10)"/>
         </xsl:variable>
 
 
@@ -1025,6 +1030,17 @@
                 <xsl:variable name="midway_distance_in_pixels">
                     <xsl:value-of select="(((DIST * $geo_nm_in_meters) div $map_zoom) div 2) div math:cos($waypoints/Waypoins/Waypoint[ID=current()/WPTID]/Latitude * $math_deg_to_radians)"/>
                 </xsl:variable>
+                <xsl:variable name="sid_name_distance_in_pixels">
+                    <xsl:value-of select="(((DIST * $geo_nm_in_meters) div $map_zoom) div 10) div math:cos($waypoints/Waypoins/Waypoint[ID=current()/WPTID]/Latitude * $math_deg_to_radians)"/>
+                </xsl:variable>
+
+                <xsl:variable name="sid_name_oneX">
+                    <xsl:value-of select="$pointX - floor($sid_name_distance_in_pixels * math:cos((($track_geo - 90 ) * $math_deg_to_radians)))"/>
+                </xsl:variable>
+                <xsl:variable name="sid_name_oneY">
+                    <xsl:value-of select="$pointY + floor($sid_name_distance_in_pixels * math:sin((($track_geo + 90 ) * $math_deg_to_radians)))"/>
+                </xsl:variable>
+
                 <xsl:variable name="oneX">
                     <xsl:value-of select="$pointX - floor($midway_distance_in_pixels * math:cos((($track_geo - 90 ) * $math_deg_to_radians)))"/>
                 </xsl:variable>
@@ -1161,6 +1177,50 @@
                     current_point_latitude: <xsl:value-of select="$current_point_latitude"/>
                 </xsl:comment>
                 -->
+
+
+                <xsl:variable name="sid_name_point_X">
+                    <xsl:choose>
+                        <!-- simplest case - both points have known coordinates - point to point -->
+                        <xsl:when test="number($track_geo) = $track_geo and not($track_geo='-') and number($sid_name_oneX) = $sid_name_oneX and not(DIST='-')">
+                            <xsl:value-of select="$sid_name_oneX"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                             <xsl:choose>
+                                <!-- curved point (arc and line) - circle and text must be in the center of the line part  -->
+                                <xsl:when test="$point_has_curve='Yes'">
+                                    <xsl:value-of select="$sid_name_line_circle_X"/>
+                                </xsl:when>
+                                 <!-- point to point, but had to use 'poor man's' coordinates deltas instead   -->
+                                <xsl:otherwise>
+                                    <xsl:value-of select="$pointX - (($pointX - $other_point_X) div 10)"/>
+                              </xsl:otherwise>
+                             </xsl:choose>
+                         </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:variable>
+
+                <xsl:variable name="sid_name_point_Y">
+                    <xsl:choose>
+                        <!-- simplest case - both points have known coordinates - point to point -->
+                        <xsl:when test="number($track_geo) = $track_geo and not($track_geo='-') and number($sid_name_oneY) = $sid_name_oneY and not(DIST='-')">
+                            <xsl:value-of select="$sid_name_oneY"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                             <xsl:choose>
+                                <!-- curved point (arc and line) - circle and text must be in the center of the line part  -->
+                                <xsl:when test="$point_has_curve='Yes'">
+                                    <xsl:value-of select="$sid_name_line_circle_Y"/>
+                                </xsl:when>
+                                 <!-- point to point, but had to use 'poor man's' coordinates deltas instead   -->
+                                <xsl:otherwise>
+                                    <xsl:value-of select="$pointY - (($pointY - $other_point_Y) div 10)"/>
+                              </xsl:otherwise>
+                             </xsl:choose>
+                         </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:variable>
+
                 <xsl:variable name="circle_point_X">
                     <xsl:choose>
                         <!-- simplest case - both points have known coordinates - point to point -->
@@ -1203,6 +1263,65 @@
                     </xsl:choose>
                 </xsl:variable>
 
+                <xsl:variable name="text_rotate">
+                        <xsl:choose>
+                            <xsl:when test="$point_has_curve='Yes'">
+                                <xsl:choose>
+                                    <xsl:when test="$this_point_turn_direction='Left'">
+                                        <xsl:value-of select="$d1 * $math_radians_to_degrees"/>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:value-of select="$d2 * $math_radians_to_degrees"/>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:value-of select="$track_geo"/>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:variable>
+                <xsl:variable name="text_track">
+                    <xsl:choose>
+                        <xsl:when test="$point_has_curve='Yes'">-</xsl:when>
+                        <xsl:otherwise>
+                            <xsl:value-of select="substring-before(Track,'(')"></xsl:value-of>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:variable>
+                <xsl:variable name="text_dist">
+                    <xsl:choose>
+                        <xsl:when test="$point_has_curve='Yes'">
+                            <xsl:value-of select="$result_NM"></xsl:value-of>*
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:value-of select="DIST"></xsl:value-of>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:variable>
+                <xsl:variable name="text_rotate_normalized">
+                    <xsl:choose>
+                        <xsl:when test="$text_rotate &gt; 360">
+                            <xsl:value-of select="$text_rotate mod 360"/>
+                        </xsl:when>
+                        <xsl:when test="$text_rotate &lt; 0">
+                            <xsl:value-of select=" (($text_rotate + 360 ) mod 360)"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:value-of select="$text_rotate mod 360"/>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:variable>
+                <xsl:variable name="text_rotate_true">
+                        <xsl:choose>
+                            <xsl:when test="$text_rotate_normalized &lt; 0">
+                                <xsl:value-of select="180 + $text_rotate_normalized"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:value-of select="$text_rotate_normalized"/>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:variable>
+
 
                 <!-- only draw if the info has not previously been drawn -->
                 <!-- always draw if this itself is a curved point -->
@@ -1233,70 +1352,7 @@
                         <xsl:attribute name="stroke">none</xsl:attribute>
                     </circle>
 
-                    <xsl:variable name="text_rotate">
-                        <xsl:choose>
-                            <xsl:when test="$point_has_curve='Yes'">
-                                <xsl:choose>
-                                    <xsl:when test="$this_point_turn_direction='Left'">
-                                        <xsl:value-of select="$d1 * $math_radians_to_degrees"/>
-                                    </xsl:when>
-                                    <xsl:otherwise>
-                                        <xsl:value-of select="$d2 * $math_radians_to_degrees"/>
-                                    </xsl:otherwise>
-                                </xsl:choose>
-                            </xsl:when>
-                            <xsl:otherwise>
-                                <xsl:value-of select="$track_geo"/>
-                            </xsl:otherwise>
-                        </xsl:choose>
-                    </xsl:variable>
 
-                    <xsl:comment>
-                        before text_track
-                        current node: '<xsl:value-of select="$sid_star_node/WPTID"/>'
-                    </xsl:comment>
-                    <xsl:variable name="text_track">
-                        <xsl:choose>
-                            <xsl:when test="$point_has_curve='Yes'">-</xsl:when>
-                            <xsl:otherwise>
-                                <xsl:value-of select="substring-before(Track,'(')"></xsl:value-of>
-                            </xsl:otherwise>
-                        </xsl:choose>
-                    </xsl:variable>
-                    <xsl:variable name="text_dist">
-                        <xsl:choose>
-                            <xsl:when test="$point_has_curve='Yes'">
-                                <xsl:value-of select="$result_NM"></xsl:value-of>*
-                            </xsl:when>
-                            <xsl:otherwise>
-                                <xsl:value-of select="DIST"></xsl:value-of>
-                            </xsl:otherwise>
-                        </xsl:choose>
-                    </xsl:variable>
-                    <xsl:variable name="text_rotate_normalized">
-                        <xsl:choose>
-                            <xsl:when test="$text_rotate &gt; 360">
-                                <xsl:value-of select="$text_rotate mod 360"/>
-                            </xsl:when>
-                            <xsl:when test="$text_rotate &lt; 0">
-                                <xsl:value-of select=" (($text_rotate + 360 ) mod 360)"/>
-                            </xsl:when>
-                            <xsl:otherwise>
-                                <xsl:value-of select="$text_rotate mod 360"/>
-                            </xsl:otherwise>
-                        </xsl:choose>
-                    </xsl:variable>
-
-                    <xsl:variable name="text_rotate_true">
-                        <xsl:choose>
-                            <xsl:when test="$text_rotate_normalized &lt; 0">
-                                <xsl:value-of select="180 + $text_rotate_normalized"/>
-                            </xsl:when>
-                            <xsl:otherwise>
-                                <xsl:value-of select="$text_rotate_normalized"/>
-                            </xsl:otherwise>
-                        </xsl:choose>
-                    </xsl:variable>
 
                     <text>
                         <xsl:attribute name="text-anchor">middle</xsl:attribute>
@@ -1368,6 +1424,23 @@
                         <xsl:attribute name="stroke">black</xsl:attribute>
                         <xsl:attribute name="fill">black</xsl:attribute>
                     </polygon>
+                </xsl:if>
+                <!-- SID/STAR name -->
+                <xsl:if test="$chart_type='SID' and count(current()/following-sibling::Waypoint) = 0">
+                    <text>
+                        <xsl:attribute name="transform">translate(<xsl:value-of select="$sid_name_point_X"/>, <xsl:value-of select="$sid_name_point_Y"/>) rotate(
+                            <xsl:choose>
+                                <xsl:when test="$track_geo > 180">
+                                    <xsl:value-of select="$text_rotate_true + 90"/>)
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:value-of select="$text_rotate_true  - 90"/>)
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </xsl:attribute>
+                        <tspan x="0" dy="1.0em"></tspan>
+                        <tspan x="0" dy="1.8em"> <xsl:value-of select="ancestor::SID_Core/ID"/></tspan>
+                    </text>
                 </xsl:if>
             </xsl:when>
             <xsl:otherwise>

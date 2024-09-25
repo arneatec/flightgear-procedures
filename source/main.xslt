@@ -37,8 +37,8 @@
     <xsl:variable name="map_offset_Y_legacy" select="/Chart/Offset_Y"/>
 
     <xsl:variable name="map_base_airport_rwy" select="$airport/Airport/Runways/Runway[ID=current()/Chart/Chart_Object_ID]"/>
-    <xsl:variable name="map_base_airport_rwy_latitude" select="$map_base_airport_rwy/RunwayThreshold/Latitude"/>
-    <xsl:variable name="map_base_airport_rwy_longitude" select="$map_base_airport_rwy/RunwayThreshold/Longitude"/>
+    <xsl:variable name="map_base_airport_rwy_latitude" select="number($map_base_airport_rwy/RunwayThreshold/Latitude)"/>
+    <xsl:variable name="map_base_airport_rwy_longitude" select="number($map_base_airport_rwy/RunwayThreshold/Longitude)"/>
     <xsl:variable name="map_base_airport_rwy_length" select="$map_base_airport_rwy/RunwayLenght"/>
     <xsl:variable name="map_base_airport_rwy_direction" select="$map_base_airport_rwy/RunwayDirection"/>
 
@@ -233,24 +233,6 @@
 
     </xsl:template>
 
-    <xsl:template name="svg_text_for_sid_star" match="/Chart">
-        <xsl:param name="sid_star_node"/>
-        <circle>
-            <xsl:attribute name="cx">100</xsl:attribute>
-            <xsl:attribute name="cy">150</xsl:attribute>
-            <xsl:attribute name="r">50</xsl:attribute>
-            <xsl:attribute name="fill">pink</xsl:attribute>
-            <xsl:attribute name="stroke">none</xsl:attribute>
-        </circle>
-        <text>
-            <xsl:attribute name="x">120</xsl:attribute>
-            <xsl:attribute name="y">140</xsl:attribute>
-            <xsl:attribute name="fill">black</xsl:attribute>
-            <xsl:attribute name="stroke">black</xsl:attribute>
-            Track/Dist
-        </text>
-    </xsl:template>
-
     <xsl:template name="svg_waypoint_and_text" match="/Chart">
         <xsl:param name="waypoint_node"/>
 
@@ -395,7 +377,7 @@
                 <text>
                     <xsl:attribute name="x"><xsl:value-of select="$pointX + $caption_offset_X - 50"/></xsl:attribute>
                     <xsl:attribute name="y"><xsl:value-of select="$pointY + $caption_offset_Y - 34"/></xsl:attribute>
-                    <xsl:attribute name="fosnt-weight">bold</xsl:attribute>
+                    <xsl:attribute name="font-weight">bold</xsl:attribute>
                     <xsl:value-of select="MorseCodeSigns"/>
                 </text>
                 <text>
@@ -406,7 +388,7 @@
             </xsl:when>
             <!-- secondary airports -->
             <xsl:when test="$pointType='Airport'">
-                <xsl:variable name="seconday_runway_direction">
+                <xsl:variable name="secondary_runway_direction">
                     <xsl:value-of select="Runway * 10"/>
                 </xsl:variable>
                 <circle>
@@ -417,10 +399,10 @@
                     <xsl:attribute name="fill">none</xsl:attribute>
                 </circle>
                <line>
-                    <xsl:attribute name="x1"><xsl:value-of select="$pointX - floor($map_secondary_airport_runway_length * math:cos(($seconday_runway_direction - 90) * $math_deg_to_radians))"/></xsl:attribute>
-                    <xsl:attribute name="y1"><xsl:value-of select="$pointY + floor($map_secondary_airport_runway_length * math:sin(($seconday_runway_direction + 90) * $math_deg_to_radians))"/></xsl:attribute>
-                    <xsl:attribute name="x2"><xsl:value-of select="$pointX + floor($map_secondary_airport_runway_length * math:cos(($seconday_runway_direction - 90) * $math_deg_to_radians))"/></xsl:attribute>
-                    <xsl:attribute name="y2"><xsl:value-of select="$pointY - floor($map_secondary_airport_runway_length * math:sin(($seconday_runway_direction + 90) * $math_deg_to_radians))"/></xsl:attribute>
+                    <xsl:attribute name="x1"><xsl:value-of select="$pointX - floor($map_secondary_airport_runway_length * math:cos(($secondary_runway_direction - 90) * $math_deg_to_radians))"/></xsl:attribute>
+                    <xsl:attribute name="y1"><xsl:value-of select="$pointY + floor($map_secondary_airport_runway_length * math:sin(($secondary_runway_direction + 90) * $math_deg_to_radians))"/></xsl:attribute>
+                    <xsl:attribute name="x2"><xsl:value-of select="$pointX + floor($map_secondary_airport_runway_length * math:cos(($secondary_runway_direction - 90) * $math_deg_to_radians))"/></xsl:attribute>
+                    <xsl:attribute name="y2"><xsl:value-of select="$pointY - floor($map_secondary_airport_runway_length * math:sin(($secondary_runway_direction + 90) * $math_deg_to_radians))"/></xsl:attribute>
                     <xsl:attribute name="stroke">black</xsl:attribute>
                     <xsl:attribute name="stroke-width">2</xsl:attribute>
                </line>
@@ -478,9 +460,6 @@
                     <xsl:attribute name="x2">
                         <xsl:value-of select="$runwayX - floor($runway_length * math:cos((($map_base_airport_rwy_direction - 90 ) * $math_deg_to_radians)))"/>
                     </xsl:attribute>
-                   <!--
-                    <xsl:attribute name="x2"><xsl:value-of select="$runwayX + floor((((($map_base_airport_rwy_length * $geo_nm_in_meters) div $map_zoom) div 2) div math:cos($waypoints/Waypoins/Waypoint[ID=current()/WPTID]/Latitude * $math_deg_to_rad))  * math:cos(($map_base_airport_rwy_direction + 90) * $math_deg_to_rad))"/></xsl:attribute>
-                    -->
                     <xsl:attribute name="y2"><xsl:value-of select="$runwayY - floor(($map_base_airport_rwy_length  div $map_zoom )  * math:sin(($map_base_airport_rwy_direction - 90) * $math_deg_to_radians))"/></xsl:attribute>
                     <xsl:attribute name="stroke">white</xsl:attribute>
                     <xsl:attribute name="stroke-width">2</xsl:attribute>
@@ -610,7 +589,7 @@
                 <xsl:attribute name="x">
                     <xsl:choose>
                         <xls:when test="CaptionOffset">
-                            <xsl:value-of select="$pointX  + CaptionOffset/X"/>
+                            <xsl:value-of select="$pointX  + number(CaptionOffset/X)"/>
                         </xls:when>
                         <xsl:otherwise>
                             <xsl:value-of select="$pointX + 15"/>
@@ -620,7 +599,7 @@
                 <xsl:attribute name="y">
                     <xsl:choose>
                         <xls:when test="CaptionOffset">
-                            <xsl:value-of select="$pointY  + CaptionOffset/Y"/>
+                            <xsl:value-of select="$pointY  + number(CaptionOffset/Y)"/>
                         </xls:when>
                         <xsl:otherwise>
                             <xsl:value-of select="$pointY + 15"/>
@@ -639,7 +618,7 @@
             <xsl:variable name="pointX2"><xsl:call-template name="pointToPixelX"><xsl:with-param name="coordX" select="$maplines/MapLines/ZoneLimits/Longitude_End"/></xsl:call-template></xsl:variable>
             <xsl:variable name="pointY2"><xsl:call-template name="pointToPixelY"><xsl:with-param name="coordY" select="text()"/></xsl:call-template></xsl:variable>
             <xsl:variable name="caption_new">
-                <xsl:value-of select="format-number(number(text()), '00')"/>°<xsl:value-of select="format-number(((text() - floor(text())) * 60) , '00')"/>''
+                <xsl:value-of select="format-number(number(text()), '00')"/>°<xsl:value-of select="format-number(((text() - floor(number(text()))) * 60) , '00')"/>''
             </xsl:variable>
 
             <line>
@@ -671,7 +650,7 @@
             <xsl:variable name="pointY2"><xsl:call-template name="pointToPixelY"><xsl:with-param name="coordY" select="$maplines/MapLines/ZoneLimits/Latitude_End"/></xsl:call-template></xsl:variable>
 
             <xsl:variable name="caption_new">
-                <xsl:value-of select="format-number(number(text()), '00')"/>°<xsl:value-of select="format-number(((text() - floor(text())) * 60) , '00')"/>''
+                <xsl:value-of select="format-number(number(text()), '00')"/>°<xsl:value-of select="format-number(((text() - floor(number(text()))) * 60) , '00')"/>''
             </xsl:variable>
             <line>
                 <xsl:attribute name="x1"><xsl:value-of select="$pointX1"/></xsl:attribute>
@@ -715,10 +694,10 @@
         <xsl:variable name="previous_pointY"><xsl:call-template name="pointToPixelY"><xsl:with-param name="coordY" select="$waypoints/Waypoins/Waypoint[ID=current()/preceding-sibling::Waypoint[1]/WPTID]/Latitude"/></xsl:call-template></xsl:variable>
 
         <xsl:variable name="this_point_turn_direction"><xsl:value-of select="Turn"/></xsl:variable>
-        <!-- hacky:  the LBSF original charts shows unrealistic curves, probably for presentation purposes only, sooooo... thry to emulate them by introducing coeeficients and stuff  -->
-        <xsl:variable name="runway_climnout_correction_factor">0.7</xsl:variable>
+        <!-- hacky:  the LBSF original charts shows unrealistic curves, probably for presentation purposes only, so ... try to emulate them by introducing coefficients and stuff  -->
+        <xsl:variable name="runway_climbout_correction_factor">0.7</xsl:variable>
         <xsl:variable name="ca_length_meters">
-            <xsl:value-of select="(((number(translate(Altitude, '-+','')) - $airport/Airport/ElevationFeet) div ../../ClimbGradientFeetPerNM) * $geo_nm_in_meters) * $runway_climnout_correction_factor"/>
+            <xsl:value-of select="(((number(translate(Altitude, '-+','')) - number($airport/Airport/ElevationFeet)) div number(../../ClimbGradientFeetPerNM)) * $geo_nm_in_meters) * $runway_climbout_correction_factor"/>
         </xsl:variable>
 
         <xsl:variable name="bank_angle_for_flight_phase">
@@ -747,10 +726,6 @@
         <xsl:variable name="ca_end_y">
             <xsl:value-of select="$runwayY + floor(($ca_length_meters div $map_zoom) * math:sin((($track_geo - 90 ) * $math_deg_to_radians)))"/>
         </xsl:variable>
-        <xsl:variable name="next_track_geo">
-            <xsl:value-of select="substring-before(substring-after(current()/following-sibling::Waypoint[1]/Track, '('),'°')"/>
-        </xsl:variable>
-
 
         <!-- CA waypoints have no coordinate, sue the extension termination coordinates instead to calculate the arc -->
         <xsl:variable name="real_pointX">
@@ -1003,7 +978,7 @@
                                 when the passengers are secured by seatbelts
                             4. so the formula for the radius, if given velocity and the angle of bank are given. is:
                             r = (Vt.Vt/g*tan(phi)
-                            where g is the gravitational acceleration, Vt is the speed in m/sec, angle of bank is in .. what, degrees, rads?
+                            where g is the gravitational acceleration, Vt is the speed in m/sec, angle of bank is in what, degrees, rads?
                             5. we assume the Vt is something like 220 knots (standard_turn_speed)
                             6. turn radius is thus 2800+ m, sounds reasonable
                         -->
@@ -1074,7 +1049,7 @@
                                <xsl:value-of select="$map_base_airport_rwy_latitude"/>
                            </xsl:when>
                            <xsl:otherwise>
-                                <xsl:value-of select="number($waypoints/Waypoins/Waypoint[ID=$sid_star_node/WPTID]/Latitude)"/>
+                                <xsl:value-of select="$waypoints/Waypoins/Waypoint[ID=$sid_star_node/WPTID]/Latitude"/>
                            </xsl:otherwise>
                        </xsl:choose>
 
@@ -1085,17 +1060,17 @@
                                <xsl:value-of select="$map_base_airport_rwy_longitude"/>
                            </xsl:when>
                            <xsl:otherwise>
-                                <xsl:value-of select="number($waypoints/Waypoins/Waypoint[ID=$sid_star_node/WPTID]/Longitude)"/>
+                                <xsl:value-of select="$waypoints/Waypoins/Waypoint[ID=$sid_star_node/WPTID]/Longitude"/>
                            </xsl:otherwise>
                        </xsl:choose>
                     </xsl:variable>
                     <xsl:variable name="next_point_latitude">
                         <xsl:choose>
                             <xsl:when test="$chart_type='SID'">
-                                <xsl:value-of select="number($waypoints/Waypoins/Waypoint[ID=$sid_star_node/following-sibling::Waypoint[1]/WPTID]/Latitude)"/>
+                                <xsl:value-of select="$waypoints/Waypoins/Waypoint[ID=$sid_star_node/following-sibling::Waypoint[1]/WPTID]/Latitude"/>
                             </xsl:when>
                             <xsl:when test="$chart_type='STAR'">
-                                <xsl:value-of select="number($waypoints/Waypoins/Waypoint[ID=$sid_star_node/preceding-sibling::Waypoint[1]/WPTID]/Latitude)"/>
+                                <xsl:value-of select="$waypoints/Waypoins/Waypoint[ID=$sid_star_node/preceding-sibling::Waypoint[1]/WPTID]/Latitude"/>
                             </xsl:when>
                             <xsl:otherwise>
                                 WARN : Unknown chart type <xsl:value-of select="$chart_type"/>
@@ -1106,10 +1081,10 @@
                     <xsl:variable name="next_point_longitude">
                         <xsl:choose>
                             <xsl:when test="$chart_type='SID'">
-                                <xsl:value-of select="number($waypoints/Waypoins/Waypoint[ID=$sid_star_node/following-sibling::Waypoint[1]/WPTID]/Longitude)"/>
+                                <xsl:value-of select="$waypoints/Waypoins/Waypoint[ID=$sid_star_node/following-sibling::Waypoint[1]/WPTID]/Longitude"/>
                             </xsl:when>
                             <xsl:when test="$chart_type='STAR'">
-                                <xsl:value-of select="number($waypoints/Waypoins/Waypoint[ID=$sid_star_node/preceding-sibling::Waypoint[1]/WPTID]/Longitude)"/>
+                                <xsl:value-of select="$waypoints/Waypoins/Waypoint[ID=$sid_star_node/preceding-sibling::Waypoint[1]/WPTID]/Longitude"/>
                             </xsl:when>
                             <xsl:otherwise>
                                 WARN : Unknown chart type <xsl:value-of select="$chart_type"/>
@@ -1118,14 +1093,14 @@
                     </xsl:variable>
 
                     <xsl:variable name="squared_sin_latitude_delta">
-                        <xsl:value-of select="number(math:power(math:sin((($next_point_latitude - $current_point_latitude) * $math_deg_to_radians ) div 2), 2))"/>
+                        <xsl:value-of select="math:power(math:sin((($next_point_latitude - $current_point_latitude) * $math_deg_to_radians ) div 2), 2)"/>
                     </xsl:variable>
                     <xsl:variable name="squared_sin_longitude_delta">
-                        <xsl:value-of select="number(math:power(math:sin((($next_point_longitude - $current_point_longitude) * $math_deg_to_radians) div 2), 2))"/>
+                        <xsl:value-of select="math:power(math:sin((($next_point_longitude - $current_point_longitude) * $math_deg_to_radians) div 2), 2)"/>
                     </xsl:variable>
 
                     <xsl:variable name="square_root_inside_brackets">
-                        <xsl:value-of select="number(math:sqrt($squared_sin_latitude_delta + number(math:cos($next_point_latitude * $math_deg_to_radians)) * number(math:cos($current_point_latitude * $math_deg_to_radians)) * $squared_sin_longitude_delta))"/>
+                        <xsl:value-of select="math:sqrt($squared_sin_latitude_delta + math:cos($next_point_latitude * $math_deg_to_radians) * math:cos($current_point_latitude * $math_deg_to_radians) * $squared_sin_longitude_delta)"/>
                     </xsl:variable>
 
                     <xsl:variable name="next_point_true_angle">
@@ -1284,17 +1259,17 @@
                     <xsl:choose>
                         <xsl:when test="$point_has_curve='Yes'">-</xsl:when>
                         <xsl:otherwise>
-                            <xsl:value-of select="substring-before(Track,'(')"></xsl:value-of>
+                            <xsl:value-of select="substring-before(Track,'(')"/>
                         </xsl:otherwise>
                     </xsl:choose>
                 </xsl:variable>
                 <xsl:variable name="text_dist">
                     <xsl:choose>
                         <xsl:when test="$point_has_curve='Yes'">
-                            <xsl:value-of select="$result_NM"></xsl:value-of>*
+                            <xsl:value-of select="$result_NM"/>*
                         </xsl:when>
                         <xsl:otherwise>
-                            <xsl:value-of select="DIST"></xsl:value-of>
+                            <xsl:value-of select="DIST"/>
                         </xsl:otherwise>
                     </xsl:choose>
                 </xsl:variable>
@@ -1438,7 +1413,7 @@
                                 </xsl:otherwise>
                             </xsl:choose>
                         </xsl:attribute>
-                        <tspan x="0" dy="1.0em"></tspan>
+                        <tspan x="0" dy="1.0em"/>
                         <tspan x="0" dy="1.8em"> <xsl:value-of select="ancestor::SID_Core/ID"/></tspan>
                     </text>
                 </xsl:if>

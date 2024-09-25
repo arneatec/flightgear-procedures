@@ -210,10 +210,6 @@
                                 <xsl:with-param name="return_type" select="'Path'"/>
                             </xsl:call-template>
                         </xsl:for-each>
-                        <!--
-                        L 100 100
-                        L 200 200
-                        -->
                     </xsl:attribute>
                 </path>
             </xsl:when>
@@ -1403,6 +1399,7 @@
                 <!-- SID/STAR name -->
                 <xsl:if test="$chart_type='SID' and count(current()/following-sibling::Waypoint) = 0">
                     <text>
+                        <xsl:attribute name="font-size">smaller</xsl:attribute>
                         <xsl:attribute name="transform">translate(<xsl:value-of select="$sid_name_point_X"/>, <xsl:value-of select="$sid_name_point_Y"/>) rotate(
                             <xsl:choose>
                                 <xsl:when test="$track_geo > 180">

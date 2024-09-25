@@ -136,5 +136,45 @@
         <Rotate>0</Rotate>
         <Text>24°00''</Text>
     </Caption>
+    <ScaleLines>
+        <KilometersScale>
+            <Tick>
+                <Offset>0</Offset>
+            </Tick>
+            <Tick>
+                <Offset>7</Offset>
+            </Tick>
+            <Tick>
+                <Offset>14</Offset>
+            </Tick>
+            <Tick>
+                <Offset>21</Offset>
+            </Tick>
+            <Tick>
+                <Offset>28</Offset>
+            </Tick>
+        </KilometersScale>
+        <NauticalMilesScale>
+            <Tick>
+                <Offset>0</Offset>
+            </Tick>
+            <Tick>
+                <Offset>3</Offset>
+            </Tick>
+            <Tick>
+                <Offset>6</Offset>
+            </Tick>
+            <Tick>
+                <Offset>9</Offset>
+            </Tick>
+            <Tick>
+                <Offset>12</Offset>
+            </Tick>
+            <Tick>
+                <Offset>15</Offset>
+            </Tick>
+        </NauticalMilesScale>
+    </ScaleLines>
+
 
 </MapLines>

@@ -171,7 +171,14 @@
                                 </div>
                             </div>
                         </div>
-                </div>
+                        <div class="row">
+                                <div class="card border-dark">
+                                    <div class="card-body  p-0 m-0">
+                                        <xsl:call-template name="draw_scale"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
             <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"/>
             <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"/>
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"/>
@@ -1444,4 +1451,110 @@
             <xsl:attribute name="stroke">LightGray</xsl:attribute>
         </path>
     </xsl:template>
+    <xsl:template name="draw_scale" match="/Chart">
+         <svg>
+            <xsl:variable name="km_scale_line_length_km">28</xsl:variable>
+            <xsl:variable name="km_scale_thick_line_y_separation">12</xsl:variable>
+
+            <xsl:variable name="km_scale_line_start_x">450</xsl:variable>
+            <xsl:variable name="km_scale_line_start_y">50</xsl:variable>
+
+            <xsl:variable name="km_scale_line_end_x"><xsl:value-of select="$km_scale_line_start_x + ((($km_scale_line_length_km * 1000) div $map_zoom) div math:cos($map_base_airport_rwy_latitude * $math_deg_to_radians) ) "/></xsl:variable>
+            <xsl:variable name="km_scale_line_end_y">50</xsl:variable>
+
+            <xsl:variable name="km_scale_one_km_length"><xsl:value-of select="(((1 * 1000) div $map_zoom) div math:cos($map_base_airport_rwy_latitude * $math_deg_to_radians))"/></xsl:variable>
+
+
+            <xsl:variable name="nm_scale_line_length_km"><xsl:value-of select="(15 * $geo_nm_in_meters) div 1000"/></xsl:variable>
+            <xsl:variable name="nm_scale_thick_line_y_separation">16</xsl:variable>
+            <xsl:variable name="nm_scale_thick_line_end_x"><xsl:value-of select="$km_scale_line_start_x + ((($nm_scale_line_length_km * 1000) div $map_zoom) div math:cos($map_base_airport_rwy_latitude * $math_deg_to_radians) ) "/></xsl:variable>
+
+             <xsl:variable name="nm_scale_normal_line_y_separation">28</xsl:variable>
+             <xsl:variable name="nm_scale_one_nm_length"><xsl:value-of select="(((1 * $geo_nm_in_meters) div $map_zoom) div math:cos($map_base_airport_rwy_latitude * $math_deg_to_radians))"/></xsl:variable>
+
+            <xsl:attribute name="width"><xsl:value-of select="$svg_size_X"/></xsl:attribute>
+            <xsl:attribute name="height"><xsl:value-of select="100"/></xsl:attribute>
+             <!-- scale line in km, top line-->
+            <line>
+                <xsl:attribute name="x1"><xsl:value-of select="$km_scale_line_start_x"/></xsl:attribute>
+                <xsl:attribute name="y1"><xsl:value-of select="$km_scale_line_start_y"/></xsl:attribute>
+                <xsl:attribute name="x2"><xsl:value-of select="$km_scale_line_end_x"/></xsl:attribute>
+                <xsl:attribute name="y2"><xsl:value-of select="$km_scale_line_end_y"/></xsl:attribute>
+                <xsl:attribute name="stroke">black</xsl:attribute>
+                <xsl:attribute name="stroke-width">1</xsl:attribute>
+           </line>
+            <!-- scale line in km, tick lines and text-->
+            <xsl:for-each select="$maplines/MapLines/ScaleLines/KilometersScale/Tick">
+                <line>
+                    <xsl:attribute name="x1"><xsl:value-of select="$km_scale_line_start_x + $km_scale_one_km_length * current()/Offset"/></xsl:attribute>
+                    <xsl:attribute name="y1"><xsl:value-of select="$km_scale_line_start_y - 3"/></xsl:attribute>
+                    <xsl:attribute name="x2"><xsl:value-of select="$km_scale_line_start_x + $km_scale_one_km_length * current()/Offset"/></xsl:attribute>
+                    <xsl:attribute name="y2"><xsl:value-of select="$km_scale_line_end_y + 10"/></xsl:attribute>
+                    <xsl:attribute name="stroke">black</xsl:attribute>
+                    <xsl:attribute name="stroke-width">1</xsl:attribute>
+                </line>
+                <text>
+                    <xsl:attribute name="font-size">smaller</xsl:attribute>
+                    <xsl:attribute name="x"><xsl:value-of select="$km_scale_line_start_x + $km_scale_one_km_length * current()/Offset - 4"/></xsl:attribute>
+                    <xsl:attribute name="y"><xsl:value-of select="$km_scale_line_start_y - 6"/></xsl:attribute>
+                    <xsl:value-of select="current()/Offset"/>
+                </text>
+            </xsl:for-each>
+
+             <!-- scale line in km, bottom thick line -->
+            <line>
+                <xsl:attribute name="x1"><xsl:value-of select="$km_scale_line_start_x"/></xsl:attribute>
+                <xsl:attribute name="y1"><xsl:value-of select="$km_scale_line_start_y + $km_scale_thick_line_y_separation"/></xsl:attribute>
+                <xsl:attribute name="x2"><xsl:value-of select="$km_scale_line_end_x"/></xsl:attribute>
+                <xsl:attribute name="y2"><xsl:value-of select="$km_scale_line_end_y + $km_scale_thick_line_y_separation"/></xsl:attribute>
+                <xsl:attribute name="stroke">black</xsl:attribute>
+                <xsl:attribute name="stroke-width">4</xsl:attribute>
+           </line>
+
+              <!-- scale line in NM, top thick line-->
+            <line>
+                <xsl:attribute name="x1"><xsl:value-of select="$km_scale_line_start_x"/></xsl:attribute>
+                <xsl:attribute name="y1"><xsl:value-of select="$km_scale_line_start_y + $nm_scale_thick_line_y_separation"/></xsl:attribute>
+                <xsl:attribute name="x2"><xsl:value-of select="$nm_scale_thick_line_end_x"/></xsl:attribute>
+                <xsl:attribute name="y2"><xsl:value-of select="$km_scale_line_end_y + $nm_scale_thick_line_y_separation"/></xsl:attribute>
+                <xsl:attribute name="stroke">black</xsl:attribute>
+                <xsl:attribute name="stroke-width">4</xsl:attribute>
+           </line>
+             <!-- scale line in NM, bottom line -->
+            <line>
+                <xsl:attribute name="x1"><xsl:value-of select="$km_scale_line_start_x"/></xsl:attribute>
+                <xsl:attribute name="y1"><xsl:value-of select="$km_scale_line_start_y + $nm_scale_normal_line_y_separation"/></xsl:attribute>
+                <xsl:attribute name="x2"><xsl:value-of select="$nm_scale_thick_line_end_x"/></xsl:attribute>
+                <xsl:attribute name="y2"><xsl:value-of select="$km_scale_line_end_y + $nm_scale_normal_line_y_separation"/></xsl:attribute>
+                <xsl:attribute name="stroke">black</xsl:attribute>
+                <xsl:attribute name="stroke-width">1</xsl:attribute>
+           </line>
+             <!-- scale line in km, tick lines and text-->
+            <xsl:for-each select="$maplines/MapLines/ScaleLines/NauticalMilesScale/Tick">
+                <line>
+                    <xsl:attribute name="x1"><xsl:value-of select="$km_scale_line_start_x + $nm_scale_one_nm_length * current()/Offset"/></xsl:attribute>
+                    <xsl:attribute name="y1"><xsl:value-of select="$km_scale_line_start_y + 18"/></xsl:attribute>
+                    <xsl:attribute name="x2"><xsl:value-of select="$km_scale_line_start_x + $nm_scale_one_nm_length * current()/Offset"/></xsl:attribute>
+                    <xsl:attribute name="y2"><xsl:value-of select="$km_scale_line_end_y + 30"/></xsl:attribute>
+                    <xsl:attribute name="stroke">black</xsl:attribute>
+                    <xsl:attribute name="stroke-width">1</xsl:attribute>
+                </line>
+                <text>
+                    <xsl:attribute name="font-size">smaller</xsl:attribute>
+                    <xsl:attribute name="x"><xsl:value-of select="$km_scale_line_start_x + $nm_scale_one_nm_length * current()/Offset - 4"/></xsl:attribute>
+                    <xsl:attribute name="y"><xsl:value-of select="$km_scale_line_start_y + 42"/></xsl:attribute>
+                    <xsl:value-of select="current()/Offset"/>
+                </text>
+            </xsl:for-each>
+
+             <xsl:value-of select="(((DIST * $geo_nm_in_meters) div $map_zoom) div 8) div math:cos($waypoints/Waypoins/Waypoint[ID=current()/WPTID]/Latitude * $math_deg_to_radians)"/>
+
+            <text>
+                <xsl:attribute name="x"><xsl:value-of select="$svg_size_X div 2"/></xsl:attribute>
+                <xsl:attribute name="y">20</xsl:attribute>
+                SCALE 1: <xsl:value-of select="($km_scale_one_km_length div $svg_size_X) * 100000"/>
+            </text>
+        </svg>
+    </xsl:template>
+
 </xsl:stylesheet>

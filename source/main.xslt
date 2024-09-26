@@ -1549,10 +1549,16 @@
 
              <xsl:value-of select="(((DIST * $geo_nm_in_meters) div $map_zoom) div 8) div math:cos($waypoints/Waypoins/Waypoint[ID=current()/WPTID]/Latitude * $math_deg_to_radians)"/>
 
+             <xsl:comment>
+                 geo_earth_radius: <xsl:value-of select="$geo_earth_radius"/>
+                 svg_size_X: <xsl:value-of select="$svg_size_X"/>
+                 km_scale_one_km_length: <xsl:value-of select="$km_scale_one_km_length"/>
+             </xsl:comment>
+
             <text>
                 <xsl:attribute name="x"><xsl:value-of select="$svg_size_X div 2"/></xsl:attribute>
                 <xsl:attribute name="y">20</xsl:attribute>
-                SCALE 1: <xsl:value-of select="$geo_earth_radius div  (($svg_size_X * $km_scale_one_km_length))"/>
+                SCALE 1:<xsl:value-of select="floor($geo_earth_radius div (($svg_size_X * $km_scale_one_km_length))  * math:cos($airport/Airport/ControlPoint/Latitude * $math_deg_to_radians) ) * 1000"/>
             </text>
         </svg>
     </xsl:template>

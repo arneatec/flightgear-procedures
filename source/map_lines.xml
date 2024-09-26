@@ -154,6 +154,33 @@
                 <Offset>28</Offset>
             </Tick>
         </KilometersScale>
+        <KilometersScaleSingleUnit>
+            <Tick>
+                <Offset>7</Offset>
+                <ShowNumber>Yes</ShowNumber>
+            </Tick>
+            <Tick>
+                <Offset>6</Offset>
+            </Tick>
+            <Tick>
+                <Offset>5</Offset>
+            </Tick>
+            <Tick>
+                <Offset>4</Offset>
+            </Tick>
+            <Tick>
+                <Offset>3</Offset>
+            </Tick>
+            <Tick>
+                <Offset>2</Offset>
+            </Tick>
+            <Tick>
+                <Offset>1</Offset>
+            </Tick>
+            <Tick>
+                <Offset>1</Offset>
+            </Tick>
+        </KilometersScaleSingleUnit>
         <NauticalMilesScale>
             <Tick>
                 <Offset>0</Offset>
@@ -174,6 +201,20 @@
                 <Offset>15</Offset>
             </Tick>
         </NauticalMilesScale>
+        <NauticalMilesScaleSingleUnit>
+            <Tick>
+                <Offset>3</Offset>
+            </Tick>
+            <Tick>
+                <Offset>2</Offset>
+            </Tick>
+            <Tick>
+                <Offset>1</Offset>
+            </Tick>
+            <Tick>
+                <Offset>0</Offset>
+            </Tick>
+        </NauticalMilesScaleSingleUnit>
     </ScaleLines>
 
 

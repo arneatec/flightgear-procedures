@@ -1453,7 +1453,19 @@
     </xsl:template>
     <xsl:template name="draw_scale" match="/Chart">
          <svg>
+
+             <xsl:variable name="scale_thick_line_thickness">4</xsl:variable>
+             <xsl:variable name="scale_thin_line_thickness">1</xsl:variable>
+             <xsl:variable name="scale_line_color">black</xsl:variable>
+
+             <xsl:variable name="scale_vertical_lines_overhang">3</xsl:variable>
+
+
             <xsl:variable name="km_scale_line_length_km">28</xsl:variable>
+            <xsl:variable name="km_scale_line_single_unit_length_km">-7</xsl:variable>
+
+
+
             <xsl:variable name="km_scale_thick_line_y_separation">12</xsl:variable>
 
             <xsl:variable name="km_scale_line_start_x">450</xsl:variable>
@@ -1461,12 +1473,13 @@
 
             <xsl:variable name="km_scale_line_end_x"><xsl:value-of select="$km_scale_line_start_x + ((($km_scale_line_length_km * 1000) div $map_zoom) div math:cos($map_base_airport_rwy_latitude * $math_deg_to_radians) ) "/></xsl:variable>
             <xsl:variable name="km_scale_line_end_y">50</xsl:variable>
-
             <xsl:variable name="km_scale_one_km_length"><xsl:value-of select="(((1 * 1000) div $map_zoom) div math:cos($map_base_airport_rwy_latitude * $math_deg_to_radians))"/></xsl:variable>
+
+             <xsl:variable name="km_scale_line_single_unit_start_x"><xsl:value-of select="$km_scale_line_start_x + ((($km_scale_line_single_unit_length_km * 1000) div $map_zoom) div math:cos($map_base_airport_rwy_latitude * $math_deg_to_radians) ) "/></xsl:variable>
 
 
             <xsl:variable name="nm_scale_line_length_km"><xsl:value-of select="(15 * $geo_nm_in_meters) div 1000"/></xsl:variable>
-            <xsl:variable name="nm_scale_thick_line_y_separation">16</xsl:variable>
+            <xsl:variable name="nm_scale_thick_line_y_separation"><xsl:value-of select="$km_scale_thick_line_y_separation + $scale_thick_line_thickness"/></xsl:variable>
             <xsl:variable name="nm_scale_thick_line_end_x"><xsl:value-of select="$km_scale_line_start_x + ((($nm_scale_line_length_km * 1000) div $map_zoom) div math:cos($map_base_airport_rwy_latitude * $math_deg_to_radians) ) "/></xsl:variable>
 
              <xsl:variable name="nm_scale_normal_line_y_separation">28</xsl:variable>
@@ -1474,28 +1487,30 @@
 
             <xsl:attribute name="width"><xsl:value-of select="$svg_size_X"/></xsl:attribute>
             <xsl:attribute name="height"><xsl:value-of select="100"/></xsl:attribute>
+
              <!-- scale line in km, top line-->
             <line>
                 <xsl:attribute name="x1"><xsl:value-of select="$km_scale_line_start_x"/></xsl:attribute>
                 <xsl:attribute name="y1"><xsl:value-of select="$km_scale_line_start_y"/></xsl:attribute>
                 <xsl:attribute name="x2"><xsl:value-of select="$km_scale_line_end_x"/></xsl:attribute>
                 <xsl:attribute name="y2"><xsl:value-of select="$km_scale_line_end_y"/></xsl:attribute>
-                <xsl:attribute name="stroke">black</xsl:attribute>
-                <xsl:attribute name="stroke-width">1</xsl:attribute>
+                <xsl:attribute name="stroke"><xsl:value-of select="$scale_line_color"/></xsl:attribute>
+                <xsl:attribute name="stroke-width"><xsl:value-of select="$scale_thin_line_thickness"/></xsl:attribute>
            </line>
             <!-- scale line in km, tick lines and text-->
             <xsl:for-each select="$maplines/MapLines/ScaleLines/KilometersScale/Tick">
+                <xsl:variable name="scale_offset"><xsl:value-of select="current()/Offset"/></xsl:variable>
                 <line>
-                    <xsl:attribute name="x1"><xsl:value-of select="$km_scale_line_start_x + $km_scale_one_km_length * current()/Offset"/></xsl:attribute>
-                    <xsl:attribute name="y1"><xsl:value-of select="$km_scale_line_start_y - 3"/></xsl:attribute>
-                    <xsl:attribute name="x2"><xsl:value-of select="$km_scale_line_start_x + $km_scale_one_km_length * current()/Offset"/></xsl:attribute>
-                    <xsl:attribute name="y2"><xsl:value-of select="$km_scale_line_end_y + 10"/></xsl:attribute>
-                    <xsl:attribute name="stroke">black</xsl:attribute>
+                    <xsl:attribute name="x1"><xsl:value-of select="$km_scale_line_start_x + $km_scale_one_km_length * $scale_offset"/></xsl:attribute>
+                    <xsl:attribute name="y1"><xsl:value-of select="$km_scale_line_start_y - $scale_vertical_lines_overhang"/></xsl:attribute>
+                    <xsl:attribute name="x2"><xsl:value-of select="$km_scale_line_start_x + $km_scale_one_km_length * $scale_offset"/></xsl:attribute>
+                    <xsl:attribute name="y2"><xsl:value-of select="$km_scale_line_end_y + $km_scale_thick_line_y_separation + $scale_vertical_lines_overhang - $scale_thin_line_thickness"/></xsl:attribute>
+                    <xsl:attribute name="stroke"><xsl:value-of select="$scale_line_color"/></xsl:attribute>
                     <xsl:attribute name="stroke-width">1</xsl:attribute>
                 </line>
                 <text>
                     <xsl:attribute name="font-size">smaller</xsl:attribute>
-                    <xsl:attribute name="x"><xsl:value-of select="$km_scale_line_start_x + $km_scale_one_km_length * current()/Offset - 4"/></xsl:attribute>
+                    <xsl:attribute name="x"><xsl:value-of select="$km_scale_line_start_x + $km_scale_one_km_length * $scale_offset - 4"/></xsl:attribute>
                     <xsl:attribute name="y"><xsl:value-of select="$km_scale_line_start_y - 6"/></xsl:attribute>
                     <xsl:value-of select="current()/Offset"/>
                 </text>
@@ -1507,17 +1522,58 @@
                 <xsl:attribute name="y1"><xsl:value-of select="$km_scale_line_start_y + $km_scale_thick_line_y_separation"/></xsl:attribute>
                 <xsl:attribute name="x2"><xsl:value-of select="$km_scale_line_end_x"/></xsl:attribute>
                 <xsl:attribute name="y2"><xsl:value-of select="$km_scale_line_end_y + $km_scale_thick_line_y_separation"/></xsl:attribute>
-                <xsl:attribute name="stroke">black</xsl:attribute>
-                <xsl:attribute name="stroke-width">4</xsl:attribute>
+                <xsl:attribute name="stroke"><xsl:value-of select="$scale_line_color"/></xsl:attribute>
+                <xsl:attribute name="stroke-width"><xsl:value-of select="$scale_thick_line_thickness"/></xsl:attribute>
            </line>
 
+
+              <!-- scale line (single unit) in km, top line-->
+            <line>
+                <xsl:attribute name="x1"><xsl:value-of select="$km_scale_line_single_unit_start_x"/></xsl:attribute>
+                <xsl:attribute name="y1"><xsl:value-of select="$km_scale_line_start_y"/></xsl:attribute>
+                <xsl:attribute name="x2"><xsl:value-of select="$km_scale_line_start_x"/></xsl:attribute>
+                <xsl:attribute name="y2"><xsl:value-of select="$km_scale_line_end_y"/></xsl:attribute>
+                <xsl:attribute name="stroke"><xsl:value-of select="$scale_line_color"/></xsl:attribute>
+                <xsl:attribute name="stroke-width"><xsl:value-of select="$scale_thin_line_thickness"/></xsl:attribute>
+           </line>
+
+            <!-- scale line (single unit) in km, tick lines and text-->
+            <xsl:for-each select="$maplines/MapLines/ScaleLines/KilometersScaleSingleUnit/Tick">
+                <xsl:variable name="scale_offset"><xsl:value-of select="current()/Offset"/></xsl:variable>
+                <line>
+                    <xsl:attribute name="x1"><xsl:value-of select="$km_scale_line_start_x - $km_scale_one_km_length * $scale_offset"/></xsl:attribute>
+                    <xsl:attribute name="y1"><xsl:value-of select="$km_scale_line_start_y - $scale_vertical_lines_overhang"/></xsl:attribute>
+                    <xsl:attribute name="x2"><xsl:value-of select="$km_scale_line_start_x - $km_scale_one_km_length * $scale_offset"/></xsl:attribute>
+                    <xsl:attribute name="y2"><xsl:value-of select="$km_scale_line_end_y + $km_scale_thick_line_y_separation + $scale_vertical_lines_overhang - $scale_thin_line_thickness"/></xsl:attribute>
+                    <xsl:attribute name="stroke"><xsl:value-of select="$scale_line_color"/></xsl:attribute>
+                    <xsl:attribute name="stroke-width">1</xsl:attribute>
+                </line>
+                <xsl:if test="current()/ShowNumber='Yes'">
+                    <text>
+                        <xsl:attribute name="font-size">smaller</xsl:attribute>
+                        <xsl:attribute name="x"><xsl:value-of select="$km_scale_line_start_x - $km_scale_one_km_length * $scale_offset - 4"/></xsl:attribute>
+                        <xsl:attribute name="y"><xsl:value-of select="$km_scale_line_start_y - 6"/></xsl:attribute>
+                        <xsl:value-of select="current()/Offset"/>
+                    </text>
+                </xsl:if>
+            </xsl:for-each>
+
+            <!-- scale line (single unit) in km, bottom thick line -->
+            <line>
+                <xsl:attribute name="x1"><xsl:value-of select="$km_scale_line_single_unit_start_x"/></xsl:attribute>
+                <xsl:attribute name="y1"><xsl:value-of select="$km_scale_line_start_y + $km_scale_thick_line_y_separation"/></xsl:attribute>
+                <xsl:attribute name="x2"><xsl:value-of select="$km_scale_line_start_x"/></xsl:attribute>
+                <xsl:attribute name="y2"><xsl:value-of select="$km_scale_line_end_y + $km_scale_thick_line_y_separation"/></xsl:attribute>
+                <xsl:attribute name="stroke"><xsl:value-of select="$scale_line_color"/></xsl:attribute>
+                <xsl:attribute name="stroke-width"><xsl:value-of select="$scale_thick_line_thickness"/></xsl:attribute>
+           </line>
               <!-- scale line in NM, top thick line-->
             <line>
                 <xsl:attribute name="x1"><xsl:value-of select="$km_scale_line_start_x"/></xsl:attribute>
                 <xsl:attribute name="y1"><xsl:value-of select="$km_scale_line_start_y + $nm_scale_thick_line_y_separation"/></xsl:attribute>
                 <xsl:attribute name="x2"><xsl:value-of select="$nm_scale_thick_line_end_x"/></xsl:attribute>
                 <xsl:attribute name="y2"><xsl:value-of select="$km_scale_line_end_y + $nm_scale_thick_line_y_separation"/></xsl:attribute>
-                <xsl:attribute name="stroke">black</xsl:attribute>
+                <xsl:attribute name="stroke"><xsl:value-of select="$scale_line_color"/></xsl:attribute>
                 <xsl:attribute name="stroke-width">4</xsl:attribute>
            </line>
              <!-- scale line in NM, bottom line -->
@@ -1526,22 +1582,23 @@
                 <xsl:attribute name="y1"><xsl:value-of select="$km_scale_line_start_y + $nm_scale_normal_line_y_separation"/></xsl:attribute>
                 <xsl:attribute name="x2"><xsl:value-of select="$nm_scale_thick_line_end_x"/></xsl:attribute>
                 <xsl:attribute name="y2"><xsl:value-of select="$km_scale_line_end_y + $nm_scale_normal_line_y_separation"/></xsl:attribute>
-                <xsl:attribute name="stroke">black</xsl:attribute>
+                <xsl:attribute name="stroke"><xsl:value-of select="$scale_line_color"/></xsl:attribute>
                 <xsl:attribute name="stroke-width">1</xsl:attribute>
            </line>
-             <!-- scale line in km, tick lines and text-->
+             <!-- scale line in NM, tick lines and text-->
             <xsl:for-each select="$maplines/MapLines/ScaleLines/NauticalMilesScale/Tick">
+                <xsl:variable name="scale_offset"><xsl:value-of select="current()/Offset"/></xsl:variable>
                 <line>
-                    <xsl:attribute name="x1"><xsl:value-of select="$km_scale_line_start_x + $nm_scale_one_nm_length * current()/Offset"/></xsl:attribute>
-                    <xsl:attribute name="y1"><xsl:value-of select="$km_scale_line_start_y + 18"/></xsl:attribute>
-                    <xsl:attribute name="x2"><xsl:value-of select="$km_scale_line_start_x + $nm_scale_one_nm_length * current()/Offset"/></xsl:attribute>
-                    <xsl:attribute name="y2"><xsl:value-of select="$km_scale_line_end_y + 30"/></xsl:attribute>
-                    <xsl:attribute name="stroke">black</xsl:attribute>
-                    <xsl:attribute name="stroke-width">1</xsl:attribute>
+                    <xsl:attribute name="x1"><xsl:value-of select="$km_scale_line_start_x + $nm_scale_one_nm_length * $scale_offset"/></xsl:attribute>
+                    <xsl:attribute name="y1"><xsl:value-of select="$km_scale_line_start_y + $nm_scale_thick_line_y_separation - $scale_thin_line_thickness -1"/></xsl:attribute>
+                    <xsl:attribute name="x2"><xsl:value-of select="$km_scale_line_start_x + $nm_scale_one_nm_length * $scale_offset"/></xsl:attribute>
+                    <xsl:attribute name="y2"><xsl:value-of select="$km_scale_line_end_y + $nm_scale_normal_line_y_separation + $scale_vertical_lines_overhang"/></xsl:attribute>
+                    <xsl:attribute name="stroke"><xsl:value-of select="$scale_line_color"/></xsl:attribute>
+                    <xsl:attribute name="stroke-width"><xsl:value-of select="$scale_thin_line_thickness"/></xsl:attribute>
                 </line>
                 <text>
                     <xsl:attribute name="font-size">smaller</xsl:attribute>
-                    <xsl:attribute name="x"><xsl:value-of select="$km_scale_line_start_x + $nm_scale_one_nm_length * current()/Offset - 4"/></xsl:attribute>
+                    <xsl:attribute name="x"><xsl:value-of select="$km_scale_line_start_x + $nm_scale_one_nm_length * $scale_offset - 4"/></xsl:attribute>
                     <xsl:attribute name="y"><xsl:value-of select="$km_scale_line_start_y + 42"/></xsl:attribute>
                     <xsl:value-of select="current()/Offset"/>
                 </text>

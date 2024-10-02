@@ -204,6 +204,7 @@
         <NauticalMilesScaleSingleUnit>
             <Tick>
                 <Offset>3</Offset>
+                <ShowNumber>Yes</ShowNumber>
             </Tick>
             <Tick>
                 <Offset>2</Offset>

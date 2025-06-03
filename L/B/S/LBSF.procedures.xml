@@ -85,7 +85,7 @@
                 <AltitudeRestriction>at</AltitudeRestriction>
             </Star_Waypoint>
         </Star>
-        <Star Name="GOL4D" Runways="09">
+        <Star Name="GOL5D" Runways="09">
             <Star_Waypoint ID="1">
                 <Name>GOL</Name>
                 <Type>Normal</Type>
@@ -104,7 +104,7 @@
                 <Type>Normal</Type>
                 <Latitude>42.780472</Latitude>
                 <Longitude>23.411000</Longitude>
-                <Altitude>12000</Altitude>
+                <Altitude>13000</Altitude>
                 <AltitudeCons>0</AltitudeCons>
                 <AltitudeRestriction>above</AltitudeRestriction>
             </Star_Waypoint>
@@ -163,422 +163,7 @@
                 <AltitudeRestriction>above</AltitudeRestriction>
             </Star_Waypoint>
         </Star>
-        <Star Name="UMPIT4D" Runways="09">
-            <Star_Waypoint ID="1">
-                <Name>UMPIT</Name>
-                <Type>Normal</Type>
-                <Latitude>42.779722</Latitude>
-                <Longitude>24.174167</Longitude>
-            </Star_Waypoint>
-            <Star_Waypoint ID="2">
-                <Name>LANGI</Name>
-                <Type>Normal</Type>
-                <Latitude>42.744722</Latitude>
-                <Longitude>23.983056</Longitude>
-                <Sp_Turn>Right</Sp_Turn>
-            </Star_Waypoint>
-            <Star_Waypoint ID="3">
-                <Name>SF417</Name>
-                <Type>Normal</Type>
-                <Latitude>42.773583</Latitude>
-                <Longitude>23.524861</Longitude>
-            </Star_Waypoint>
-            <Star_Waypoint ID="4">
-                <Name>SF416</Name>
-                <Type>Normal</Type>
-                <Latitude>42.780472</Latitude>
-                <Longitude>23.411000</Longitude>
-                <Altitude>12000</Altitude>
-                <AltitudeCons>0</AltitudeCons>
-                <AltitudeRestriction>above</AltitudeRestriction>
-            </Star_Waypoint>
-            <Star_Waypoint ID="5">
-                <Name>SF409</Name>
-                <Type>Normal</Type>
-                <Latitude>42.791139</Latitude>
-                <Longitude>23.230528</Longitude>
-            </Star_Waypoint>
-            <Star_Waypoint ID="6">
-                <Name>LEMDO</Name>
-                <Type>Normal</Type>
-                <Latitude>42.800556</Latitude>
-                <Longitude>23.065833</Longitude>
-                <Speed>210</Speed>
-            </Star_Waypoint>
-            <Star_Waypoint ID="7">
-                <Name>SF407</Name>
-                <Type>Normal</Type>
-                <Latitude>42.805722</Latitude>
-                <Longitude>22.975472</Longitude>
-            </Star_Waypoint>
-            <Star_Waypoint ID="8">
-                <Name>SF406</Name>
-                <Type>Normal</Type>
-                <Latitude>42.810778</Latitude>
-                <Longitude>22.885139</Longitude>
-            </Star_Waypoint>
-            <Star_Waypoint ID="9">
-                <Name>SF405</Name>
-                <Type>Normal</Type>
-                <Latitude>42.815722</Latitude>
-                <Longitude>22.794806</Longitude>
-                <Sp_Turn>Left</Sp_Turn>
-            </Star_Waypoint>
-            <Star_Waypoint ID="10">
-                <Name>SF404</Name>
-                <Type>Normal</Type>
-                <Latitude>42.732583</Latitude>
-                <Longitude>22.786472</Longitude>
-                <Sp_Turn>Left</Sp_Turn>
-            </Star_Waypoint>
-            <Star_Waypoint ID="11">
-                <Name>SF403</Name>
-                <Type>Normal</Type>
-                <Latitude>42.727639</Latitude>
-                <Longitude>22.876667</Longitude>
-            </Star_Waypoint>
-            <Star_Waypoint ID="12">
-                <Name>BENGO</Name>
-                <Type>Normal</Type>
-                <Latitude>42.722500</Latitude>
-                <Longitude>22.966944</Longitude>
-                <Altitude>7000</Altitude>
-                <AltitudeCons>0</AltitudeCons>
-                <AltitudeRestriction>above</AltitudeRestriction>
-            </Star_Waypoint>
-        </Star>
-        <Star Name="GAPVO4D" Runways="09">
-            <Star_Waypoint ID="1">
-                <Name>GAPVO</Name>
-                <Type>Normal</Type>
-                <Latitude>42.681667</Latitude>
-                <Longitude>24.145556</Longitude>
-            </Star_Waypoint>
-            <Star_Waypoint ID="2">
-                <Name>LANGI</Name>
-                <Type>Normal</Type>
-                <Latitude>42.744722</Latitude>
-                <Longitude>23.983056</Longitude>
-                <Sp_Turn>Left</Sp_Turn>
-            </Star_Waypoint>
-            <Star_Waypoint ID="3">
-                <Name>SF417</Name>
-                <Type>Normal</Type>
-                <Latitude>42.773583</Latitude>
-                <Longitude>23.524861</Longitude>
-            </Star_Waypoint>
-            <Star_Waypoint ID="4">
-                <Name>SF416</Name>
-                <Type>Normal</Type>
-                <Latitude>42.780472</Latitude>
-                <Longitude>23.411000</Longitude>
-                <Altitude>12000</Altitude>
-                <AltitudeCons>0</AltitudeCons>
-                <AltitudeRestriction>above</AltitudeRestriction>
-            </Star_Waypoint>
-            <Star_Waypoint ID="5">
-                <Name>SF409</Name>
-                <Type>Normal</Type>
-                <Latitude>42.791139</Latitude>
-                <Longitude>23.230528</Longitude>
-            </Star_Waypoint>
-            <Star_Waypoint ID="6">
-                <Name>LEMDO</Name>
-                <Type>Normal</Type>
-                <Latitude>42.800556</Latitude>
-                <Longitude>23.065833</Longitude>
-                <Speed>210</Speed>
-            </Star_Waypoint>
-            <Star_Waypoint ID="7">
-                <Name>SF407</Name>
-                <Type>Normal</Type>
-                <Latitude>42.805722</Latitude>
-                <Longitude>22.975472</Longitude>
-            </Star_Waypoint>
-            <Star_Waypoint ID="8">
-                <Name>SF406</Name>
-                <Type>Normal</Type>
-                <Latitude>42.810778</Latitude>
-                <Longitude>22.885139</Longitude>
-            </Star_Waypoint>
-            <Star_Waypoint ID="9">
-                <Name>SF405</Name>
-                <Type>Normal</Type>
-                <Latitude>42.815722</Latitude>
-                <Longitude>22.794806</Longitude>
-                <Sp_Turn>Left</Sp_Turn>
-            </Star_Waypoint>
-            <Star_Waypoint ID="10">
-                <Name>SF404</Name>
-                <Type>Normal</Type>
-                <Latitude>42.732583</Latitude>
-                <Longitude>22.786472</Longitude>
-                <Sp_Turn>Left</Sp_Turn>
-            </Star_Waypoint>
-            <Star_Waypoint ID="11">
-                <Name>SF403</Name>
-                <Type>Normal</Type>
-                <Latitude>42.727639</Latitude>
-                <Longitude>22.876667</Longitude>
-            </Star_Waypoint>
-            <Star_Waypoint ID="12">
-                <Name>BENGO</Name>
-                <Type>Normal</Type>
-                <Latitude>42.722500</Latitude>
-                <Longitude>22.966944</Longitude>
-                <Altitude>7000</Altitude>
-                <AltitudeCons>0</AltitudeCons>
-                <AltitudeRestriction>above</AltitudeRestriction>
-            </Star_Waypoint>
-        </Star>
-        <Star Name="DEDIN4D" Runways="09">
-            <Star_Waypoint ID="1">
-                <Name>DEDIN</Name>
-                <Type>Normal</Type>
-                <Latitude>42.594167</Latitude>
-                <Longitude>24.079444</Longitude>
-            </Star_Waypoint>
-            <Star_Waypoint ID="2">
-                <Name>SF434</Name>
-                <Type>Normal</Type>
-                <Latitude>42.584306</Latitude>
-                <Longitude>23.880583</Longitude>
-                <Sp_Turn>Right</Sp_Turn>
-            </Star_Waypoint>
-            <Star_Waypoint ID="3">
-                <Name>SF430</Name>
-                <Type>Normal</Type>
-                <Latitude>42.614306</Latitude>
-                <Longitude>23.392722</Longitude>
-                <Altitude>12000</Altitude>
-                <AltitudeCons>0</AltitudeCons>
-                <AltitudeRestriction>above</AltitudeRestriction>
-            </Star_Waypoint>
-            <Star_Waypoint ID="4">
-                <Name>SF429</Name>
-                <Type>Normal</Type>
-                <Latitude>42.626639</Latitude>
-                <Longitude>23.183444</Longitude>
-                <Altitude>9600</Altitude>
-                <AltitudeCons>0</AltitudeCons>
-                <AltitudeRestriction>above</AltitudeRestriction>
-            </Star_Waypoint>
-            <Star_Waypoint ID="5">
-                <Name>SF423</Name>
-                <Type>Normal</Type>
-                <Latitude>42.633111</Latitude>
-                <Longitude>23.070889</Longitude>
-                <Altitude>8000</Altitude>
-                <AltitudeCons>0</AltitudeCons>
-                <AltitudeRestriction>above</AltitudeRestriction>
-            </Star_Waypoint>
-            <Star_Waypoint ID="6">
-                <Name>XIMRI</Name>
-                <Type>Normal</Type>
-                <Latitude>42.639444</Latitude>
-                <Longitude>22.958333</Longitude>
-                <Speed>210</Speed>
-            </Star_Waypoint>
-            <Star_Waypoint ID="7">
-                <Name>SF421</Name>
-                <Type>Normal</Type>
-                <Latitude>42.644500</Latitude>
-                <Longitude>22.868222</Longitude>
-            </Star_Waypoint>
-            <Star_Waypoint ID="8">
-                <Name>SF420</Name>
-                <Type>Normal</Type>
-                <Latitude>42.649444</Latitude>
-                <Longitude>22.778139</Longitude>
-                <Sp_Turn>Right</Sp_Turn>
-            </Star_Waypoint>
-            <Star_Waypoint ID="9">
-                <Name>SF404</Name>
-                <Type>Normal</Type>
-                <Latitude>42.732583</Latitude>
-                <Longitude>22.786472</Longitude>
-                <Sp_Turn>Right</Sp_Turn>
-            </Star_Waypoint>
-            <Star_Waypoint ID="10">
-                <Name>SF403</Name>
-                <Type>Normal</Type>
-                <Latitude>42.727639</Latitude>
-                <Longitude>22.876667</Longitude>
-            </Star_Waypoint>
-            <Star_Waypoint ID="11">
-                <Name>BENGO</Name>
-                <Type>Normal</Type>
-                <Latitude>42.722500</Latitude>
-                <Longitude>22.966944</Longitude>
-                <Altitude>7000</Altitude>
-                <AltitudeCons>0</AltitudeCons>
-                <AltitudeRestriction>above</AltitudeRestriction>
-            </Star_Waypoint>
-        </Star>
-        <Star Name="RUMEN4D" Runways="09">
-            <Star_Waypoint ID="1">
-                <Name>RUMEN</Name>
-                <Type>Normal</Type>
-                <Latitude>42.305000</Latitude>
-                <Longitude>24.313333</Longitude>
-            </Star_Waypoint>
-            <Star_Waypoint ID="2">
-                <Name>SF434</Name>
-                <Type>Normal</Type>
-                <Latitude>42.584306</Latitude>
-                <Longitude>23.880583</Longitude>
-                <BankLimit>25</BankLimit>
-                <Sp_Turn>Left</Sp_Turn>
-            </Star_Waypoint>
-            <Star_Waypoint ID="3">
-                <Name>SF430</Name>
-                <Type>Normal</Type>
-                <Latitude>42.614306</Latitude>
-                <Longitude>23.392722</Longitude>
-                <Altitude>12000</Altitude>
-                <AltitudeCons>0</AltitudeCons>
-                <AltitudeRestriction>above</AltitudeRestriction>
-            </Star_Waypoint>
-            <Star_Waypoint ID="4">
-                <Name>SF429</Name>
-                <Type>Normal</Type>
-                <Latitude>42.626639</Latitude>
-                <Longitude>23.183444</Longitude>
-                <Altitude>9600</Altitude>
-                <AltitudeCons>0</AltitudeCons>
-                <AltitudeRestriction>above</AltitudeRestriction>
-            </Star_Waypoint>
-            <Star_Waypoint ID="5">
-                <Name>SF423</Name>
-                <Type>Normal</Type>
-                <Latitude>42.633111</Latitude>
-                <Longitude>23.070889</Longitude>
-                <Altitude>8000</Altitude>
-                <AltitudeCons>0</AltitudeCons>
-                <AltitudeRestriction>above</AltitudeRestriction>
-            </Star_Waypoint>
-            <Star_Waypoint ID="6">
-                <Name>XIMRI</Name>
-                <Type>Normal</Type>
-                <Latitude>42.639444</Latitude>
-                <Longitude>22.958333</Longitude>
-                <Speed>210</Speed>
-            </Star_Waypoint>
-            <Star_Waypoint ID="7">
-                <Name>SF421</Name>
-                <Type>Normal</Type>
-                <Latitude>42.644500</Latitude>
-                <Longitude>22.868222</Longitude>
-            </Star_Waypoint>
-            <Star_Waypoint ID="8">
-                <Name>SF420</Name>
-                <Type>Normal</Type>
-                <Latitude>42.649444</Latitude>
-                <Longitude>22.778139</Longitude>
-                <Sp_Turn>Right</Sp_Turn>
-            </Star_Waypoint>
-            <Star_Waypoint ID="9">
-                <Name>SF404</Name>
-                <Type>Normal</Type>
-                <Latitude>42.732583</Latitude>
-                <Longitude>22.786472</Longitude>
-                <Sp_Turn>Right</Sp_Turn>
-            </Star_Waypoint>
-            <Star_Waypoint ID="10">
-                <Name>SF403</Name>
-                <Type>Normal</Type>
-                <Latitude>42.727639</Latitude>
-                <Longitude>22.876667</Longitude>
-            </Star_Waypoint>
-            <Star_Waypoint ID="11">
-                <Name>BENGO</Name>
-                <Type>Normal</Type>
-                <Latitude>42.722500</Latitude>
-                <Longitude>22.966944</Longitude>
-                <Altitude>7000</Altitude>
-                <AltitudeCons>0</AltitudeCons>
-                <AltitudeRestriction>above</AltitudeRestriction>
-            </Star_Waypoint>
-        </Star>
-        <Star Name="VANET4D" Runways="09">
-            <Star_Waypoint ID="1">
-                <Name>VANET</Name>
-                <Type>Normal</Type>
-                <Latitude>42.294722</Latitude>
-                <Longitude>23.410278</Longitude>
-            </Star_Waypoint>
-            <Star_Waypoint ID="2">
-                <Name>SF425</Name>
-                <Type>Normal</Type>
-                <Latitude>42.526139</Latitude>
-                <Longitude>23.178667</Longitude>
-                <Altitude>12000</Altitude>
-                <AltitudeCons>0</AltitudeCons>
-                <AltitudeRestriction>above</AltitudeRestriction>
-            </Star_Waypoint>
-            <Star_Waypoint ID="3">
-                <Name>SF424</Name>
-                <Type>Normal</Type>
-                <Latitude>42.579639</Latitude>
-                <Longitude>23.124833</Longitude>
-                <Altitude>9600</Altitude>
-                <AltitudeCons>0</AltitudeCons>
-                <AltitudeRestriction>above</AltitudeRestriction>
-            </Star_Waypoint>
-            <Star_Waypoint ID="4">
-                <Name>SF423</Name>
-                <Type>Normal</Type>
-                <Latitude>42.633111</Latitude>
-                <Longitude>23.070889</Longitude>
-                <Altitude>8000</Altitude>
-                <AltitudeCons>0</AltitudeCons>
-                <AltitudeRestriction>above</AltitudeRestriction>
-                <Sp_Turn>Left</Sp_Turn>
-            </Star_Waypoint>
-            <Star_Waypoint ID="5">
-                <Name>XIMRI</Name>
-                <Type>Normal</Type>
-                <Latitude>42.639444</Latitude>
-                <Longitude>22.958333</Longitude>
-                <Speed>210</Speed>
-            </Star_Waypoint>
-            <Star_Waypoint ID="6">
-                <Name>SF421</Name>
-                <Type>Normal</Type>
-                <Latitude>42.644500</Latitude>
-                <Longitude>22.868222</Longitude>
-            </Star_Waypoint>
-            <Star_Waypoint ID="7">
-                <Name>SF420</Name>
-                <Type>Normal</Type>
-                <Latitude>42.649444</Latitude>
-                <Longitude>22.778139</Longitude>
-                <Sp_Turn>Right</Sp_Turn>
-            </Star_Waypoint>
-            <Star_Waypoint ID="8">
-                <Name>SF404</Name>
-                <Type>Normal</Type>
-                <Latitude>42.732583</Latitude>
-                <Longitude>22.786472</Longitude>
-                <Sp_Turn>Right</Sp_Turn>
-            </Star_Waypoint>
-            <Star_Waypoint ID="9">
-                <Name>SF403</Name>
-                <Type>Normal</Type>
-                <Latitude>42.727639</Latitude>
-                <Longitude>22.876667</Longitude>
-            </Star_Waypoint>
-            <Star_Waypoint ID="10">
-                <Name>BENGO</Name>
-                <Type>Normal</Type>
-                <Latitude>42.722500</Latitude>
-                <Longitude>22.966944</Longitude>
-                <Altitude>7000</Altitude>
-                <AltitudeCons>0</AltitudeCons>
-                <AltitudeRestriction>above</AltitudeRestriction>
-            </Star_Waypoint>
-        </Star>
-        <Star Name="MOREK4D" Runways="09">
+        <Star Name="MOREK5D" Runways="09">
             <Star_Waypoint ID="1">
                 <Name>MOREK</Name>
                 <Type>Normal</Type>
@@ -590,7 +175,7 @@
                 <Type>Normal</Type>
                 <Latitude>42.526139</Latitude>
                 <Longitude>23.178667</Longitude>
-                <Altitude>12000</Altitude>
+                <Altitude>13000</Altitude>
                 <AltitudeCons>0</AltitudeCons>
                 <AltitudeRestriction>above</AltitudeRestriction>
                 <Sp_Turn>Left</Sp_Turn>
@@ -656,327 +241,424 @@
                 <AltitudeRestriction>above</AltitudeRestriction>
             </Star_Waypoint>
         </Star>
-        <Sid Name="GODEK3S" Runways="09">
-            <Sid_Waypoint ID="1">
-                <Name>(4500)</Name>
-                <Type>ConstHdgtoAlt</Type>
-                <Latitude>0.000000</Latitude>
-                <Longitude>0.000000</Longitude>
-                <Speed>230</Speed>
-                <Altitude>4500</Altitude>
-                <AltitudeCons>0</AltitudeCons>
-                <AltitudeRestriction>above</AltitudeRestriction>
-                <Hdg_Crs>0</Hdg_Crs>
-                <Hdg_Crs_value>089</Hdg_Crs_value>
-                <Flytype>Fly-by</Flytype>
-                <Sp_Turn>Left</Sp_Turn>
-            </Sid_Waypoint>
-            <Sid_Waypoint ID="2">
-                <Name>SF502</Name>
-                <Type>Normal</Type>
-                <Latitude>42.857278</Latitude>
-                <Longitude>23.523806</Longitude>
-                <Altitude>10000</Altitude>
-                <AltitudeCons>0</AltitudeCons>
-                <AltitudeRestriction>below</AltitudeRestriction>
-                <Sp_Turn>Left</Sp_Turn>
-            </Sid_Waypoint>
-            <Sid_Waypoint ID="3">
-                <Name>GODEK</Name>
-                <Type>Normal</Type>
-                <Latitude>43.126667</Latitude>
-                <Longitude>22.989444</Longitude>
-            </Sid_Waypoint>
-        </Sid>
-        <Sid Name="OGOTA3S" Runways="09">
-            <Sid_Waypoint ID="1">
-                <Name>(4500)</Name>
-                <Type>ConstHdgtoAlt</Type>
-                <Latitude>0.000000</Latitude>
-                <Longitude>0.000000</Longitude>
-                <Speed>230</Speed>
-                <Altitude>4500</Altitude>
-                <AltitudeCons>0</AltitudeCons>
-                <AltitudeRestriction>above</AltitudeRestriction>
-                <Hdg_Crs>0</Hdg_Crs>
-                <Hdg_Crs_value>089</Hdg_Crs_value>
-                <Flytype>Fly-by</Flytype>
-                <Sp_Turn>Left</Sp_Turn>
-            </Sid_Waypoint>
-            <Sid_Waypoint ID="2">
-                <Name>SF502</Name>
-                <Type>Normal</Type>
-                <Latitude>42.857278</Latitude>
-                <Longitude>23.523806</Longitude>
-                <Altitude>10000</Altitude>
-                <AltitudeCons>0</AltitudeCons>
-                <AltitudeRestriction>below</AltitudeRestriction>
-            </Sid_Waypoint>
-            <Sid_Waypoint ID="3">
-                <Name>OGOTA</Name>
-                <Type>Normal</Type>
-                <Latitude>43.214167</Latitude>
-                <Longitude>23.326667</Longitude>
-            </Sid_Waypoint>
-        </Sid>
-        <Sid Name="GOL3S" Runways="09">
-            <Sid_Waypoint ID="1">
-                <Name>(4500)</Name>
-                <Type>ConstHdgtoAlt</Type>
-                <Latitude>0.000000</Latitude>
-                <Longitude>0.000000</Longitude>
-                <Speed>230</Speed>
-                <Altitude>4500</Altitude>
-                <AltitudeCons>0</AltitudeCons>
-                <AltitudeRestriction>above</AltitudeRestriction>
-                 <Hdg_Crs>0</Hdg_Crs>
-                <Hdg_Crs_value>089</Hdg_Crs_value>
-                <Flytype>Fly-by</Flytype>
-                <Sp_Turn>Left</Sp_Turn>
-            </Sid_Waypoint>
-            <Sid_Waypoint ID="2">
-                <Name>SF503</Name>
-                <Type>Normal</Type>
-                <Latitude>42.814556</Latitude>
-                <Longitude>23.853250</Longitude>
-                <Altitude>4500</Altitude>
-                <AltitudeCons>0</AltitudeCons>
-                <AltitudeRestriction>below</AltitudeRestriction>
-            </Sid_Waypoint>
-            <Sid_Waypoint ID="3">
-                <Name>SF504</Name>
-                <Type>Normal</Type>
-                <Latitude>42.956306</Latitude>
-                <Longitude>24.115722</Longitude>
-            </Sid_Waypoint>
-            <Sid_Waypoint ID="4">
-                <Name>GOL</Name>
-                <Type>Normal</Type>
-                <Latitude>43.095000</Latitude>
-                <Longitude>24.220556</Longitude>
-            </Sid_Waypoint>
-        </Sid>
-        <Sid Name="UMPIT3S" Runways="09">
-            <Sid_Waypoint ID="1">
-                <Name>(4500)</Name>
-                <Type>ConstHdgtoAlt</Type>
-                <Latitude>0.000000</Latitude>
-                <Longitude>0.000000</Longitude>
-                <Speed>230</Speed>
-                <Altitude>4500</Altitude>
-                <AltitudeCons>0</AltitudeCons>
-                <AltitudeRestriction>above</AltitudeRestriction>
-                 <Hdg_Crs>0</Hdg_Crs>
-                <Hdg_Crs_value>089</Hdg_Crs_value>
-                <Flytype>Fly-by</Flytype>
-                <BankLimit>25</BankLimit>
-                <Sp_Turn>Left</Sp_Turn>
-            </Sid_Waypoint>
-            <Sid_Waypoint ID="2">
-                <Name>SF503</Name>
-                <Type>Normal</Type>
-                <Latitude>42.814556</Latitude>
-                <Longitude>23.853250</Longitude>
-                <Altitude>10000</Altitude>
-                <AltitudeCons>0</AltitudeCons>
-                <AltitudeRestriction>above</AltitudeRestriction>
-                <Sp_Turn>Right</Sp_Turn>
-            </Sid_Waypoint>
-            <Sid_Waypoint ID="3">
+        <Star Name="UMPIT5D" Runways="09">
+            <Star_Waypoint ID="1">
                 <Name>UMPIT</Name>
                 <Type>Normal</Type>
                 <Latitude>42.779722</Latitude>
                 <Longitude>24.174167</Longitude>
-            </Sid_Waypoint>
-        </Sid>
-        <Sid Name="GAPVO2S" Runways="09">
-            <Sid_Waypoint ID="1">
-                <Name>(4500)</Name>
-                <Type>ConstHdgtoAlt</Type>
-                <Latitude>0.000000</Latitude>
-                <Longitude>0.000000</Longitude>
-                <Speed>230</Speed>
-                <Altitude>4500</Altitude>
+            </Star_Waypoint>
+            <Star_Waypoint ID="2">
+                <Name>LANGI</Name>
+                <Type>Normal</Type>
+                <Latitude>42.744722</Latitude>
+                <Longitude>23.983056</Longitude>
+                <Sp_Turn>Right</Sp_Turn>
+            </Star_Waypoint>
+            <Star_Waypoint ID="3">
+                <Name>SF417</Name>
+                <Type>Normal</Type>
+                <Latitude>42.773583</Latitude>
+                <Longitude>23.524861</Longitude>
+            </Star_Waypoint>
+            <Star_Waypoint ID="4">
+                <Name>SF416</Name>
+                <Type>Normal</Type>
+                <Latitude>42.780472</Latitude>
+                <Longitude>23.411000</Longitude>
+                <Altitude>13000</Altitude>
                 <AltitudeCons>0</AltitudeCons>
                 <AltitudeRestriction>above</AltitudeRestriction>
-                 <Hdg_Crs>0</Hdg_Crs>
-                <Hdg_Crs_value>089</Hdg_Crs_value>
-                <Flytype>Fly-by</Flytype>
-                <Sp_Turn>Auto</Sp_Turn>
-            </Sid_Waypoint>
-            <Sid_Waypoint ID="2">
-                <Name>SF505</Name>
+            </Star_Waypoint>
+            <Star_Waypoint ID="5">
+                <Name>SF409</Name>
                 <Type>Normal</Type>
-                <Latitude>42.667944</Latitude>
-                <Longitude>23.876389</Longitude>
-            </Sid_Waypoint>
-            <Sid_Waypoint ID="3">
+                <Latitude>42.791139</Latitude>
+                <Longitude>23.230528</Longitude>
+            </Star_Waypoint>
+            <Star_Waypoint ID="6">
+                <Name>LEMDO</Name>
+                <Type>Normal</Type>
+                <Latitude>42.800556</Latitude>
+                <Longitude>23.065833</Longitude>
+                <Speed>210</Speed>
+            </Star_Waypoint>
+            <Star_Waypoint ID="7">
+                <Name>SF407</Name>
+                <Type>Normal</Type>
+                <Latitude>42.805722</Latitude>
+                <Longitude>22.975472</Longitude>
+            </Star_Waypoint>
+            <Star_Waypoint ID="8">
+                <Name>SF406</Name>
+                <Type>Normal</Type>
+                <Latitude>42.810778</Latitude>
+                <Longitude>22.885139</Longitude>
+            </Star_Waypoint>
+            <Star_Waypoint ID="9">
+                <Name>SF405</Name>
+                <Type>Normal</Type>
+                <Latitude>42.815722</Latitude>
+                <Longitude>22.794806</Longitude>
+                <Sp_Turn>Left</Sp_Turn>
+            </Star_Waypoint>
+            <Star_Waypoint ID="10">
+                <Name>SF404</Name>
+                <Type>Normal</Type>
+                <Latitude>42.732583</Latitude>
+                <Longitude>22.786472</Longitude>
+                <Sp_Turn>Left</Sp_Turn>
+            </Star_Waypoint>
+            <Star_Waypoint ID="11">
+                <Name>SF403</Name>
+                <Type>Normal</Type>
+                <Latitude>42.727639</Latitude>
+                <Longitude>22.876667</Longitude>
+            </Star_Waypoint>
+            <Star_Waypoint ID="12">
+                <Name>BENGO</Name>
+                <Type>Normal</Type>
+                <Latitude>42.722500</Latitude>
+                <Longitude>22.966944</Longitude>
+                <Altitude>7000</Altitude>
+                <AltitudeCons>0</AltitudeCons>
+                <AltitudeRestriction>above</AltitudeRestriction>
+            </Star_Waypoint>
+        </Star>
+        <Star Name="GAPVO5D" Runways="09">
+            <Star_Waypoint ID="1">
                 <Name>GAPVO</Name>
                 <Type>Normal</Type>
                 <Latitude>42.681667</Latitude>
                 <Longitude>24.145556</Longitude>
-            </Sid_Waypoint>
-        </Sid>
-        <Sid Name="DEDIN2S" Runways="09">
-            <Sid_Waypoint ID="1">
-                <Name>(4500)</Name>
-                <Type>ConstHdgtoAlt</Type>
-                <Latitude>0.000000</Latitude>
-                <Longitude>0.000000</Longitude>
-                <Speed>0</Speed>
-                <Altitude>4500</Altitude>
+            </Star_Waypoint>
+            <Star_Waypoint ID="2">
+                <Name>LANGI</Name>
+                <Type>Normal</Type>
+                <Latitude>42.744722</Latitude>
+                <Longitude>23.983056</Longitude>
+                <Sp_Turn>Left</Sp_Turn>
+            </Star_Waypoint>
+            <Star_Waypoint ID="3">
+                <Name>SF417</Name>
+                <Type>Normal</Type>
+                <Latitude>42.773583</Latitude>
+                <Longitude>23.524861</Longitude>
+            </Star_Waypoint>
+            <Star_Waypoint ID="4">
+                <Name>SF416</Name>
+                <Type>Normal</Type>
+                <Latitude>42.780472</Latitude>
+                <Longitude>23.411000</Longitude>
+                <Altitude>12000</Altitude>
                 <AltitudeCons>0</AltitudeCons>
                 <AltitudeRestriction>above</AltitudeRestriction>
-                 <Hdg_Crs>0</Hdg_Crs>
-                <Hdg_Crs_value>089</Hdg_Crs_value>
-                <Flytype>Fly-by</Flytype>
-                <Sp_Turn>Auto</Sp_Turn>
-            </Sid_Waypoint>
-            <Sid_Waypoint ID="2">
-                <Name>SF505</Name>
+            </Star_Waypoint>
+            <Star_Waypoint ID="5">
+                <Name>SF409</Name>
                 <Type>Normal</Type>
-                <Latitude>42.667944</Latitude>
-                <Longitude>23.876389</Longitude>
+                <Latitude>42.791139</Latitude>
+                <Longitude>23.230528</Longitude>
+            </Star_Waypoint>
+            <Star_Waypoint ID="6">
+                <Name>LEMDO</Name>
+                <Type>Normal</Type>
+                <Latitude>42.800556</Latitude>
+                <Longitude>23.065833</Longitude>
+                <Speed>210</Speed>
+            </Star_Waypoint>
+            <Star_Waypoint ID="7">
+                <Name>SF407</Name>
+                <Type>Normal</Type>
+                <Latitude>42.805722</Latitude>
+                <Longitude>22.975472</Longitude>
+            </Star_Waypoint>
+            <Star_Waypoint ID="8">
+                <Name>SF406</Name>
+                <Type>Normal</Type>
+                <Latitude>42.810778</Latitude>
+                <Longitude>22.885139</Longitude>
+            </Star_Waypoint>
+            <Star_Waypoint ID="9">
+                <Name>SF405</Name>
+                <Type>Normal</Type>
+                <Latitude>42.815722</Latitude>
+                <Longitude>22.794806</Longitude>
+                <Sp_Turn>Left</Sp_Turn>
+            </Star_Waypoint>
+            <Star_Waypoint ID="10">
+                <Name>SF404</Name>
+                <Type>Normal</Type>
+                <Latitude>42.732583</Latitude>
+                <Longitude>22.786472</Longitude>
+                <Sp_Turn>Left</Sp_Turn>
+            </Star_Waypoint>
+            <Star_Waypoint ID="11">
+                <Name>SF403</Name>
+                <Type>Normal</Type>
+                <Latitude>42.727639</Latitude>
+                <Longitude>22.876667</Longitude>
+            </Star_Waypoint>
+            <Star_Waypoint ID="12">
+                <Name>BENGO</Name>
+                <Type>Normal</Type>
+                <Latitude>42.722500</Latitude>
+                <Longitude>22.966944</Longitude>
+                <Altitude>7000</Altitude>
+                <AltitudeCons>0</AltitudeCons>
+                <AltitudeRestriction>above</AltitudeRestriction>
+            </Star_Waypoint>
+        </Star>
+        <Star Name="VANET5D" Runways="09">
+            <Star_Waypoint ID="1">
+                <Name>VANET</Name>
+                <Type>Normal</Type>
+                <Latitude>42.294722</Latitude>
+                <Longitude>23.410278</Longitude>
+            </Star_Waypoint>
+            <Star_Waypoint ID="2">
+                <Name>SF425</Name>
+                <Type>Normal</Type>
+                <Latitude>42.526139</Latitude>
+                <Longitude>23.178667</Longitude>
+                <Altitude>13000</Altitude>
+                <AltitudeCons>0</AltitudeCons>
+                <AltitudeRestriction>above</AltitudeRestriction>
+            </Star_Waypoint>
+            <Star_Waypoint ID="3">
+                <Name>SF424</Name>
+                <Type>Normal</Type>
+                <Latitude>42.579639</Latitude>
+                <Longitude>23.124833</Longitude>
+                <Altitude>9600</Altitude>
+                <AltitudeCons>0</AltitudeCons>
+                <AltitudeRestriction>above</AltitudeRestriction>
+            </Star_Waypoint>
+            <Star_Waypoint ID="4">
+                <Name>SF423</Name>
+                <Type>Normal</Type>
+                <Latitude>42.633111</Latitude>
+                <Longitude>23.070889</Longitude>
+                <Altitude>8000</Altitude>
+                <AltitudeCons>0</AltitudeCons>
+                <AltitudeRestriction>above</AltitudeRestriction>
+                <Sp_Turn>Left</Sp_Turn>
+            </Star_Waypoint>
+            <Star_Waypoint ID="5">
+                <Name>XIMRI</Name>
+                <Type>Normal</Type>
+                <Latitude>42.639444</Latitude>
+                <Longitude>22.958333</Longitude>
+                <Speed>210</Speed>
+            </Star_Waypoint>
+            <Star_Waypoint ID="6">
+                <Name>SF421</Name>
+                <Type>Normal</Type>
+                <Latitude>42.644500</Latitude>
+                <Longitude>22.868222</Longitude>
+            </Star_Waypoint>
+            <Star_Waypoint ID="7">
+                <Name>SF420</Name>
+                <Type>Normal</Type>
+                <Latitude>42.649444</Latitude>
+                <Longitude>22.778139</Longitude>
                 <Sp_Turn>Right</Sp_Turn>
-            </Sid_Waypoint>
-            <Sid_Waypoint ID="3">
+            </Star_Waypoint>
+            <Star_Waypoint ID="8">
+                <Name>SF404</Name>
+                <Type>Normal</Type>
+                <Latitude>42.732583</Latitude>
+                <Longitude>22.786472</Longitude>
+                <Sp_Turn>Right</Sp_Turn>
+            </Star_Waypoint>
+            <Star_Waypoint ID="9">
+                <Name>SF403</Name>
+                <Type>Normal</Type>
+                <Latitude>42.727639</Latitude>
+                <Longitude>22.876667</Longitude>
+            </Star_Waypoint>
+            <Star_Waypoint ID="10">
+                <Name>BENGO</Name>
+                <Type>Normal</Type>
+                <Latitude>42.722500</Latitude>
+                <Longitude>22.966944</Longitude>
+                <Altitude>7000</Altitude>
+                <AltitudeCons>0</AltitudeCons>
+                <AltitudeRestriction>above</AltitudeRestriction>
+            </Star_Waypoint>
+        </Star>
+        <Star Name="DEDIN5D" Runways="09">
+            <Star_Waypoint ID="1">
                 <Name>DEDIN</Name>
                 <Type>Normal</Type>
                 <Latitude>42.594167</Latitude>
                 <Longitude>24.079444</Longitude>
-            </Sid_Waypoint>
-        </Sid>
-        <Sid Name="RUMEN2S" Runways="09">
-            <Sid_Waypoint ID="1">
-                <Name>(4500)</Name>
-                <Type>ConstHdgtoAlt</Type>
-                <Latitude>0.000000</Latitude>
-                <Longitude>0.000000</Longitude>
-                <Speed>230</Speed>
-                <Altitude>4500</Altitude>
+            </Star_Waypoint>
+            <Star_Waypoint ID="2">
+                <Name>SF434</Name>
+                <Type>Normal</Type>
+                <Latitude>42.584306</Latitude>
+                <Longitude>23.880583</Longitude>
+                <Sp_Turn>Right</Sp_Turn>
+            </Star_Waypoint>
+            <Star_Waypoint ID="3">
+                <Name>SF430</Name>
+                <Type>Normal</Type>
+                <Latitude>42.614306</Latitude>
+                <Longitude>23.392722</Longitude>
+                <Altitude>13000</Altitude>
                 <AltitudeCons>0</AltitudeCons>
                 <AltitudeRestriction>above</AltitudeRestriction>
-                 <Hdg_Crs>0</Hdg_Crs>
-                <Hdg_Crs_value>089</Hdg_Crs_value>
-                <Flytype>Fly-by</Flytype>
-                <Sp_Turn>Right</Sp_Turn>
-            </Sid_Waypoint>
-            <Sid_Waypoint ID="2">
-                <Name>SF506</Name>
+            </Star_Waypoint>
+            <Star_Waypoint ID="4">
+                <Name>SF429</Name>
                 <Type>Normal</Type>
-                <Latitude>42.504583</Latitude>
-                <Longitude>23.814944</Longitude>
-                <Altitude>10000</Altitude>
+                <Latitude>42.626639</Latitude>
+                <Longitude>23.183444</Longitude>
+                <Altitude>9600</Altitude>
                 <AltitudeCons>0</AltitudeCons>
-                <AltitudeRestriction>below</AltitudeRestriction>
-                <Sp_Turn>Left</Sp_Turn>
-            </Sid_Waypoint>
-            <Sid_Waypoint ID="3">
+                <AltitudeRestriction>above</AltitudeRestriction>
+            </Star_Waypoint>
+            <Star_Waypoint ID="5">
+                <Name>SF423</Name>
+                <Type>Normal</Type>
+                <Latitude>42.633111</Latitude>
+                <Longitude>23.070889</Longitude>
+                <Altitude>8000</Altitude>
+                <AltitudeCons>0</AltitudeCons>
+                <AltitudeRestriction>above</AltitudeRestriction>
+            </Star_Waypoint>
+            <Star_Waypoint ID="6">
+                <Name>XIMRI</Name>
+                <Type>Normal</Type>
+                <Latitude>42.639444</Latitude>
+                <Longitude>22.958333</Longitude>
+                <Speed>210</Speed>
+            </Star_Waypoint>
+            <Star_Waypoint ID="7">
+                <Name>SF421</Name>
+                <Type>Normal</Type>
+                <Latitude>42.644500</Latitude>
+                <Longitude>22.868222</Longitude>
+            </Star_Waypoint>
+            <Star_Waypoint ID="8">
+                <Name>SF420</Name>
+                <Type>Normal</Type>
+                <Latitude>42.649444</Latitude>
+                <Longitude>22.778139</Longitude>
+                <Sp_Turn>Right</Sp_Turn>
+            </Star_Waypoint>
+            <Star_Waypoint ID="9">
+                <Name>SF404</Name>
+                <Type>Normal</Type>
+                <Latitude>42.732583</Latitude>
+                <Longitude>22.786472</Longitude>
+                <Sp_Turn>Right</Sp_Turn>
+            </Star_Waypoint>
+            <Star_Waypoint ID="10">
+                <Name>SF403</Name>
+                <Type>Normal</Type>
+                <Latitude>42.727639</Latitude>
+                <Longitude>22.876667</Longitude>
+            </Star_Waypoint>
+            <Star_Waypoint ID="11">
+                <Name>BENGO</Name>
+                <Type>Normal</Type>
+                <Latitude>42.722500</Latitude>
+                <Longitude>22.966944</Longitude>
+                <Altitude>7000</Altitude>
+                <AltitudeCons>0</AltitudeCons>
+                <AltitudeRestriction>above</AltitudeRestriction>
+            </Star_Waypoint>
+        </Star>
+        <Star Name="RUMEN5D" Runways="09">
+            <Star_Waypoint ID="1">
                 <Name>RUMEN</Name>
                 <Type>Normal</Type>
                 <Latitude>42.305000</Latitude>
                 <Longitude>24.313333</Longitude>
-            </Sid_Waypoint>
-        </Sid>
-        <Sid Name="DILVO2S" Runways="09">
-            <Sid_Waypoint ID="1">
-                <Name>(4500)</Name>
-                <Type>ConstHdgtoAlt</Type>
-                <Latitude>0.000000</Latitude>
-                <Longitude>0.000000</Longitude>
-                <Speed>230</Speed>
-                <Altitude>4500</Altitude>
-                <AltitudeCons>0</AltitudeCons>
-                <AltitudeRestriction>above</AltitudeRestriction>
-                 <Hdg_Crs>0</Hdg_Crs>
-                <Hdg_Crs_value>089</Hdg_Crs_value>
-                <Flytype>Fly-by</Flytype>
-                <Sp_Turn>Right</Sp_Turn>
-            </Sid_Waypoint>
-            <Sid_Waypoint ID="2">
-                <Name>SF506</Name>
+            </Star_Waypoint>
+            <Star_Waypoint ID="2">
+                <Name>SF434</Name>
                 <Type>Normal</Type>
-                <Latitude>42.504583</Latitude>
-                <Longitude>23.814944</Longitude>
-                <Altitude>10000</Altitude>
-                <AltitudeCons>0</AltitudeCons>
-                <AltitudeRestriction>below</AltitudeRestriction>
-                <Sp_Turn>Right</Sp_Turn>
-            </Sid_Waypoint>
-            <Sid_Waypoint ID="3">
-                <Name>DILVO</Name>
-                <Type>Normal</Type>
-                <Latitude>42.310000</Latitude>
-                <Longitude>23.936944</Longitude>
-            </Sid_Waypoint>
-        </Sid>
-        <Sid Name="OMENO2S" Runways="09">
-            <Sid_Waypoint ID="1">
-                <Name>(4500)</Name>
-                <Type>ConstHdgtoAlt</Type>
-                <Latitude>0.000000</Latitude>
-                <Longitude>0.000000</Longitude>
-                <Speed>230</Speed>
-                <Altitude>4500</Altitude>
-                <AltitudeCons>0</AltitudeCons>
-                <AltitudeRestriction>above</AltitudeRestriction>
-                 <Hdg_Crs>0</Hdg_Crs>
-                <Hdg_Crs_value>089</Hdg_Crs_value>
-                <Flytype>Fly-by</Flytype>
-                <Sp_Turn>Right</Sp_Turn>
-            </Sid_Waypoint>
-            <Sid_Waypoint ID="2">
-                <Name>SF506</Name>
-                <Type>Normal</Type>
-                <Latitude>42.504583</Latitude>
-                <Longitude>23.814944</Longitude>
-                <Altitude>10000</Altitude>
-                <AltitudeCons>0</AltitudeCons>
-                <AltitudeRestriction>below</AltitudeRestriction>
+                <Latitude>42.584306</Latitude>
+                <Longitude>23.880583</Longitude>
+                <BankLimit>25</BankLimit>
                 <Sp_Turn>Left</Sp_Turn>
-            </Sid_Waypoint>
-            <Sid_Waypoint ID="3">
-                <Name>DILVO</Name>
+            </Star_Waypoint>
+            <Star_Waypoint ID="3">
+                <Name>SF430</Name>
                 <Type>Normal</Type>
-                <Latitude>42.310000</Latitude>
-                <Longitude>23.936944</Longitude>
-            </Sid_Waypoint>
-        </Sid>
-        <Sid Name="NAPET2S" Runways="09">
-            <Sid_Waypoint ID="1">
-                <Name>(4500)</Name>
-                <Type>ConstHdgtoAlt</Type>
-                <Latitude>0.000000</Latitude>
-                <Longitude>0.000000</Longitude>
-                <Speed>230</Speed>
-                <Altitude>4500</Altitude>
+                <Latitude>42.614306</Latitude>
+                <Longitude>23.392722</Longitude>
+                <Altitude>13000</Altitude>
                 <AltitudeCons>0</AltitudeCons>
                 <AltitudeRestriction>above</AltitudeRestriction>
-                 <Hdg_Crs>0</Hdg_Crs>
-                <Hdg_Crs_value>089</Hdg_Crs_value>
-                <Flytype>Fly-by</Flytype>
-                <Sp_Turn>Right</Sp_Turn>
-            </Sid_Waypoint>
-            <Sid_Waypoint ID="2">
-                <Name>SF507</Name>
+            </Star_Waypoint>
+            <Star_Waypoint ID="4">
+                <Name>SF429</Name>
                 <Type>Normal</Type>
-                <Latitude>42.522250</Latitude>
-                <Longitude>23.532056</Longitude>
-                <Sp_Turn>Right</Sp_Turn>
-                <Altitude>10000</Altitude>
+                <Latitude>42.626639</Latitude>
+                <Longitude>23.183444</Longitude>
+                <Altitude>9600</Altitude>
                 <AltitudeCons>0</AltitudeCons>
-                <AltitudeRestriction>below</AltitudeRestriction>
-            </Sid_Waypoint>
-            <Sid_Waypoint ID="3">
-                <Name>NAPET</Name>
+                <AltitudeRestriction>above</AltitudeRestriction>
+            </Star_Waypoint>
+            <Star_Waypoint ID="5">
+                <Name>SF423</Name>
                 <Type>Normal</Type>
-                <Latitude>42.288333</Latitude>
-                <Longitude>23.005556</Longitude>
-            </Sid_Waypoint>
-        </Sid>
-        <Approach Name="LOC09.Z">
+                <Latitude>42.633111</Latitude>
+                <Longitude>23.070889</Longitude>
+                <Altitude>8000</Altitude>
+                <AltitudeCons>0</AltitudeCons>
+                <AltitudeRestriction>above</AltitudeRestriction>
+            </Star_Waypoint>
+            <Star_Waypoint ID="6">
+                <Name>XIMRI</Name>
+                <Type>Normal</Type>
+                <Latitude>42.639444</Latitude>
+                <Longitude>22.958333</Longitude>
+                <Speed>210</Speed>
+            </Star_Waypoint>
+            <Star_Waypoint ID="7">
+                <Name>SF421</Name>
+                <Type>Normal</Type>
+                <Latitude>42.644500</Latitude>
+                <Longitude>22.868222</Longitude>
+            </Star_Waypoint>
+            <Star_Waypoint ID="8">
+                <Name>SF420</Name>
+                <Type>Normal</Type>
+                <Latitude>42.649444</Latitude>
+                <Longitude>22.778139</Longitude>
+                <Sp_Turn>Right</Sp_Turn>
+            </Star_Waypoint>
+            <Star_Waypoint ID="9">
+                <Name>SF404</Name>
+                <Type>Normal</Type>
+                <Latitude>42.732583</Latitude>
+                <Longitude>22.786472</Longitude>
+                <Sp_Turn>Right</Sp_Turn>
+            </Star_Waypoint>
+            <Star_Waypoint ID="10">
+                <Name>SF403</Name>
+                <Type>Normal</Type>
+                <Latitude>42.727639</Latitude>
+                <Longitude>22.876667</Longitude>
+            </Star_Waypoint>
+            <Star_Waypoint ID="11">
+                <Name>BENGO</Name>
+                <Type>Normal</Type>
+                <Latitude>42.722500</Latitude>
+                <Longitude>22.966944</Longitude>
+                <Altitude>7000</Altitude>
+                <AltitudeCons>0</AltitudeCons>
+                <AltitudeRestriction>above</AltitudeRestriction>
+            </Star_Waypoint>
+        </Star>
+        <Approach Name="ILS.09.Z">
             <App_Waypoint ID="1">
-                <Name>LUXUV</Name>
+                <Name>LUXUV/IF</Name>
                 <Type>Normal</Type>
                 <Latitude>42.7175</Latitude>
                 <Longitude>23.056944</Longitude>
@@ -986,7 +668,7 @@
                 <Flytype>Fly-over</Flytype>
             </App_Waypoint>
             <App_Waypoint ID="2">
-                <Name>MAGUP</Name>
+                <Name>MAGUP/FAF</Name>
                 <Type>Normal</Type>
                 <Latitude>42.707222</Latitude>
                 <Longitude>23.235</Longitude>
@@ -996,7 +678,7 @@
                 <Flytype>Fly-over</Flytype>
             </App_Waypoint>
             <App_Waypoint ID="3">
-                <Name>RW09</Name>
+                <Name>RW09/MAPt</Name>
                 <Type>Runway</Type>
                 <Latitude>42.69425</Latitude>
                 <Longitude>23.452444</Longitude>

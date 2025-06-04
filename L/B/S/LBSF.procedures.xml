@@ -110,6 +110,7 @@
                 <Type>Normal</Type>
                 <Latitude>43.095000</Latitude>
                 <Longitude>24.220556</Longitude>
+                <Flytype>Fly-by</Flytype>
             </Star_Waypoint>
             <Star_Waypoint ID="2">
                 <Name>SF417</Name>
@@ -117,6 +118,7 @@
                 <Latitude>42.773583</Latitude>
                 <Longitude>23.524861</Longitude>
                 <Sp_Turn>Right</Sp_Turn>
+                <Flytype>Fly-by</Flytype>
             </Star_Waypoint>
             <Star_Waypoint ID="3">
                 <Name>SF416</Name>
@@ -126,12 +128,16 @@
                 <Altitude>13000</Altitude>
                 <AltitudeCons>0</AltitudeCons>
                 <AltitudeRestriction>above</AltitudeRestriction>
+                <Flytype>Fly-by</Flytype>
             </Star_Waypoint>
             <Star_Waypoint ID="4">
                 <Name>SF409</Name>
                 <Type>Normal</Type>
                 <Latitude>42.791139</Latitude>
                 <Longitude>23.230528</Longitude>
+                <Speed>210</Speed>
+                <Sp_Turn>Right</Sp_Turn>
+                <Flytype>Fly-by</Flytype>
             </Star_Waypoint>
             <Star_Waypoint ID="5">
                 <Name>LEMDO</Name>
@@ -139,18 +145,23 @@
                 <Latitude>42.800556</Latitude>
                 <Longitude>23.065833</Longitude>
                 <Speed>210</Speed>
+                <Flytype>Fly-by</Flytype>
             </Star_Waypoint>
             <Star_Waypoint ID="6">
                 <Name>SF407</Name>
                 <Type>Normal</Type>
                 <Latitude>42.805722</Latitude>
                 <Longitude>22.975472</Longitude>
+                <Flytype>Fly-by</Flytype>
+                <Speed>210</Speed>
             </Star_Waypoint>
             <Star_Waypoint ID="7">
                 <Name>SF406</Name>
                 <Type>Normal</Type>
                 <Latitude>42.810778</Latitude>
                 <Longitude>22.885139</Longitude>
+                <Flytype>Fly-by</Flytype>
+                <Speed>210</Speed>
             </Star_Waypoint>
             <Star_Waypoint ID="8">
                 <Name>SF405</Name>
@@ -158,6 +169,8 @@
                 <Latitude>42.815722</Latitude>
                 <Longitude>22.794806</Longitude>
                 <Sp_Turn>Left</Sp_Turn>
+                <Flytype>Fly-by</Flytype>
+                <Speed>210</Speed>
             </Star_Waypoint>
             <Star_Waypoint ID="9">
                 <Name>SF404</Name>
@@ -165,12 +178,16 @@
                 <Latitude>42.732583</Latitude>
                 <Longitude>22.786472</Longitude>
                 <Sp_Turn>Left</Sp_Turn>
+                <Flytype>Fly-by</Flytype>
+                <Speed>210</Speed>
             </Star_Waypoint>
             <Star_Waypoint ID="10">
                 <Name>SF403</Name>
                 <Type>Normal</Type>
                 <Latitude>42.727639</Latitude>
                 <Longitude>22.876667</Longitude>
+                <Flytype>Fly-by</Flytype>
+                <Speed>210</Speed>
             </Star_Waypoint>
             <Star_Waypoint ID="11">
                 <Name>BENGO</Name>
@@ -180,6 +197,8 @@
                 <Altitude>7000</Altitude>
                 <AltitudeCons>0</AltitudeCons>
                 <AltitudeRestriction>above</AltitudeRestriction>
+                <Flytype>Fly-by</Flytype>
+                <Speed>210</Speed>
             </Star_Waypoint>
         </Star>
         <Star Name="MOREK5D" Runways="09">
@@ -266,6 +285,7 @@
                 <Type>Normal</Type>
                 <Latitude>42.779722</Latitude>
                 <Longitude>24.174167</Longitude>
+                <Flytype>Fly-by</Flytype>
             </Star_Waypoint>
             <Star_Waypoint ID="2">
                 <Name>LANGI</Name>
@@ -273,12 +293,14 @@
                 <Latitude>42.744722</Latitude>
                 <Longitude>23.983056</Longitude>
                 <Sp_Turn>Right</Sp_Turn>
+                <Flytype>Fly-by</Flytype>
             </Star_Waypoint>
             <Star_Waypoint ID="3">
                 <Name>SF417</Name>
                 <Type>Normal</Type>
                 <Latitude>42.773583</Latitude>
                 <Longitude>23.524861</Longitude>
+                <Flytype>Fly-by</Flytype>
             </Star_Waypoint>
             <Star_Waypoint ID="4">
                 <Name>SF416</Name>
@@ -288,12 +310,16 @@
                 <Altitude>13000</Altitude>
                 <AltitudeCons>0</AltitudeCons>
                 <AltitudeRestriction>above</AltitudeRestriction>
+                <Flytype>Fly-by</Flytype>
             </Star_Waypoint>
             <Star_Waypoint ID="5">
                 <Name>SF409</Name>
                 <Type>Normal</Type>
                 <Latitude>42.791139</Latitude>
                 <Longitude>23.230528</Longitude>
+                <Speed>210</Speed>
+                <Sp_Turn>Right</Sp_Turn>
+                <Flytype>Fly-by</Flytype>
             </Star_Waypoint>
             <Star_Waypoint ID="6">
                 <Name>LEMDO</Name>
@@ -301,18 +327,23 @@
                 <Latitude>42.800556</Latitude>
                 <Longitude>23.065833</Longitude>
                 <Speed>210</Speed>
+                <Flytype>Fly-by</Flytype>
             </Star_Waypoint>
             <Star_Waypoint ID="7">
                 <Name>SF407</Name>
                 <Type>Normal</Type>
                 <Latitude>42.805722</Latitude>
                 <Longitude>22.975472</Longitude>
+                <Flytype>Fly-by</Flytype>
+                <Speed>210</Speed>
             </Star_Waypoint>
             <Star_Waypoint ID="8">
                 <Name>SF406</Name>
                 <Type>Normal</Type>
                 <Latitude>42.810778</Latitude>
                 <Longitude>22.885139</Longitude>
+                <Flytype>Fly-by</Flytype>
+                <Speed>210</Speed>
             </Star_Waypoint>
             <Star_Waypoint ID="9">
                 <Name>SF405</Name>
@@ -320,6 +351,8 @@
                 <Latitude>42.815722</Latitude>
                 <Longitude>22.794806</Longitude>
                 <Sp_Turn>Left</Sp_Turn>
+                <Flytype>Fly-by</Flytype>
+                <Speed>210</Speed>
             </Star_Waypoint>
             <Star_Waypoint ID="10">
                 <Name>SF404</Name>
@@ -327,12 +360,16 @@
                 <Latitude>42.732583</Latitude>
                 <Longitude>22.786472</Longitude>
                 <Sp_Turn>Left</Sp_Turn>
+                <Flytype>Fly-by</Flytype>
+                <Speed>210</Speed>
             </Star_Waypoint>
             <Star_Waypoint ID="11">
                 <Name>SF403</Name>
                 <Type>Normal</Type>
                 <Latitude>42.727639</Latitude>
                 <Longitude>22.876667</Longitude>
+                <Flytype>Fly-by</Flytype>
+                <Speed>210</Speed>
             </Star_Waypoint>
             <Star_Waypoint ID="12">
                 <Name>BENGO</Name>
@@ -342,6 +379,8 @@
                 <Altitude>7000</Altitude>
                 <AltitudeCons>0</AltitudeCons>
                 <AltitudeRestriction>above</AltitudeRestriction>
+                <Flytype>Fly-by</Flytype>
+                <Speed>210</Speed>
             </Star_Waypoint>
         </Star>
         <Star Name="GAPVO5D" Runways="09">
@@ -356,28 +395,34 @@
                 <Type>Normal</Type>
                 <Latitude>42.744722</Latitude>
                 <Longitude>23.983056</Longitude>
-                <Sp_Turn>Left</Sp_Turn>
+                <Sp_Turn>Right</Sp_Turn>
+                <Flytype>Fly-by</Flytype>
             </Star_Waypoint>
             <Star_Waypoint ID="3">
                 <Name>SF417</Name>
                 <Type>Normal</Type>
                 <Latitude>42.773583</Latitude>
                 <Longitude>23.524861</Longitude>
+                <Flytype>Fly-by</Flytype>
             </Star_Waypoint>
             <Star_Waypoint ID="4">
                 <Name>SF416</Name>
                 <Type>Normal</Type>
                 <Latitude>42.780472</Latitude>
                 <Longitude>23.411000</Longitude>
-                <Altitude>12000</Altitude>
+                <Altitude>13000</Altitude>
                 <AltitudeCons>0</AltitudeCons>
                 <AltitudeRestriction>above</AltitudeRestriction>
+                <Flytype>Fly-by</Flytype>
             </Star_Waypoint>
             <Star_Waypoint ID="5">
                 <Name>SF409</Name>
                 <Type>Normal</Type>
                 <Latitude>42.791139</Latitude>
                 <Longitude>23.230528</Longitude>
+                <Speed>210</Speed>
+                <Sp_Turn>Right</Sp_Turn>
+                <Flytype>Fly-by</Flytype>
             </Star_Waypoint>
             <Star_Waypoint ID="6">
                 <Name>LEMDO</Name>
@@ -385,18 +430,23 @@
                 <Latitude>42.800556</Latitude>
                 <Longitude>23.065833</Longitude>
                 <Speed>210</Speed>
+                <Flytype>Fly-by</Flytype>
             </Star_Waypoint>
             <Star_Waypoint ID="7">
                 <Name>SF407</Name>
                 <Type>Normal</Type>
                 <Latitude>42.805722</Latitude>
                 <Longitude>22.975472</Longitude>
+                <Flytype>Fly-by</Flytype>
+                <Speed>210</Speed>
             </Star_Waypoint>
             <Star_Waypoint ID="8">
                 <Name>SF406</Name>
                 <Type>Normal</Type>
                 <Latitude>42.810778</Latitude>
                 <Longitude>22.885139</Longitude>
+                <Flytype>Fly-by</Flytype>
+                <Speed>210</Speed>
             </Star_Waypoint>
             <Star_Waypoint ID="9">
                 <Name>SF405</Name>
@@ -404,6 +454,8 @@
                 <Latitude>42.815722</Latitude>
                 <Longitude>22.794806</Longitude>
                 <Sp_Turn>Left</Sp_Turn>
+                <Flytype>Fly-by</Flytype>
+                <Speed>210</Speed>
             </Star_Waypoint>
             <Star_Waypoint ID="10">
                 <Name>SF404</Name>
@@ -411,12 +463,16 @@
                 <Latitude>42.732583</Latitude>
                 <Longitude>22.786472</Longitude>
                 <Sp_Turn>Left</Sp_Turn>
+                <Flytype>Fly-by</Flytype>
+                <Speed>210</Speed>
             </Star_Waypoint>
             <Star_Waypoint ID="11">
                 <Name>SF403</Name>
                 <Type>Normal</Type>
                 <Latitude>42.727639</Latitude>
                 <Longitude>22.876667</Longitude>
+                <Flytype>Fly-by</Flytype>
+                <Speed>210</Speed>
             </Star_Waypoint>
             <Star_Waypoint ID="12">
                 <Name>BENGO</Name>
@@ -426,6 +482,8 @@
                 <Altitude>7000</Altitude>
                 <AltitudeCons>0</AltitudeCons>
                 <AltitudeRestriction>above</AltitudeRestriction>
+                <Flytype>Fly-by</Flytype>
+                <Speed>210</Speed>
             </Star_Waypoint>
         </Star>
         <Star Name="VANET5D" Runways="09">

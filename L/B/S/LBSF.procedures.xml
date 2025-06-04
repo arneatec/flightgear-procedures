@@ -7,6 +7,7 @@
                 <Type>Normal</Type>
                 <Latitude>42.972778</Latitude>
                 <Longitude>22.797500</Longitude>
+                <Flytype>Fly-by</Flytype>
             </Star_Waypoint>
             <Star_Waypoint ID="2">
                 <Name>SF412</Name>
@@ -14,12 +15,14 @@
                 <Latitude>42.889167</Latitude>
                 <Longitude>22.978361</Longitude>
                 <Sp_Turn>Left</Sp_Turn>
+                <Flytype>Fly-by</Flytype>
             </Star_Waypoint>
             <Star_Waypoint ID="3">
                 <Name>SF411</Name>
                 <Type>Normal</Type>
                 <Latitude>42.880500</Latitude>
                 <Longitude>23.131000</Longitude>
+                <Flytype>Fly-by</Flytype>
             </Star_Waypoint>
             <Star_Waypoint ID="4">
                 <Name>SF410</Name>
@@ -28,13 +31,16 @@
                 <Longitude>23.239472</Longitude>
                 <Speed>210</Speed>
                 <Sp_Turn>Right</Sp_Turn>
+                <Flytype>Fly-by</Flytype>
             </Star_Waypoint>
             <Star_Waypoint ID="5">
                 <Name>SF409</Name>
                 <Type>Normal</Type>
                 <Latitude>42.791139</Latitude>
                 <Longitude>23.230528</Longitude>
+                <Speed>210</Speed>
                 <Sp_Turn>Right</Sp_Turn>
+                <Flytype>Fly-by</Flytype>
             </Star_Waypoint>
             <Star_Waypoint ID="6">
                 <Name>LEMDO</Name>
@@ -42,18 +48,23 @@
                 <Latitude>42.800556</Latitude>
                 <Longitude>23.065833</Longitude>
                 <Speed>210</Speed>
+                <Flytype>Fly-by</Flytype>
             </Star_Waypoint>
             <Star_Waypoint ID="7">
                 <Name>SF407</Name>
                 <Type>Normal</Type>
                 <Latitude>42.805722</Latitude>
                 <Longitude>22.975472</Longitude>
+                <Flytype>Fly-by</Flytype>
+                <Speed>210</Speed>
             </Star_Waypoint>
             <Star_Waypoint ID="8">
                 <Name>SF406</Name>
                 <Type>Normal</Type>
                 <Latitude>42.810778</Latitude>
                 <Longitude>22.885139</Longitude>
+                <Flytype>Fly-by</Flytype>
+                <Speed>210</Speed>
             </Star_Waypoint>
             <Star_Waypoint ID="9">
                 <Name>SF405</Name>
@@ -61,6 +72,8 @@
                 <Latitude>42.815722</Latitude>
                 <Longitude>22.794806</Longitude>
                 <Sp_Turn>Left</Sp_Turn>
+                <Flytype>Fly-by</Flytype>
+                <Speed>210</Speed>
             </Star_Waypoint>
             <Star_Waypoint ID="10">
                 <Name>SF404</Name>
@@ -68,12 +81,16 @@
                 <Latitude>42.732583</Latitude>
                 <Longitude>22.786472</Longitude>
                 <Sp_Turn>Left</Sp_Turn>
+                <Flytype>Fly-by</Flytype>
+                <Speed>210</Speed>
             </Star_Waypoint>
             <Star_Waypoint ID="11">
                 <Name>SF403</Name>
                 <Type>Normal</Type>
                 <Latitude>42.727639</Latitude>
                 <Longitude>22.876667</Longitude>
+                <Flytype>Fly-by</Flytype>
+                <Speed>210</Speed>
             </Star_Waypoint>
             <Star_Waypoint ID="12">
                 <Name>BENGO</Name>
@@ -82,7 +99,9 @@
                 <Longitude>22.966944</Longitude>
                 <Altitude>7000</Altitude>
                 <AltitudeCons>0</AltitudeCons>
-                <AltitudeRestriction>at</AltitudeRestriction>
+                <AltitudeRestriction>above</AltitudeRestriction>
+                <Flytype>Fly-by</Flytype>
+                <Speed>210</Speed>
             </Star_Waypoint>
         </Star>
         <Star Name="GOL5D" Runways="09">
@@ -656,29 +675,39 @@
                 <AltitudeRestriction>above</AltitudeRestriction>
             </Star_Waypoint>
         </Star>
-        <Approach Name="ILS.09.Z">
-            <App_Waypoint ID="1">
-                <Name>LUXUV/IF</Name>
+        <Approach Name="LOC09.Z">
+            <Star_Waypoint ID="1">
+                <Name>BENGO</Name>
+                <Type>Normal</Type>
+                <Latitude>42.722500</Latitude>
+                <Longitude>22.966944</Longitude>
+                <Altitude>7000</Altitude>
+                <AltitudeCons>0</AltitudeCons>
+                <AltitudeRestriction>above</AltitudeRestriction>
+                <Flytype>Fly-by</Flytype>
+            </Star_Waypoint>
+            <App_Waypoint ID="2">
+                <Name>LUXUV</Name>
                 <Type>Normal</Type>
                 <Latitude>42.7175</Latitude>
                 <Longitude>23.056944</Longitude>
                 <Altitude>6100</Altitude>
                 <AltitudeCons>0</AltitudeCons>
                 <AltitudeRestriction>above</AltitudeRestriction>
-                <Flytype>Fly-over</Flytype>
+                <Flytype>Fly-by</Flytype>
             </App_Waypoint>
-            <App_Waypoint ID="2">
-                <Name>MAGUP/FAF</Name>
+            <App_Waypoint ID="3">
+                <Name>MAGUP</Name>
                 <Type>Normal</Type>
                 <Latitude>42.707222</Latitude>
                 <Longitude>23.235</Longitude>
                 <Altitude>4100</Altitude>
                 <AltitudeCons>0</AltitudeCons>
                 <AltitudeRestriction>above</AltitudeRestriction>
-                <Flytype>Fly-over</Flytype>
+                <Flytype>Fly-by</Flytype>
             </App_Waypoint>
-            <App_Waypoint ID="3">
-                <Name>RW09/MAPt</Name>
+            <App_Waypoint ID="4">
+                <Name>RW09</Name>
                 <Type>Runway</Type>
                 <Latitude>42.69425</Latitude>
                 <Longitude>23.452444</Longitude>
@@ -686,6 +715,33 @@
                 <AltitudeCons>0</AltitudeCons>
                 <AltitudeRestriction>at</AltitudeRestriction>
                 <Flytype>Fly-over</Flytype>
+            </App_Waypoint>
+            <App_Waypoint ID="5">
+                <Name>SF450</Name>
+                <Type>Normal</Type>
+                <Latitude>42.69425</Latitude>
+                <Longitude>23.452444</Longitude>
+                <Altitude>1925</Altitude>
+                <AltitudeCons>0</AltitudeCons>
+                <AltitudeRestriction>at</AltitudeRestriction>
+                <Flytype>Fly-over</Flytype>
+                <Sp_Turn>Right</Sp_Turn>
+                <Speed>190</Speed>
+            </App_Waypoint>
+            <App_Waypoint ID="6">
+                <Name>SOF</Name>
+                <Type>Hold</Type>
+                <Latitude>42.698111</Latitude>
+                <Longitude>23.389389</Longitude>
+                <Altitude>8000</Altitude>
+                <AltitudeCons>0</AltitudeCons>
+                <AltitudeRestriction>above</AltitudeRestriction>
+                <Flytype>Fly-over</Flytype>
+                <Hld_Rad_value>090.0</Hld_Rad_value>
+				<Hld_Time_or_Dist>Time</Hld_Time_or_Dist>
+				<Hld_td_value>1.0</Hld_td_value>
+				<Hld_Rad_or_Inbd>Inbd</Hld_Rad_or_Inbd>
+				<Hld_Turn>Right</Hld_Turn>
             </App_Waypoint>
             <App_Transition Name="LUXUV">
                 <AppTr_Waypoint ID="1">

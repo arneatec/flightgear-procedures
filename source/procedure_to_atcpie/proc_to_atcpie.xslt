@@ -9,8 +9,9 @@
 
         <xsl:for-each select="/ProceduresDB/Airport/Approach">
             <xsl:text># ------------------------------------------------</xsl:text><xsl:text>&#xd;</xsl:text>
-            <xsl:text># APPROACH START</xsl:text><xsl:text>&#xd;</xsl:text>
-            <xsl:text># APPROACHES: Runway number is: </xsl:text><xsl:value-of select="substring(@Name,4,2)"/><xsl:text>&#xd;</xsl:text>
+            <xsl:text># APPROACH: START</xsl:text><xsl:text>&#xd;</xsl:text>
+            <xsl:text># APPROACH Name: </xsl:text><xsl:value-of select="@Name"/><xsl:text>&#xd;</xsl:text>
+            <xsl:text># APPROACH Runway number: </xsl:text><xsl:value-of select="substring(@Name,4,2)"/><xsl:text>&#xd;</xsl:text>
             <xsl:text>YELLOW</xsl:text><xsl:text>&#xd;</xsl:text>
             <!-- first to generate the lines -->
             <xsl:for-each select="App_Waypoint">

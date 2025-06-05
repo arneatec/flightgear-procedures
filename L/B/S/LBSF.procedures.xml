@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ProceduresDB version="1.0" build="12/01/2016 - f-ojac" xsi:schemaLocation="http://tempuri.org/XMLSchema.xsd FMC.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://tempuri.org/XMLSchema.xsd">
+<ProceduresDB>
     <Airport ICAOcode="LBSF">
         <Star Name="NISVA4D" Runways="09">
             <Star_Waypoint ID="1">
@@ -777,7 +777,7 @@
             </Star_Waypoint>
         </Star>
         <Approach Name="LOC09.Z">
-            <Star_Waypoint ID="1">
+            <App_Waypoint ID="1">
                 <Name>BENGO</Name>
                 <Type>Normal</Type>
                 <Latitude>42.722500</Latitude>
@@ -786,7 +786,7 @@
                 <AltitudeCons>0</AltitudeCons>
                 <AltitudeRestriction>above</AltitudeRestriction>
                 <Flytype>Fly-by</Flytype>
-            </Star_Waypoint>
+            </App_Waypoint>
             <App_Waypoint ID="2">
                 <Name>LUXUV</Name>
                 <Type>Normal</Type>

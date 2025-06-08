@@ -17,7 +17,17 @@
                 <xsl:text># APPROACH: START</xsl:text><xsl:text>&#xd;</xsl:text>
                 <xsl:text># APPROACH Name: </xsl:text><xsl:value-of select="@Name"/><xsl:text>&#xd;</xsl:text>
                 <xsl:text># APPROACH Runway number: </xsl:text><xsl:value-of select="substring(@Name,4,2)"/><xsl:text>&#xd;</xsl:text>
+                <xsl:text>&#xd;</xsl:text>
                 <xsl:text>YELLOW</xsl:text><xsl:text>&#xd;</xsl:text>
+                <xsl:for-each select="App_Waypoint[1]">
+                    <xsl:value-of select="Latitude"/><xsl:text>,</xsl:text><xsl:value-of select="Longitude"/><xsl:text>&gt;315,2.3</xsl:text><xsl:text>&#xd;</xsl:text>
+                    <xsl:text>:label </xsl:text><xsl:value-of select="ancestor::Approach[1]/@Name"/><xsl:text>&#xd;</xsl:text>
+                    <xsl:value-of select="Latitude"/><xsl:text>,</xsl:text><xsl:value-of select="Longitude"/><xsl:text>&gt;315,2.3</xsl:text><xsl:text>&#xd;</xsl:text>
+                </xsl:for-each>
+
+                <xsl:text>&#xd;</xsl:text>
+                <xsl:text>YELLOW</xsl:text><xsl:text>&#xd;</xsl:text>
+
                 <!-- first to generate the lines -->
                 <xsl:for-each select="App_Waypoint">
                     <xsl:value-of select="Latitude"/><xsl:text>,</xsl:text><xsl:value-of select="Longitude"/>
@@ -63,6 +73,15 @@
                 <xsl:text># STAR Runway: </xsl:text><xsl:value-of select="@Runways"/><xsl:text>&#xd;</xsl:text>
                 <xsl:text>&#xd;</xsl:text>
                 <xsl:text>WHITE</xsl:text><xsl:text>&#xd;</xsl:text>
+
+                <xsl:for-each select="Star_Waypoint[1]">
+                    <xsl:value-of select="Latitude"/><xsl:text>,</xsl:text><xsl:value-of select="Longitude"/><xsl:text>&gt;315,2.3</xsl:text><xsl:text>&#xd;</xsl:text>
+                    <xsl:text>:label </xsl:text><xsl:value-of select="ancestor::Star[1]/@Name"/><xsl:text>&#xd;</xsl:text>
+                    <xsl:value-of select="Latitude"/><xsl:text>,</xsl:text><xsl:value-of select="Longitude"/><xsl:text>&gt;315,2.3</xsl:text><xsl:text>&#xd;</xsl:text>
+                </xsl:for-each>
+                <xsl:text>&#xd;</xsl:text>
+                <xsl:text>WHITE</xsl:text><xsl:text>&#xd;</xsl:text>
+
                 <!-- first to generate the lines -->
                 <xsl:for-each select="Star_Waypoint">
                     <xsl:value-of select="Latitude"/><xsl:text>,</xsl:text><xsl:value-of select="Longitude"/>

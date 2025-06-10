@@ -786,6 +786,7 @@
                 <AltitudeCons>0</AltitudeCons>
                 <AltitudeRestriction>above</AltitudeRestriction>
                 <Flytype>Fly-by</Flytype>
+                <Speed>210</Speed>
             </App_Waypoint>
             <App_Waypoint ID="2">
                 <Name>LUXUV</Name>
@@ -796,6 +797,7 @@
                 <AltitudeCons>0</AltitudeCons>
                 <AltitudeRestriction>above</AltitudeRestriction>
                 <Flytype>Fly-by</Flytype>
+                <Speed>210</Speed>
             </App_Waypoint>
             <App_Waypoint ID="3">
                 <Name>MAGUP</Name>
@@ -838,12 +840,13 @@
                 <AltitudeCons>0</AltitudeCons>
                 <AltitudeRestriction>above</AltitudeRestriction>
                 <Flytype>Fly-over</Flytype>
-                <Hld_Rad_value>090.0</Hld_Rad_value>
+                <Hld_Rad_value>274.4</Hld_Rad_value>
 				<Hld_Time_or_Dist>Time</Hld_Time_or_Dist>
 				<Hld_td_value>1.0</Hld_td_value>
-				<Hld_Rad_or_Inbd>Inbd</Hld_Rad_or_Inbd>
+				<Hld_Rad_or_Inbd>Rad</Hld_Rad_or_Inbd>
 				<Hld_Turn>Right</Hld_Turn>
             </App_Waypoint>
+            <!--
             <App_Transition Name="LUXUV">
                 <AppTr_Waypoint ID="1">
                     <Name>LUXUV</Name>
@@ -865,7 +868,319 @@
                     <DMEtoIntercept>8.0</DMEtoIntercept>
                 </AppTr_Waypoint>
             </App_Transition>
+            -->
         </Approach>
+        <Sid Name="GODEK 3S" Runways="09">
+            <Sid_Waypoint ID="1">
+                <Name>(4500)</Name>
+                <Type>ConstHdgtoAlt</Type>
+                <Latitude>0.000000</Latitude>
+                <Longitude>0.000000</Longitude>
+                <Speed>230</Speed>
+                <Altitude>4500</Altitude>
+                <AltitudeCons>0</AltitudeCons>
+                <AltitudeRestriction>above</AltitudeRestriction>
+                <Hdg_Crs>0</Hdg_Crs>
+                <Hdg_Crs_value>089</Hdg_Crs_value>
+                <Flytype>Fly-by</Flytype>
+                <Sp_Turn>Left</Sp_Turn>
+            </Sid_Waypoint>
+            <Sid_Waypoint ID="2">
+                <Name>SF502</Name>
+                <Type>Normal</Type>
+                <Latitude>42.857278</Latitude>
+                <Longitude>23.523806</Longitude>
+                <Flytype>Fly-by</Flytype>
+                <Altitude>10000</Altitude>
+                <AltitudeCons>0</AltitudeCons>
+                <AltitudeRestriction>below</AltitudeRestriction>
+                <Sp_Turn>Left</Sp_Turn>
+            </Sid_Waypoint>
+            <Sid_Waypoint ID="3">
+                <Name>GODEK</Name>
+                <Type>Normal</Type>
+                <Latitude>43.126667</Latitude>
+                <Longitude>22.989444</Longitude>
+                <Flytype>Fly-by</Flytype>
+            </Sid_Waypoint>
+        </Sid>
+        <Sid Name="OGOTA 3S" Runways="09">
+            <Sid_Waypoint ID="1">
+                <Name>(4500)</Name>
+                <Type>ConstHdgtoAlt</Type>
+                <Latitude>0.000000</Latitude>
+                <Longitude>0.000000</Longitude>
+                <Speed>230</Speed>
+                <Altitude>4500</Altitude>
+                <AltitudeCons>0</AltitudeCons>
+                <AltitudeRestriction>above</AltitudeRestriction>
+                <Hdg_Crs>0</Hdg_Crs>
+                <Hdg_Crs_value>089</Hdg_Crs_value>
+                <Flytype>Fly-by</Flytype>
+                <Sp_Turn>Left</Sp_Turn>
+            </Sid_Waypoint>
+            <Sid_Waypoint ID="2">
+                <Name>SF502</Name>
+                <Type>Normal</Type>
+                <Latitude>42.857278</Latitude>
+                <Longitude>23.523806</Longitude>
+                <Flytype>Fly-by</Flytype>
+                <Altitude>10000</Altitude>
+                <AltitudeCons>0</AltitudeCons>
+                <AltitudeRestriction>below</AltitudeRestriction>
+            </Sid_Waypoint>
+            <Sid_Waypoint ID="3">
+                <Name>OGOTA</Name>
+                <Type>Normal</Type>
+                <Latitude>43.214167</Latitude>
+                <Longitude>23.326667</Longitude>
+                <Flytype>Fly-by</Flytype>
+            </Sid_Waypoint>
+        </Sid>
+        <Sid Name="GOL 3S" Runways="09">
+            <Sid_Waypoint ID="1">
+                <Name>(4500)</Name>
+                <Type>ConstHdgtoAlt</Type>
+                <Latitude>0.000000</Latitude>
+                <Longitude>0.000000</Longitude>
+                <Speed>230</Speed>
+                <Altitude>4500</Altitude>
+                <AltitudeCons>0</AltitudeCons>
+                <AltitudeRestriction>above</AltitudeRestriction>
+                <Hdg_Crs>0</Hdg_Crs>
+                <Hdg_Crs_value>089</Hdg_Crs_value>
+                <Flytype>Fly-by</Flytype>
+                <Sp_Turn>Left</Sp_Turn>
+            </Sid_Waypoint>
+            <Sid_Waypoint ID="2">
+                <Name>SF503</Name>
+                <Type>Normal</Type>
+                <Latitude>42.814556</Latitude>
+                <Longitude>23.853250</Longitude>
+                <Flytype>Fly-by</Flytype>
+                <Altitude>10000</Altitude>
+                <AltitudeCons>0</AltitudeCons>
+                <AltitudeRestriction>below</AltitudeRestriction>
+            </Sid_Waypoint>
+            <Sid_Waypoint ID="3">
+                <Name>SF504</Name>
+                <Type>Normal</Type>
+                <Latitude>42.956306</Latitude>
+                <Longitude>24.115722</Longitude>
+                <Flytype>Fly-by</Flytype>
+            </Sid_Waypoint>
+            <Sid_Waypoint ID="4">
+                <Name>GOL</Name>
+                <Type>Normal</Type>
+                <Latitude>43.095000</Latitude>
+                <Longitude>24.220556</Longitude>
+                <Flytype>Fly-by</Flytype>
+            </Sid_Waypoint>
+        </Sid>
+        <Sid Name="UMPIT 3S" Runways="09">
+            <Sid_Waypoint ID="1">
+                <Name>(4500)</Name>
+                <Type>ConstHdgtoAlt</Type>
+                <Latitude>0.000000</Latitude>
+                <Longitude>0.000000</Longitude>
+                <Speed>230</Speed>
+                <Altitude>4500</Altitude>
+                <AltitudeCons>0</AltitudeCons>
+                <AltitudeRestriction>above</AltitudeRestriction>
+                <Hdg_Crs>0</Hdg_Crs>
+                <Hdg_Crs_value>089</Hdg_Crs_value>
+                <Flytype>Fly-by</Flytype>
+                <Sp_Turn>Left</Sp_Turn>
+            </Sid_Waypoint>
+            <Sid_Waypoint ID="2">
+                <Name>SF503</Name>
+                <Type>Normal</Type>
+                <Latitude>42.814556</Latitude>
+                <Longitude>23.853250</Longitude>
+                <Flytype>Fly-by</Flytype>
+                <Altitude>10000</Altitude>
+                <AltitudeCons>0</AltitudeCons>
+                <AltitudeRestriction>below</AltitudeRestriction>
+                <Sp_Turn>Right</Sp_Turn>
+            </Sid_Waypoint>
+            <Sid_Waypoint ID="3">
+                <Name>UMPIT</Name>
+                <Type>Normal</Type>
+                <Latitude>42.779722</Latitude>
+                <Longitude>24.174167</Longitude>
+                <Flytype>Fly-by</Flytype>
+            </Sid_Waypoint>
+        </Sid>
+        <Sid Name="GAPVO 2S" Runways="09">
+            <Sid_Waypoint ID="1">
+                <Name>SF505</Name>
+                <Type>Normal</Type>
+                <Latitude>42.667944</Latitude>
+                <Longitude>23.876389</Longitude>
+                <Flytype>Fly-by</Flytype>
+            </Sid_Waypoint>
+            <Sid_Waypoint ID="2">
+                <Name>GAPVO</Name>
+                <Type>Normal</Type>
+                <Latitude>42.681667</Latitude>
+                <Longitude>24.145556</Longitude>
+                <Flytype>Fly-by</Flytype>
+            </Sid_Waypoint>
+        </Sid>
+        <Sid Name="DEDIN 2S" Runways="09">
+            <Sid_Waypoint ID="1">
+                <Name>SF505</Name>
+                <Type>Normal</Type>
+                <Latitude>42.667944</Latitude>
+                <Longitude>23.876389</Longitude>
+                <Sp_Turn>Right</Sp_Turn>
+                <Flytype>Fly-by</Flytype>
+            </Sid_Waypoint>
+            <Sid_Waypoint ID="2">
+                <Name>DEDIN</Name>
+                <Type>Normal</Type>
+                <Latitude>42.594167</Latitude>
+                <Longitude>24.079444</Longitude>
+                <Flytype>Fly-by</Flytype>
+            </Sid_Waypoint>
+        </Sid>
+        <Sid Name="RUMEN 2S" Runways="09">
+            <Sid_Waypoint ID="1">
+                <Name>(4500)</Name>
+                <Type>ConstHdgtoAlt</Type>
+                <Latitude>0.000000</Latitude>
+                <Longitude>0.000000</Longitude>
+                <Speed>230</Speed>
+                <Altitude>4500</Altitude>
+                <AltitudeCons>0</AltitudeCons>
+                <AltitudeRestriction>above</AltitudeRestriction>
+                <Hdg_Crs>0</Hdg_Crs>
+                <Hdg_Crs_value>089</Hdg_Crs_value>
+                <Flytype>Fly-by</Flytype>
+                <Sp_Turn>Right</Sp_Turn>
+            </Sid_Waypoint>
+            <Sid_Waypoint ID="2">
+                <Name>SF506</Name>
+                <Type>Normal</Type>
+                <Latitude>42.504583</Latitude>
+                <Longitude>23.814944</Longitude>
+                <Flytype>Fly-by</Flytype>
+                <Altitude>10000</Altitude>
+                <AltitudeCons>0</AltitudeCons>
+                <AltitudeRestriction>below</AltitudeRestriction>
+                <Sp_Turn>Left</Sp_Turn>
+            </Sid_Waypoint>
+            <Sid_Waypoint ID="3">
+                <Name>RUMEN</Name>
+                <Type>Normal</Type>
+                <Latitude>42.305000</Latitude>
+                <Longitude>24.313333</Longitude>
+                <Flytype>Fly-by</Flytype>
+            </Sid_Waypoint>
+        </Sid>
+        <Sid Name="DILVO 2S" Runways="09">
+            <Sid_Waypoint ID="1">
+                <Name>(4500)</Name>
+                <Type>ConstHdgtoAlt</Type>
+                <Latitude>0.000000</Latitude>
+                <Longitude>0.000000</Longitude>
+                <Speed>230</Speed>
+                <Altitude>4500</Altitude>
+                <AltitudeCons>0</AltitudeCons>
+                <AltitudeRestriction>above</AltitudeRestriction>
+                <Hdg_Crs>0</Hdg_Crs>
+                <Hdg_Crs_value>089</Hdg_Crs_value>
+                <Flytype>Fly-by</Flytype>
+                <Sp_Turn>Right</Sp_Turn>
+            </Sid_Waypoint>
+            <Sid_Waypoint ID="2">
+                <Name>SF506</Name>
+                <Type>Normal</Type>
+                <Latitude>42.504583</Latitude>
+                <Longitude>23.814944</Longitude>
+                <Flytype>Fly-by</Flytype>
+                <Altitude>10000</Altitude>
+                <AltitudeCons>0</AltitudeCons>
+                <AltitudeRestriction>below</AltitudeRestriction>
+                <Sp_Turn>Right</Sp_Turn>
+            </Sid_Waypoint>
+            <Sid_Waypoint ID="3">
+                <Name>DILVO</Name>
+                <Type>Normal</Type>
+                <Latitude>42.310000</Latitude>
+                <Longitude>23.936944</Longitude>
+                <Flytype>Fly-by</Flytype>
+            </Sid_Waypoint>
+        </Sid>
+        <Sid Name="OMENO 3S" Runways="09">
+            <Sid_Waypoint ID="1">
+                <Name>(4500)</Name>
+                <Type>ConstHdgtoAlt</Type>
+                <Latitude>0.000000</Latitude>
+                <Longitude>0.000000</Longitude>
+                <Speed>230</Speed>
+                <Altitude>4500</Altitude>
+                <AltitudeCons>0</AltitudeCons>
+                <AltitudeRestriction>above</AltitudeRestriction>
+                <Hdg_Crs>0</Hdg_Crs>
+                <Hdg_Crs_value>089</Hdg_Crs_value>
+                <Flytype>Fly-by</Flytype>
+                <Sp_Turn>Right</Sp_Turn>
+            </Sid_Waypoint>
+            <Sid_Waypoint ID="2">
+                <Name>SF507</Name>
+                <Type>Normal</Type>
+                <Latitude>42.522250</Latitude>
+                <Longitude>23.532056</Longitude>
+                <Flytype>Fly-by</Flytype>
+                <Altitude>10000</Altitude>
+                <AltitudeCons>0</AltitudeCons>
+                <AltitudeRestriction>below</AltitudeRestriction>
+                <Sp_Turn>Left</Sp_Turn>
+            </Sid_Waypoint>
+            <Sid_Waypoint ID="3">
+                <Name>OMENO</Name>
+                <Type>Normal</Type>
+                <Latitude>42.296944</Latitude>
+                <Longitude>23.481389</Longitude>
+                <Flytype>Fly-by</Flytype>
+            </Sid_Waypoint>
+        </Sid>
+        <Sid Name="NAPET 2S" Runways="09">
+            <Sid_Waypoint ID="1">
+                <Name>(4500)</Name>
+                <Type>ConstHdgtoAlt</Type>
+                <Latitude>0.000000</Latitude>
+                <Longitude>0.000000</Longitude>
+                <Speed>230</Speed>
+                <Altitude>4500</Altitude>
+                <AltitudeCons>0</AltitudeCons>
+                <AltitudeRestriction>above</AltitudeRestriction>
+                <Hdg_Crs>0</Hdg_Crs>
+                <Hdg_Crs_value>089</Hdg_Crs_value>
+                <Flytype>Fly-by</Flytype>
+                <Sp_Turn>Right</Sp_Turn>
+            </Sid_Waypoint>
+            <Sid_Waypoint ID="2">
+                <Name>SF507</Name>
+                <Type>Normal</Type>
+                <Latitude>42.522250</Latitude>
+                <Longitude>23.532056</Longitude>
+                <Flytype>Fly-by</Flytype>
+                <Altitude>10000</Altitude>
+                <AltitudeCons>0</AltitudeCons>
+                <AltitudeRestriction>below</AltitudeRestriction>
+                <Sp_Turn>Right</Sp_Turn>
+            </Sid_Waypoint>
+            <Sid_Waypoint ID="3">
+                <Name>NAPET</Name>
+                <Type>Normal</Type>
+                <Latitude>42.288333</Latitude>
+                <Longitude>23.005556</Longitude>
+                <Flytype>Fly-by</Flytype>
+            </Sid_Waypoint>
+        </Sid>
+        <!--
         <Sid Name="GODEK2T" Runways="27">
             <Sid_Waypoint ID="1">
                 <Name>(2300)</Name>
@@ -1549,5 +1864,6 @@
                 </AppTr_Waypoint>
             </App_Transition>
         </Approach>
+        -->
     </Airport>
 </ProceduresDB>

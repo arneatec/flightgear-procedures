@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ProceduresDB>
     <Airport ICAOcode="LBSF">
-        <Star Name="NISVA4D" Runways="09">
+        <Star Name="NISVA 4D" Runways="09">
             <Star_Waypoint ID="1">
                 <Name>NISVA</Name>
                 <Type>Normal</Type>
@@ -104,7 +104,7 @@
                 <Speed>210</Speed>
             </Star_Waypoint>
         </Star>
-        <Star Name="GOL5D" Runways="09">
+        <Star Name="GOL 5D" Runways="09">
             <Star_Waypoint ID="1">
                 <Name>GOL</Name>
                 <Type>Normal</Type>
@@ -201,7 +201,7 @@
                 <Speed>210</Speed>
             </Star_Waypoint>
         </Star>
-        <Star Name="UMPIT5D" Runways="09">
+        <Star Name="UMPIT 5D" Runways="09">
             <Star_Waypoint ID="1">
                 <Name>UMPIT</Name>
                 <Type>Normal</Type>
@@ -305,7 +305,7 @@
                 <Speed>210</Speed>
             </Star_Waypoint>
         </Star>
-        <Star Name="GAPVO5D" Runways="09">
+        <Star Name="GAPVO 5D" Runways="09">
             <Star_Waypoint ID="1">
                 <Name>GAPVO</Name>
                 <Type>Normal</Type>
@@ -408,7 +408,7 @@
                 <Speed>210</Speed>
             </Star_Waypoint>
         </Star>
-        <Star Name="MOREK5D" Runways="09">
+        <Star Name="MOREK 5D" Runways="09">
             <Star_Waypoint ID="1">
                 <Name>MOREK</Name>
                 <Type>Normal</Type>
@@ -496,7 +496,7 @@
                 <Flytype>Fly-by</Flytype>
             </Star_Waypoint>
         </Star>
-        <Star Name="VANET5D" Runways="09">
+        <Star Name="VANET 5D" Runways="09">
             <Star_Waypoint ID="1">
                 <Name>VANET</Name>
                 <Type>Normal</Type>
@@ -584,7 +584,7 @@
                 <Flytype>Fly-by</Flytype>
             </Star_Waypoint>
         </Star>
-        <Star Name="DEDIN5D" Runways="09">
+        <Star Name="DEDIN 5D" Runways="09">
             <Star_Waypoint ID="1">
                 <Name>DEDIN</Name>
                 <Type>Normal</Type>
@@ -680,7 +680,7 @@
                 <Flytype>Fly-by</Flytype>
             </Star_Waypoint>
         </Star>
-        <Star Name="RUMEN5D" Runways="09">
+        <Star Name="RUMEN 5D" Runways="09">
             <Star_Waypoint ID="1">
                 <Name>RUMEN</Name>
                 <Type>Normal</Type>

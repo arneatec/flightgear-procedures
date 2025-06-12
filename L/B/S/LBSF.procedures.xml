@@ -1830,6 +1830,9 @@
                 <Longitude>23.372139</Longitude>
                 <Flytype>Fly-over</Flytype>
                 <Speed>185</Speed>
+                <Altitude>2740</Altitude>
+                <AltitudeCons>0</AltitudeCons>
+                <AltitudeRestriction>above</AltitudeRestriction>
             </App_Waypoint>
             <App_Waypoint ID="6">
                 <Name>SF602</Name>
@@ -1837,6 +1840,9 @@
                 <Latitude>42.770000</Latitude>
                 <Longitude>23.191111</Longitude>
                 <Flytype>Fly-by</Flytype>
+                <Altitude>5000</Altitude>
+                <AltitudeCons>0</AltitudeCons>
+                <AltitudeRestriction>above</AltitudeRestriction>
             </App_Waypoint>
             <App_Waypoint ID="7">
                 <Name>BENGO</Name>

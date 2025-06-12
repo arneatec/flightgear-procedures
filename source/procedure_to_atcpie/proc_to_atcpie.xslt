@@ -115,6 +115,60 @@
                 <xsl:text># ------------------------------------------------</xsl:text><xsl:text>&#xd;</xsl:text>
             </xsl:for-each>
 
+            <!-- SIDS -->
+            <xsl:text># ------------------------------------------------</xsl:text><xsl:text>&#xd;</xsl:text>
+            <xsl:text># SID for runway </xsl:text><xsl:value-of select="current()"/><xsl:text>&#xd;</xsl:text>
+            <xsl:text># ------------------------------------------------</xsl:text><xsl:text>&#xd;</xsl:text>
+
+            <xsl:for-each select="/ProceduresDB/Airport/Sid[@Runways=current()]">
+                <xsl:text># ------------------------------------------------</xsl:text><xsl:text>&#xd;</xsl:text>
+                <xsl:text># SID: START</xsl:text><xsl:text>&#xd;</xsl:text>
+                <xsl:text># SID Name: </xsl:text><xsl:value-of select="Runways"/><xsl:text>&#xd;</xsl:text>
+                <xsl:text># SID Runway: </xsl:text><xsl:value-of select="@Runways"/><xsl:text>&#xd;</xsl:text>
+                <xsl:text>&#xd;</xsl:text>
+                <xsl:text>WHITE</xsl:text><xsl:text>&#xd;</xsl:text>
+
+                <xsl:for-each select="Sid_Waypoint[1]">
+                    <xsl:value-of select="Latitude"/><xsl:text>,</xsl:text><xsl:value-of select="Longitude"/><xsl:text>&gt;315,2.3</xsl:text><xsl:text>&#xd;</xsl:text>
+                    <xsl:text>:label </xsl:text><xsl:value-of select="ancestor::Star[1]/@Name"/><xsl:text>&#xd;</xsl:text>
+                    <xsl:value-of select="Latitude"/><xsl:text>,</xsl:text><xsl:value-of select="Longitude"/><xsl:text>&gt;315,2.3</xsl:text><xsl:text>&#xd;</xsl:text>
+                </xsl:for-each>
+                <xsl:text>&#xd;</xsl:text>
+                <xsl:text>WHITE</xsl:text><xsl:text>&#xd;</xsl:text>
+
+                <!-- first to generate the lines -->
+                <xsl:for-each select="Sid_Waypoint">
+                    <xsl:value-of select="Latitude"/><xsl:text>,</xsl:text><xsl:value-of select="Longitude"/>
+                    <xsl:text> </xsl:text>
+                    <xsl:text># </xsl:text><xsl:value-of select="Name"/><xsl:text>&#xd;</xsl:text>
+                    <xsl:if test="not(position() = last()) and string-length(following-sibling::Sid_Waypoint[1]/Altitude/text())>0">
+                        <xsl:text>:label </xsl:text>
+                        <xsl:value-of select="following-sibling::Sid_Waypoint[1]/Altitude"/>
+                        <xsl:text>&#xd;</xsl:text>
+                    </xsl:if>
+                </xsl:for-each>
+                <!-- next to generate the point x-marks  -->
+                <xsl:for-each select="Sid_Waypoint">
+                    <xsl:text>&#xd;</xsl:text>
+                    <xsl:text>Chartreuse</xsl:text><xsl:text>&#xd;</xsl:text>
+                    <xsl:value-of select="Latitude"/><xsl:text>,</xsl:text><xsl:value-of select="Longitude"/>
+                    <xsl:text> </xsl:text>
+                    <xsl:text>#  </xsl:text><xsl:value-of select="Name"/>
+                    <xsl:text>&#xd;</xsl:text>
+                </xsl:for-each>
+
+                <!-- next to generate the point names offset to the top and left  -->
+                <xsl:for-each select="Sid_Waypoint">
+                    <xsl:text>&#xd;</xsl:text>
+                    <xsl:text>Chartreuse</xsl:text><xsl:text>&#xd;</xsl:text>
+                    <xsl:value-of select="Latitude"/><xsl:text>,</xsl:text><xsl:value-of select="Longitude"/><xsl:text>&gt;315,0.1</xsl:text><xsl:text>&#xd;</xsl:text>
+                    <xsl:text>:label </xsl:text><xsl:value-of select="Name"/><xsl:text>&#xd;</xsl:text>
+                    <xsl:value-of select="Latitude"/><xsl:text>,</xsl:text><xsl:value-of select="Longitude"/><xsl:text>&gt;315,0.1</xsl:text><xsl:text>&#xd;</xsl:text>
+                </xsl:for-each>
+                <xsl:text># SID END</xsl:text><xsl:text>&#xd;</xsl:text>
+                <xsl:text># ------------------------------------------------</xsl:text><xsl:text>&#xd;</xsl:text>
+            </xsl:for-each>
+
         </xsl:for-each>
     </xsl:template>
 </xsl:stylesheet>

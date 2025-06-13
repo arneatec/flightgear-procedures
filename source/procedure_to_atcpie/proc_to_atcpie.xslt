@@ -69,7 +69,7 @@
             <xsl:for-each select="/ProceduresDB/Airport/Star[@Runways=current()]">
                 <xsl:text># ------------------------------------------------</xsl:text><xsl:text>&#xd;</xsl:text>
                 <xsl:text># STAR: START</xsl:text><xsl:text>&#xd;</xsl:text>
-                <xsl:text># STAR Name: </xsl:text><xsl:value-of select="Runways"/><xsl:text>&#xd;</xsl:text>
+                <xsl:text># STAR Name: </xsl:text><xsl:value-of select="@Name"/><xsl:text>&#xd;</xsl:text>
                 <xsl:text># STAR Runway: </xsl:text><xsl:value-of select="@Runways"/><xsl:text>&#xd;</xsl:text>
                 <xsl:text>&#xd;</xsl:text>
                 <xsl:text>WHITE</xsl:text><xsl:text>&#xd;</xsl:text>
@@ -123,32 +123,34 @@
             <xsl:for-each select="/ProceduresDB/Airport/Sid[@Runways=current()]">
                 <xsl:text># ------------------------------------------------</xsl:text><xsl:text>&#xd;</xsl:text>
                 <xsl:text># SID: START</xsl:text><xsl:text>&#xd;</xsl:text>
-                <xsl:text># SID Name: </xsl:text><xsl:value-of select="Runways"/><xsl:text>&#xd;</xsl:text>
+                <xsl:text># SID Name: </xsl:text><xsl:value-of select="@Name"/><xsl:text>&#xd;</xsl:text>
                 <xsl:text># SID Runway: </xsl:text><xsl:value-of select="@Runways"/><xsl:text>&#xd;</xsl:text>
                 <xsl:text>&#xd;</xsl:text>
                 <xsl:text>WHITE</xsl:text><xsl:text>&#xd;</xsl:text>
 
-                <xsl:for-each select="Sid_Waypoint[1]">
-                    <xsl:value-of select="Latitude"/><xsl:text>,</xsl:text><xsl:value-of select="Longitude"/><xsl:text>&gt;315,2.3</xsl:text><xsl:text>&#xd;</xsl:text>
-                    <xsl:text>:label </xsl:text><xsl:value-of select="ancestor::Star[1]/@Name"/><xsl:text>&#xd;</xsl:text>
-                    <xsl:value-of select="Latitude"/><xsl:text>,</xsl:text><xsl:value-of select="Longitude"/><xsl:text>&gt;315,2.3</xsl:text><xsl:text>&#xd;</xsl:text>
+                <xsl:for-each select="Sid_Waypoint">
+                    <xsl:if test="position() = last()">
+                        <xsl:value-of select="Latitude"/><xsl:text>,</xsl:text><xsl:value-of select="Longitude"/><xsl:text>&gt;315,2.3</xsl:text><xsl:text>&#xd;</xsl:text>
+                        <xsl:text>:label </xsl:text><xsl:value-of select="ancestor::Sid[1]/@Name"/><xsl:text>&#xd;</xsl:text>
+                        <xsl:value-of select="Latitude"/><xsl:text>,</xsl:text><xsl:value-of select="Longitude"/><xsl:text>&gt;315,2.3</xsl:text><xsl:text>&#xd;</xsl:text>
+                    </xsl:if>
                 </xsl:for-each>
                 <xsl:text>&#xd;</xsl:text>
                 <xsl:text>WHITE</xsl:text><xsl:text>&#xd;</xsl:text>
 
                 <!-- first to generate the lines -->
-                <xsl:for-each select="Sid_Waypoint">
+                <xsl:for-each select="Sid_Waypoint[Latitude !='0.000000']">
                     <xsl:value-of select="Latitude"/><xsl:text>,</xsl:text><xsl:value-of select="Longitude"/>
                     <xsl:text> </xsl:text>
                     <xsl:text># </xsl:text><xsl:value-of select="Name"/><xsl:text>&#xd;</xsl:text>
-                    <xsl:if test="not(position() = last()) and string-length(following-sibling::Sid_Waypoint[1]/Altitude/text())>0">
+                    <xsl:if test="not(position() = last()) and string-length(Altitude/text())>0">
                         <xsl:text>:label </xsl:text>
-                        <xsl:value-of select="following-sibling::Sid_Waypoint[1]/Altitude"/>
+                        <xsl:value-of select="Altitude"/>
                         <xsl:text>&#xd;</xsl:text>
                     </xsl:if>
                 </xsl:for-each>
                 <!-- next to generate the point x-marks  -->
-                <xsl:for-each select="Sid_Waypoint">
+                <xsl:for-each select="Sid_Waypoint[Latitude !='0.000000']">
                     <xsl:text>&#xd;</xsl:text>
                     <xsl:text>Chartreuse</xsl:text><xsl:text>&#xd;</xsl:text>
                     <xsl:value-of select="Latitude"/><xsl:text>,</xsl:text><xsl:value-of select="Longitude"/>
@@ -158,7 +160,7 @@
                 </xsl:for-each>
 
                 <!-- next to generate the point names offset to the top and left  -->
-                <xsl:for-each select="Sid_Waypoint">
+                <xsl:for-each select="Sid_Waypoint[Latitude !='0.000000']">
                     <xsl:text>&#xd;</xsl:text>
                     <xsl:text>Chartreuse</xsl:text><xsl:text>&#xd;</xsl:text>
                     <xsl:value-of select="Latitude"/><xsl:text>,</xsl:text><xsl:value-of select="Longitude"/><xsl:text>&gt;315,0.1</xsl:text><xsl:text>&#xd;</xsl:text>

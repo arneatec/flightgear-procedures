@@ -96,8 +96,8 @@
             <Star_Waypoint ID="12">
                 <Name>BENGO</Name>
                 <Type>Normal</Type>
-                <Latitude>42.722500</Latitude>
-                <Longitude>22.966944</Longitude>
+                <Latitude>42.72235440</Latitude>
+                <Longitude>22.96667396</Longitude>
                 <Altitude>7000</Altitude>
                 <AltitudeCons>0</AltitudeCons>
                 <AltitudeRestriction>above</AltitudeRestriction>
@@ -193,8 +193,8 @@
             <Star_Waypoint ID="11">
                 <Name>BENGO</Name>
                 <Type>Normal</Type>
-                <Latitude>42.722500</Latitude>
-                <Longitude>22.966944</Longitude>
+                <Latitude>42.72235440</Latitude>
+                <Longitude>22.96667396</Longitude>
                 <Altitude>7000</Altitude>
                 <AltitudeCons>0</AltitudeCons>
                 <AltitudeRestriction>above</AltitudeRestriction>
@@ -297,8 +297,8 @@
             <Star_Waypoint ID="12">
                 <Name>BENGO</Name>
                 <Type>Normal</Type>
-                <Latitude>42.722500</Latitude>
-                <Longitude>22.966944</Longitude>
+                <Latitude>42.72235440</Latitude>
+                <Longitude>22.96667396</Longitude>
                 <Altitude>7000</Altitude>
                 <AltitudeCons>0</AltitudeCons>
                 <AltitudeRestriction>above</AltitudeRestriction>
@@ -400,8 +400,8 @@
             <Star_Waypoint ID="12">
                 <Name>BENGO</Name>
                 <Type>Normal</Type>
-                <Latitude>42.722500</Latitude>
-                <Longitude>22.966944</Longitude>
+                <Latitude>42.72235440</Latitude>
+                <Longitude>22.96667396</Longitude>
                 <Altitude>7000</Altitude>
                 <AltitudeCons>0</AltitudeCons>
                 <AltitudeRestriction>above</AltitudeRestriction>
@@ -489,8 +489,8 @@
             <Star_Waypoint ID="10">
                 <Name>BENGO</Name>
                 <Type>Normal</Type>
-                <Latitude>42.722500</Latitude>
-                <Longitude>22.966944</Longitude>
+                <Latitude>42.72235440</Latitude>
+                <Longitude>22.96667396</Longitude>
                 <Altitude>7000</Altitude>
                 <AltitudeCons>0</AltitudeCons>
                 <AltitudeRestriction>above</AltitudeRestriction>
@@ -577,8 +577,8 @@
             <Star_Waypoint ID="10">
                 <Name>BENGO</Name>
                 <Type>Normal</Type>
-                <Latitude>42.722500</Latitude>
-                <Longitude>22.966944</Longitude>
+                <Latitude>42.72235440</Latitude>
+                <Longitude>22.96667396</Longitude>
                 <Altitude>7000</Altitude>
                 <AltitudeCons>0</AltitudeCons>
                 <AltitudeRestriction>above</AltitudeRestriction>
@@ -673,8 +673,8 @@
             <Star_Waypoint ID="12">
                 <Name>BENGO</Name>
                 <Type>Normal</Type>
-                <Latitude>42.722500</Latitude>
-                <Longitude>22.966944</Longitude>
+                <Latitude>42.72235440</Latitude>
+                <Longitude>22.96667396</Longitude>
                 <Altitude>7000</Altitude>
                 <AltitudeCons>0</AltitudeCons>
                 <AltitudeRestriction>above</AltitudeRestriction>
@@ -769,8 +769,8 @@
             <Star_Waypoint ID="12">
                 <Name>BENGO</Name>
                 <Type>Normal</Type>
-                <Latitude>42.722500</Latitude>
-                <Longitude>22.966944</Longitude>
+                <Latitude>42.72235440</Latitude>
+                <Longitude>22.96667396</Longitude>
                 <Altitude>7000</Altitude>
                 <AltitudeCons>0</AltitudeCons>
                 <AltitudeRestriction>above</AltitudeRestriction>
@@ -781,8 +781,8 @@
             <App_Waypoint ID="1">
                 <Name>BENGO</Name>
                 <Type>Normal</Type>
-                <Latitude>42.722500</Latitude>
-                <Longitude>22.966944</Longitude>
+                <Latitude>42.72235440</Latitude>
+                <Longitude>22.96667396</Longitude>
                 <Altitude>7000</Altitude>
                 <AltitudeCons>0</AltitudeCons>
                 <AltitudeRestriction>above</AltitudeRestriction>
@@ -792,8 +792,8 @@
             <App_Waypoint ID="2">
                 <Name>LUXUV</Name>
                 <Type>Normal</Type>
-                <Latitude>42.7175</Latitude>
-                <Longitude>23.056944</Longitude>
+                <Latitude>42.71743423</Latitude>
+                <Longitude>23.05679077</Longitude>
                 <Altitude>6100</Altitude>
                 <AltitudeCons>0</AltitudeCons>
                 <AltitudeRestriction>above</AltitudeRestriction>
@@ -803,8 +803,8 @@
             <App_Waypoint ID="3">
                 <Name>MAGUP</Name>
                 <Type>Normal</Type>
-                <Latitude>42.707222</Latitude>
-                <Longitude>23.235</Longitude>
+                <Latitude>42.70798365</Latitude>
+                <Longitude>23.23514664</Longitude>
                 <Altitude>4100</Altitude>
                 <AltitudeCons>0</AltitudeCons>
                 <AltitudeRestriction>above</AltitudeRestriction>
@@ -813,8 +813,8 @@
             <App_Waypoint ID="4">
                 <Name>RW09</Name>
                 <Type>Runway</Type>
-                <Latitude>42.69425</Latitude>
-                <Longitude>23.452444</Longitude>
+                <Latitude>42.69790498</Latitude>
+                <Longitude>23.40119186</Longitude>
                 <Altitude>1739</Altitude>
                 <AltitudeCons>0</AltitudeCons>
                 <AltitudeRestriction>at</AltitudeRestriction>
@@ -823,8 +823,8 @@
             <App_Waypoint ID="5">
                 <Name>SF450</Name>
                 <Type>Normal</Type>
-                <Latitude>42.69425</Latitude>
-                <Longitude>23.452444</Longitude>
+                <Latitude>42.69514426</Latitude>
+                <Longitude>23.45255441</Longitude>
                 <Altitude>1925</Altitude>
                 <AltitudeCons>0</AltitudeCons>
                 <AltitudeRestriction>at</AltitudeRestriction>
@@ -1847,8 +1847,8 @@
             <App_Waypoint ID="7">
                 <Name>BENGO</Name>
                 <Type>Hold</Type>
-                <Latitude>42.722500</Latitude>
-                <Longitude>22.966944</Longitude>
+                <Latitude>42.72235440</Latitude>
+                <Longitude>22.96667396</Longitude>
                 <Altitude>8000</Altitude>
                 <AltitudeCons>0</AltitudeCons>
                 <AltitudeRestriction>above</AltitudeRestriction>

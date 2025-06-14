@@ -792,8 +792,8 @@
             <App_Waypoint ID="2">
                 <Name>LUXUV</Name>
                 <Type>Normal</Type>
-                <Latitude>42.71743423</Latitude>
-                <Longitude>23.05679077</Longitude>
+                <Latitude>42.71428345</Latitude>
+                <Longitude>23.05653614</Longitude>
                 <Altitude>6100</Altitude>
                 <AltitudeCons>0</AltitudeCons>
                 <AltitudeRestriction>above</AltitudeRestriction>
@@ -803,8 +803,8 @@
             <App_Waypoint ID="3">
                 <Name>MAGUP</Name>
                 <Type>Normal</Type>
-                <Latitude>42.70798365</Latitude>
-                <Longitude>23.23514664</Longitude>
+                <Latitude>42.70601603</Latitude>
+                <Longitude>23.23516984</Longitude>
                 <Altitude>4100</Altitude>
                 <AltitudeCons>0</AltitudeCons>
                 <AltitudeRestriction>above</AltitudeRestriction>
@@ -813,8 +813,8 @@
             <App_Waypoint ID="4">
                 <Name>RW09</Name>
                 <Type>Runway</Type>
-                <Latitude>42.69790498</Latitude>
-                <Longitude>23.40119186</Longitude>
+                <Latitude>42.69792165</Latitude>
+                <Longitude>23.40125989</Longitude>
                 <Altitude>1739</Altitude>
                 <AltitudeCons>0</AltitudeCons>
                 <AltitudeRestriction>at</AltitudeRestriction>
@@ -823,8 +823,8 @@
             <App_Waypoint ID="5">
                 <Name>SF450</Name>
                 <Type>Normal</Type>
-                <Latitude>42.69514426</Latitude>
-                <Longitude>23.45255441</Longitude>
+                <Latitude>42.69535321</Latitude>
+                <Longitude>23.45293546</Longitude>
                 <Altitude>1925</Altitude>
                 <AltitudeCons>0</AltitudeCons>
                 <AltitudeRestriction>at</AltitudeRestriction>

@@ -1244,8 +1244,8 @@
             <Star_Waypoint ID="7">
                 <Name>BAGIP</Name>
                 <Type>Normal</Type>
-                <Latitude>42.681667</Latitude>
-                <Longitude>23.658056</Longitude>
+                <Latitude>42.68432118</Latitude>
+                <Longitude>23.65832299</Longitude>
                 <Altitude>4500</Altitude>
                 <AltitudeCons>0</AltitudeCons>
                 <AltitudeRestriction>above</AltitudeRestriction>
@@ -1796,8 +1796,8 @@
             <App_Waypoint ID="2">
                 <Name>BAGIP</Name>
                 <Type>Normal</Type>
-                <Latitude>42.681667</Latitude>
-                <Longitude>23.658056</Longitude>
+                <Latitude>42.68432118</Latitude>
+                <Longitude>23.65832299</Longitude>
                 <Altitude>4100</Altitude>
                 <AltitudeCons>0</AltitudeCons>
                 <AltitudeRestriction>above</AltitudeRestriction>
@@ -1806,8 +1806,8 @@
             <App_Waypoint ID="3">
                 <Name>TUTPO</Name>
                 <Type>Normal</Type>
-                <Latitude>42.687222</Latitude>
-                <Longitude>23.568056</Longitude>
+                <Latitude>42.68923610</Latitude>
+                <Longitude>23.56821206</Longitude>
                 <Altitude>3600</Altitude>
                 <AltitudeCons>0</AltitudeCons>
                 <AltitudeRestriction>above</AltitudeRestriction>
@@ -1816,8 +1816,8 @@
             <App_Waypoint ID="4">
                 <Name>RW27</Name>
                 <Type>Runway</Type>
-                <Latitude>42.687222</Latitude>
-                <Longitude>23.568056</Longitude>
+                <Latitude>42.69613357</Latitude>
+                <Longitude>23.43595567</Longitude>
                 <Altitude>1739</Altitude>
                 <AltitudeCons>0</AltitudeCons>
                 <AltitudeRestriction>at</AltitudeRestriction>
@@ -1826,8 +1826,8 @@
             <App_Waypoint ID="5">
                 <Name>SF601</Name>
                 <Type>Normal</Type>
-                <Latitude>42.699139</Latitude>
-                <Longitude>23.372139</Longitude>
+                <Latitude>42.69936755</Latitude>
+                <Longitude>23.37211845</Longitude>
                 <Flytype>Fly-over</Flytype>
                 <Speed>185</Speed>
                 <Altitude>2740</Altitude>

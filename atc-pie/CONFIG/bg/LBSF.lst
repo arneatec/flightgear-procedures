@@ -1,0 +1,12 @@
+LBSF_airport_chart.dra          DRAW    Airport chart
+LBSF_airport_chart_parking.dra  DRAW    Parking Chart
+LBSF_arrivals_09.dra            DRAW    Standard Instrument Arrivals Runway 09
+LBSF_departures_09.dra          DRAW    Standard Instrument Departures Runway 09
+LBSF_approach_ILS_Z_09.dra      DRAW    ILS Approach Z Runway 09
+LBSF_arrivals_27.dra            DRAW    Standard Instrument Arrivals Runway 27
+LBSF_departures_27.dra          DRAW    Standard Instrument Departures Runway 27
+LBSF_approach_ILS_Z_27.dra      DRAW    ILS Approach Z Runway 27
+LBSF_VFR_approach.dra           DRAW    VFR Approach
+LBSF_minimum_altitude.dra       DRAW    Minimal Altitude Chart
+LBSF_sofia_ctr.dra              DRAW    Sofia Control
+LBSF_obstacles.dra              DRAW    Obstacles

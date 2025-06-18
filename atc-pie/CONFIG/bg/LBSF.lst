@@ -4,6 +4,7 @@ LBSF_arrivals_09.dra            DRAW    Standard Instrument Arrivals Runway 09
 LBSF_departures_09.dra          DRAW    Standard Instrument Departures Runway 09
 LBSF_approach_ILS_Z_09.dra      DRAW    ILS Approach Z Runway 09
 LBSF_arrivals_27.dra            DRAW    Standard Instrument Arrivals Runway 27
+LBSF_arrivals_27_NISVA_3K.dra   DRAW    NISVA 3K STAR Runway 27
 LBSF_departures_27.dra          DRAW    Standard Instrument Departures Runway 27
 LBSF_approach_ILS_Z_27.dra      DRAW    ILS Approach Z Runway 27
 LBSF_VFR_approach.dra           DRAW    VFR Approach

@@ -21,6 +21,9 @@ SID and STAR procedures are found in the procedures.xml file for an airport. The
 
 [$FG_SCENERY](https://wiki.flightgear.org/$FG_SCENERY)/Airports/L/B/S/LBSF.procedures.xml
 
+Note that recent Flightgear distributions (2024.1.6) do not use the default location on Linux - /usr/share/games/flightgear/Scenery .
+/home/YOUR_USER/.fgfs/fgdata_2024_1/Scenery/Airports is used instead. Make sure you put the procefure file(s) there.
+
 For more information:
 https://wiki.flightgear.org/Howto:Add_procedures_to_the_route_manager
 
